@@ -1,0 +1,247 @@
+<!doctype html>
+{% load static %}
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap/css/bootstrap.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/font-awesome/css/font-awesome.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/magnific-popup/magnific-popup.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-datepicker/css/datepicker3.css" %}">
+
+		<!-- DataTable CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/select2/select2.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" %}">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/skins/default.css" %}">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme-custom.css" %}">
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			<header class="header">
+				<div class="logo-container">
+					<a href="index.html" class="logo">
+						<img src="{% static "assets/images/logo-ccs.png" %}" height="35" alt="Porto Admin">
+					</a>
+					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+					</div>
+				</div>
+
+				<!-- start: search & user box -->
+				<div class="header-right">
+
+					<span class="separator"></span>
+
+					<div id="userbox" class="userbox">
+						<a href="#" data-toggle="dropdown">
+							<figure class="profile-picture">
+								<img src="{% static "assets/images/!logged-user.jpg" %}" alt="Joseph Doe" class="img-circle" data-lock-picture="{% static "assets/images/!logged-user.jpg" %}" />
+							</figure>
+							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+								<span class="name">Temp Name</span>
+								<span class="role">Administrator</span>
+							</div>
+
+							<i class="fa custom-caret"></i>
+						</a>
+
+						<div class="dropdown-menu">
+							<ul class="list-unstyled">
+								<li class="divider"></li>
+								<!-- <li>
+									<a role="menuitem" tabind	ex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+								</li>
+								<li>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+								</li> -->
+								<li>
+									<a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-power-off"></i> Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- end: search & user box -->
+			</header>
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				<aside id="sidebar-left" class="sidebar-left">
+
+				  <div class="sidebar-header">
+				    <div class="sidebar-title">
+				      Menu
+				    </div>
+				    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+				      <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				    </div>
+				  </div>
+
+				  <div class="nano">
+				    <div class="nano-content">
+				      <nav id="menu" class="nav-main" role="navigation">
+				        <ul class="nav nav-main">
+									<li class="nav-active">
+										<a href="index.html">
+											 RFQ Main Table
+										</a>
+									</li>
+									<li>
+										<a href="index.html">
+											 Material Table
+										</a>
+									</li>
+				        </ul>
+				      </nav>
+				    </div>
+
+				  </div>
+
+				</aside>
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>Part Table</h2>
+					</header>
+
+					<!-- start: page -->
+					<section class="panel">
+						<header class="panel-heading">
+							<div class="panel-actions">
+								<!-- <a href="#" class="fa fa-caret-down"></a>
+								<a href="#" class="fa fa-times"></a> -->
+							</div>
+
+							<!-- <h2 class="panel-title">Part Table</h2> -->
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Tracker No. :</b> 1</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Description :</b> TEMP DESCRIPTION</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> TEMP NAME</p>
+							<div class="text-left mr-md">
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_rfq.html"><i class="fa fa-edit"></i> Edit</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="index.html" disabled><i class="fa fa-download"></i> Download File</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="add_part.html"><i class="fa fa-plus"></i> Add Part</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_active_rate.html"><i class="fa fa-edit"></i>Edit Active Rate</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_special_process_rate.html"><i class="fa fa-edit"></i>Edit Special Process Rate</a>
+							</div>
+						</header>
+						<div class="panel-body">
+							<table class="table table-bordered table-striped mb-none" id="datatable-default">
+								<thead>
+									<tr>
+										<th class="center">SL No.</th>
+										<th class="center">Part No.</th>
+										<th class="center">Part Name</th>
+										<th class="center">Program</th>
+										<th class="center">Detail</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="center">1</td>
+										<td class="center">725Z2463-101</td>
+										<td class="center">FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.</td>
+										<td class="center">B787</td>
+										<td class="center"><a href="part_info.html"><i class="fa fa-search"></i></a</td>
+									</tr>
+									<tr>
+										<td class="center">2</td>
+										<td class="center">725Z2463-103</td>
+										<td class="center">FCL_CLEVIS_OIL-TANK-ACCESS-DOOR-ASSY_2</td>
+										<td class="center">B787</td>
+										<td class="center"><i class="fa fa-search"></i></td>
+									</tr>
+									<tr>
+										<td class="center">3</td>
+										<td class="center">725Z2155-101</td>
+										<td class="center">FCL_CLEVIS_OIL-FILL-AND-PR-DOOR_ASSY</td>
+										<td class="center">B787</td>
+										<td class="center"><i class="fa fa-search"></i></td>
+									</tr>
+									<tr>
+										<td class="center">4</td>
+										<td class="center">725Z2157-101</td>
+										<td class="center">FCL_CLEVIS_OIL-FILL-AND-PR-DOOR_ASSY_2</td>
+										<td class="center">B787</td>
+										<td class="center"><i class="fa fa-search"></i></td>
+									</tr>
+									<tr>
+										<td class="center">5</td>
+										<td class="center">725Z2165-101</td>
+										<td class="center">FCL_BRACKET_HOR_FWD_ASSY</td>
+										<td class="center">B787</td>
+										<td class="center"><i class="fa fa-search"></i></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="{% static "assets/vendor/modernizr/modernizr.js" %}"></script>
+
+	<!-- Vendor -->
+	<script src="{% static "assets/vendor/jquery/jquery.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap/js/bootstrap.js" %}"></script>
+	<script src="{% static "assets/vendor/nanoscroller/nanoscroller.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
+	<script src="{% static "assets/vendor/magnific-popup/magnific-popup.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-placeholder/jquery.placeholder.js" %}"></script>
+
+	<!-- DataTable JS -->
+	<script src="{% static "assets/vendor/select2/select2.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables/media/js/jquery.dataTables.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables-bs3/assets/js/datatables.js" %}"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="{% static "assets/javascripts/theme.js" %}"></script>
+
+	<!-- Theme Custom -->
+	<script src="{% static "assets/javascripts/theme.custom.js" %}"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	(function( $ ) {
+		'use strict';
+		var datatableInit = function() {
+			$('#datatable-default').dataTable();
+		};
+		$(function() {
+			datatableInit();
+		});
+	}).apply( this, [ jQuery ]);
+	</script>
+
+</html>

@@ -1,0 +1,712 @@
+<!doctype html>
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css">
+		<link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/datepicker3.css">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/theme.css">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/skins/default.css">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
+
+		<style>
+		select option:disabled {
+	    color: #e0e0e0;
+		}
+		</style>
+
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			<header class="header">
+				<div class="logo-container">
+					<a href="index.html" class="logo">
+						<img src="assets/images/logo-ccs.png" height="35" alt="Porto Admin">
+					</a>
+					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+					</div>
+				</div>
+
+				<!-- start: search & user box -->
+				<div class="header-right">
+
+					<span class="separator"></span>
+
+					<div id="userbox" class="userbox">
+						<a href="#" data-toggle="dropdown">
+							<figure class="profile-picture">
+								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
+							</figure>
+							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+								<span class="name">Temp Name</span>
+								<span class="role">Administrator</span>
+							</div>
+
+							<i class="fa custom-caret"></i>
+						</a>
+
+						<div class="dropdown-menu">
+							<ul class="list-unstyled">
+								<li class="divider"></li>
+								<!-- <li>
+									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+								</li>
+								<li>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+								</li> -->
+								<li>
+									<a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-power-off"></i> Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- end: search & user box -->
+			</header>
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				<aside id="sidebar-left" class="sidebar-left">
+
+				  <div class="sidebar-header">
+				    <div class="sidebar-title">
+				      Menu
+				    </div>
+				    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+				      <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				    </div>
+				  </div>
+
+				  <div class="nano">
+				    <div class="nano-content">
+				      <nav id="menu" class="nav-main" role="navigation">
+				        <ul class="nav nav-main">
+									<li class="nav-active">
+										<a href="index.html">
+											 RFQ Main Table
+										</a>
+									</li>
+									<li>
+										<a href="index.html">
+											 Material Table
+										</a>
+									</li>
+				        </ul>
+				      </nav>
+				    </div>
+
+				  </div>
+
+				</aside>
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>Material</h2>
+					</header>
+
+					<!-- start: page -->
+					<!-- Information -->
+					<div class="col-md-12">
+							<form id="form" action="part_info.html" class="form-horizontal" novalidate="novalidate">
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<!-- <a href="#" class="fa fa-caret-down"></a> -->
+											<!-- <a href="#" class="fa fa-times"></a>	 -->
+										</div>
+
+										<h2 class="panel-title">Edit Material</h2>
+									</header>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Description</b></label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" value="">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Cross Section</b></label>
+											<div class="col-md-3">
+													<select class="form-control input-md" id="cross-section">
+														<option value="Round Bar Shape">Round Bar Shape</option>
+														<option value="Tube Shape">Tube Shape</option>
+														<option value="Flat Bar / Plate / Sheet">Flat Bar / Plate / Sheet</option>
+													</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Material Type</b></label>
+											<div class="col-sm-3">
+												<select class="form-control input-md" id="material-type">
+													<option value="Optional">(Optional)</option>
+													<optgroup label="Metals">
+														<option value="Aluminum">Aluminum</option>
+														<option value="Beryllium">Beryllium</option>
+														<option value="Copper">Copper</option>
+														<option value="Gold">Gold</option>
+														<option value="Lead">Lead</option>
+														<option value="Magnesium">Magnesium</option>
+														<option value="Nickle-Cobalt Alloys">Nickle-Cobalt Alloys</option>
+														<option value="Steel">Steel</option>
+														<option value="Tantalum">Tantalum</option>
+														<option value="Titanium">Titanium</option>
+														<option value="Tungsten">Tungsten</option>
+														<option value="Zinc">Zinc</option>
+														<option value="Zirconium">Zirconium</option>
+													</optgroup>
+													<optgroup label="Polymers">
+														<option value="ABS">ABS</option>
+														<option value="Nylon">Nylon</option>
+														<option value="Polycarbonate">Polycarbonate</option>
+														<option value="Polyethylene">Polyethylene</option>
+														<option value="Polypropylene">Polypropylene</option>
+													</optgroup>
+													<optgroup label="Ceramics">
+														<option value="Alumina (Al2O3)">Alumina (Al2O3)</option>
+														<option value="Silica Glass (SiO2)">Silica Glass (SiO2)</option>
+														<option value="Zirconia (ZrO2)">Zirconia (ZrO2)</option>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Density</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" value="" id="density">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="density-unit">
+													<option value="g/cc">g/cc</option>
+													<option value="lb/in" disabled>lb/in³</option>
+													<option value="lb/ft" disabled>lb/ft³</option>
+													<option value="kg/m" disabled>kg/m³</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Quantity</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="quantity" value="1">
+											</div>
+										</div>
+										<div class="form-group" id="group-D1">
+											<label class="col-sm-4 control-label"><b>Outer Diameter (D1)</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="value-D1" value="">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="unit-D1">
+													<option value="mm">mm</option>
+													<option value="cm">cm</option>
+													<option value="m">m</option>
+													<option value="in">in</option>
+													<option value="ft">ft</option>
+													<option value="yd">yd</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="group-D2">
+											<label class="col-sm-4 control-label"><b>Inner Diameter (D2)</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="value-D2" value="">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="unit-D2">
+													<option value="mm">mm</option>
+													<option value="cm">cm</option>
+													<option value="m">m</option>
+													<option value="in">in</option>
+													<option value="ft">ft</option>
+													<option value="yd">yd</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="group-T">
+											<label class="col-sm-4 control-label"><b>Thickness (T)</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="value-T" value="">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="unit-T">
+													<option value="mm">mm</option>
+													<option value="cm">cm</option>
+													<option value="m">m</option>
+													<option value="in">in</option>
+													<option value="ft">ft</option>
+													<option value="yd">yd</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="group-W">
+											<label class="col-sm-4 control-label"><b>Width (W)</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="value-W" value="">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="unit-W">
+													<option value="mm">mm</option>
+													<option value="cm">cm</option>
+													<option value="m">m</option>
+													<option value="in">in</option>
+													<option value="ft">ft</option>
+													<option value="yd">yd</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="group-L">
+											<label class="col-sm-4 control-label"><b>Length (L)</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="value-L" value="">
+											</div>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="unit-L">
+													<option value="mm">mm</option>
+													<option value="cm">cm</option>
+													<option value="m">m</option>
+													<option value="in">in</option>
+													<option value="ft">ft</option>
+													<option value="yd">yd</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Total Weight</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="total-weight" readonly value="-1">
+											</div>
+											<label style="padding-top:5px" class="text-left">kg</label>
+										</div>
+									</div>
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-warning">Save</button>
+												<button class="btn btn-default">Cancel</button>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+					</div>
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="assets/vendor/modernizr/modernizr.js"></script>
+
+	<!-- Vendor -->
+	<script src="assets/vendor/jquery/jquery.js"></script>
+	<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+	<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
+	<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="assets/javascripts/theme.js"></script>
+
+	<!-- Theme Custom -->
+	<script src="assets/javascripts/theme.custom.js"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="assets/javascripts/theme.init.js"></script>
+
+<script>
+$( document ).ready(function() {
+	cross_section_change();
+	material_type_change();
+	calculate_weight();
+});
+
+$( "#cross-section" ).change(function() {
+	cross_section_change();
+	calculate_weight();
+});
+
+$( "#material-type" ).change(function() {
+	material_type_change();
+	calculate_weight();
+});
+
+$( "#density" ).change(function() {
+	calculate_weight();
+});
+
+$( "#density-unit" ).change(function() {
+	calculate_weight();
+});
+
+$( "#quantity" ).change(function() {
+	calculate_weight();
+});
+
+$( "#value-D1" ).change(function() {
+	calculate_weight();
+});
+
+$( "#unit-D1" ).change(function() {
+	calculate_weight();
+});
+
+$( "#value-D2" ).change(function() {
+	calculate_weight();
+});
+
+$( "#unit-D2" ).change(function() {
+	calculate_weight();
+});
+
+$( "#value-T" ).change(function() {
+	calculate_weight();
+});
+
+$( "#unit-T" ).change(function() {
+	calculate_weight();
+});
+
+$( "#value-W" ).change(function() {
+	calculate_weight();
+});
+
+$( "#unit-W" ).change(function() {
+	calculate_weight();
+});
+
+$( "#value-L" ).change(function() {
+	calculate_weight();
+});
+
+$( "#unit-L" ).change(function() {
+	calculate_weight();
+});
+
+function calculate_weight(){
+	var cross_section = $( "#cross-section" ).val();
+	var density = $( "#density" ).val();
+	var quantity = $( "#quantity" ).val();
+	var result = -1;
+	if (cross_section == "Round Bar Shape"){
+		var value_d1 = convert_unit($( "#value-D1" ).val(),$( "#unit-D1" ).val());
+		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+
+		// Dens<g/cc> * OD<cm> * OD<cm> * L<cm> * 3.142 / 4000
+		var result = quantity * density * value_d1 * value_d1 * value_l * 3.142 / 4000;
+
+		if(density == "" || quantity == "" || $( "#value-D1" ).val() == "" || $( "#value-L" ).val() == ""){
+			var result = "-1";
+		}
+ 	} else if (cross_section == "Tube Shape"){
+		var value_d1 = convert_unit($( "#value-D1" ).val(),$( "#unit-D1" ).val());
+		var value_d2 = convert_unit($( "#value-D2" ).val(),$( "#unit-D2" ).val());
+		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+
+		// [ Dens<g/cc> * * OD<cm> * OD<cm> * L<cm> * 3.142 / 4000 ] - [ Dens<g/cc> * ID<cm> * ID<cm> * L<cm> * 3.142 / 4000 ]
+		var result = quantity * ((density * value_d1 * value_d1 * value_l * 3.142 / 4000) - (density * value_d2 * value_d2 * value_l * 3.142 / 4000));
+
+		if(density == "" || quantity == "" || $( "#value-D1" ).val() == "" || $( "#value-D2" ).val() == "" || $( "#value-L" ).val() == ""){
+			var result = "-1";
+		}
+ 	} else if (cross_section == "Flat Bar / Plate / Sheet"){
+		var value_t = convert_unit($( "#value-T" ).val(),$( "#unit-T" ).val());
+		var value_w = convert_unit($( "#value-W" ).val(),$( "#unit-W" ).val());
+		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+
+		// Dens<g/cc> * T<cm> * W<cm> * L<cm> / 1000
+		var result = quantity* density * value_t * value_w * value_l / 1000;
+
+		if(density == "" || quantity == "" || $( "#value-T" ).val() == "" || $( "#value-W" ).val() == "" || $( "#value-L" ).val() == ""){
+			var result = "-1";
+		}
+ 	}
+	$( "#total-weight" ).val(result);
+}
+
+function convert_unit(value,unit){
+	if(unit == "mm"){
+		return value / 10;
+	} else if(unit == "m"){
+		return value * 100;
+	} else if(unit == "in"){
+		return value * 2.54;
+	} else if(unit == "ft"){
+		return value * 30.48;
+	} else if(unit == "yd"){
+		return value * 91.44;
+	}
+	return value;
+}
+
+function cross_section_change(){
+	var cross_section = $( "#cross-section" ).val();
+	if (cross_section == "Round Bar Shape"){
+		$( "#group-D1" ).show();
+		$( "#group-D2" ).hide();
+		$( "#group-T" ).hide();
+		$( "#group-W" ).hide();
+		$( "#group-L" ).show();
+	} else if (cross_section == "Tube Shape"){
+		$( "#group-D1" ).show();
+		$( "#group-D2" ).show();
+		$( "#group-T" ).hide();
+		$( "#group-W" ).hide();
+		$( "#group-L" ).show();
+	} else if (cross_section == "Flat Bar / Plate / Sheet"){
+		$( "#group-D1" ).hide();
+		$( "#group-D2" ).hide();
+		$( "#group-T" ).show();
+		$( "#group-W" ).show();
+		$( "#group-L" ).show();
+	}
+}
+
+function material_type_change(){
+	var material_type = $( "#material-type" ).val();
+	var density_unit = $( "#density-unit" ).val();
+	if (material_type == "Optional"){
+		$( "#density" ).val("");
+	} else if (material_type == "Aluminum"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(2.7);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.09755100000000001);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(168.555519);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(2700);
+		}
+	} else if (material_type == "Beryllium"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(1.84);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0664792);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(114.86746480000001);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(1840);
+		}
+	} else if (material_type == "Copper"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(8.96);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.32372480000000003);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(559.3546112);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(8960);
+		}
+	} else if (material_type == "Gold"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(19.32);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.6980316000000001);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(1206.1083804);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(19320);
+		}
+	} else if (material_type == "Lead"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(11.34);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.40971420000000003);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(707.9331798000001);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(11340);
+		}
+	} else if (material_type == "Magnesium"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(1.74);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0628662);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(108.6246678);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(1740);
+		}
+	} else if (material_type == "Nickle-Cobalt Alloys"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(8.25);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.2980725);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(515.0307525000001);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(8250);
+		}
+	} else if (material_type == "Steel"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(7.85);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.2836205);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(490.05956449999996);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(7850);
+		}
+	} else if (material_type == "Tantalum"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(16.65);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.6015645);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(1039.4257005);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(16650);
+		}
+	} else if (material_type == "Titanium"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(4.50);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.162585);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(280.925865);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(4500);
+		}
+	} else if (material_type == "Tungsten"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(19.30);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.6973090000000001);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(1204.859821);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(19300);
+		}
+	} else if (material_type == "Zinc"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(7.10);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.256523);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(443.238587);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(7100);
+		}
+	} else if (material_type == "Zirconium"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(6.53);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.23592890000000002);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(407.65464410000004);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(6530);
+		}
+	} else if (material_type == "ABS"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(1.07);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0386591);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(66.7979279);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(1070);
+		}
+	} else if (material_type == "Nylon"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(1.13);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0408269);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(70.54360609999999);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(1130);
+		}
+	} else if (material_type == "Polycarbonate"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(1.22);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0440786);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(76.1621234);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(1220);
+		}
+	} else if (material_type == "Polyethylene"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(0.95);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.0343235);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(59.3065715);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(950);
+		}
+	} else if (material_type == "Polypropylene"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(0.90);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.032517000000000004);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(56.185173000000006);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(900);
+		}
+	} else if (material_type == "Alumina (Al2O3)"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(3.96);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.1430748);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(247.2147612);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(3960);
+		}
+	} else if (material_type == "Silica Glass (SiO2)"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(2.18);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.07876340000000001);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(136.09297460000002);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(2180);
+		}
+	} else if (material_type == "Zirconia (ZrO2)"){
+		if(density_unit == "g/cc"){
+			$( "#density" ).val(5.68);
+		} else if (density_unit == "lb/in"){
+			$( "#density" ).val(0.2052184);
+		} else if (density_unit == "lb/ft"){
+			$( "#density" ).val(354.5908696);
+		} else if (density_unit == "kg/m"){
+			$( "#density" ).val(5680);
+		}
+	}
+}
+</script>
+</script>
+
+</html>

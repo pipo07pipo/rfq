@@ -1,0 +1,1214 @@
+<!doctype html>
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.css">
+		<link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css">
+		<link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/datepicker3.css">
+
+		<!-- DataTable CSS -->
+		<link rel="stylesheet" href="assets/vendor/select2/select2.css">
+		<link rel="stylesheet" href="assets/vendor/jquery-datatables-bs3/assets/css/datatables.css">
+
+		<!-- Tree CSS -->
+		<link rel="stylesheet" href="assets/vendor/jstree/themes/default/style.css" />
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/theme.css">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/skins/default.css">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="assets/stylesheets/theme-custom.css">
+
+		<style>
+
+		</style>
+
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			<header class="header">
+				<div class="logo-container">
+					<a href="index.html" class="logo">
+						<img src="assets/images/logo-ccs.png" height="35" alt="Porto Admin">
+					</a>
+					<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
+						<i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+					</div>
+				</div>
+
+				<!-- start: search & user box -->
+				<div class="header-right">
+
+					<span class="separator"></span>
+
+					<div id="userbox" class="userbox">
+						<a href="#" data-toggle="dropdown">
+							<figure class="profile-picture">
+								<img src="assets/images/!logged-user.jpg" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/images/!logged-user.jpg" />
+							</figure>
+							<div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
+								<span class="name">Temp Name</span>
+								<span class="role">Administrator</span>
+							</div>
+
+							<i class="fa custom-caret"></i>
+						</a>
+
+						<div class="dropdown-menu">
+							<ul class="list-unstyled">
+								<li class="divider"></li>
+								<!-- <li>
+									<a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
+								</li>
+								<li>
+									<a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
+								</li> -->
+								<li>
+									<a role="menuitem" tabindex="-1" href="index.html"><i class="fa fa-power-off"></i> Logout</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- end: search & user box -->
+			</header>
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				<aside id="sidebar-left" class="sidebar-left">
+
+				  <div class="sidebar-header">
+				    <div class="sidebar-title">
+				      Menu
+				    </div>
+				    <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
+				      <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+				    </div>
+				  </div>
+
+				  <div class="nano">
+				    <div class="nano-content">
+				      <nav id="menu" class="nav-main" role="navigation">
+				        <ul class="nav nav-main">
+									<li class="nav-active">
+										<a href="index.html">
+											 RFQ Main Table
+										</a>
+									</li>
+									<li>
+										<a href="index.html">
+											 Material Table
+										</a>
+									</li>
+				        </ul>
+				      </nav>
+				    </div>
+
+				  </div>
+
+				</aside>
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>Part Information</h2>
+					</header>
+
+					<!-- start: page -->
+					<!-- Information -->
+					<div class="col-md-12">
+								<section class="panel panel-featured">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<!-- <a href="#" class="fa fa-times"></a>	 -->
+										</div>
+
+										<h2 class="panel-title"><i class="fa fa-info-circle"></i> Information</h2>
+									</header>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-8">
+												<div class="form-group">
+													<label class="col-sm-3 control-label"><b>SL No.</b></label>
+													<div class="col-sm-9">
+														<label class="control-label">1</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label"><b>Part No.</b></label>
+													<div class="col-sm-9">
+														<label class="control-label">725Z2463-101</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label"><b>Part Level</b></label>
+													<div class="col-sm-9">
+														<label class="control-label">0</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label"><b>Part Name</b></label>
+													<div class="col-sm-9">
+														<label class="control-label">FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-3 control-label"><b>Program</b></label>
+													<div class="col-sm-9">
+														<label class="control-label">B787</label>
+													</div>
+												</div>
+										</div>
+										<div class="col-md-4">
+											<div class="thumbnail-gallery">
+												<a class="img-thumbnail lightbox" href="assets/images/projects/project-4.jpg" data-plugin-options='{ "type":"image" }'>
+													<img class="img-responsive" width="250" src="assets/images/projects/project-4.jpg">
+													<span class="zoom">
+														<i class="fa fa-search"></i>
+													</span>
+												</a>
+											</div>
+										</div>
+									</div>
+										<div class="text-right mr-lg">
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_part_info.html"><i class="fa fa-edit"></i> Edit</a>
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="index.html" disabled><i class="fa fa-download"></i> Download Files</a>
+										</div>
+									</div>
+								</section>
+					</div>
+
+					<!-- Part Structure -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+								<header class="panel-heading">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+										<!-- <a href="#" class="fa fa-times"></a> -->
+									</div>
+
+									<h2 class="panel-title"><i class="fa fa-cubes"></i> Part Structure</h2>
+								</header>
+								<div class="panel-body">
+									<div id="treeBasic">
+										<ul>
+											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'> <!-- "selected" : true -->
+													<span onClick="javascript:window.location.href='part_info.html'">
+														<b>SL No.</b> 1 <b>Part No.</b> 725Z2463-101 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.
+														<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
+													</span>
+												<ul>
+													<li data-jstree='{ "icon" : "fa fa-cube" }'>
+														 <span onClick="javascript:window.location.href='part_info0.html'">
+															 <b>SL No.</b> 1A <b>Part No.</b> 725Z2463-111 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR
+														 </span>
+													</li>
+													<li	data-jstree='{ "icon" : "fa fa-cube" }'>
+														 <span onClick="javascript:window.location.href='part_info1.html'">
+																<b>SL No.</b> 1B	<b>Part No.</b> NAS77C4-014 <b>Part Name</b> BUSH
+														 </span>
+													</li>
+													<li data-jstree='{ "icon" : "fa fa-cube" }'>
+														 <span onClick="javascript:window.location.href='part_info0.html'">
+														   <b>SL No.</b> 1C	<b>Part No.</b> NAS77C6-014 <b>Part Name</b> BUSH
+														 </span>
+													</li>
+												</ul>
+											</li>
+										</ul>
+									</div>
+									<div class="text-right mr-lg">
+										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="add_child.html"><i class="fa fa-plus"></i> New Child</a>
+									</div>
+								</div>
+							</section>
+					</div>
+
+					<!-- Forecast & EAU -->
+					<div class="col-md-12">
+								<section class="panel panel-featured">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<a href="#" class="fa fa-caret-down"></a>
+											<!-- <a href="#" class="fa fa-times"></a> -->
+										</div>
+										<h2 class="panel-title"><i class="fa fa-star-half-empty"></i> Forecast & EAU</h2>
+									</header>
+									<div class="panel-body">
+										<table class="table table-bordered table-striped mb-none">
+											<thead>
+												<tr>
+													<th class="center custom1" rowspan="2"><b>QTY Per Unit</b></td>
+											    <th class="center custom1" colspan="5" scope="colgroup">Forecast</th>
+											    <th class="center custom1" colspan="6" scope="colgroup">EAU</th>
+												</tr>
+												<tr>
+											    <th class="center custom2" scope="col">2019</th>
+											    <th class="center custom2" scope="col">2020</th>
+											    <th class="center custom2" scope="col">2021</th>
+											    <th class="center custom2" scope="col">2022</th>
+													<th class="center custom2" scope="col">2023</th>
+													<th class="center custom2" scope="col">2019</th>
+											    <th class="center custom2" scope="col">2020</th>
+											    <th class="center custom2" scope="col">2021</th>
+											    <th class="center custom2" scope="col">2022</th>
+													<th class="center custom2" scope="col">2023</th>
+													<th class="center custom2" scope="col">5 Years Total</th>
+											  </tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="center" id="qty-per-unit">-</td>
+													<td class="center" id="forecast-year1">-</td>
+													<td class="center" id="forecast-year2">-</td>
+													<td class="center" id="forecast-year3">-</td>
+													<td class="center" id="forecast-year4">-</td>
+													<td class="center" id="forecast-year5">-</td>
+													<td class="center" id="eau-year1">-</td>
+													<td class="center" id="eau-year2">-</td>
+													<td class="center" id="eau-year3">-</td>
+													<td class="center" id="eau-year4">-</td>
+													<td class="center" id="eau-year5">-</td>
+													<td class="center" id="eau-total-year">-</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="text-right mr-lg">
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_forecast.html"><i class="fa fa-edit"></i> Edit</a>
+										</div>
+									</div>
+								</section>
+					</div>
+
+					<!-- Materials -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+									<header class="panel-heading">
+												<div class="panel-actions">
+													<a href="#" class="fa fa-caret-down"></a>
+													<!-- <a href="#" class="fa fa-times"></a> -->
+												</div>
+												<h2 class="panel-title"><i class="fa fa-puzzle-piece"></i> Material</h2>
+									</header>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-3 control-label"><b>Description</b></label>
+											<div class="col-sm-9">
+												<label class="control-label" id="material-description">-</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"><b>Cross Section</b></label>
+											<div class="col-sm-9">
+												<label class="control-label" id="cross-section">-</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"><b>Material Type</b></label>
+											<div class="col-sm-9">
+												<label class="control-label" id="material-type">-</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"><b>Quantity</b></label>
+											<div class="col-sm-9">
+												<label class="control-label" id="material-qty">-</label>
+											</div>
+										</div>
+										<br>
+											<!-- Raw Material Size (Inch) -->
+										  <table class="table table-bordered table-striped mb-none">
+													<thead>
+													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size (Inch)</th>
+														<tr>
+															<th class="center custom2">Density</th>
+													    <th class="center custom2">Outter Diameter</th>
+															<th class="center custom2">Inner Diameter</th>
+													    <th class="center custom2">Thickness</th>
+													    <th class="center custom2">Width</th>
+													    <th class="center custom2">Length</th>
+															<th class="center custom2">RM Weight (kg)</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="rm-density">-</td>
+															<td class="center" id="rm-d1">-</td>
+															<td class="center" id="rm-d2">-</td>
+															<td class="center" id="rm-t">-</td>
+															<td class="center" id="rm-w">-</td>
+															<td class="center" id="rm-l">-</td>
+															<td class="center" id="rm-total-weight">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<br>
+											<!-- Annual Raw Material Requirement (kg) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+													    <th class="center custom1" colspan="5" scope="colgroup">Annual Raw Material Requirement (kg)</th>
+														<tr>
+															<th class="center custom2">2019</th>
+													    <th class="center custom2">2020</th>
+													    <th class="center custom2">2021</th>
+													    <th class="center custom2">2022</th>
+															<th class="center custom2">2023</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="armr-year1">-</td>
+															<td class="center" id="armr-year2">-</td>
+															<td class="center" id="armr-year3">-</td>
+															<td class="center" id="armr-year4">-</td>
+															<td class="center" id="armr-year5">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<br>
+											<!-- Finish & Raw Material Weight Per Part (kg) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+													    <th class="center custom1" colspan="3" scope="colgroup">Finish & Raw Material Weight Per Part (kg)</th>
+														<tr>
+															<th class="center custom2">Approximate Finished Part Weight Per Part</th>
+													    <th class="center custom2">Approximate Raw Material Weight Per Part </th>
+													    <th class="center custom2">Total Raw Material Weight Per Year</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="afpwpp">-</td>
+															<td class="center" id="armwpp">-</td>
+															<td class="center" id="trmwpy">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<div class="text-right mr-lg">
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_material.html"><i class="fa fa-edit"></i> Edit</a>
+											</div>
+							    </div>
+							</section>
+					</div>
+
+					<!-- Process and Process Cost -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+									<header class="panel-heading">
+												<div class="panel-actions">
+													<a href="#" class="fa fa-caret-down"></a>
+													<!-- <a href="#" class="fa fa-times"></a> -->
+												</div>
+
+												<h2 class="panel-title"><i class="fa fa-gears"></i> Process and Process Cost</h2>
+									</header>
+									<div class="panel-body">
+											<!-- Special Process Specification -->
+										  <table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="7" scope="colgroup">Special Process Specification</th>
+														<tr>
+													    <th class="center custom2">Surface Treatment</th>
+													    <th class="center custom2">HT</th>
+													    <th class="center custom2">FPI</th>
+													    <th class="center custom2">MPI</th>
+															<th class="center custom2">Primer</th>
+															<th class="center custom2">Solid Film</th>
+															<th class="center custom2">Part Marking Requirement</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="sps-surface-treatment">-</td>
+															<td class="center" id="sps-ht">-</td>
+															<td class="center" id="sps-fpi">-</td>
+															<td class="center" id="sps-mpi">-</td>
+															<td class="center" id="sps-primer">-</td>
+															<td class="center" id="sps-solid">-</td>
+															<td class="center" id="sps-pmr">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<div class="text-right mr-lg">
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_sps.html"><i class="fa fa-edit"></i> Edit</a>
+											</div>
+											<!-- Machining Set Up Time (Minutes) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="9" scope="colgroup">Machining Set Up Time (Minutes)</th>
+														<th class="center custom1" rowspan="2" scope="colgroup">Production Qty</th>
+														<tr>
+													    <th class="center custom2">CLA</th>
+													    <th class="center custom2">BTA</th>
+													    <th class="center custom2">TMA</th>
+													    <th class="center custom2">MCA 3 Axis</th>
+															<th class="center custom2">MCA 4 Axis</th>
+															<th class="center custom2">HMC</th>
+															<th class="center custom2">5 Axis</th>
+															<th class="center custom2">EDM</th>
+															<th class="center custom2">Grinding</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="msut-cla">-</td>
+															<td class="center" id="msut-bta">-</td>
+															<td class="center" id="msut-tma">-</td>
+															<td class="center" id="msut-mca3axis">-</td>
+															<td class="center" id="msut-mca4axis">-</td>
+															<td class="center" id="msut-hmc">-</td>
+															<td class="center" id="msut-5axis">-</td>
+															<td class="center" id="msut-edm">-</td>
+															<td class="center" id="msut-grinding">-</td>
+															<td class="center" id="production-qty">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<div class="text-right mr-lg">
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_mst.html"><i class="fa fa-edit"></i> Edit</a>
+											</div>
+											<!-- Cycle Time Per Part (Minutes) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="13" scope="colgroup">Cycle Time Per Part (Minutes)</th>
+														<tr>
+													    <th class="center custom2">CLA</th>
+													    <th class="center custom2">BTA</th>
+													    <th class="center custom2">TMA</th>
+													    <th class="center custom2">MCA 3 Axis</th>
+															<th class="center custom2">MCA 4 Axis</th>
+															<th class="center custom2">HMC</th>
+															<th class="center custom2">5 Axis</th>
+															<th class="center custom2">EDM</th>
+															<th class="center custom2">Grinding</th>
+															<th class="center custom2">Inspection</th>
+															<th class="center custom2">Deburring</th>
+															<th class="center custom2">Assembly</th>
+															<th class="center custom2">Lapping/Honing</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="ctpp-cla">-</td>
+															<td class="center" id="ctpp-bta">-</td>
+															<td class="center" id="ctpp-tma">-</td>
+															<td class="center" id="ctpp-mca3axis">-</td>
+															<td class="center" id="ctpp-mca4axis">-</td>
+															<td class="center" id="ctpp-hmc">-</td>
+															<td class="center" id="ctpp-5axis">-</td>
+															<td class="center" id="ctpp-edm">-</td>
+															<td class="center" id="ctpp-grinding">-</td>
+															<td class="center" id="ctpp-inspection">-</td>
+															<td class="center" id="ctpp-deburring">-</td>
+															<td class="center" id="ctpp-assembly">-</td>
+															<td class="center" id="ctpp-lapping">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<div class="text-right mr-lg">
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_ctp.html"><i class="fa fa-edit"></i> Edit</a>
+											</div>
+							    </div>
+							</section>
+					</div>
+
+					<!-- Part Costing -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+									<header class="panel-heading">
+												<div class="panel-actions">
+													<a href="#" class="fa fa-caret-down"></a>
+													<!-- <a href="#" class="fa fa-times"></a> -->
+												</div>
+
+												<h2 class="panel-title"><i class="fa fa-dollar"></i> Part Costing</h2>
+									</header>
+									<div class="panel-body">
+											<!-- Active Rate -->
+											<table class="table table-bordered table-striped mb-none" hidden>
+												<thead>
+													<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
+													<tr>
+														<th class="center custom2">CLA</th>
+														<th class="center custom2">BTA</th>
+														<th class="center custom2">TMA</th>
+														<th class="center custom2">MCA 3 Axis</th>
+														<th class="center custom2">MCA 4 Axis</th>
+														<th class="center custom2">HMC</th>
+														<th class="center custom2">5 Axis</th>
+														<th class="center custom2">EDM</th>
+														<th class="center custom2">Grinding</th>
+														<th class="center custom2">Deburring/Cleaning</th>
+														<th class="center custom2">Inspection</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center custom2" id="rate-cla">32</td>
+														<td class="center custom2" id="rate-bta">32</td>
+														<td class="center custom2" id="rate-tma">45</td>
+														<td class="center custom2" id="rate-mca3axis">32</td>
+														<td class="center custom2" id="rate-mca4axis">45</td>
+														<td class="center custom2" id="rate-hmc">45</td>
+														<td class="center custom2" id="rate-5axis">45</td>
+														<td class="center custom2" id="rate-edm">32</td>
+														<td class="center custom2" id="rate-grinding">32</td>
+														<td class="center custom2" id="rate-deburring">15</td>
+														<td class="center custom2" id="rate-inspection">20</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- SP Rate -->
+											<table class="table table-bordered table-striped mb-none" hidden>
+												<thead>
+													<th class="center custom1" colspan="12" scope="colgroup">Special Process Rate</th>
+													<tr>
+														<th class="center custom2">FPI</th>
+														<th class="center custom2">MPI</th>
+														<th class="center custom2">Passivation</th>
+														<th class="center custom2">Chromic Acid Anodizing</th>
+														<th class="center custom2">Sulphuric Acid Anodizing</th>
+														<th class="center custom2">Hard Anodizing</th>
+														<th class="center custom2">Chem. Conv. Coating</th>
+														<th class="center custom2">Dry Film Lubrication</th>
+														<th class="center custom2">Paint/Primer</th>
+														<th class="center custom2">Cadmium Plating</th>
+														<th class="center custom2">Chrome Plating</th>
+														<th class="center custom2">Heat Treatment</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center" id="rate-fpi">200</td>
+														<td class="center" id="rate-mpi">200</td>
+														<td class="center" id="rate-passivation">200</td>
+														<td class="center" id="rate-caa">200</td>
+														<td class="center" id="rate-saa">200</td>
+														<td class="center" id="rate-hard-anodizing">200</td>
+														<td class="center" id="rate-ccc">200</td>
+														<td class="center" id="rate-dfl">200</td>
+														<td class="center" id="rate-paint">200</td>
+														<td class="center" id="rate-cadmium-plating">200</td>
+														<td class="center" id="rate-chrome-plating">200</td>
+														<td class="center" id="rate-heat-treatment">200</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="10" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
+														<tr>
+															<th class="center custom1"></th>
+													    <th class="center custom2">CLA</th>
+													    <th class="center custom2">BTA</th>
+													    <th class="center custom2">TMA</th>
+													    <th class="center custom2">MCA 3 Axis</th>
+															<th class="center custom2">MCA 4 Axis</th>
+															<th class="center custom2">HMC</th>
+															<th class="center custom2">5 Axis</th>
+															<th class="center custom2">EDM</th>
+															<th class="center custom2">Grinding</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center custom1"><b>Time</b></td>
+															<td class="center" id="tctt-cla">-</td>
+															<td class="center" id="tctt-bta">-</td>
+															<td class="center" id="tctt-tma">-</td>
+															<td class="center" id="tctt-mca3axis">-</td>
+															<td class="center" id="tctt-mca4axis">-</td>
+															<td class="center" id="tctt-hmc">-</td>
+															<td class="center" id="tctt-5axis">-</td>
+															<td class="center" id="tctt-edm">-</td>
+															<td class="center" id="tctt-grinding">-</td>
+														</tr>
+														<tr>
+															<td class="center custom1"><b>Cost</b></td>
+															<td class="center" id="tctc-cla">-</td>
+															<td class="center" id="tctc-bta">-</td>
+															<td class="center" id="tctc-tma">-</td>
+															<td class="center" id="tctc-mca3axis">-</td>
+															<td class="center" id="tctc-mca4axis">-</td>
+															<td class="center" id="tctc-hmc">-</td>
+															<td class="center" id="tctc-5axis">-</td>
+															<td class="center" id="tctc-edm">-</td>
+															<td class="center" id="tctc-grinding">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<br>
+											<!-- Special Process Cost (Dollar) -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="12" scope="colgroup">Special Process Cost (Dollar)</th>
+														<tr>
+													    <th class="center custom2">FPI</th>
+													    <th class="center custom2">MPI</th>
+															<th class="center custom2">Passivation</th>
+															<th class="center custom2">Chromic Acid Anodizing</th>
+															<th class="center custom2">Sulphuric Acid Anodizing</th>
+															<th class="center custom2">Hard Anodizing</th>
+															<th class="center custom2">Chem. Conv. Coating</th>
+															<th class="center custom2">Dry Film Lubrication</th>
+															<th class="center custom2">Paint/Primer</th>
+															<th class="center custom2">Cadmium Plating</th>
+															<th class="center custom2">Chrome Plating</th>
+													    <th class="center custom2">Heat Treatment</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="spc-fpi">-</td>
+															<td class="center" id="spc-mpi">-</td>
+															<td class="center" id="spc-passivation">-</td>
+															<td class="center" id="spc-caa">-</td>
+															<td class="center" id="spc-saa">-</td>
+															<td class="center" id="spc-hard-anodizing">-</td>
+															<td class="center" id="spc-ccc">-</td>
+															<td class="center" id="spc-dfl">-</td>
+															<td class="center" id="spc-paint">-</td>
+															<td class="center" id="spc-cadmium-plating">-</td>
+															<td class="center" id="spc-chrome-plating">-</td>
+															<td class="center" id="spc-heat-treatment">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<!-- SSS -->
+											<div class="row">
+												<hr>
+												<!-- 1S -->
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Inspection Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="inspection-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Deburring Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="deburring-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Assembly Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="assembly-cost">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Lapping/Honing Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="lapping-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Hardware Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="hardware-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Hardware Supplier</b></label>
+														<label class="col-sm-4 control-label text-left" id="hardware-supplier">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Base Material Price/kg</b></label>
+														<label class="col-sm-4 control-label text-left" id="base-material-price">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Material Supplier</b></label>
+														<label class="col-sm-4 control-label text-left" id="material-supplier">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Material Shipping Cost USD/kg</b></label>
+														<label class="col-sm-4 control-label text-left" id="material-shipping-cost">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Material Cost DDP CCS</b></label>
+														<label class="col-sm-4 control-label text-left" id="material-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Manufacturing Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="manufacturing-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Total Hardwares Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="total-hardware-cost">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Surface Treatment Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="surface-treatment-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>NRE Amortizing Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="nre-amortizing-cost">-</label>
+													</div>
+													<div class="col-md-4">
+														<!-- Empty -->
+													</div>
+												</div>
+												<!-- 2S -->
+												<hr>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Additional MFG OH Factor</b></label>
+														<label class="col-sm-4 control-label text-left" id="additional-mfg">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Profit Factor</b></label>
+														<label class="col-sm-4 control-label text-left" id="profit-factor">-</label>
+													</div>
+													<div class="col-md-4">
+
+
+														<label class="col-sm-8 control-label text-right"><b>Total Manufacturing Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="total-manufacturing-cost">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>CCS Ex-works Price</b></label>
+														<label class="col-sm-4 control-label text-left" id="ccs-ewp">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>CCS Price Per Part/Assy Ex_works BKK Thailand</b></label>
+														<label class="col-sm-4 control-label text-left" id="ccs-ppp">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Target Price (USD)</b></label>
+														<label class="col-sm-4 control-label text-left" id="target-price">-</label>
+													</div>
+												</div>
+												<hr>
+												<!-- 3S -->
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
+														<label class="col-sm-4 control-label text-left" id="ebq-ccs-qty">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
+														<label class="col-sm-4 control-label text-left" id="ebq-customer-qty">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Minimum Firm Order Quantity/Lot</b></label>
+														<label class="col-sm-4 control-label text-left" id="minimum-firm-order-qty">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>MOQ Raw Material Order (kg)</b></label>
+														<label class="col-sm-4 control-label text-left" id="moq-rm-order">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>One Year Raw Material Buy (kg)</b></label>
+														<label class="col-sm-4 control-label text-left" id="oyrmb">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>One Time Special Process Set Up Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="otspsuc">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>One Time RM Airshipments Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="otrmac">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>One Time Tooling Cost
+															<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
+														</b></label>
+														<label class="col-sm-4 control-label text-left" id="ottc">-</label>
+													</div>
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>Total NRE Cost</b></label>
+														<label class="col-sm-4 control-label text-left" id="total-nre-cost">-</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4">
+														<label class="col-sm-8 control-label text-right"><b>CCS Quote Assumptions</b></label>
+														<label class="col-sm-4 control-label text-left" id="ccs-quote-assumptions">-</label>
+													</div>
+													<div class="col-md-4">
+														<!-- Empty -->
+													</div>
+													<div class="col-md-4">
+														<!-- Empty -->
+													</div>
+												</div>
+												<hr>
+											</div>
+											<!-- Delivery Lead Time in Weeks -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="12" scope="colgroup">Delivery Lead Time in Weeks</th>
+														<tr>
+													    <th class="center custom2">FAI</th>
+													    <th class="center custom2">Serial Production</th>
+															<th class="center custom2">Production</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="dltiw-fai">TBD</td>
+															<td class="center" id="dltiw-serial-production">TBD</td>
+															<td class="center" id="dltiw-production">TBD</td>
+														</tr>
+													</tbody>
+											</table>
+											<!-- Total Project Cost -->
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="12" scope="colgroup">Total Project Cost</th>
+														<tr>
+													    <th class="center custom2">Total Cost</th>
+													    <th class="center custom2">Mtl Cost</th>
+															<th class="center custom2">Spl Process Cost</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="total-cost">-</td>
+															<td class="center" id ="mtl-cost">-</td>
+															<td class="center" id="spl-process-cost">-</td>
+														</tr>
+													</tbody>
+											</table>
+											<div class="text-right mr-lg">
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_part_costing.html"><i class="fa fa-edit"></i> Edit</a>
+											</div>
+									</div>
+							</section>
+					</div>
+
+					<!-- Machining Capacity Planing -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+									<header class="panel-heading">
+												<div class="panel-actions">
+													<a href="#" class="fa fa-caret-down"></a>
+													<!-- <a href="#" class="fa fa-times"></a> -->
+												</div>
+
+												<h2 class="panel-title"><i class="fa fa-rocket"></i> Machining Capacity Planing</h2>
+									</header>
+									<div class="panel-body">
+											<table class="table table-bordered table-striped mb-none">
+													<thead>
+														<th class="center custom1" colspan="14" scope="colgroup">Machining Capacity Required for the Project</th>
+														<tr>
+													    <th class="center custom2">CLA</th>
+													    <th class="center custom2">BTA</th>
+													    <th class="center custom2">TMA</th>
+													    <th class="center custom2">MCA 3 Axis</th>
+															<th class="center custom2">MCA 4 Axis</th>
+															<th class="center custom2">HMC</th>
+															<th class="center custom2">5 Axis</th>
+															<th class="center custom2">EDM</th>
+															<th class="center custom2">Grinding</th>
+													  </tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="mcrftp-cla">-</td>
+															<td class="center" id="mcrftp-bta">-</td>
+															<td class="center" id="mcrftp-tma">-</td>
+															<td class="center" id="mcrftp-mca3axis">-</td>
+															<td class="center" id="mcrftp-mca4axis">-</td>
+															<td class="center" id="mcrftp-hmc">-</td>
+															<td class="center" id="mcrftp-5axis">-</td>
+															<td class="center" id="mcrftp-edm">-</td>
+															<td class="center" id="mcrftp-grinding">-</td>
+														</tr>
+													</tbody>
+											</table>
+							    </div>
+							</section>
+					</div>
+
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="assets/vendor/modernizr/modernizr.js"></script>
+
+	<!-- Vendor -->
+	<script src="assets/vendor/jquery/jquery.js"></script>
+	<script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
+	<script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
+	<script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+	<script src="assets/vendor/magnific-popup/magnific-popup.js"></script>
+	<script src="assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+	<!-- DataTable JS -->
+	<script src="assets/vendor/select2/select2.js"></script>
+	<script src="assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+	<script src="assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+	<script src="assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+
+	<!-- Spinner JS -->
+	<script src="assets/vendor/fuelux/js/spinner.js"></script>
+
+  <!-- Tree JS -->
+	<script src="assets/vendor/jstree/jstree.js"></script>
+	<!-- Examples -->
+	<script src="assets/javascripts/ui-elements/examples.treeview.js"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="assets/javascripts/theme.js"></script>
+
+	<!-- Theme Custom -->
+	<script src="assets/javascripts/theme.custom.js"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="assets/javascripts/theme.init.js"></script>
+
+	<script>
+	$( document ).ready(function() {
+		data_cal();
+	});
+
+	function data_cal(){
+		// -- Forecast & EAU --
+		// EAU = Forecast * Qty
+		// 5 Years Total EAU = SUM(EAU)
+		var eau_year1 = parseFloat($( "#forecast-year1" ).text()) * parseFloat($( "#qty-per-unit" ).text());
+		var eau_year2 = parseFloat($( "#forecast-year2" ).text()) * parseFloat($( "#qty-per-unit" ).text());
+		var eau_year3 = parseFloat($( "#forecast-year3" ).text()) * parseFloat($( "#qty-per-unit" ).text());
+		var eau_year4 = parseFloat($( "#forecast-year4" ).text()) * parseFloat($( "#qty-per-unit" ).text());
+		var eau_year5 = parseFloat($( "#forecast-year5" ).text()) * parseFloat($( "#qty-per-unit" ).text());
+		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
+		$( "#eau-year1" ).text(eau_year1);
+		$( "#eau-year2" ).text(eau_year2);
+		$( "#eau-year3" ).text(eau_year3);
+		$( "#eau-year4" ).text(eau_year4);
+		$( "#eau-year5" ).text(eau_year5);
+		$( "#eau-total-year" ).text(eau_total_year);
+		// -- Material --
+		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
+		// Annual Raw Material Requirement = Total RM Weight * EAU
+		var armr_year1 = rm_total_weight * eau_year1;
+		var armr_year2 = rm_total_weight * eau_year2;
+		var armr_year3 = rm_total_weight * eau_year3;
+		var armr_year4 = rm_total_weight * eau_year4;
+		var armr_year5 = rm_total_weight * eau_year5;
+		$( "#armr-year1" ).text(armr_year1);
+		$( "#armr-year2" ).text(armr_year2);
+		$( "#armr-year3" ).text(armr_year3);
+		$( "#armr-year4" ).text(armr_year4);
+		$( "#armr-year5" ).text(armr_year5);
+		// Approximate Finished Part Weight Per Part = Total RM Weight * 0.4
+		// Approximate Raw Material Weight Per Part = Total RM Weight
+		// Total Raw Material Weight Per Year = Total RM Weight * (Total EAU / 5)
+		var afpwpp = rm_total_weight * 0.4;
+		var armwpp = rm_total_weight;
+		var trmwpy = rm_total_weight * (eau_total_year / 5);
+		$( "#afpwpp" ).text(afpwpp.toFixed(2));
+		$( "#armwpp" ).text(armwpp);
+		$( "#trmwpy" ).text(trmwpy.toFixed(2));
+		// -- Part Costing --
+		// --- Time ---
+		// * Production Qty = EAU year-3 / 4
+		var production_qty = eau_year3 / 4;
+		$( "#production-qty" ).text(production_qty);
+		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
+		var tctt_cla = (parseFloat($( "#msut-cla" ).text()) / production_qty) + (parseFloat($( "#ctpp-cla" ).text()));
+		var tctt_bta = (parseFloat($( "#msut-bta" ).text()) / production_qty) + (parseFloat($( "#ctpp-bta" ).text()));
+		var tctt_tma = (parseFloat($( "#msut-tma" ).text()) / production_qty) + (parseFloat($( "#ctpp-tma" ).text()));
+		var tctt_mca3axis = (parseFloat($( "#msut-mca3axis" ).text()) / production_qty) + (parseFloat($( "#ctpp-mca3axis" ).text()));
+		var tctt_mca4axis = (parseFloat($( "#msut-mca4axis" ).text()) / production_qty) + (parseFloat($( "#ctpp-mca4axis" ).text()));
+		var tctt_hmc = (parseFloat($( "#msut-hmc" ).text()) / production_qty) + (parseFloat($( "#ctpp-hmc" ).text()));
+		var tctt_5axis = (parseFloat($( "#msut-5axis" ).text()) / production_qty) + (parseFloat($( "#ctpp-5axis" ).text()));
+		var tctt_edm = (parseFloat($( "#msut-edm" ).text()) / production_qty) + (parseFloat($( "#ctpp-edm" ).text()));
+		var tctt_grinding = (parseFloat($( "#msut-grinding" ).text()) / production_qty) + (parseFloat($( "#ctpp-grinding" ).text()));
+		$( "#tctt-cla" ).text(tctt_cla.toFixed(2));
+		$( "#tctt-bta" ).text(tctt_bta.toFixed(2));
+		$( "#tctt-tma" ).text(tctt_tma.toFixed(2));
+		$( "#tctt-mca3axis" ).text(tctt_mca3axis.toFixed(2));
+		$( "#tctt-mca4axis" ).text(tctt_mca4axis.toFixed(2));
+		$( "#tctt-hmc" ).text(tctt_hmc.toFixed(2));
+		$( "#tctt-5axis" ).text(tctt_5axis.toFixed(2));
+		$( "#tctt-edm" ).text(tctt_edm.toFixed(2));
+		$( "#tctt-grinding" ).text(tctt_grinding.toFixed(2));
+		// --- Cost ---
+		// Total Cycle Cost (Dollar) = (Active Rate / 60) + Total Cycle Time
+		var tctc_cla = (parseFloat($( "#rate-cla" ).text()) / 60) * tctt_cla;
+		var tctc_bta = (parseFloat($( "#rate-bta" ).text()) / 60) * tctt_bta;
+		var tctc_tma = (parseFloat($( "#rate-tma" ).text()) / 60) * tctt_tma;
+		var tctc_mca3axis = (parseFloat($( "#rate-mca3axis" ).text()) / 60) * tctt_mca3axis;
+		var tctc_mca4axis = (parseFloat($( "#rate-mca4axis" ).text()) / 60) * tctt_mca4axis;
+		var tctc_hmc = (parseFloat($( "#rate-hmc" ).text()) / 60) * tctt_hmc;
+		var tctc_5axis = (parseFloat($( "#rate-5axis" ).text()) / 60) * tctt_5axis;
+		var tctc_edm = (parseFloat($( "#rate-edm" ).text()) / 60) * tctt_edm;
+		var tctc_grinding = (parseFloat($( "#rate-grinding" ).text()) / 60) * tctt_grinding;
+		$( "#tctc-cla" ).text("$" + tctc_cla.toFixed(2));
+		$( "#tctc-bta" ).text("$" + tctc_bta.toFixed(2));
+		$( "#tctc-tma" ).text("$" + tctc_tma.toFixed(2));
+		$( "#tctc-mca3axis" ).text("$" + tctc_mca3axis.toFixed(2));
+		$( "#tctc-mca4axis" ).text("$" + tctc_mca4axis.toFixed(2));
+		$( "#tctc-hmc" ).text("$" + tctc_hmc.toFixed(2));
+		$( "#tctc-5axis" ).text("$" + tctc_5axis.toFixed(2));
+		$( "#tctc-edm" ).text("$" + tctc_edm.toFixed(2));
+		$( "#tctc-grinding" ).text("$" + tctc_grinding.toFixed(2));
+		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
+		var spc_fpi = parseFloat($( "#rate-fpi" ).text()) * (1 / production_qty);
+		var spc_mpi = parseFloat($( "#rate-mpi" ).text()) * (1 / production_qty);
+		var spc_passivation = parseFloat($( "#rate-passivation" ).text()) * (1 / production_qty);
+		var spc_caa = parseFloat($( "#rate-caa" ).text()) * (1 / production_qty);
+		var spc_saa = parseFloat($( "#rate-saa" ).text()) * (1 / production_qty);
+		var spc_hard_anodizing = parseFloat($( "#rate-hard-anodizing" ).text()) * (1 / production_qty);
+		var spc_ccc = parseFloat($( "#rate-ccc" ).text()) * (1 / production_qty);
+		var spc_dfl = parseFloat($( "#rate-dfl" ).text()) * (1 / production_qty);
+		var spc_paint = parseFloat($( "#rate-paint" ).text()) * (1 / production_qty);
+		var spc_cadmium_plating = parseFloat($( "#rate-cadmium-plating" ).text()) * (1 / production_qty);
+		var spc_chrome_plating = parseFloat($( "#rate-chrome-plating" ).text()) * (1 / production_qty);
+		var spc_heat_treatment = parseFloat($( "#rate-heat-treatment" ).text()) * (1 / production_qty);
+		$( "#spc-fpi" ).text("$" + spc_fpi.toFixed(2));
+		$( "#spc-mpi" ).text("$" + spc_mpi.toFixed(2));
+		$( "#spc-passivation" ).text("$" + spc_passivation.toFixed(2));
+		$( "#spc-caa" ).text("$" + spc_caa.toFixed(2));
+		$( "#spc-saa" ).text("$" + spc_saa.toFixed(2));
+		$( "#spc-hard-anodizing" ).text("$" + spc_hard_anodizing.toFixed(2));
+		$( "#spc-ccc" ).text("$" + spc_ccc.toFixed(2));
+		$( "#spc-dfl" ).text("$" + spc_dfl.toFixed(2));
+		$( "#spc-paint" ).text("$" + spc_paint.toFixed(2));
+		$( "#spc-cadmium-plating" ).text("$" + spc_cadmium_plating.toFixed(2));
+		$( "#spc-chrome-plating" ).text("$" + spc_chrome_plating.toFixed(2));
+		$( "#spc-heat-treatment" ).text("$" + spc_heat_treatment.toFixed(2));
+		// -- 1S --
+		// X Cycle Cost (Dollar) = (Active Rate / 60) + Cycle Time Per Part
+		var inspection_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-inspection" ).text());
+		var deburring_cost = (parseFloat($( "#rate-deburring" ).text()) / 60) * parseFloat($( "#ctpp-deburring" ).text());
+		var assembly_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-assembly" ).text());
+		var lapping_cost = (parseFloat($( "#rate-deburring" ).text()) / 60) * parseFloat($( "#ctpp-lapping" ).text());
+		$( "#inspection-cost" ).text("$" + inspection_cost.toFixed(2));
+		$( "#deburring-cost" ).text("$" + deburring_cost.toFixed(2));
+		$( "#assembly-cost" ).text("$" + assembly_cost.toFixed(2));
+		$( "#lapping-cost" ).text("$" + lapping_cost.toFixed(2));
+		// Hardware Cost = 3.5 * Qty per unit * 1.3
+		var hardware_cost = 3.5 * parseFloat($( "#qty-per-unit" ).text()) * 1.3;
+		$( "#hardware-cost" ).text("$" + hardware_cost.toFixed(2));
+		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * 1.12
+		var base_material_price = parseFloat($( "#base-material-price" ).text().replace('$','')); // Remove $ sign
+		var material_cost = (base_material_price + parseFloat($( "#material-shipping-cost" ).text())) * parseFloat($( "#armwpp" ).text()) * 1.12;
+		$( "#material-cost" ).text("$" + material_cost.toFixed(2));
+		// Total Hardware Cost = Hardware Cost
+		var total_hardware_cost = hardware_cost;
+		$( "#total-hardware-cost" ).text("$" + total_hardware_cost.toFixed(2));
+		// Surface Treatment Cost = SUM(Special Process Cost)
+		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint + spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
+		$( "#surface-treatment-cost" ).text("$" + surface_treatment_cost.toFixed(2));
+		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
+		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text().replace('$','')); // Remove $ sign
+		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
+		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
+		$( "#manufacturing-cost" ).text("$" + manufacturing_cost.toFixed(2));
+		// -- 2S --
+		// Additional MFG OH Factor = Manufacturing Cost * 0.1;
+		var additional_mfg = manufacturing_cost * 0.1;
+		$( "#additional-mfg" ).text("$" + additional_mfg.toFixed(2));
+		// Profit Factor = Manufacturing Cost * 0.1;
+		var profit_factor = manufacturing_cost * 0.1;
+		$( "#profit-factor" ).text("$" + profit_factor.toFixed(2));
+		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
+		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
+		$( "#total-manufacturing-cost" ).text("$" + total_manufacturing_cost.toFixed(2));
+		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Total Hardware Cost
+		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + total_hardware_cost;
+		$( "#ccs-ewp" ).text("$" + ccs_ewp.toFixed(2));
+		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child (ONLY FOR MOTHER)	*****************************
+		var ccs_ppp = ccs_ewp;
+		$( "#ccs-ppp" ).text("$" + ccs_ppp.toFixed(2));
+		// -- 3S --
+		// * EBQ_CCS QTY (Prodn Lot) = EAU year-3 / 4
+		var ebq_ccs_qty = eau_year3 / 4;
+		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
+		// Minimum Firm Order Quantity/Lot = EAU year-3
+		var minimum_firm_order_qty = eau_year3;
+		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
+		// MOQ Raw Material Order (kg) = (eau_year3 * Approximate Raw Material Weight Per Part)  / 4
+		var moq_rm_order = (eau_year3 * armwpp) / 4;
+		$( "#moq-rm-order" ).text(moq_rm_order);
+		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
+		var oyrmb = trmwpy;
+		$( "#oyrmb" ).text(oyrmb);
+		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
+		var otspsuc = parseFloat($( "#otspsuc" ).text().replace('$','')); // Remove $ sign
+		var otrmac = parseFloat($( "#otrmac" ).text().replace('$','')); // Remove $ sign
+		var ottc = parseFloat($( "#ottc" ).text().replace('$','')); // Remove $ sign
+		var total_nre_cost = otspsuc + otrmac	+ ottc;
+		$( "#total-nre-cost" ).text("$" + total_nre_cost.toFixed(2));
+		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
+		var total_cost = ccs_ppp * eau_total_year;
+		$( "#total-cost" ).text("$" + total_cost.toFixed(2));
+		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
+		var mtl_cost = material_cost * eau_total_year;
+		$( "#mtl-cost" ).text("$" + mtl_cost.toFixed(2));
+		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
+		var spl_process_cost = surface_treatment_cost * eau_total_year;
+		 $( "#spl-process-cost" ).text("$" + spl_process_cost.toFixed(2));
+		// -- Machining Capacity Required for the Project --
+		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
+		var mcrftp_cla = tctt_cla * eau_total_year;
+		var mcrftp_bta = tctt_bta * eau_total_year;
+		var mcrftp_tma = tctt_tma * eau_total_year;
+		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
+		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
+		var mcrftp_hmc = tctt_hmc * eau_total_year;
+		var mcrftp_5axis = tctt_5axis * eau_total_year;
+		var mcrftp_edm = tctt_edm * eau_total_year;
+		var mcrftp_grinding = tctt_grinding * eau_total_year;
+		$( "#mcrftp-cla" ).text(mcrftp_cla.toFixed(2));
+		$( "#mcrftp-bta" ).text(mcrftp_bta.toFixed(2));
+		$( "#mcrftp-tma" ).text(mcrftp_tma.toFixed(2));
+		$( "#mcrftp-mca3axis" ).text(mcrftp_mca3axis.toFixed(2));
+		$( "#mcrftp-mca4axis" ).text(mcrftp_mca4axis.toFixed(2));
+		$( "#mcrftp-hmc" ).text(mcrftp_hmc.toFixed(2));
+		$( "#mcrftp-5axis" ).text(mcrftp_5axis.toFixed(2));
+		$( "#mcrftp-edm" ).text(mcrftp_edm.toFixed(2));
+		$( "#mcrftp-grinding" ).text(mcrftp_grinding.toFixed(2));
+	}
+	</script>
+
+	<!-- DataTable Default -->
+	<script>
+	(function( $ ) {
+		'use strict';
+		var datatableInit = function() {
+			$('#datatable-default').dataTable();
+		};
+		$(function() {
+			datatableInit();
+		});
+	}).apply( this, [ jQuery ]);
+	</script>
+
+</html>

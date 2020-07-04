@@ -1,0 +1,12 @@
+{% if projects %}
+    
+    {% for project in projects %}
+    <p>
+        {% for description in project %}
+            {{ description }}
+        {% endfor %}
+    </p>
+    {% endfor %}    
+{% endif %}
+
+{{ text }}

@@ -1,0 +1,97 @@
+/* Add here all your CSS customizations */
+.page-header {
+	background: #21262d;
+	border-bottom: none;
+	border-left: 1px solid #3a3a3a;
+	box-shadow: 1px 3px 0 1px #cccccc;
+	height: 50px;
+	margin: -40px -40px 40px -40px;
+	padding: 0;
+}
+
+.sidebar-left {
+	background: #21262d;
+	box-shadow: -5px 0 0 #2f3139 inset;
+	color: #777777;
+	display: table-cell;
+	position: relative;
+	vertical-align: top;
+	width: 300px;
+	z-index: 1010;
+}
+
+ul.nav-main > li.nav-active > a {
+	box-shadow: 2px 0 0 #e4813a inset;
+}
+
+ul.nav-main li .nav-children li.nav-active > a {
+	color: #e4813a;
+}
+
+html.no-overflowscrolling .nano > .nano-pane > .nano-slider {
+	background: #e4813a;
+	margin: 0;
+	position: relative;
+	visibility: hidden;
+}
+
+.page-header h2 {
+	color: #FFF;
+	border-bottom: 4px solid #e4813a;
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+	display: inline-block;
+	float: left;
+	height: 50px;
+	font-size: 20px;
+	font-size: 2rem;
+	letter-spacing: normal;
+	line-height: 50px;
+	margin: 0 0 0 -1px;
+	padding: 0 22px 0 20px;
+}
+
+.page-header .sidebar-right-toggle:hover {
+	color: #e4813a;
+}
+
+.sidebar-left .sidebar-header .sidebar-toggle:hover i {
+	color: #e4813a;
+}
+
+body {
+	color: #000000;
+}
+
+.table > thead > tr > td.custom1,
+.table > tbody > tr > td.custom1,
+.table > tfoot > tr > td.custom1,
+.table > thead > tr > th.custom1,
+.table > tbody > tr > th.custom1,
+.table > tfoot > tr > th.custom1,
+.table > thead > tr.custom1 > td,
+.table > tbody > tr.custom1 > td,
+.table > tfoot > tr.custom1 > td,
+.table > thead > tr.custom1 > th,
+.table > tbody > tr.custom1 > th,
+.table > tfoot > tr.custom1 > th {
+	background-color: #222831;
+	color: white;
+}
+
+.table > thead > tr > td.custom2,
+.table > tbody > tr > td.custom2,
+.table > tfoot > tr > td.custom2,
+.table > thead > tr > th.custom2,
+.table > tbody > tr > th.custom2,
+.table > tfoot > tr > th.custom2,
+.table > thead > tr.custom2 > td,
+.table > tbody > tr.custom2 > td,
+.table > tfoot > tr.custom2 > td,
+.table > thead > tr.custom2 > th,
+.table > tbody > tr.custom2 > th,
+.table > tfoot > tr.custom2 > th {
+	background-color: #4f8a8b;
+	color: white;
+}
