@@ -30,7 +30,7 @@ def parts(request, tracker_no):
     try:
         part_header = Part_Header.objects.get(tracker_no=tracker_no)
     except:
-        text = 'No Part Found'
+        text = 'No Part Founds'
 
     try:
         rfq = RFQ.objects.get(pk=tracker_no)
