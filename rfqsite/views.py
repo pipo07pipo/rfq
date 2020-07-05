@@ -22,10 +22,10 @@ def projects(request):
 
 def parts(request, tracker_no):
     projects = RFQ.objects.get(pk=tracker_no)
-    parts = Part_Header.object.get(tracker_no=tracker_no)
+    #parts = Part_Header.objects.get(tracker_no=tracker_no)
     context = {
         'projects': projects,
-        'parts': parts
+        #'parts': parts
     }
     return render(request, 'rfqsite/part_table.html', context)
 
