@@ -52,7 +52,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_table.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="edit_special_process_rate_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -66,81 +67,81 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>FPI</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-fpi" name="rate-fpi" value="200">
+												<input type="number" class="form-control" id="rate-fpi" name="rate-fpi" value="{{ special_process_rate.fpi }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>MPI</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-mpi" name="rate-mpi" value="200">
+												<input type="number" class="form-control" id="rate-mpi" name="rate-mpi" value="{{ special_process_rate.mpi }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Passivation</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-passivation" name="rate-passivation" value="200">
+												<input type="number" class="form-control" id="rate-passivation" name="rate-passivation" value="{{ special_process_rate.passivation }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Chromic Acid Anodizing</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-caa" name="rate-caa" value="200">
+												<input type="number" class="form-control" id="rate-caa" name="rate-caa" value="{{ special_process_rate.caa }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Sulphuric Acid Anodizing</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-saa" name="rate-saa" value="200">
+												<input type="number" class="form-control" id="rate-saa" name="rate-saa" value="{{ special_process_rate.saa }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Hard Anodizing</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-hard-anodizing" name="rate-hard-anodizing" value="200">
+												<input type="number" class="form-control" id="rate-hard-anodizing" name="rate-hard-anodizing" value="{{ special_process_rate.hard_anodizing }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Chem. Conv. Coating</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-ccc" name="rate-ccc" value="200">
+												<input type="number" class="form-control" id="rate-ccc" name="rate-ccc" value="{{ special_process_rate.ccc }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Dry Film Lubrication</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-dfl" name="rate-dfl" value="200">
+												<input type="number" class="form-control" id="rate-dfl" name="rate-dfl" value="{{ special_process_rate.dfl }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Paint/Primer</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-paint" name="rate-paint" value="200">
+												<input type="number" class="form-control" id="rate-paint" name="rate-paint" value="{{ special_process_rate.paint }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Cadmium Plating</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-cadmium-plating" name="rate-cadmium-plating" value="200">
+												<input type="number" class="form-control" id="rate-cadmium-plating" name="rate-cadmium-plating" value="{{ special_process_rate.cadmium_plating }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Chrome Plating</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-chrome-plating" name="rate-chrome-plating" value="200">
+												<input type="number" class="form-control" id="rate-chrome-plating" name="rate-chrome-plating" value="{{ special_process_rate.chrome_plating }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Heat Treatment</b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-heat-treatment" name="rate-heat-treatment" value="200">
+												<input type="number" class="form-control" id="rate-heat-treatment" name="rate-heat-treatment" value="{{ special_process_rate.heat_treatment }}" required>
 											</div>
 										</div>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>
