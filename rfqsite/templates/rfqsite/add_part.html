@@ -55,7 +55,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/add_part_confirm" method="POST" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/add_part_confirm" method="POST" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -82,19 +82,19 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-no" name="part-no" value="" required>
+												<input type="text" class="form-control" id="part-no" name="part-no" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part Name</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-name" name="part-name" value="" required>
+												<input type="text" class="form-control" id="part-name" name="part-name" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Program</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="program" name="program" value="" required>
+												<input type="text" class="form-control" id="program" name="program" required>
 											</div>
 										</div>
 									</div>
