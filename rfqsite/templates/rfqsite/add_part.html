@@ -55,7 +55,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="" method="POST" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/add_part_confirm" method="POST" class="form-horizontal" novalidate="novalidate">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -68,9 +68,9 @@
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>SL No.</b></label>
+											<label class="col-sm-4 control-label"><b>RFQ Tracker No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sl-no" name="sl-no" value={{ project.tracker_no }} readonly>
+												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value={{ project.tracker_no }} readonly>
 											</div>
 										</div>
 										<div class="form-group">
@@ -82,19 +82,19 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-no" name="part-no" value="">
+												<input type="text" class="form-control" id="part-no" name="part-no" value="" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part Name</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-name" name="part-name" value="">
+												<input type="text" class="form-control" id="part-name" name="part-name" value="" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Program</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="program" name="program" value="">
+												<input type="text" class="form-control" id="program" name="program" value="" required>
 											</div>
 										</div>
 									</div>
