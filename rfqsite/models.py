@@ -39,13 +39,13 @@ class Active_Rate(models.Model):
     inspection = models.FloatField()
 
 class Part_Header(models.Model):
-    sl_no = models.IntegerField(primary_key=True)
+    sl_no = models.AutoField(primary_key=True)
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
-    no = models.IntegerField()
+    no = models.CharField(max_length=10)
     name = models.CharField(max_length=200)
     level = models.IntegerField()
     program = models.CharField(max_length=200)
-    parent_sl_no = models.ForeignKey('self', on_delete=models.CASCADE)
+    parent_sl_no = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     file_path = models.CharField(max_length=200)
     image_path = models.CharField(max_length=200)
 
@@ -59,7 +59,7 @@ class SPS(models.Model):
     solid = models.CharField(max_length=200)
     pmr = models.CharField(max_length=200)
 
-class Forcast(models.Model):
+class Forecast(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     qty_per_unit = models.FloatField()
     forecast_year1 = models.FloatField()
