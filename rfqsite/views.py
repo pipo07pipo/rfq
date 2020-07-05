@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import RFQ, Part_Header
 from django.utils import timezone
 
-def index(request):
+def rfq_table(request):
     # text = "This is index page"
     # rfq = RFQ(tracker_no=111,description='Desc',customer_name='sample', update_date=timezone.now())
     # rfq.save()
