@@ -37,14 +37,13 @@ def add_part(request, tracker_no):
     return render(request, 'rfqsite/add_part.html', context)
 
 def add_part_confirm(request):
-    sl_no = request.POST.get('sl-no')
+    tracker_no = request.POST.get('tracker-no')
     part_level = request.POST.get('part-level')
     part_no = request.POST.get('part-no')
     part_name = request.POST.get('part-name')
     program = request.POST.get('program')
-    newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=sl_no),level=part_level,no=part_no,name=part_name,program=program)
+    newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
     newPart.save()
-    tracker_no = sl_no
     return redirect('/part_table/'+tracker_no)
 
 def add_child(request):
