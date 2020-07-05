@@ -7,18 +7,14 @@ def index(request):
     # text = "This is index page"
     # rfq = RFQ(tracker_no=111,description='Desc',customer_name='sample', update_date=timezone.now())
     # rfq.save()
-    projects = []   
-    for item in RFQ.objects.all():
-        projects.append([item.tracker_no,item.description,item.customer_name])
+    projects = RFQ.objects.all()
     context = {
         'projects': projects
     }
     return render(request, 'rfqsite/index.html', context)
 
 def projects(request):
-    projects = []   
-    for item in RFQ.objects.all():
-        projects.append([item.tracker_no,item.description,item.customer_name])
+    projects = RFQ.objects.all():
     context = {
         'projects': projects
     }
@@ -34,7 +30,7 @@ def parts(request, tracker_no):
 
     try:
         rfq = RFQ.objects.get(pk=tracker_no)
-        projects.append([rfq.tracker_no,rfq.description,rfq.customer_name])
+        projects.append([rfq.tracker_no,rfq.description,rfq.customer_name,item.file_path])
     except:
         text = 'No Project at this tracker no'
     context = {
