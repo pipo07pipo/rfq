@@ -14,7 +14,7 @@ def index(request):
     return render(request, 'rfqsite/index.html', context)
 
 def projects(request):
-    projects = RFQ.objects.all():
+    projects = RFQ.objects.all()
     context = {
         'projects': projects
     }
