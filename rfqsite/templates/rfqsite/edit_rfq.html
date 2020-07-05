@@ -55,7 +55,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_table.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_rfq_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -69,25 +70,25 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>RFQ Tracker No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value="1" readonly>
+												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>RFQ Description</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="description" name="description" value="TEMP DESCRIPTION" readonly>
+												<input type="text" class="form-control" id="description" name="description" value="{{ project.description }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Customer Name</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="customer-name" name="customer-name" value="TEMP NAME">
+												<input type="text" class="form-control" id="customer-name" name="customer-name" value="{{ project.customer_name }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Upload File</b></label>
 											<div class="col-sm-6">
-													<div class="fileupload fileupload-new" data-provides="fileupload">
+													<div class="fileupload fileupload-new" data-provides="fileupload" value="{{ project.file_path }}">
 														<div class="input-append">
 															<div class="uneditable-input">
 																<i class="fa fa-file fileupload-exists"></i>
@@ -107,8 +108,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Save</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>
