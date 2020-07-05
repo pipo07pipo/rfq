@@ -21,23 +21,12 @@ def projects(request):
     return render(request, 'rfqsite/projects.html', context)
 
 def parts(request, tracker_no):
-    projects = []
-    text = ''
-    try:
-        part_header = Part_Header.objects.get(tracker_no=tracker_no)
-    except:
-        text = 'No Part Founds'
-
-    try:
-        rfq = RFQ.objects.get(pk=tracker_no)
-        projects.append([rfq.tracker_no,rfq.description,rfq.customer_name,item.file_path])
-    except:
-        text = 'No Project at this tracker no'
+    projects = RFQ.objects.get(pk=tracker_no)
+    parts = Part_Header.object.get(tracker_no=tracker_no)
     context = {
         'projects': projects,
-        'text': text
+        'parts': parts
     }
-
     return render(request, 'rfqsite/part_table.html', context)
 
 def add_child(request):
