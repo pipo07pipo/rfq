@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import RFQ, Part_Header
 from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
 
 def rfq_table(request):
     # text = "This is index page"
@@ -54,11 +55,30 @@ def edit_rfq(request, tracker_no):
     return render(request, 'rfqsite/edit_rfq.html', context)
 
 def edit_rfq_confirm(request):
-    tracker_no = request.POST.get('tracker-no')
-    project = RFQ.objects.get(pk=tracker_no)
-    project.customer_name = request.POST.get('customer-name')
-    project.customer_name = request.POST.get('customer-name')
-    return redirect('/part_table/'+tracker_no)
+    if request.method == 'POST' and request.FILES:
+        file = request.FILES['file']
+        fs = FileSystemStorage()
+        tracker_no = request.POST.get('tracker-no')
+        folder = tracker_no+"/"
+        path = folder+file.name
+        filename = fs.save(path, file)
+        project = RFQ.objects.get(pk=tracker_no)
+        project.customer_name = request.POST.get('customer-name')
+        project.file_path = path
+        project.save()
+        return redirect('/part_table/'+tracker_no)
+    elif request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        project = RFQ.objects.get(pk=tracker_no)
+        project.customer_name = request.POST.get('customer-name')
+        project.save()
+
+        return redirect('/part_table/'+tracker_no)
+    # tracker_no = request.POST.get('tracker-no')
+    # project = RFQ.objects.get(pk=tracker_no)
+    # project.customer_name = request.POST.get('customer-name')
+    # project.customer_name = request.POST.get('customer-name')
+    # return redirect('/part_table/'+tracker_no)
 
 
 
