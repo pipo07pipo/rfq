@@ -55,7 +55,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/add_part_confirm" method="POST" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="" method="POST" class="form-horizontal" novalidate="novalidate">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -101,8 +101,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Confirm</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>

@@ -66,15 +66,9 @@
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Description :</b> {{ project.description }}</p>
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> {{ project.customer_name }}</p>
 							<div class="text-left mr-md">
-<<<<<<< HEAD
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_rfq"><i class="fa fa-edit"></i> Edit</a>
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/rfq_table" disabled><i class="fa fa-download"></i> Download File</a>
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_part"><i class="fa fa-plus"></i> Add Part</a>
-=======
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_rfq"><i class="fa fa-edit"></i> Edit</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/index" disabled><i class="fa fa-download"></i> Download File</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_part/{{ project.tracker_no }}"><i class="fa fa-plus"></i> Add Part</a>
->>>>>>> 0ec7135e0aee0eaaf7102ef67a475e0f1686c85f
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_active_rate"><i class="fa fa-edit"></i>Edit Active Rate</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_special_process_rate"><i class="fa fa-edit"></i>Edit Special Process Rate</a>
 							</div>
@@ -94,17 +88,10 @@
 									{% for part in parts %}
 									<tr>
 										<td class="center">{{ part.sl_no }}</td>
-<<<<<<< HEAD
-										<td class="center">{{ part.part_no }}</td>
-										<td class="center">{{ part.part_name }}</td>
-										<td class="center">{{ part.program }}</td>
-										<td class="center"><a href="part_info"><i class="fa fa-search"></i></a</td>
-=======
 										<td class="center">{{ part.no }}</td>
 										<td class="center">{{ part.name }}</td>
 										<td class="center">{{ part.program }}</td>
 										<td class="center"><a href="/part_info/{{ part.sl_no }}"><i class="fa fa-search"></i></a</td>
->>>>>>> 0ec7135e0aee0eaaf7102ef67a475e0f1686c85f
 									</tr>
 									{% endfor %}
 								</tbody>
