@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import RFQ, Part_Header
 from django.utils import timezone
@@ -21,27 +21,38 @@ def projects(request):
     return render(request, 'rfqsite/projects.html', context)
 
 def parts(request, tracker_no):
-    projects = RFQ.objects.get(pk=tracker_no)
-    #parts = Part_Header.objects.get(tracker_no=tracker_no)
+    project = RFQ.objects.get(pk=tracker_no)
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
     context = {
-        'projects': projects,
-        #'parts': parts
+        'project': project,
+        'parts': parts
     }
     return render(request, 'rfqsite/part_table.html', context)
 
-def add_child(request):
-    projects = []   
+def add_part(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)   
     context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/add_child.html', context)
-
-def add_part(request):
-    projects = []   
-    context = {
-        'projects': projects
+        'project': project
     }
     return render(request, 'rfqsite/add_part.html', context)
+
+def add_part_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    part_level = request.POST.get('part-level')
+    part_no = request.POST.get('part-no')
+    part_name = request.POST.get('part-name')
+    program = request.POST.get('program')
+    newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=sl_no),level=part_level,no=part_no,name=part_name,program=program)
+    newPart.save()
+    tracker_no = sl_no
+    return redirect('/part_table/'+tracker_no)
+
+def add_child(request):
+    project = []
+    context = {
+        'project': project
+    }
+    return render(request, 'rfqsite/add_child.html', context)
 
 def edit_active_rate(request):
     projects = []   

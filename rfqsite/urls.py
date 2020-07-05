@@ -4,9 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('projects/', views.projects, name='projects'),
-    path('part_table/<int:tracker_no>/', views.parts, name='parts'),
+    path('part_table/<int:tracker_no>/', views.parts, name='parts'), 
     path('add_child/', views.add_child, name='projects'),
-    path('add_part/', views.add_part, name='projects'),
+    path('add_part/<int:tracker_no>/', views.add_part, name='projects'), 
+    path('add_part_confirm', views.add_part_confirm, name='projects'), 
     path('edit_active_rate/', views.edit_active_rate, name='projects'),
     path('edit_ctp/', views.edit_ctp, name='projects'),
     path('edit_forecast/', views.edit_forecast, name='projects'),
