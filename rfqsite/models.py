@@ -96,7 +96,7 @@ class Part_Costing(models.Model):
     material_supplier = models.CharField(max_length=200)
     material_shipping_cost = models.FloatField(null=True)
     nre_amortizing_cost = models.FloatField(null=True)
-    target_prize = models.FloatField(null=True)
+    target_price = models.FloatField(null=True)
     ebq_customer_qty = models.FloatField(null=True)
     otspsuc = models.FloatField(null=True)
     otrmac = models.FloatField(null=True)
