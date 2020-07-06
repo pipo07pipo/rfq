@@ -191,7 +191,8 @@
 										<h2 class="panel-title"><i class="fa fa-star-half-empty"></i> Forecast & EAU</h2>
 									</header>
 									<div class="panel-body">
-										<table class="table table-bordered table-striped mb-none">
+										<div class="table-responsive">
+											<table class="table table-bordered table-striped table-condensed mb-none">
 											<thead>
 												<tr>
 													<th class="center custom1" rowspan="2"><b>QTY Per Unit</b></td>
@@ -229,6 +230,7 @@
 												</tr>
 											</tbody>
 										</table>
+										</div>
 										<div class="text-right mr-lg">
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_forecast.html"><i class="fa fa-edit"></i> Edit</a>
 										</div>
@@ -273,7 +275,8 @@
 										</div>
 										<br>
 											<!-- Raw Material Size -->
-										  <table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+										  	<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size</th>
 														<tr>
@@ -322,9 +325,11 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<br>
 											<!-- Annual Raw Material Requirement (kg) -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 													    <th class="center custom1" colspan="5" scope="colgroup">Annual Raw Material Requirement (kg)</th>
 														<tr>
@@ -345,9 +350,11 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<br>
 											<!-- Finish & Raw Material Weight Per Part (kg) -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 													    <th class="center custom1" colspan="3" scope="colgroup">Finish & Raw Material Weight Per Part (kg)</th>
 														<tr>
@@ -364,6 +371,7 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<div class="text-right mr-lg">
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_material.html"><i class="fa fa-edit"></i> Edit</a>
 											</div>
@@ -384,7 +392,8 @@
 									</header>
 									<div class="panel-body">
 											<!-- Special Process Specification -->
-										  <table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+										  	<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="7" scope="colgroup">Special Process Specification</th>
 														<tr>
@@ -409,11 +418,13 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<div class="text-right mr-lg">
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_sps.html"><i class="fa fa-edit"></i> Edit</a>
 											</div>
 											<!-- Machining Set Up Time (Minutes) -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="9" scope="colgroup">Machining Set Up Time (Minutes)</th>
 														<th class="center custom1" rowspan="2" scope="colgroup">Production Qty</th>
@@ -444,11 +455,13 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<div class="text-right mr-lg">
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_msut.html"><i class="fa fa-edit"></i> Edit</a>
 											</div>
 											<!-- Cycle Time Per Part (Minutes) -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="13" scope="colgroup">Cycle Time Per Part (Minutes)</th>
 														<tr>
@@ -485,6 +498,7 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<div class="text-right mr-lg">
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_ctpp.html"><i class="fa fa-edit"></i> Edit</a>
 											</div>
@@ -505,41 +519,44 @@
 									</header>
 									<div class="panel-body">
 											<!-- Active Rate -->
-											<table class="table table-bordered table-striped mb-none" hidden>
-												<thead>
-													<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
-													<tr>
-														<th class="center custom2">CLA</th>
-														<th class="center custom2">BTA</th>
-														<th class="center custom2">TMA</th>
-														<th class="center custom2">MCA 3 Axis</th>
-														<th class="center custom2">MCA 4 Axis</th>
-														<th class="center custom2">HMC</th>
-														<th class="center custom2">5 Axis</th>
-														<th class="center custom2">EDM</th>
-														<th class="center custom2">Grinding</th>
-														<th class="center custom2">Deburring/Cleaning</th>
-														<th class="center custom2">Inspection</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="center" id="rate-cla">{{ active_rate.cla }}</td>
-														<td class="center" id="rate-bta">{{ active_rate.bta }}</td>
-														<td class="center" id="rate-tma">{{ active_rate.tma }}</td>
-														<td class="center" id="rate-mca3axis">{{ active_rate.mca3axis }}</td>
-														<td class="center" id="rate-mca4axis">{{ active_rate.mca4axis }}</td>
-														<td class="center" id="rate-hmc">{{ active_rate.hmc }}</td>
-														<td class="center" id="rate-5axis">{{ active_rate.axis5 }}</td>
-														<td class="center" id="rate-edm">{{ active_rate.edm }}</td>
-														<td class="center" id="rate-grinding">{{ active_rate.grinding }}</td>
-														<td class="center" id="rate-deburring">{{ active_rate.deburring }}</td>
-														<td class="center" id="rate-inspection">{{ active_rate.inspection }}</td>
-													</tr>
-												</tbody>
-											</table>
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none" hidden>
+													<thead>
+														<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
+														<tr>
+															<th class="center custom2">CLA</th>
+															<th class="center custom2">BTA</th>
+															<th class="center custom2">TMA</th>
+															<th class="center custom2">MCA 3 Axis</th>
+															<th class="center custom2">MCA 4 Axis</th>
+															<th class="center custom2">HMC</th>
+															<th class="center custom2">5 Axis</th>
+															<th class="center custom2">EDM</th>
+															<th class="center custom2">Grinding</th>
+															<th class="center custom2">Deburring/Cleaning</th>
+															<th class="center custom2">Inspection</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="rate-cla">{{ active_rate.cla }}</td>
+															<td class="center" id="rate-bta">{{ active_rate.bta }}</td>
+															<td class="center" id="rate-tma">{{ active_rate.tma }}</td>
+															<td class="center" id="rate-mca3axis">{{ active_rate.mca3axis }}</td>
+															<td class="center" id="rate-mca4axis">{{ active_rate.mca4axis }}</td>
+															<td class="center" id="rate-hmc">{{ active_rate.hmc }}</td>
+															<td class="center" id="rate-5axis">{{ active_rate.axis5 }}</td>
+															<td class="center" id="rate-edm">{{ active_rate.edm }}</td>
+															<td class="center" id="rate-grinding">{{ active_rate.grinding }}</td>
+															<td class="center" id="rate-deburring">{{ active_rate.deburring }}</td>
+															<td class="center" id="rate-inspection">{{ active_rate.inspection }}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
 											<!-- SP Rate -->
-											<table class="table table-bordered table-striped mb-none" hidden>
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none" hidden>
 												<thead>
 													<th class="center custom1" colspan="12" scope="colgroup">Special Process Rate</th>
 													<tr>
@@ -574,87 +591,92 @@
 													</tr>
 												</tbody>
 											</table>
+											</div>
 											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
-											<table class="table table-bordered table-striped mb-none">
-													<thead>
-														<th class="center custom1" colspan="10" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
-														<tr>
-															<th class="center custom1"></th>
-													    <th class="center custom2">CLA</th>
-													    <th class="center custom2">BTA</th>
-													    <th class="center custom2">TMA</th>
-													    <th class="center custom2">MCA 3 Axis</th>
-															<th class="center custom2">MCA 4 Axis</th>
-															<th class="center custom2">HMC</th>
-															<th class="center custom2">5 Axis</th>
-															<th class="center custom2">EDM</th>
-															<th class="center custom2">Grinding</th>
-													  </tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center custom1"><b>Time</b></td>
-															<td class="center" id="tctt-cla">-</td>
-															<td class="center" id="tctt-bta">-</td>
-															<td class="center" id="tctt-tma">-</td>
-															<td class="center" id="tctt-mca3axis">-</td>
-															<td class="center" id="tctt-mca4axis">-</td>
-															<td class="center" id="tctt-hmc">-</td>
-															<td class="center" id="tctt-5axis">-</td>
-															<td class="center" id="tctt-edm">-</td>
-															<td class="center" id="tctt-grinding">-</td>
-														</tr>
-														<tr>
-															<td class="center custom1"><b>Cost</b></td>
-															<td class="center" id="tctc-cla">-</td>
-															<td class="center" id="tctc-bta">-</td>
-															<td class="center" id="tctc-tma">-</td>
-															<td class="center" id="tctc-mca3axis">-</td>
-															<td class="center" id="tctc-mca4axis">-</td>
-															<td class="center" id="tctc-hmc">-</td>
-															<td class="center" id="tctc-5axis">-</td>
-															<td class="center" id="tctc-edm">-</td>
-															<td class="center" id="tctc-grinding">-</td>
-														</tr>
-													</tbody>
-											</table>
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+														<thead>
+															<th class="center custom1" colspan="10" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
+															<tr>
+																<th class="center custom1"></th>
+														    <th class="center custom2">CLA</th>
+														    <th class="center custom2">BTA</th>
+														    <th class="center custom2">TMA</th>
+														    <th class="center custom2">MCA 3 Axis</th>
+																<th class="center custom2">MCA 4 Axis</th>
+																<th class="center custom2">HMC</th>
+																<th class="center custom2">5 Axis</th>
+																<th class="center custom2">EDM</th>
+																<th class="center custom2">Grinding</th>
+														  </tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="center custom1"><b>Time</b></td>
+																<td class="center" id="tctt-cla">-</td>
+																<td class="center" id="tctt-bta">-</td>
+																<td class="center" id="tctt-tma">-</td>
+																<td class="center" id="tctt-mca3axis">-</td>
+																<td class="center" id="tctt-mca4axis">-</td>
+																<td class="center" id="tctt-hmc">-</td>
+																<td class="center" id="tctt-5axis">-</td>
+																<td class="center" id="tctt-edm">-</td>
+																<td class="center" id="tctt-grinding">-</td>
+															</tr>
+															<tr>
+																<td class="center custom1"><b>Cost</b></td>
+																<td class="center" id="tctc-cla">-</td>
+																<td class="center" id="tctc-bta">-</td>
+																<td class="center" id="tctc-tma">-</td>
+																<td class="center" id="tctc-mca3axis">-</td>
+																<td class="center" id="tctc-mca4axis">-</td>
+																<td class="center" id="tctc-hmc">-</td>
+																<td class="center" id="tctc-5axis">-</td>
+																<td class="center" id="tctc-edm">-</td>
+																<td class="center" id="tctc-grinding">-</td>
+															</tr>
+														</tbody>
+												</table>
+											</div>
 											<br>
 											<!-- Special Process Cost (Dollar) -->
-											<table class="table table-bordered table-striped mb-none">
-													<thead>
-														<th class="center custom1" colspan="12" scope="colgroup">Special Process Cost (Dollar)</th>
-														<tr>
-													    <th class="center custom2">FPI</th>
-													    <th class="center custom2">MPI</th>
-															<th class="center custom2">Passivation</th>
-															<th class="center custom2">Chromic Acid Anodizing</th>
-															<th class="center custom2">Sulphuric Acid Anodizing</th>
-															<th class="center custom2">Hard Anodizing</th>
-															<th class="center custom2">Chem. Conv. Coating</th>
-															<th class="center custom2">Dry Film Lubrication</th>
-															<th class="center custom2">Paint/Primer</th>
-															<th class="center custom2">Cadmium Plating</th>
-															<th class="center custom2">Chrome Plating</th>
-													    <th class="center custom2">Heat Treatment</th>
-													  </tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center" id="spc-fpi">-</td>
-															<td class="center" id="spc-mpi">-</td>
-															<td class="center" id="spc-passivation">-</td>
-															<td class="center" id="spc-caa">-</td>
-															<td class="center" id="spc-saa">-</td>
-															<td class="center" id="spc-hard-anodizing">-</td>
-															<td class="center" id="spc-ccc">-</td>
-															<td class="center" id="spc-dfl">-</td>
-															<td class="center" id="spc-paint">-</td>
-															<td class="center" id="spc-cadmium-plating">-</td>
-															<td class="center" id="spc-chrome-plating">-</td>
-															<td class="center" id="spc-heat-treatment">-</td>
-														</tr>
-													</tbody>
-											</table>
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+														<thead>
+															<th class="center custom1" colspan="12" scope="colgroup">Special Process Cost (Dollar)</th>
+															<tr>
+														    <th class="center custom2">FPI</th>
+														    <th class="center custom2">MPI</th>
+																<th class="center custom2">Passivation</th>
+																<th class="center custom2">Chromic Acid Anodizing</th>
+																<th class="center custom2">Sulphuric Acid Anodizing</th>
+																<th class="center custom2">Hard Anodizing</th>
+																<th class="center custom2">Chem. Conv. Coating</th>
+																<th class="center custom2">Dry Film Lubrication</th>
+																<th class="center custom2">Paint/Primer</th>
+																<th class="center custom2">Cadmium Plating</th>
+																<th class="center custom2">Chrome Plating</th>
+														    <th class="center custom2">Heat Treatment</th>
+														  </tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="center" id="spc-fpi">-</td>
+																<td class="center" id="spc-mpi">-</td>
+																<td class="center" id="spc-passivation">-</td>
+																<td class="center" id="spc-caa">-</td>
+																<td class="center" id="spc-saa">-</td>
+																<td class="center" id="spc-hard-anodizing">-</td>
+																<td class="center" id="spc-ccc">-</td>
+																<td class="center" id="spc-dfl">-</td>
+																<td class="center" id="spc-paint">-</td>
+																<td class="center" id="spc-cadmium-plating">-</td>
+																<td class="center" id="spc-chrome-plating">-</td>
+																<td class="center" id="spc-heat-treatment">-</td>
+															</tr>
+														</tbody>
+												</table>
+											</div>
 											<!-- SSS -->
 											<div class="row">
 												<hr>
@@ -821,7 +843,8 @@
 												<hr>
 											</div>
 											<!-- Delivery Lead Time in Weeks -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+											<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="12" scope="colgroup">Delivery Lead Time in Weeks</th>
 														<tr>
@@ -838,8 +861,10 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<!-- Total Project Cost -->
-											<table class="table table-bordered table-striped mb-none">
+											<div class="table-responsive">
+											<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="12" scope="colgroup">Total Project Cost</th>
 														<tr>
@@ -856,6 +881,7 @@
 														</tr>
 													</tbody>
 											</table>
+											</div>
 											<div class="text-right mr-lg">
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="edit_part_costing.html"><i class="fa fa-edit"></i> Edit</a>
 											</div>
@@ -875,7 +901,8 @@
 												<h2 class="panel-title"><i class="fa fa-rocket"></i> Machining Capacity Planing</h2>
 									</header>
 									<div class="panel-body">
-											<table class="table table-bordered table-striped mb-none">
+										<div class="table-responsive">
+											<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="14" scope="colgroup">Machining Capacity Required for the Project</th>
 														<tr>
@@ -904,6 +931,7 @@
 														</tr>
 													</tbody>
 											</table>
+										</div>
 							    </div>
 							</section>
 					</div>
