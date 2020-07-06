@@ -59,7 +59,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_info.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_material_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -73,7 +74,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Description</b></label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" value="">
+												<input type="text" class="form-control" value="{{ material.description }}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -89,7 +90,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Type</b></label>
 											<div class="col-sm-3">
-												<select class="form-control input-md" id="material-type">
+												<select class="form-control input-md" id="type">
 													<option value="Optional">(Optional)</option>
 													<optgroup label="Metals">
 														<option value="Aluminum">Aluminum</option>
@@ -124,7 +125,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Density</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" value="" id="density">
+												<input type="number" class="form-control" value="{{ material.density }}" id="density">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="density-unit">
@@ -138,16 +139,16 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Quantity</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="quantity" value="1">
+												<input type="number" class="form-control" id="quantity" value="{{ material.quantity }}">
 											</div>
 										</div>
 										<div class="form-group" id="group-D1">
 											<label class="col-sm-4 control-label"><b>Outer Diameter (D1)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="value-D1" value="">
+												<input type="number" class="form-control" id="rm-d1" value="{{ material.rm_d1 }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="unit-D1">
+												<select class="form-control input-md" id="rm-d1-unit">
 													<option value="mm">mm</option>
 													<option value="cm">cm</option>
 													<option value="m">m</option>
@@ -160,10 +161,10 @@
 										<div class="form-group" id="group-D2">
 											<label class="col-sm-4 control-label"><b>Inner Diameter (D2)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="value-D2" value="">
+												<input type="number" class="form-control" id="rm-d2" value="{{ material.rm_d2 }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="unit-D2">
+												<select class="form-control input-md" id="rm-d2-unit">
 													<option value="mm">mm</option>
 													<option value="cm">cm</option>
 													<option value="m">m</option>
@@ -176,10 +177,10 @@
 										<div class="form-group" id="group-T">
 											<label class="col-sm-4 control-label"><b>Thickness (T)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="value-T" value="">
+												<input type="number" class="form-control" id="rm-t" value="{{ material.rm_t }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="unit-T">
+												<select class="form-control input-md" id="rm-t-unit">
 													<option value="mm">mm</option>
 													<option value="cm">cm</option>
 													<option value="m">m</option>
@@ -192,10 +193,10 @@
 										<div class="form-group" id="group-W">
 											<label class="col-sm-4 control-label"><b>Width (W)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="value-W" value="">
+												<input type="number" class="form-control" id="rm-w" value="{{ material.rm_w }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="unit-W">
+												<select class="form-control input-md" id="rm-w-unit">
 													<option value="mm">mm</option>
 													<option value="cm">cm</option>
 													<option value="m">m</option>
@@ -208,10 +209,10 @@
 										<div class="form-group" id="group-L">
 											<label class="col-sm-4 control-label"><b>Length (L)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="value-L" value="">
+												<input type="number" class="form-control" id="rm-l" value="{{ material.rm_l }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="unit-L">
+												<select class="form-control input-md" id="rm-l-unit">
 													<option value="mm">mm</option>
 													<option value="cm">cm</option>
 													<option value="m">m</option>
@@ -224,7 +225,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Total Weight</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="total-weight" readonly value="-1">
+												<input type="number" class="form-control" id="rm-total-weight" readonly value="{{ material.rm_total_weight }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
@@ -232,8 +233,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>
@@ -278,7 +279,7 @@ $( "#cross-section" ).change(function() {
 	calculate_weight();
 });
 
-$( "#material-type" ).change(function() {
+$( "#type" ).change(function() {
 	material_type_change();
 	calculate_weight();
 });
@@ -295,43 +296,43 @@ $( "#quantity" ).change(function() {
 	calculate_weight();
 });
 
-$( "#value-D1" ).change(function() {
+$( "#rm-d1" ).change(function() {
 	calculate_weight();
 });
 
-$( "#unit-D1" ).change(function() {
+$( "#rm-d1-unit" ).change(function() {
 	calculate_weight();
 });
 
-$( "#value-D2" ).change(function() {
+$( "#rm-d2" ).change(function() {
 	calculate_weight();
 });
 
-$( "#unit-D2" ).change(function() {
+$( "#rm-d2-unit" ).change(function() {
 	calculate_weight();
 });
 
-$( "#value-T" ).change(function() {
+$( "#rm-t" ).change(function() {
 	calculate_weight();
 });
 
-$( "#unit-T" ).change(function() {
+$( "#rm-t-unit" ).change(function() {
 	calculate_weight();
 });
 
-$( "#value-W" ).change(function() {
+$( "#rm-w" ).change(function() {
 	calculate_weight();
 });
 
-$( "#unit-W" ).change(function() {
+$( "#rm-w-unit" ).change(function() {
 	calculate_weight();
 });
 
-$( "#value-L" ).change(function() {
+$( "#rm-l" ).change(function() {
 	calculate_weight();
 });
 
-$( "#unit-L" ).change(function() {
+$( "#rm-l-unit" ).change(function() {
 	calculate_weight();
 });
 
@@ -341,39 +342,39 @@ function calculate_weight(){
 	var quantity = $( "#quantity" ).val();
 	var result = -1;
 	if (cross_section == "Round Bar Shape"){
-		var value_d1 = convert_unit($( "#value-D1" ).val(),$( "#unit-D1" ).val());
-		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+		var value_d1 = convert_unit($( "#rm-d1" ).val(),$( "#rm-d1-unit" ).val());
+		var value_l = convert_unit($( "#rm-l" ).val(),$( "#rm-l-unit" ).val());
 
 		// Dens<g/cc> * OD<cm> * OD<cm> * L<cm> * 3.142 / 4000
 		var result = quantity * density * value_d1 * value_d1 * value_l * 3.142 / 4000;
 
-		if(density == "" || quantity == "" || $( "#value-D1" ).val() == "" || $( "#value-L" ).val() == ""){
+		if(density == "" || quantity == "" || $( "#rm-d1" ).val() == "" || $( "#rm-l" ).val() == ""){
 			var result = "-1";
 		}
  	} else if (cross_section == "Tube Shape"){
-		var value_d1 = convert_unit($( "#value-D1" ).val(),$( "#unit-D1" ).val());
-		var value_d2 = convert_unit($( "#value-D2" ).val(),$( "#unit-D2" ).val());
-		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+		var value_d1 = convert_unit($( "#rm-d1" ).val(),$( "#rm-d1-unit" ).val());
+		var value_d2 = convert_unit($( "#rm-d2" ).val(),$( "#rm-d2-unit" ).val());
+		var value_l = convert_unit($( "#rm-l" ).val(),$( "#rm-l-unit" ).val());
 
 		// [ Dens<g/cc> * * OD<cm> * OD<cm> * L<cm> * 3.142 / 4000 ] - [ Dens<g/cc> * ID<cm> * ID<cm> * L<cm> * 3.142 / 4000 ]
 		var result = quantity * ((density * value_d1 * value_d1 * value_l * 3.142 / 4000) - (density * value_d2 * value_d2 * value_l * 3.142 / 4000));
 
-		if(density == "" || quantity == "" || $( "#value-D1" ).val() == "" || $( "#value-D2" ).val() == "" || $( "#value-L" ).val() == ""){
+		if(density == "" || quantity == "" || $( "#rm-d1" ).val() == "" || $( "#rm-d2" ).val() == "" || $( "#rm-l" ).val() == ""){
 			var result = "-1";
 		}
  	} else if (cross_section == "Flat Bar / Plate / Sheet"){
-		var value_t = convert_unit($( "#value-T" ).val(),$( "#unit-T" ).val());
-		var value_w = convert_unit($( "#value-W" ).val(),$( "#unit-W" ).val());
-		var value_l = convert_unit($( "#value-L" ).val(),$( "#unit-L" ).val());
+		var value_t = convert_unit($( "#rm-t" ).val(),$( "#rm-t-unit" ).val());
+		var value_w = convert_unit($( "#rm-w" ).val(),$( "#rm-w-unit" ).val());
+		var value_l = convert_unit($( "#rm-l" ).val(),$( "#rm-l-unit" ).val());
 
 		// Dens<g/cc> * T<cm> * W<cm> * L<cm> / 1000
 		var result = quantity* density * value_t * value_w * value_l / 1000;
 
-		if(density == "" || quantity == "" || $( "#value-T" ).val() == "" || $( "#value-W" ).val() == "" || $( "#value-L" ).val() == ""){
+		if(density == "" || quantity == "" || $( "#rm-t" ).val() == "" || $( "#rm-w" ).val() == "" || $( "#rm-l" ).val() == ""){
 			var result = "-1";
 		}
  	}
-	$( "#total-weight" ).val(result);
+	$( "#rm-total-weight" ).val(result);
 }
 
 function convert_unit(value,unit){
@@ -415,7 +416,7 @@ function cross_section_change(){
 }
 
 function material_type_change(){
-	var material_type = $( "#material-type" ).val();
+	var material_type = $( "#type" ).val();
 	var density_unit = $( "#density-unit" ).val();
 	if (material_type == "Optional"){
 		$( "#density" ).val("");
