@@ -278,7 +278,7 @@
 													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size</th>
 														<tr>
 															<th class="center custom2">
-																Density {% if material.density %}({{ material.density_unit }}){% endif %}
+																Density {% if material.rm_density %}({{ material.rm_density_unit }}){% endif %}
 															</th>
 															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 													    <th class="center custom2">
@@ -306,7 +306,7 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="rm-density">{{ material.density }}</td>
+															<td class="center" id="rm-density">{{ material.rm_density }}</td>
 															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 															<td class="center" id="rm-d1">{{ material.rm_d1 }}</td>
 															{% endif %}
@@ -524,17 +524,17 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td class="center custom2" id="rate-cla">{{ active_rate.cla }}</td>
-														<td class="center custom2" id="rate-bta">{{ active_rate.bta }}</td>
-														<td class="center custom2" id="rate-tma">{{ active_rate.tma }}</td>
-														<td class="center custom2" id="rate-mca3axis">{{ active_rate.mca3axis }}</td>
-														<td class="center custom2" id="rate-mca4axis">{{ active_rate.mca4axis }}</td>
-														<td class="center custom2" id="rate-hmc">{{ active_rate.hmc }}</td>
-														<td class="center custom2" id="rate-5axis">{{ active_rate.axis5 }}</td>
-														<td class="center custom2" id="rate-edm">{{ active_rate.edm }}</td>
-														<td class="center custom2" id="rate-grinding">{{ active_rate.grinding }}</td>
-														<td class="center custom2" id="rate-deburring">{{ active_rate.deburring }}</td>
-														<td class="center custom2" id="rate-inspection">{{ active_rate.inspection }}</td>
+														<td class="center" id="rate-cla">{{ active_rate.cla }}</td>
+														<td class="center" id="rate-bta">{{ active_rate.bta }}</td>
+														<td class="center" id="rate-tma">{{ active_rate.tma }}</td>
+														<td class="center" id="rate-mca3axis">{{ active_rate.mca3axis }}</td>
+														<td class="center" id="rate-mca4axis">{{ active_rate.mca4axis }}</td>
+														<td class="center" id="rate-hmc">{{ active_rate.hmc }}</td>
+														<td class="center" id="rate-5axis">{{ active_rate.axis5 }}</td>
+														<td class="center" id="rate-edm">{{ active_rate.edm }}</td>
+														<td class="center" id="rate-grinding">{{ active_rate.grinding }}</td>
+														<td class="center" id="rate-deburring">{{ active_rate.deburring }}</td>
+														<td class="center" id="rate-inspection">{{ active_rate.inspection }}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -832,9 +832,9 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="dltiw-fai">TBD</td>
-															<td class="center" id="dltiw-serial-production">TBD</td>
-															<td class="center" id="dltiw-production">TBD</td>
+															<td class="center" id="dltiw-fai">{{ part_costing.dltiw_fai }}</td>
+															<td class="center" id="dltiw-serial-production">{{ part_costing.serial_production }}</td>
+															<td class="center" id="dltiw-production">{{ part_costing.production }}</td>
 														</tr>
 													</tbody>
 											</table>
