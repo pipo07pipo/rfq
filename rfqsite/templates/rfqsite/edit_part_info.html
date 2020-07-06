@@ -55,7 +55,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_info.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_part_info_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -69,25 +70,39 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>SL No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sl-no" name="sl-no" value="1" readonly>
+												<input type="text" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}" readonly>
+											</div>
+										</div>
+										{% if level != 0 %}
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Parent Part (SL No.)</b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="parent-sl-no" name="parent-sl-no" value="{{ parent_sl_no }}" readonly>
+											</div>
+										</div>
+										{% endif %}
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Part Level</b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="part-level" name="part-level" value="{{ level }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part No.</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-no" name="part-no" value="725Z2463-101">
+												<input type="text" class="form-control" id="part-no" name="part-no" value="{{ part.no }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part Name</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="part-name" name="part-name" value="FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.">
+												<input type="text" class="form-control" id="part-name" name="part-name" value="{{ part.name }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Program</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="program" name="program" value="B787">
+												<input type="text" class="form-control" id="program" name="program" value="{{ part.program }}" required>
 											</div>
 										</div>
 										<div class="form-group">
@@ -102,7 +117,7 @@
 															<span class="btn btn-default btn-file">
 																<span class="fileupload-exists">Change</span>
 																<span class="fileupload-new">Select File</span>
-																<input type="file"  id="image" name="image">
+																<input type="file"  id="image" name="image" value="{{ project.image.path }}">
 															</span>
 															<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
 														</div>
@@ -121,7 +136,7 @@
 															<span class="btn btn-default btn-file">
 																<span class="fileupload-exists">Change</span>
 																<span class="fileupload-new">Select File</span>
-																<input type="file"  id="file" name="file">
+																<input type="file"  id="file" name="file" value="{{ project.file_path }}">
 															</span>
 															<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
 														</div>
@@ -132,8 +147,8 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>

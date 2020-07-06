@@ -52,7 +52,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_table.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_active_rate_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -64,77 +65,77 @@
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>CLA</b></label>
+											<label class="col-sm-4 control-label"><b>CLA <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-cla" name="rate-cla" value="32">
+												<input type="number" class="form-control" id="rate-cla" name="rate-cla" value="{{ active_rate.cla }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>BTA</b></label>
+											<label class="col-sm-4 control-label"><b>BTA <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-bta" name="rate-bta" value="32">
+												<input type="number" class="form-control" id="rate-bta" name="rate-bta" value="{{ active_rate.bta }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>TMA</b></label>
+											<label class="col-sm-4 control-label"><b>TMA <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-tma" name="rate-tma" value="45">
+												<input type="number" class="form-control" id="rate-tma" name="rate-tma" value="{{ active_rate.tma }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>MCA 3 Axis</b></label>
+											<label class="col-sm-4 control-label"><b>MCA 3 Axis <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-mca3axis" name="rate-mca3axis" value="32">
+												<input type="number" class="form-control" id="rate-mca3axis" name="rate-mca3axis" value="{{ active_rate.mca3axis }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>MCA 4 Axis</b></label>
+											<label class="col-sm-4 control-label"><b>MCA 4 Axis <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-mca4axis" name="rate-mca4axis" value="45">
+												<input type="number" class="form-control" id="rate-mca4axis" name="rate-mca4axis" value="{{ active_rate.mca4axis }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>HMC</b></label>
+											<label class="col-sm-4 control-label"><b>HMC <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-hmc" name="rate-hmc" value="45">
+												<input type="number" class="form-control" id="rate-hmc" name="rate-hmc" value="{{ active_rate.hmc }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>5 Axis</b></label>
+											<label class="col-sm-4 control-label"><b>5 Axis <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-5axis" name="rate-5axis" value="45">
+												<input type="number" class="form-control" id="rate-5axis" name="rate-5axis" value="{{ active_rate.axis5 }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>EDM</b></label>
+											<label class="col-sm-4 control-label"><b>EDM <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-edm" name="rate-edm" value="32">
+												<input type="number" class="form-control" id="rate-edm" name="rate-edm" value="{{ active_rate.edm }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Grinding</b></label>
+											<label class="col-sm-4 control-label"><b>Grinding <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-grinding" name="rate-grinding" value="32">
+												<input type="number" class="form-control" id="rate-grinding" name="rate-grinding" value="{{ active_rate.grinding }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Deburring/Cleaning</b></label>
+											<label class="col-sm-4 control-label"><b>Deburring/Cleaning <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-deburring" name="rate-deburring" value="15">
+												<input type="number" class="form-control" id="rate-deburring" name="rate-deburring" value="{{ active_rate.deburring }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Inspection</b></label>
+											<label class="col-sm-4 control-label"><b>Inspection <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-inspection" name="rate-inspection" value="20">
+												<input type="number" class="form-control" id="rate-inspection" name="rate-inspection" value="{{ active_rate.inspection }}" required>
 											</div>
 										</div>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>

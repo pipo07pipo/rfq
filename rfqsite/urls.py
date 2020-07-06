@@ -11,13 +11,13 @@ urlpatterns = [
     ###
     path('add_child/', views.add_child, name='projects'),
     path('edit_active_rate/', views.edit_active_rate, name='projects'),
-    path('edit_ctp/', views.edit_ctp, name='projects'),
+    path('edit_ctpp/', views.edit_ctpp, name='projects'),
     path('edit_forecast/', views.edit_forecast, name='projects'),
     path('edit_material/', views.edit_material, name='projects'),
-    path('edit_mst/', views.edit_mst, name='projects'),
+    path('edit_msut/', views.edit_msut, name='projects'),
     path('edit_part_costing/', views.edit_part_costing, name='projects'),
     path('edit_part_info/', views.edit_part_info, name='projects'),
-    path('edit_special_process_rate/', views.edit_special_process_rate, name='projects'),
+    path('edit_sp_rate/', views.edit_sp_rate, name='projects'),
     path('edit_sps/', views.edit_sps, name='projects'),
     path('part_info/', views.part_info, name='projects'),
 ]

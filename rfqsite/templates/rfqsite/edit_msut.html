@@ -52,7 +52,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_info.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_msut_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -66,78 +67,72 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>CLA</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-cla" name="msut-cla" value="">
+												<input type="number" class="form-control" id="msut-cla" name="msut-cla" value="{{ msut.cla }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>BTA</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-bta" name="msut-bta" value="">
+												<input type="number" class="form-control" id="msut-bta" name="msut-bta" value="{{ msut.bta }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>TMA</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-tma" name="msut-tma" value="">
+												<input type="number" class="form-control" id="msut-tma" name="msut-tma" value="{{ msut.tma }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>MCA 3 Axis</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-mca3axis" name="msut-mca3axis" value="">
+												<input type="number" class="form-control" id="msut-mca3axis" name="msut-mca3axis" value="{{ msut.mca3axis }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>MCA 4 Axis</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-mca4axis" name="msut-mca4axis" value="">
+												<input type="number" class="form-control" id="msut-mca4axis" name="msut-mca4axis" value="{{ msut.mca4axis }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>HMC</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-hmc" name="msut-hmc" value="">
+												<input type="number" class="form-control" id="msut-hmc" name="msut-hmc" value="{{ msut.hmc }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>5 Axis</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-5axis" name="msut-5axis" value="">
+												<input type="number" class="form-control" id="msut-5axis" name="msut-5axis" value="{{ msut.axis5 }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>EDM</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-edm" name="msut-edm" value="">
+												<input type="number" class="form-control" id="msut-edm" name="msut-edm" value="{{ msut.edm }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Grinding</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-grinding" name="msut-grinding" value="">
+												<input type="number" class="form-control" id="msut-grinding" name="msut-grinding" value="{{ msut.grinding }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
-										<!-- <div class="form-group">
-											<label class="col-sm-4 control-label"><b>Production Qty</b></label>
-											<div class="col-sm-3">
-												<input type="number" class="form-control" id="msut-cla" name="msut-cla" value="">
-											</div>
-										</div> -->
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>

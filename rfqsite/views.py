@@ -145,12 +145,12 @@ def edit_active_rate(request):
     }
     return render(request, 'rfqsite/edit_active_rate.html', context)
 
-def edit_ctp(request):
+def edit_ctpp(request):
     projects = []
     context = {
         'projects': projects
     }
-    return render(request, 'rfqsite/edit_ctp.html', context)
+    return render(request, 'rfqsite/edit_ctpp.html', context)
 
 def edit_forecast(request):
     projects = []
@@ -166,12 +166,12 @@ def edit_material(request):
     }
     return render(request, 'rfqsite/edit_material.html', context)
 
-def edit_mst(request):
+def edit_msut(request):
     projects = []
     context = {
         'projects': projects
     }
-    return render(request, 'rfqsite/edit_mst.html', context)
+    return render(request, 'rfqsite/edit_msut.html', context)
 
 def edit_part_costing(request):
     projects = []
@@ -189,12 +189,12 @@ def edit_part_info(request):
 
 
 
-def edit_special_process_rate(request):
+def edit_sp_rate(request):
     projects = []
     context = {
         'projects': projects
     }
-    return render(request, 'rfqsite/edit_special_process_rate.html', context)
+    return render(request, 'rfqsite/edit_sp_rate.html', context)
 
 def edit_sps(request):
     projects = []
