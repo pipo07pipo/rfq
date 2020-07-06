@@ -84,14 +84,18 @@ def edit_rfq_confirm(request):
         return redirect('/part_table/'+tracker_no)
 
 
-def edit_active_rate(request):
-    projects = []
+def edit_active_rate(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)
     context = {
-        'projects': projects
+            'project': project
     }
     return render(request, 'rfqsite/edit_active_rate.html', context)
 
-
+def edit_active_rate_confirm(request):
+    if request.method == 'POST':
+        editAR = Active_Rate.objects.get(pk=RFQ.objects.get(pk=tracker_no))
+        edit.save()
+        return redirect('/part_table/'+tracker_no)
 
 
 
@@ -137,13 +141,6 @@ def add_child(request):
         'project': project
     }
     return render(request, 'rfqsite/add_child.html', context)
-
-def edit_active_rate(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_active_rate.html', context)
 
 def edit_ctpp(request):
     projects = []
