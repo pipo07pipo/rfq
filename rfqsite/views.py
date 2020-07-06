@@ -114,14 +114,30 @@ def edit_active_rate_confirm(request):
 
 def edit_sp_rate(request, tracker_no):
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
-    print(active_rate.cla)
+    sp_rate = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
     context = {
             'tracker_no': tracker_no,
-            'active_rate': active_rate
+            'sp_rate': sp_rate
     }
-    return render(request, 'rfqsite/edit_active_rate.html', context)
+    return render(request, 'rfqsite/edit_sp_rate.html', context)
 
+def edit_sp_rate_confirm(request):
+    if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        editSPR = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        editSPR.fpi = request.POST.get('rate-fpi')
+        editSPR.mpi = request.POST.get('rate-mpi')
+        editSPR.passivation = request.POST.get('rate-passivation')
+        editSPR.caa = request.POST.get('rate-caa')
+        editSPR.saa = request.POST.get('rate-saa')
+        editSPR.hard_anodizing = request.POST.get('rate-hard-anodizing')
+        editSPR.dfl = request.POST.get('rate-dfl')
+        editSPR.paint = request.POST.get('rate-paint')
+        editSPR.cadmium_plating = request.POST.get('rate-cadmium-plating')
+        editSPR.chrome_plating = request.POST.get('rate-chrome-plating')
+        editSPR.heat_treatment = request.POST.get('rate-heat-treatment')
+        editSPR.save()
+        return redirect('/part_table/'+tracker_no)
 
 
 
