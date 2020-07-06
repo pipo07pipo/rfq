@@ -80,7 +80,7 @@ def edit_rfq_confirm(request):
         file = request.FILES['file']
         fs = FileSystemStorage()
         tracker_no = request.POST.get('tracker-no')
-        folder = tracker_no+"/"
+        folder = "rfq/"+tracker_no+"/"
         path = folder+file.name
         filename = fs.save(path, file)
         project = RFQ.objects.get(pk=tracker_no)
@@ -174,7 +174,45 @@ def part_info(request, sl_no):
     }
     return render(request, 'rfqsite/part_info.html', context)
 
+def edit_part_info(request, sl_no):
+    part = Part_Header.objects.get(sl_no=sl_no)
+    context = {
+            'part': part
+    }
+    return render(request, 'rfqsite/edit_part_info.html', context)
 
+
+def edit_part_info_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editPart = Part_Header.objects.get(sl_no=sl_no)
+        editPart.no = request.POST.get('part-no')
+        editPart.name = request.POST.get('part-name')
+        editPart.program = request.POST.get('program')
+        editPart.save()
+    if request.FILES:
+        files = []
+        for key in request.FILES:
+            files.append(key)
+        if 'file' in files:
+            file = request.FILES['file']
+            fs = FileSystemStorage()
+            folder = "part/"+sl_no+"/"
+            path = folder+file.name
+            filename = fs.save(path, file)
+            editPart = Part_Header.objects.get(sl_no=sl_no)
+            editPart.file_path = path
+            editPart.save()
+        if 'image' in files:
+            file = request.FILES['image']
+            fs = FileSystemStorage()
+            folder = "image/"+sl_no+"/"
+            path = folder+file.name
+            filename = fs.save(path, file)
+            editPart = Part_Header.objects.get(sl_no=sl_no)
+            editPart.image_path = path
+            editPart.save()
+    return redirect('/part_info/'+str(sl_no))
 
 
 
@@ -250,12 +288,7 @@ def edit_part_costing(request):
     }
     return render(request, 'rfqsite/edit_part_costing.html', context)
 
-def edit_part_info(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_part_info.html', context)
+
 
 
 
