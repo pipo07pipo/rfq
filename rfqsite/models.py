@@ -56,7 +56,7 @@ class SPS(models.Model):
     fpi = models.CharField(max_length=200)
     mpi = models.CharField(max_length=200)
     primer = models.CharField(max_length=200)
-    solid = models.CharField(max_length=200)
+    solid_film = models.CharField(max_length=200)
     pmr = models.CharField(max_length=200)
 
 class Forecast(models.Model):
@@ -73,8 +73,8 @@ class Material(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     description = models.CharField(max_length=200)
     cross_section = models.CharField(max_length=200)
-    material_type = models.CharField(max_length=200)
-    material_qty = models.FloatField()
+    type = models.CharField(max_length=200)
+    qantity = models.FloatField()
     rm_density = models.FloatField()
     rm_density_unit = models.CharField(max_length=200)
     rm_d1 = models.FloatField()

@@ -85,16 +85,30 @@ def edit_rfq_confirm(request):
 
 
 def edit_active_rate(request, tracker_no):
-    project = RFQ.objects.get(pk=tracker_no)
+    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
+    active_rate = Active_Rate.objects.get(pk=RFQ.objects.get(pk=tracker_no))
     context = {
-            'project': project
+            'tracker_no': tracker_no,
+            'active_rate': active_rate
     }
     return render(request, 'rfqsite/edit_active_rate.html', context)
 
 def edit_active_rate_confirm(request):
     if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
         editAR = Active_Rate.objects.get(pk=RFQ.objects.get(pk=tracker_no))
-        edit.save()
+        cla = request.POST.get('cla')
+        bta = request.POST.get('bta')
+        tma = request.POST.get('tma')
+        mca3axis = request.POST.get('mca3axis')
+        mca4axis = request.POST.get('mca4axis')
+        hmc = request.POST.get('hmc')
+        axis5 = request.POST.get('5axis')
+        edm = request.POST.get('edm')
+        grinding = request.POST.get('grinding')
+        deburring = request.POST.get('deburring')
+        inspection = request.POST.get('inspection')
+        editAR.save()
         return redirect('/part_table/'+tracker_no)
 
 
