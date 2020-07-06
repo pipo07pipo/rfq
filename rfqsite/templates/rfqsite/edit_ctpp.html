@@ -46,13 +46,13 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>Special Process Rate</h2>
+						<h2>Cycle Time Per Part</h2>
 					</header>
 
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="edit_special_process_rate_confirm" class="form-horizontal">
+							<form id="form" action="/edit_ctpp_confirm" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -61,80 +61,99 @@
 											<!-- <a href="#" class="fa fa-times"></a>	 -->
 										</div>
 
-										<h2 class="panel-title">Edit Special Process Rate</h2>
+										<h2 class="panel-title">Edit Cycle Time Per Part</h2>
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>FPI</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-fpi" name="rate-fpi" value="{{ special_process_rate.fpi }}" required>
+											<label class="col-sm-4 control-label"><b>CLA</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-cla" name="ctpp-cla" value="{{ ctpp.cla }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>MPI</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-mpi" name="rate-mpi" value="{{ special_process_rate.mpi }}" required>
+											<label class="col-sm-4 control-label"><b>BTA</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-bta" name="ctpp-bta" value="{{ ctpp.bta }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Passivation</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-passivation" name="rate-passivation" value="{{ special_process_rate.passivation }}" required>
+											<label class="col-sm-4 control-label"><b>TMA</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-tma" name="ctpp-tma" value="{{ ctpp.tma }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Chromic Acid Anodizing</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-caa" name="rate-caa" value="{{ special_process_rate.caa }}" required>
+											<label class="col-sm-4 control-label"><b>MCA 3 Axis</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-mca3axis" name="ctpp-mca3axis" value="{{ ctpp.mca3axis }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Sulphuric Acid Anodizing</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-saa" name="rate-saa" value="{{ special_process_rate.saa }}" required>
+											<label class="col-sm-4 control-label"><b>MCA 4 Axis</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-mca4axis" name="ctpp-mca4axis" value="{{ ctpp.mca4axis }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Hard Anodizing</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-hard-anodizing" name="rate-hard-anodizing" value="{{ special_process_rate.hard_anodizing }}" required>
+											<label class="col-sm-4 control-label"><b>HMC</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-hmc" name="ctpp-hmc" value="{{ ctpp.hmc }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Chem. Conv. Coating</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-ccc" name="rate-ccc" value="{{ special_process_rate.ccc }}" required>
+											<label class="col-sm-4 control-label"><b>5 Axis</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-5axis" name="ctpp-5axis" value="{{ ctpp.axis5 }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Dry Film Lubrication</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-dfl" name="rate-dfl" value="{{ special_process_rate.dfl }}" required>
+											<label class="col-sm-4 control-label"><b>EDM</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-edm" name="ctpp-edm" value="{{ ctpp.edm }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Paint/Primer</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-paint" name="rate-paint" value="{{ special_process_rate.paint }}" required>
+											<label class="col-sm-4 control-label"><b>Grinding</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-grinding" name="ctpp-grinding" value="{{ ctpp.grinding }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Cadmium Plating</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-cadmium-plating" name="rate-cadmium-plating" value="{{ special_process_rate.cadmium_plating }}" required>
+											<label class="col-sm-4 control-label"><b>Inspection</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-inspection" name="ctpp-inspection" value="{{ ctpp.inspection }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Chrome Plating</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-chrome-plating" name="rate-chrome-plating" value="{{ special_process_rate.chrome_plating }}" required>
+											<label class="col-sm-4 control-label"><b>Deburring</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-deburring" name="ctpp-deburring" value="{{ ctpp.deburring }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Heat Treatment</b></label>
-											<div class="col-sm-4">
-												<input type="number" class="form-control" id="rate-heat-treatment" name="rate-heat-treatment" value="{{ special_process_rate.heat_treatment }}" required>
+											<label class="col-sm-4 control-label"><b>Assembly</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-assembly" name="ctpp-assembly" value="{{ ctpp.assembly }}">
 											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Lapping/Honing</b></label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="ctpp-lapping" name="ctpp-lapping" value="{{ ctpp.lapping }}">
+											</div>
+											<label style="padding-top:5px" class="text-left">Minutes</label>
 										</div>
 									</div>
 									<footer class="panel-footer">

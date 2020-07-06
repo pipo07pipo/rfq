@@ -52,7 +52,8 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="part_info.html" class="form-horizontal" novalidate="novalidate">
+							<form id="form" action="/edit_sps_confirm" class="form-horizontal">
+								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
 										<div class="panel-actions">
@@ -66,51 +67,51 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Surface Treatment</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-surface-treatment" name="sps-surface-treatment" value="">
+												<input type="text" class="form-control" id="sps-surface-treatment" name="sps-surface-treatment" value="{{ sps.surface_treatment }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>HT</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-ht" name="sps-ht" value="">
+												<input type="text" class="form-control" id="sps-ht" name="sps-ht" value="{{ sps.ht }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>FPI</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-fpi" name="sps-fpi" value="">
+												<input type="text" class="form-control" id="sps-fpi" name="sps-fpi" value="{{ sps.fpi }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>MPI</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-mpi" name="sps-mpi" value="">
+												<input type="text" class="form-control" id="sps-mpi" name="sps-mpi" value="{{ sps.mpi }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Primer</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-primer" name="sps-primer" value="">
+												<input type="text" class="form-control" id="sps-primer" name="sps-primer" value="{{ sps.primer }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Solid Film</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-solid-film" name="sps-solid-film" value="">
+												<input type="text" class="form-control" id="sps-solid-film" name="sps-solid-film" value="{{ sps.solid_film }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Part Marking Requirement</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="sps-pmr" name="sps-pmr" value="">
+												<input type="text" class="form-control" id="sps-pmr" name="sps-pmr" value="{{ sps.pmr }}">
 											</div>
 										</div>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning">Save</button>
-												<button class="btn btn-default">Cancel</button>
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
 											</div>
 										</div>
 									</footer>
