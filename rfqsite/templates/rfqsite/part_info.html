@@ -250,38 +250,44 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Description</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-description">-</label>
+												<label class="control-label" id="material-description">{{ material.description }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Cross Section</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="cross-section">-</label>
+												<label class="control-label" id="cross-section">{{ material.cross_section }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Material Type</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-type">-</label>
+												<label class="control-label" id="material-type">{{ material.type }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Quantity</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-qty">-</label>
+												<label class="control-label" id="material-qty">{{ material.quantity }}</label>
 											</div>
 										</div>
 										<br>
-											<!-- Raw Material Size (Inch) -->
+											<!-- Raw Material Size -->
 										  <table class="table table-bordered table-striped mb-none">
 													<thead>
-													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size (Inch)</th>
+													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size</th>
 														<tr>
 															<th class="center custom2">Density</th>
+															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 													    <th class="center custom2">Outter Diameter</th>
+															{% endif %}
+															{% if material.cross_section == 'Tube Shape' %}
 															<th class="center custom2">Inner Diameter</th>
+															{% endif %}
+															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
 													    <th class="center custom2">Thickness</th>
 													    <th class="center custom2">Width</th>
+															{% endif %}
 													    <th class="center custom2">Length</th>
 															<th class="center custom2">RM Weight (kg)</th>
 													  </tr>
@@ -289,10 +295,16 @@
 													<tbody>
 														<tr>
 															<td class="center" id="rm-density">{{ material.density }}</td>
+															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 															<td class="center" id="rm-d1">{{ material.rm_d1 }}</td>
+															{% endif %}
+															{% if material.cross_section == 'Tube Shape' %}
 															<td class="center" id="rm-d2">{{ material.rm_d2 }}</td>
+															{% endif %}
+															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
 															<td class="center" id="rm-t">{{ material.rm_t }}</td>
 															<td class="center" id="rm-w">{{ material.rm_w }}</td>
+															{% endif %}
 															<td class="center" id="rm-l">{{ material.rm_l }}</td>
 															<td class="center" id="rm-total-weight">{{ material.rm_total_weight }}</td>
 														</tr>
