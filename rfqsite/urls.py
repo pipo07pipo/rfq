@@ -12,6 +12,7 @@ urlpatterns = [
     path('edit_active_rate_confirm/', views.edit_active_rate_confirm, name='projects'),
     path('edit_sp_rate/<int:tracker_no>/', views.edit_sp_rate, name='projects'),
     path('edit_sp_rate_confirm/', views.edit_sp_rate_confirm, name='projects'),
+    path('part_info/<int:sl_no>/', views.part_info, name='projects'),
     ###
     path('add_child/', views.add_child, name='projects'),
     path('edit_ctpp/', views.edit_ctpp, name='projects'),
@@ -22,5 +23,5 @@ urlpatterns = [
     path('edit_part_info/', views.edit_part_info, name='projects'),
 
     path('edit_sps/', views.edit_sps, name='projects'),
-    path('part_info/', views.part_info, name='projects'),
+
 ]

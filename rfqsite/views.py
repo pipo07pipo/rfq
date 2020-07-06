@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Active_Rate, SP_Rate
+from .models import RFQ, Part_Header, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 
@@ -53,7 +53,19 @@ def add_part_confirm(request):
         part_name = request.POST.get('part-name')
         program = request.POST.get('program')
         newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
+        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+        newSPS = SPS(sl_no=newPart)
+        newMaterial = Material(sl_no=newPart)
+        newMSUT = MSUT(sl_no=newPart)
+        newCTPP = CTPP(sl_no=newPart)
+        newPart_Costing = Part_Costing(sl_no=newPart)
         newPart.save()
+        newForecast.save()
+        newSPS.save()
+        newMaterial.save()
+        newMSUT.save()
+        newCTPP.save()
+        newPart_Costing.save()
         return redirect('/part_table/'+tracker_no)
 
 def edit_rfq(request, tracker_no):
@@ -139,7 +151,28 @@ def edit_sp_rate_confirm(request):
         editSPR.save()
         return redirect('/part_table/'+tracker_no)
 
-
+def part_info(request, sl_no):
+    part = Part_Header.objects.get(pk=sl_no)
+    forecast = Forecast.objects.get(sl_no=part)
+    material = Material.objects.get(sl_no=part)
+    sps = SPS.objects.get(sl_no=part)
+    msut = MSUT.objects.get(sl_no=part)
+    ctpp = CTPP.objects.get(sl_no=part)
+    part_costing = Part_Costing.objects.get(sl_no=part)
+    active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
+    sp_rate = SP_Rate.objects.get(tracker_no=part.tracker_no)
+    context = {
+        'part': part,
+        'forecast': forecast,
+        'material': material,
+        'sps': sps,
+        'msut': msut,
+        'ctpp': ctpp,
+        'part_costing': part_costing,
+        'active_rate': active_rate,
+        'sp_rate': sp_rate
+    }
+    return render(request, 'rfqsite/part_info.html', context)
 
 
 
@@ -232,13 +265,6 @@ def edit_sps(request):
         'projects': projects
     }
     return render(request, 'rfqsite/edit_sps.html', context)
-
-def part_info(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/part_info.html', context)
 
 def part_table(request):
     projects = []
