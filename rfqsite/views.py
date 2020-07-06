@@ -86,7 +86,8 @@ def edit_rfq_confirm(request):
 
 def edit_active_rate(request, tracker_no):
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    active_rate = Active_Rate.objects.get(pk=RFQ.objects.get(pk=tracker_no))
+    active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+    print(active_rate.cla)
     context = {
             'tracker_no': tracker_no,
             'active_rate': active_rate
@@ -96,22 +97,47 @@ def edit_active_rate(request, tracker_no):
 def edit_active_rate_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
-        editAR = Active_Rate.objects.get(pk=RFQ.objects.get(pk=tracker_no))
-        cla = request.POST.get('cla')
-        bta = request.POST.get('bta')
-        tma = request.POST.get('tma')
-        mca3axis = request.POST.get('mca3axis')
-        mca4axis = request.POST.get('mca4axis')
-        hmc = request.POST.get('hmc')
-        axis5 = request.POST.get('5axis')
-        edm = request.POST.get('edm')
-        grinding = request.POST.get('grinding')
-        deburring = request.POST.get('deburring')
-        inspection = request.POST.get('inspection')
+        editAR = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        editAR.cla = request.POST.get('rate-cla')
+        editAR.bta = request.POST.get('rate-bta')
+        editAR.tma = request.POST.get('rate-tma')
+        editAR.mca3axis = request.POST.get('rate-mca3axis')
+        editAR.mca4axis = request.POST.get('rate-mca4axis')
+        editAR.hmc = request.POST.get('rate-hmc')
+        editAR.axis5 = request.POST.get('rate-5axis')
+        editAR.edm = request.POST.get('rate-edm')
+        editAR.grinding = request.POST.get('rate-grinding')
+        editAR.deburring = request.POST.get('rate-deburring')
+        editAR.inspection = request.POST.get('rate-inspection')
         editAR.save()
         return redirect('/part_table/'+tracker_no)
 
+def edit_sp_rate(request, tracker_no):
+    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
+    sp_rate = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+    context = {
+            'tracker_no': tracker_no,
+            'sp_rate': sp_rate
+    }
+    return render(request, 'rfqsite/edit_sp_rate.html', context)
 
+def edit_sp_rate_confirm(request):
+    if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        editSPR = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        editSPR.fpi = request.POST.get('rate-fpi')
+        editSPR.mpi = request.POST.get('rate-mpi')
+        editSPR.passivation = request.POST.get('rate-passivation')
+        editSPR.caa = request.POST.get('rate-caa')
+        editSPR.saa = request.POST.get('rate-saa')
+        editSPR.hard_anodizing = request.POST.get('rate-hard-anodizing')
+        editSPR.dfl = request.POST.get('rate-dfl')
+        editSPR.paint = request.POST.get('rate-paint')
+        editSPR.cadmium_plating = request.POST.get('rate-cadmium-plating')
+        editSPR.chrome_plating = request.POST.get('rate-chrome-plating')
+        editSPR.heat_treatment = request.POST.get('rate-heat-treatment')
+        editSPR.save()
+        return redirect('/part_table/'+tracker_no)
 
 
 
@@ -199,13 +225,6 @@ def edit_part_info(request):
     return render(request, 'rfqsite/edit_part_info.html', context)
 
 
-
-def edit_sp_rate(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_sp_rate.html', context)
 
 def edit_sps(request):
     projects = []
