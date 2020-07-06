@@ -991,12 +991,12 @@
 		var eau_year4 = parseFloat($( "#forecast-year4" ).text()) * parseFloat($( "#qty-per-unit" ).text());
 		var eau_year5 = parseFloat($( "#forecast-year5" ).text()) * parseFloat($( "#qty-per-unit" ).text());
 		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
-		$( "#eau-year1" ).text(eau_year1);
-		$( "#eau-year2" ).text(eau_year2);
-		$( "#eau-year3" ).text(eau_year3);
-		$( "#eau-year4" ).text(eau_year4);
-		$( "#eau-year5" ).text(eau_year5);
-		$( "#eau-total-year" ).text(eau_total_year);
+		$( "#eau-year1" ).text(eau_year1.toFixed(2));
+		$( "#eau-year2" ).text(eau_year2.toFixed(2));
+		$( "#eau-year3" ).text(eau_year3.toFixed(2));
+		$( "#eau-year4" ).text(eau_year4.toFixed(2));
+		$( "#eau-year5" ).text(eau_year5.toFixed(2));
+		$( "#eau-total-year" ).text(eau_total_year.toFixed(2));
 		// -- Material --
 		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
 		// Annual Raw Material Requirement = Total RM Weight * EAU
@@ -1005,11 +1005,11 @@
 		var armr_year3 = rm_total_weight * eau_year3;
 		var armr_year4 = rm_total_weight * eau_year4;
 		var armr_year5 = rm_total_weight * eau_year5;
-		$( "#armr-year1" ).text(armr_year1);
-		$( "#armr-year2" ).text(armr_year2);
-		$( "#armr-year3" ).text(armr_year3);
-		$( "#armr-year4" ).text(armr_year4);
-		$( "#armr-year5" ).text(armr_year5);
+		$( "#armr-year1" ).text(armr_year1.toFixed(2));
+		$( "#armr-year2" ).text(armr_year2.toFixed(2));
+		$( "#armr-year3" ).text(armr_year3.toFixed(2));
+		$( "#armr-year4" ).text(armr_year4.toFixed(2));
+		$( "#armr-year5" ).text(armr_year5.toFixed(2));
 		// Approximate Finished Part Weight Per Part = Total RM Weight * 0.4
 		// Approximate Raw Material Weight Per Part = Total RM Weight
 		// Total Raw Material Weight Per Year = Total RM Weight * (Total EAU / 5)
@@ -1023,7 +1023,7 @@
 		// --- Time ---
 		// * Production Qty = EAU year-3 / 4
 		var production_qty = eau_year3 / 4;
-		$( "#production-qty" ).text(production_qty);
+		$( "#production-qty" ).text(production_qty.toFixed(2));
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
 		var tctt_cla = (parseFloat($( "#msut-cla" ).text()) / production_qty) + (parseFloat($( "#ctpp-cla" ).text()));
 		var tctt_bta = (parseFloat($( "#msut-bta" ).text()) / production_qty) + (parseFloat($( "#ctpp-bta" ).text()));
@@ -1054,15 +1054,15 @@
 		var tctc_5axis = (parseFloat($( "#rate-5axis" ).text()) / 60) * tctt_5axis;
 		var tctc_edm = (parseFloat($( "#rate-edm" ).text()) / 60) * tctt_edm;
 		var tctc_grinding = (parseFloat($( "#rate-grinding" ).text()) / 60) * tctt_grinding;
-		$( "#tctc-cla" ).text("$" + tctc_cla.toFixed(2));
-		$( "#tctc-bta" ).text("$" + tctc_bta.toFixed(2));
-		$( "#tctc-tma" ).text("$" + tctc_tma.toFixed(2));
-		$( "#tctc-mca3axis" ).text("$" + tctc_mca3axis.toFixed(2));
-		$( "#tctc-mca4axis" ).text("$" + tctc_mca4axis.toFixed(2));
-		$( "#tctc-hmc" ).text("$" + tctc_hmc.toFixed(2));
-		$( "#tctc-5axis" ).text("$" + tctc_5axis.toFixed(2));
-		$( "#tctc-edm" ).text("$" + tctc_edm.toFixed(2));
-		$( "#tctc-grinding" ).text("$" + tctc_grinding.toFixed(2));
+		$( "#tctc-cla" ).text(dollar_sign(tctc_cla) + tctc_cla.toFixed(2));
+		$( "#tctc-bta" ).text(dollar_sign(tctc_bta) + tctc_bta.toFixed(2));
+		$( "#tctc-tma" ).text(dollar_sign(tctc_tma) + tctc_tma.toFixed(2));
+		$( "#tctc-mca3axis" ).text(dollar_sign(tctc_mca3axis) + tctc_mca3axis.toFixed(2));
+		$( "#tctc-mca4axis" ).text(dollar_sign(tctc_mca4axis) + tctc_mca4axis.toFixed(2));
+		$( "#tctc-hmc" ).text(dollar_sign(tctc_hmc) + tctc_hmc.toFixed(2));
+		$( "#tctc-5axis" ).text(dollar_sign(tctc_5axis) + tctc_5axis.toFixed(2));
+		$( "#tctc-edm" ).text(dollar_sign(tctc_edm) + tctc_edm.toFixed(2));
+		$( "#tctc-grinding" ).text(dollar_sign(tctc_grinding) + tctc_grinding.toFixed(2));
 		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
 		var spc_fpi = parseFloat($( "#rate-fpi" ).text()) * (1 / production_qty);
 		var spc_mpi = parseFloat($( "#rate-mpi" ).text()) * (1 / production_qty);
@@ -1076,62 +1076,62 @@
 		var spc_cadmium_plating = parseFloat($( "#rate-cadmium-plating" ).text()) * (1 / production_qty);
 		var spc_chrome_plating = parseFloat($( "#rate-chrome-plating" ).text()) * (1 / production_qty);
 		var spc_heat_treatment = parseFloat($( "#rate-heat-treatment" ).text()) * (1 / production_qty);
-		$( "#spc-fpi" ).text("$" + spc_fpi.toFixed(2));
-		$( "#spc-mpi" ).text("$" + spc_mpi.toFixed(2));
-		$( "#spc-passivation" ).text("$" + spc_passivation.toFixed(2));
-		$( "#spc-caa" ).text("$" + spc_caa.toFixed(2));
-		$( "#spc-saa" ).text("$" + spc_saa.toFixed(2));
-		$( "#spc-hard-anodizing" ).text("$" + spc_hard_anodizing.toFixed(2));
-		$( "#spc-ccc" ).text("$" + spc_ccc.toFixed(2));
-		$( "#spc-dfl" ).text("$" + spc_dfl.toFixed(2));
-		$( "#spc-paint" ).text("$" + spc_paint.toFixed(2));
-		$( "#spc-cadmium-plating" ).text("$" + spc_cadmium_plating.toFixed(2));
-		$( "#spc-chrome-plating" ).text("$" + spc_chrome_plating.toFixed(2));
-		$( "#spc-heat-treatment" ).text("$" + spc_heat_treatment.toFixed(2));
+		$( "#spc-fpi" ).text(dollar_sign(spc_fpi) + spc_fpi.toFixed(2));
+		$( "#spc-mpi" ).text(dollar_sign(spc_mpi) + spc_mpi.toFixed(2));
+		$( "#spc-passivation" ).text(dollar_sign(spc_passivation) + spc_passivation.toFixed(2));
+		$( "#spc-caa" ).text(dollar_sign(spc_caa) + spc_caa.toFixed(2));
+		$( "#spc-saa" ).text(dollar_sign(spc_saa) + spc_saa.toFixed(2));
+		$( "#spc-hard-anodizing" ).text(dollar_sign(spc_hard_anodizing) + spc_hard_anodizing.toFixed(2));
+		$( "#spc-ccc" ).text(dollar_sign(spc_ccc) + spc_ccc.toFixed(2));
+		$( "#spc-dfl" ).text(dollar_sign(spc_dfl) + spc_dfl.toFixed(2));
+		$( "#spc-paint" ).text(dollar_sign(spc_paint) + spc_paint.toFixed(2));
+		$( "#spc-cadmium-plating" ).text(dollar_sign(spc_cadmium_plating) + spc_cadmium_plating.toFixed(2));
+		$( "#spc-chrome-plating" ).text(dollar_sign(spc_chrome_plating) + spc_chrome_plating.toFixed(2));
+		$( "#spc-heat-treatment" ).text(dollar_sign(spc_heat_treatment) + spc_heat_treatment.toFixed(2));
 		// -- 1S --
 		// X Cycle Cost (Dollar) = (Active Rate / 60) + Cycle Time Per Part
 		var inspection_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-inspection" ).text());
 		var deburring_cost = (parseFloat($( "#rate-deburring" ).text()) / 60) * parseFloat($( "#ctpp-deburring" ).text());
 		var assembly_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-assembly" ).text());
 		var lapping_cost = (parseFloat($( "#rate-deburring" ).text()) / 60) * parseFloat($( "#ctpp-lapping" ).text());
-		$( "#inspection-cost" ).text("$" + inspection_cost.toFixed(2));
-		$( "#deburring-cost" ).text("$" + deburring_cost.toFixed(2));
-		$( "#assembly-cost" ).text("$" + assembly_cost.toFixed(2));
-		$( "#lapping-cost" ).text("$" + lapping_cost.toFixed(2));
+		$( "#inspection-cost" ).text(dollar_sign(inspection_cost) + inspection_cost.toFixed(2));
+		$( "#deburring-cost" ).text(dollar_sign(deburring_cost) + deburring_cost.toFixed(2));
+		$( "#assembly-cost" ).text(dollar_sign(assembly_cost) + assembly_cost.toFixed(2));
+		$( "#lapping-cost" ).text(dollar_sign(lapping_cost) + lapping_cost.toFixed(2));
 		// Hardware Cost = 3.5 * Qty per unit * 1.3
 		var hardware_cost = 3.5 * parseFloat($( "#qty-per-unit" ).text()) * 1.3;
-		$( "#hardware-cost" ).text("$" + hardware_cost.toFixed(2));
+		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + hardware_cost.toFixed(2));
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * 1.12
 		var base_material_price = parseFloat($( "#base-material-price" ).text().replace('$','')); // Remove $ sign
 		var material_cost = (base_material_price + parseFloat($( "#material-shipping-cost" ).text())) * parseFloat($( "#armwpp" ).text()) * 1.12;
-		$( "#material-cost" ).text("$" + material_cost.toFixed(2));
+		$( "#material-cost" ).text(dollar_sign(material_cost) + material_cost.toFixed(2));
 		// Total Hardware Cost = Hardware Cost
 		var total_hardware_cost = hardware_cost;
-		$( "#total-hardware-cost" ).text("$" + total_hardware_cost.toFixed(2));
+		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + total_hardware_cost.toFixed(2));
 		// Surface Treatment Cost = SUM(Special Process Cost)
 		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint + spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
-		$( "#surface-treatment-cost" ).text("$" + surface_treatment_cost.toFixed(2));
+		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + surface_treatment_cost.toFixed(2));
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
 		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text().replace('$','')); // Remove $ sign
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
 		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
-		$( "#manufacturing-cost" ).text("$" + manufacturing_cost.toFixed(2));
+		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + manufacturing_cost.toFixed(2));
 		// -- 2S --
 		// Additional MFG OH Factor = Manufacturing Cost * 0.1;
 		var additional_mfg = manufacturing_cost * 0.1;
-		$( "#additional-mfg" ).text("$" + additional_mfg.toFixed(2));
+		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + additional_mfg.toFixed(2));
 		// Profit Factor = Manufacturing Cost * 0.1;
 		var profit_factor = manufacturing_cost * 0.1;
-		$( "#profit-factor" ).text("$" + profit_factor.toFixed(2));
+		$( "#profit-factor" ).text(dollar_sign(profit_factor) + profit_factor.toFixed(2));
 		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
-		$( "#total-manufacturing-cost" ).text("$" + total_manufacturing_cost.toFixed(2));
+		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + total_manufacturing_cost.toFixed(2));
 		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Total Hardware Cost
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + total_hardware_cost;
-		$( "#ccs-ewp" ).text("$" + ccs_ewp.toFixed(2));
+		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + ccs_ewp.toFixed(2));
 		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child (ONLY FOR MOTHER)	*****************************
 		var ccs_ppp = ccs_ewp;
-		$( "#ccs-ppp" ).text("$" + ccs_ppp.toFixed(2));
+		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
 		// -- 3S --
 		// * EBQ_CCS QTY (Prodn Lot) = EAU year-3 / 4
 		var ebq_ccs_qty = eau_year3 / 4;
@@ -1150,16 +1150,16 @@
 		var otrmac = parseFloat($( "#otrmac" ).text().replace('$','')); // Remove $ sign
 		var ottc = parseFloat($( "#ottc" ).text().replace('$','')); // Remove $ sign
 		var total_nre_cost = otspsuc + otrmac	+ ottc;
-		$( "#total-nre-cost" ).text("$" + total_nre_cost.toFixed(2));
+		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
 		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
 		var total_cost = ccs_ppp * eau_total_year;
-		$( "#total-cost" ).text("$" + total_cost.toFixed(2));
+		$( "#total-cost" ).text(dollar_sign(total_cost) + total_cost.toFixed(2));
 		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
 		var mtl_cost = material_cost * eau_total_year;
-		$( "#mtl-cost" ).text("$" + mtl_cost.toFixed(2));
+		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + mtl_cost.toFixed(2));
 		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
 		var spl_process_cost = surface_treatment_cost * eau_total_year;
-		 $( "#spl-process-cost" ).text("$" + spl_process_cost.toFixed(2));
+		 $( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + spl_process_cost.toFixed(2));
 		// -- Machining Capacity Required for the Project --
 		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
 		var mcrftp_cla = tctt_cla * eau_total_year;
@@ -1180,6 +1180,11 @@
 		$( "#mcrftp-5axis" ).text(mcrftp_5axis.toFixed(2));
 		$( "#mcrftp-edm" ).text(mcrftp_edm.toFixed(2));
 		$( "#mcrftp-grinding" ).text(mcrftp_grinding.toFixed(2));
+	}
+
+	function dollar_sign(value){
+		if(isNaN(value)) return "";
+		return "$";
 	}
 	</script>
 
