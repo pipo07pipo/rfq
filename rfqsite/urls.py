@@ -9,7 +9,7 @@ urlpatterns = [
     path('edit_rfq/<int:tracker_no>/', views.edit_rfq, name='projects'),
     path('edit_rfq_confirm/', views.edit_rfq_confirm, name='projects'),
     path('edit_active_rate/<int:tracker_no>/', views.edit_active_rate, name='projects'),
-    path('edit_active_rate_confirm/', views.edit_active_rate, name='projects'),
+    path('edit_active_rate_confirm/', views.edit_active_rate_confirm, name='projects'),
     ###
     path('add_child/', views.add_child, name='projects'),
     path('edit_ctpp/', views.edit_ctpp, name='projects'),
