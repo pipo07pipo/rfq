@@ -277,18 +277,30 @@
 													<thead>
 													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size</th>
 														<tr>
-															<th class="center custom2">Density</th>
+															<th class="center custom2">
+																Density {% if material.density %}({{ material.density_unit }}){% endif %}
+															</th>
 															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
-													    <th class="center custom2">Outter Diameter</th>
+													    <th class="center custom2">
+																Outter Diameter {% if material.rm_d1 %}({{ material.rm_d1_unit }}){% endif %}
+															</th>
 															{% endif %}
 															{% if material.cross_section == 'Tube Shape' %}
-															<th class="center custom2">Inner Diameter</th>
+															<th class="center custom2">
+																Inner Diameter {% if material.rm_d2 %}({{ material.rm_d2_unit }}){% endif %}
+															</th>
 															{% endif %}
 															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
-													    <th class="center custom2">Thickness</th>
-													    <th class="center custom2">Width</th>
+													    <th class="center custom2">
+																Thickness {% if material.rm_t %}({{ material.rm_t_unit }}){% endif %}
+															</th>
+													    <th class="center custom2">
+																Width {% if material.rm_w %}({{ material.rm_w_unit }}){% endif %}
+															</th>
 															{% endif %}
-													    <th class="center custom2">Length</th>
+													    <th class="center custom2">
+																Length {% if material.rm_l %}({{ material.rm_l_unit }}){% endif %}
+															</th>
 															<th class="center custom2">RM Weight (kg)</th>
 													  </tr>
 													</thead>
