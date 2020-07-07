@@ -236,9 +236,38 @@ def edit_forecast_confirm(request):
         editForecast.save()
     return redirect('/part_info/'+sl_no)
 
+def edit_ctpp(request, sl_no):
+    ctpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'ctpp': ctpp
+    }
+    return render(request, 'rfqsite/edit_ctpp.html', context)
 
+def to_float(s):
+    s = s.strip()
+    return float(s) if s else None
 
-
+def edit_ctpp_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editCtpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editCtpp.cla = to_float(request.POST.get('ctpp-cla'))
+        editCtpp.bta = to_float(request.POST.get('ctpp-bta'))
+        editCtpp.tma = to_float(request.POST.get('ctpp-tma'))
+        editCtpp.mca3axis = to_float(request.POST.get('ctpp-mca3axis'))
+        editCtpp.mca4axis = to_float(request.POST.get('ctpp-mca4axis'))
+        editCtpp.hmc = to_float(request.POST.get('ctpp-hmc'))
+        editCtpp.axis5 = to_float(request.POST.get('ctpp-5axis'))
+        editCtpp.edm = to_float(request.POST.get('ctpp-edm'))
+        editCtpp.grinding = to_float(request.POST.get('ctpp-grinding'))
+        editCtpp.inspection = to_float(request.POST.get('ctpp-inspection'))
+        editCtpp.deburring = to_float(request.POST.get('ctpp-deburring'))
+        editCtpp.assembly = to_float(request.POST.get('ctpp-assembly'))
+        editCtpp.lapping = to_float(request.POST.get('ctpp-lapping'))
+        editCtpp.save()
+    return redirect('/part_info/'+sl_no)
 
 
 
@@ -271,12 +300,7 @@ def add_child(request):
     }
     return render(request, 'rfqsite/add_child.html', context)
 
-def edit_ctpp(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_ctpp.html', context)
+
 
 
 
