@@ -214,9 +214,27 @@ def edit_part_info_confirm(request):
             editPart.save()
     return redirect('/part_info/'+str(sl_no))
 
+def edit_forecast(request, sl_no):
+    forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'forecast': forecast
+    }
+    return render(request, 'rfqsite/edit_forecast.html', context)
 
-
-
+def edit_forecast_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editForecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editForecast.qty_per_unit = request.POST.get('qty-per-unit')
+        editForecast.forecast_year1 = request.POST.get('forecast-year1')
+        editForecast.forecast_year2 = request.POST.get('forecast-year2')
+        editForecast.forecast_year3 = request.POST.get('forecast-year3')
+        editForecast.forecast_year4 = request.POST.get('forecast-year4')
+        editForecast.forecast_year5 = request.POST.get('forecast-year5')
+        editForecast.save()
+    return redirect('/part_info/'+sl_no)
 
 
 
@@ -260,12 +278,7 @@ def edit_ctpp(request):
     }
     return render(request, 'rfqsite/edit_ctpp.html', context)
 
-def edit_forecast(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_forecast.html', context)
+
 
 def edit_material(request):
     projects = []
@@ -298,10 +311,3 @@ def edit_sps(request):
         'projects': projects
     }
     return render(request, 'rfqsite/edit_sps.html', context)
-
-def part_table(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/part_table.html', context)

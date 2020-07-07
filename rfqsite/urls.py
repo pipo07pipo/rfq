@@ -15,10 +15,12 @@ urlpatterns = [
     path('part_info/<int:sl_no>/', views.part_info, name='projects'),
     path('edit_part_info/<int:sl_no>/', views.edit_part_info, name='projects'),
     path('edit_part_info_confirm/', views.edit_part_info_confirm, name='projects'),
+    path('edit_forecast/<int:sl_no>/', views.edit_forecast, name='projects'),
+    path('edit_forecast_confirm/', views.edit_forecast_confirm, name='projects'),
     ###
     path('add_child/', views.add_child, name='projects'),
     path('edit_ctpp/', views.edit_ctpp, name='projects'),
-    path('edit_forecast/', views.edit_forecast, name='projects'),
+
     path('edit_material/', views.edit_material, name='projects'),
     path('edit_msut/', views.edit_msut, name='projects'),
     path('edit_part_costing/', views.edit_part_costing, name='projects'),
