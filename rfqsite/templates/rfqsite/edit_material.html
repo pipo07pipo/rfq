@@ -82,9 +82,9 @@
 											<label class="col-sm-4 control-label"><b>Cross Section</b></label>
 											<div class="col-md-3">
 													<select class="form-control input-md" id="cross-section">
-														<option value="Round Bar Shape">Round Bar Shape</option>
-														<option value="Tube Shape">Tube Shape</option>
-														<option value="Flat Bar / Plate / Sheet">Flat Bar / Plate / Sheet</option>
+														<option value="Round Bar Shape" {% if material.cross_section == "Round Bar Shape" %}selected{% endif %}>Round Bar Shape</option>
+														<option value="Tube Shape" {% if material.cross_section == "Tube Shape" %}selected{% endif %}>Tube Shape</option>
+														<option value="Flat Bar / Plate / Sheet" {% if material.cross_section == "Flat Bar / Plate / Sheet" %}selected{% endif %}>Flat Bar / Plate / Sheet</option>
 													</select>
 											</div>
 										</div>
@@ -92,33 +92,33 @@
 											<label class="col-sm-4 control-label"><b>Material Type</b></label>
 											<div class="col-sm-3">
 												<select class="form-control input-md" id="type">
-													<option value="Optional">(Optional)</option>
+													<option value="Optional" {% if material.type == "Optional" %}selected{% endif %}>(Optional)</option>
 													<optgroup label="Metals">
-														<option value="Aluminum">Aluminum</option>
-														<option value="Beryllium">Beryllium</option>
-														<option value="Copper">Copper</option>
-														<option value="Gold">Gold</option>
-														<option value="Lead">Lead</option>
-														<option value="Magnesium">Magnesium</option>
-														<option value="Nickle-Cobalt Alloys">Nickle-Cobalt Alloys</option>
-														<option value="Steel">Steel</option>
-														<option value="Tantalum">Tantalum</option>
-														<option value="Titanium">Titanium</option>
-														<option value="Tungsten">Tungsten</option>
-														<option value="Zinc">Zinc</option>
-														<option value="Zirconium">Zirconium</option>
+														<option value="Aluminum" {% if material.type == "Aluminum" %}selected{% endif %}>Aluminum</option>
+														<option value="Beryllium" {% if material.type == "Beryllium" %}selected{% endif %}>Beryllium</option>
+														<option value="Copper" {% if material.type == "Copper" %}selected{% endif %}>Copper</option>
+														<option value="Gold" {% if material.type == "Gold" %}selected{% endif %}>Gold</option>
+														<option value="Lead" {% if material.type == "Lead" %}selected{% endif %}>Lead</option>
+														<option value="Magnesium" {% if material.type == "Magnesium" %}selected{% endif %}>Magnesium</option>
+														<option value="Nickle-Cobalt Alloys" {% if material.type == "Nickle-Cobalt Alloys" %}selected{% endif %}>Nickle-Cobalt Alloys</option>
+														<option value="Steel" {% if material.type == "Steel" %}selected{% endif %}>Steel</option>
+														<option value="Tantalum" {% if material.type == "Tantalum" %}selected{% endif %}>Tantalum</option>
+														<option value="Titanium" {% if material.type == "Titanium" %}selected{% endif %}>Titanium</option>
+														<option value="Tungsten" {% if material.type == "Tungsten" %}selected{% endif %}>Tungsten</option>
+														<option value="Zinc" {% if material.type == "Zinc" %}selected{% endif %}>Zinc</option>
+														<option value="Zirconium" {% if material.type == "Zirconium" %}selected{% endif %}>Zirconium</option>
 													</optgroup>
 													<optgroup label="Polymers">
-														<option value="ABS">ABS</option>
-														<option value="Nylon">Nylon</option>
-														<option value="Polycarbonate">Polycarbonate</option>
-														<option value="Polyethylene">Polyethylene</option>
-														<option value="Polypropylene">Polypropylene</option>
+														<option value="ABS" {% if material.type == "ABS" %}selected{% endif %}>ABS</option>
+														<option value="Nylon" {% if material.type == "Nylon" %}selected{% endif %}>Nylon</option>
+														<option value="Polycarbonate" {% if material.type == "Polycarbonate" %}selected{% endif %}>Polycarbonate</option>
+														<option value="Polyethylene" {% if material.type == "Polyethylene" %}selected{% endif %}>Polyethylene</option>
+														<option value="Polypropylene" {% if material.type == "Polypropylene" %}selected{% endif %}>Polypropylene</option>
 													</optgroup>
 													<optgroup label="Ceramics">
-														<option value="Alumina (Al2O3)">Alumina (Al2O3)</option>
-														<option value="Silica Glass (SiO2)">Silica Glass (SiO2)</option>
-														<option value="Zirconia (ZrO2)">Zirconia (ZrO2)</option>
+														<option value="Alumina (Al2O3)" {% if material.type == "Alumina (Al2O3)" %}selected{% endif %}>Alumina (Al2O3)</option>
+														<option value="Silica Glass (SiO2)" {% if material.type == "Silica Glass (SiO2)" %}selected{% endif %}>Silica Glass (SiO2)</option>
+														<option value="Zirconia (ZrO2)" {% if material.type == "Zirconia (ZrO2)" %}selected{% endif %}>Zirconia (ZrO2)</option>
 													</optgroup>
 												</select>
 											</div>
@@ -130,10 +130,10 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="density-unit">
-													<option value="g/cc">g/cc</option>
-													<option value="lb/in³" disabled>lb/in³</option>
-													<option value="lb/ft³" disabled>lb/ft³</option>
-													<option value="kg/m³" disabled>kg/m³</option>
+													<option value="g/cc" {% if material.rm_density_unit == "g/cc" %}selected{% endif %}>g/cc</option>
+													<option value="lb/in³" {% if material.rm_density_unit == "lb/in³" %}selected{% endif %} disabled>lb/in³</option>
+													<option value="lb/ft³" {% if material.rm_density_unit == "lb/ft³" %}selected{% endif %} disabled>lb/ft³</option>
+													<option value="kg/m³" {% if material.rm_density_unit == "kg/m³" %}selected{% endif %} disabled>kg/m³</option>
 												</select>
 											</div>
 										</div>
@@ -150,12 +150,12 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-d1-unit">
-													<option value="mm">mm</option>
-													<option value="cm">cm</option>
-													<option value="m">m</option>
-													<option value="in">in</option>
-													<option value="ft">ft</option>
-													<option value="yd">yd</option>
+													<option value="mm" {% if material.rm_d1_unit == "mm" %}selected{% endif %}>mm</option>
+													<option value="cm" {% if material.rm_d1_unit == "cm" %}selected{% endif %}>cm</option>
+													<option value="m" {% if material.rm_d1_unit == "m" %}selected{% endif %}>m</option>
+													<option value="in" {% if material.rm_d1_unit == "in" %}selected{% endif %}>in</option>
+													<option value="ft" {% if material.rm_d1_unit == "ft" %}selected{% endif %}>ft</option>
+													<option value="yd" {% if material.rm_d1_unit == "yd" %}selected{% endif %}>yd</option>
 												</select>
 											</div>
 										</div>
@@ -166,12 +166,12 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-d2-unit">
-													<option value="mm">mm</option>
-													<option value="cm">cm</option>
-													<option value="m">m</option>
-													<option value="in">in</option>
-													<option value="ft">ft</option>
-													<option value="yd">yd</option>
+													<option value="mm" {% if material.rm_d2_unit == "mm" %}selected{% endif %}>mm</option>
+													<option value="cm" {% if material.rm_d2_unit == "cm" %}selected{% endif %}>cm</option>
+													<option value="m" {% if material.rm_d2_unit == "m" %}selected{% endif %}>m</option>
+													<option value="in" {% if material.rm_d2_unit == "in" %}selected{% endif %}>in</option>
+													<option value="ft" {% if material.rm_d2_unit == "ft" %}selected{% endif %}>ft</option>
+													<option value="yd" {% if material.rm_d2_unit == "yd" %}selected{% endif %}>yd</option>
 												</select>
 											</div>
 										</div>
@@ -182,12 +182,12 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-t-unit">
-													<option value="mm">mm</option>
-													<option value="cm">cm</option>
-													<option value="m">m</option>
-													<option value="in">in</option>
-													<option value="ft">ft</option>
-													<option value="yd">yd</option>
+													<option value="mm" {% if material.rm_t_unit == "mm" %}selected{% endif %}>mm</option>
+													<option value="cm" {% if material.rm_t_unit == "cm" %}selected{% endif %}>cm</option>
+													<option value="m" {% if material.rm_t_unit == "m" %}selected{% endif %}>m</option>
+													<option value="in" {% if material.rm_t_unit == "in" %}selected{% endif %}>in</option>
+													<option value="ft" {% if material.rm_t_unit == "ft" %}selected{% endif %}>ft</option>
+													<option value="yd" {% if material.rm_t_unit == "yd" %}selected{% endif %}>yd</option>
 												</select>
 											</div>
 										</div>
@@ -198,12 +198,12 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-w-unit">
-													<option value="mm">mm</option>
-													<option value="cm">cm</option>
-													<option value="m">m</option>
-													<option value="in">in</option>
-													<option value="ft">ft</option>
-													<option value="yd">yd</option>
+													<option value="mm" {% if material.rm_w_unit == "mm" %}selected{% endif %}>mm</option>
+													<option value="cm" {% if material.rm_w_unit == "cm" %}selected{% endif %}>cm</option>
+													<option value="m" {% if material.rm_w_unit == "m" %}selected{% endif %}>m</option>
+													<option value="in" {% if material.rm_w_unit == "in" %}selected{% endif %}>in</option>
+													<option value="ft" {% if material.rm_w_unit == "ft" %}selected{% endif %}>ft</option>
+													<option value="yd" {% if material.rm_w_unit == "yd" %}selected{% endif %}>yd</option>
 												</select>
 											</div>
 										</div>
@@ -214,12 +214,12 @@
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-l-unit">
-													<option value="mm">mm</option>
-													<option value="cm">cm</option>
-													<option value="m">m</option>
-													<option value="in">in</option>
-													<option value="ft">ft</option>
-													<option value="yd">yd</option>
+													<option value="mm" {% if material.rm_l_unit == "mm" %}selected{% endif %}>mm</option>
+													<option value="cm" {% if material.rm_l_unit == "cm" %}selected{% endif %}>cm</option>
+													<option value="m" {% if material.rm_l_unit == "m" %}selected{% endif %}>m</option>
+													<option value="in" {% if material.rm_l_unit == "in" %}selected{% endif %}>in</option>
+													<option value="ft" {% if material.rm_l_unit == "ft" %}selected{% endif %}>ft</option>
+													<option value="yd" {% if material.rm_l_unit == "yd" %}selected{% endif %}>yd</option>
 												</select>
 											</div>
 										</div>
