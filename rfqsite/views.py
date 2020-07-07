@@ -31,7 +31,7 @@ def rfq_table(request):
 
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
     context = {
         'project': project,
         'parts': parts
