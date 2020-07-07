@@ -385,25 +385,29 @@ def add_child_confirm(request):
         newPart_Costing.save()
         return redirect('/part_table/'+tracker_no)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def edit_material(request):
-    projects = []
+def edit_material(request, sl_no):
+    material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
     context = {
-        'projects': projects
+        'part': part,
+        'material': material
     }
     return render(request, 'rfqsite/edit_material.html', context)
+
+def edit_material_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        type = request.POST.get('cross-section')
+        editmat.description = request.POST.get('description')
+        editmat.cross_section = request.POST.get('cross-section')
+        editmat.type = request.POST.get('type')
+        editmat.quantity = to_float(request.POST.get('quantity'))
+        print(request.POST)
+        if(type == "Round Bar Shape"):
+            pass
+        elif(type == "Tube Shape"):
+            pass
+        elif(type == "Flat Bar / Plate / Sheet"):
+            pass
+    return redirect('/part_info/'+sl_no)

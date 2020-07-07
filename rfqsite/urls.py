@@ -27,12 +27,7 @@ urlpatterns = [
     path('edit_part_costing_confirm/', views.edit_part_costing_confirm, name='projects'),
     path('add_child/<int:sl_no>/', views.add_child, name='projects'),
     path('add_child_confirm/', views.add_child_confirm, name='projects'),
-    ###
-    path('edit_material/', views.edit_material, name='projects'),
-
-
-
-
-
+    path('edit_material/<int:sl_no>/', views.edit_material, name='projects'),
+    path('edit_material_confirm/', views.edit_material_confirm, name='projects'),
 
 ]

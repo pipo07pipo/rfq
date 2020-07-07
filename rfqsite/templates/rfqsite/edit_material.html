@@ -82,7 +82,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Cross Section</b></label>
 											<div class="col-md-3">
-													<select class="form-control input-md" id="cross-section">
+													<select class="form-control input-md" id="cross-section" name="cross-section">
 														<option value="Round Bar Shape" {% if material.cross_section == "Round Bar Shape" %}selected{% endif %}>Round Bar Shape</option>
 														<option value="Tube Shape" {% if material.cross_section == "Tube Shape" %}selected{% endif %}>Tube Shape</option>
 														<option value="Flat Bar / Plate / Sheet" {% if material.cross_section == "Flat Bar / Plate / Sheet" %}selected{% endif %}>Flat Bar / Plate / Sheet</option>
@@ -92,7 +92,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Type</b></label>
 											<div class="col-sm-3">
-												<select class="form-control input-md" id="type">
+												<select class="form-control input-md" id="type" name="type">
 													<option value="Optional" {% if material.type == "Optional" %}selected{% endif %}>(Optional)</option>
 													<optgroup label="Metals">
 														<option value="Aluminum" {% if material.type == "Aluminum" %}selected{% endif %}>Aluminum</option>
