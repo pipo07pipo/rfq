@@ -31,7 +31,7 @@ def rfq_table(request):
 
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
     context = {
         'project': project,
         'parts': parts
@@ -361,13 +361,16 @@ def add_child(request, sl_no):
 
 def add_child_confirm(request):
     if request.method == 'POST':
+        sl_no = request.POST.get('sl-no')
         tracker_no = request.POST.get('tracker-no')
+        parent_sl_no = request.POST.get('parent-sl-no')
         part_level = request.POST.get('part-level')
         part_no = request.POST.get('part-no')
         part_name = request.POST.get('part-name')
         program = request.POST.get('program')
-        newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
-        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+        fco = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program, parent_sl_no=Part_Header.objects.get(pk=sl_no))
+        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now(), forecast_year1=fco.forecast_year1, forecast_year2=fco.forecast_year2, forecast_year3=fco.forecast_year3, forecast_year4=fco.forecast_year4, forecast_year5=fco.forecast_year5)
         newSPS = SPS(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
         newMSUT = MSUT(sl_no=newPart)
