@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -29,5 +31,5 @@ urlpatterns = [
     path('add_child_confirm/', views.add_child_confirm, name='projects'),
     path('edit_material/<int:sl_no>/', views.edit_material, name='projects'),
     path('edit_material_confirm/', views.edit_material_confirm, name='projects'),
-
-]
+    path('edit_material_remove/<int:sl_no>/', views.edit_material_remove, name='projects'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -31,7 +31,7 @@ def rfq_table(request):
 
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
     context = {
         'project': project,
         'parts': parts
@@ -394,20 +394,66 @@ def edit_material(request, sl_no):
     }
     return render(request, 'rfqsite/edit_material.html', context)
 
+def clean_material(material):
+    material.description = None
+    material.cross_section = None
+    material.type = None
+    material.quantity = 1
+    material.rm_density = None
+    material.rm_density_unit = None
+    material.rm_d1 = None
+    material.rm_d1_unit = None
+    material.rm_d2 = None
+    material.rm_d2_unit = None
+    material.rm_t = None
+    material.rm_t_unit = None
+    material.rm_w = None
+    material.rm_w_unit = None
+    material.rm_l = None
+    material.rm_l_unit = None
+    material.rm_total_weight = None
+    material.save()
+
 def edit_material_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         editmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        clean_material(editmat)
         type = request.POST.get('cross-section')
         editmat.description = request.POST.get('description')
         editmat.cross_section = request.POST.get('cross-section')
         editmat.type = request.POST.get('type')
         editmat.quantity = to_float(request.POST.get('quantity'))
-        print(request.POST)
+        editmat.rm_density = to_float(request.POST.get('density'))
+        editmat.rm_density_unit = request.POST.get('density-unit')
         if(type == "Round Bar Shape"):
-            pass
+            #D1,L
+            editmat.rm_d1 = to_float(request.POST.get('rm-d1'))
+            editmat.rm_d1_unit = request.POST.get('rm-d1-unit')
+            editmat.rm_l = to_float(request.POST.get('rm-l'))
+            editmat.rm_l_unit = request.POST.get('rm-l-unit')
         elif(type == "Tube Shape"):
-            pass
+            #D1,D2,L
+            editmat.rm_d1 = to_float(request.POST.get('rm-d1'))
+            editmat.rm_d1_unit = request.POST.get('rm-d1-unit')
+            editmat.rm_d2 = to_float(request.POST.get('rm-d2'))
+            editmat.rm_d2_unit = request.POST.get('rm-d2-unit')
+            editmat.rm_l = to_float(request.POST.get('rm-l'))
+            editmat.rm_l_unit = request.POST.get('rm-l-unit')
         elif(type == "Flat Bar / Plate / Sheet"):
-            pass
+            #T,W,L
+            editmat.rm_t = to_float(request.POST.get('rm-t'))
+            editmat.rm_t_unit = request.POST.get('rm-t-unit')
+            editmat.rm_w = to_float(request.POST.get('rm-w'))
+            editmat.rm_w_unit = request.POST.get('rm-w-unit')
+            editmat.rm_l = to_float(request.POST.get('rm-l'))
+            editmat.rm_l_unit = request.POST.get('rm-l-unit')
+        editmat.rm_total_weight = request.POST.get('rm-total-weight')
+        editmat.save()
     return redirect('/part_info/'+sl_no)
+
+def edit_material_remove(request, sl_no):
+    delmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    clean_material(delmat)
+    delmat.save()
+    return redirect('/part_info/'+str(sl_no))
