@@ -269,36 +269,130 @@ def edit_ctpp_confirm(request):
         editCtpp.save()
     return redirect('/part_info/'+sl_no)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def add_child(request):
-    project = []
+def edit_sps(request, sl_no):
+    sps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
     context = {
-        'project': project
+        'part': part,
+        'sps': sps
+    }
+    return render(request, 'rfqsite/edit_sps.html', context)
+
+def edit_sps_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editsps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editsps.surface_treatment = request.POST.get('sps-surface-treatment')
+        editsps.ht = request.POST.get('sps-ht')
+        editsps.fpi = request.POST.get('sps-fpi')
+        editsps.mpi = request.POST.get('sps-mpi')
+        editsps.primer = request.POST.get('sps-primer')
+        editsps.solid_film = request.POST.get('sps-solid-film')
+        editsps.pmr = request.POST.get('sps-pmr')
+        editsps.save()
+    return redirect('/part_info/'+sl_no)
+
+def edit_msut(request, sl_no):
+    msut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'msut': msut
+    }
+    return render(request, 'rfqsite/edit_msut.html', context)
+
+def edit_msut_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editmsut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editmsut.cla = to_float(request.POST.get('msut-cla'))
+        editmsut.bta = to_float(request.POST.get('msut-bta'))
+        editmsut.tma = to_float(request.POST.get('msut-tma'))
+        editmsut.mca3axis = to_float(request.POST.get('msut-mca3axis'))
+        editmsut.mca4axis = to_float(request.POST.get('msut-mca4axis'))
+        editmsut.hmc = to_float(request.POST.get('msut-hmc'))
+        editmsut.axis5 = to_float(request.POST.get('msut-5axis'))
+        editmsut.edm = to_float(request.POST.get('msut-edm'))
+        editmsut.grinding = to_float(request.POST.get('msut-grinding'))
+        editmsut.save()
+    return redirect('/part_info/'+sl_no)
+
+
+def edit_part_costing(request, sl_no):
+    part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'part_costing': part_costing
+    }
+    return render(request, 'rfqsite/edit_part_costing.html', context)
+
+def edit_part_costing_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editpc.base_material_price = to_float(request.POST.get('base-material-price'))
+        editpc.material_shipping_cost = to_float(request.POST.get('material-shipping-cost'))
+        editpc.nre_amortizing_cost = to_float(request.POST.get('nre-amortizing-cost'))
+        editpc.target_price = to_float(request.POST.get('target-price'))
+        editpc.ebq_customer_qty = to_float(request.POST.get('ebq-customer-qty'))
+        editpc.otspsuc = to_float(request.POST.get('otspsuc'))
+        editpc.otrmac = to_float(request.POST.get('otrmac'))
+        editpc.ottc = to_float(request.POST.get('ottc'))
+        editpc.hardware_supplier = request.POST.get('hardware-supplier')
+        editpc.material_supplier = request.POST.get('material-supplier')
+        editpc.ccs_quote_assumptions = request.POST.get('ccs-quote-assumptions')
+        editpc.dltiw_fai = request.POST.get('dltiw-fai')
+        editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
+        editpc.dltiw_production = request.POST.get('dltiw-production')
+        editpc.save()
+    return redirect('/part_info/'+sl_no)
+
+def add_child(request, sl_no):
+    part = Part_Header.objects.get(pk=sl_no)
+    project = part.tracker_no
+    child_level = part.level + 1
+    context = {
+            'project': project,
+            'part': part,
+            'child_level': child_level
     }
     return render(request, 'rfqsite/add_child.html', context)
+
+def add_child_confirm(request):
+    if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        part_level = request.POST.get('part-level')
+        part_no = request.POST.get('part-no')
+        part_name = request.POST.get('part-name')
+        program = request.POST.get('program')
+        newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
+        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+        newSPS = SPS(sl_no=newPart)
+        newMaterial = Material(sl_no=newPart)
+        newMSUT = MSUT(sl_no=newPart)
+        newCTPP = CTPP(sl_no=newPart)
+        newPart_Costing = Part_Costing(sl_no=newPart)
+        newPart.save()
+        newForecast.save()
+        newSPS.save()
+        newMaterial.save()
+        newMSUT.save()
+        newCTPP.save()
+        newPart_Costing.save()
+        return redirect('/part_table/'+tracker_no)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -310,28 +404,3 @@ def edit_material(request):
         'projects': projects
     }
     return render(request, 'rfqsite/edit_material.html', context)
-
-def edit_msut(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_msut.html', context)
-
-def edit_part_costing(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_part_costing.html', context)
-
-
-
-
-
-def edit_sps(request):
-    projects = []
-    context = {
-        'projects': projects
-    }
-    return render(request, 'rfqsite/edit_sps.html', context)

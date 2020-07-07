@@ -19,13 +19,19 @@ urlpatterns = [
     path('edit_forecast_confirm/', views.edit_forecast_confirm, name='projects'),
     path('edit_ctpp/<int:sl_no>/', views.edit_ctpp, name='projects'),
     path('edit_ctpp_confirm/', views.edit_ctpp_confirm, name='projects'),
+    path('edit_sps/<int:sl_no>/', views.edit_sps, name='projects'),
+    path('edit_sps_confirm/', views.edit_sps_confirm, name='projects'),
+    path('edit_msut/<int:sl_no>/', views.edit_msut, name='projects'),
+    path('edit_msut_confirm/', views.edit_msut_confirm, name='projects'),
+    path('edit_part_costing/<int:sl_no>/', views.edit_part_costing, name='projects'),
+    path('edit_part_costing_confirm/', views.edit_part_costing_confirm, name='projects'),
+    path('add_child/<int:sl_no>/', views.add_child, name='projects'),
     ###
-    path('add_child/', views.add_child, name='projects'),
     path('edit_material/', views.edit_material, name='projects'),
-    path('edit_msut/', views.edit_msut, name='projects'),
-    path('edit_part_costing/', views.edit_part_costing, name='projects'),
 
 
-    path('edit_sps/', views.edit_sps, name='projects'),
+
+
+
 
 ]
