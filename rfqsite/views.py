@@ -492,7 +492,7 @@ class Part_Tree:
             lcl = lcl.parent_sl_no
             level = lcl.level
         path = self.children
-        while(level+1 < self.current_level.level):
+        while(level < self.current_level.level):
             for child in path:
                 if child.base_level in poc:
                     child.isOpen = True
