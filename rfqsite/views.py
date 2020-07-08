@@ -403,7 +403,7 @@ def edit_material(request, sl_no):
     return render(request, 'rfqsite/edit_material.html', context)
 
 def clean_material(material):
-    material.description = None
+    material.description = ''
     material.cross_section = None
     material.type = None
     material.quantity = 1
