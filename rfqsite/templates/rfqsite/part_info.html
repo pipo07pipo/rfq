@@ -148,7 +148,118 @@
 								<div class="panel-body">
 									<div id="treeBasic">
 										<ul>
-											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'> <!-- "selected" : true -->
+											<!-- level 0 -->
+											{% for p0 in parts %}
+												<li data-jstree='{ "icon" : "fa fa-cube", {% if p0.state == "Open" %}"opened" : true{% end if %} }'>
+													<span onClick="javascript:window.location.href='/part_info/{{ p0.sl_no }}'">
+														<b>SL No.</b> {{ p0.sl_no }} <b>Part No.</b> {{ p0.no }} <b>Part Name</b> {{ p0.name }}
+														{% if p0.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+													</span>
+													<!-- level 1 -->
+													{% if p0.children != None }
+														<ul>
+															{% for p1 in p0.children %}
+																<li data-jstree='{ "icon" : "fa fa-cube", {% if p1.state == "Open" %}"opened" : true{% end if %} }'>
+																	<span onClick="javascript:window.location.href='/part_info/{{ p1.sl_no }}'">
+																		<b>SL No.</b> {{ p1.sl_no }} <b>Part No.</b> {{ p1.no }} <b>Part Name</b> {{ p1.name }}
+																		{% if p1.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																	</span>
+																	<!-- level 2 -->
+																	{% if p1.children != None }
+																		<ul>
+																			{% for p2 in p1.children %}
+																				<li data-jstree='{ "icon" : "fa fa-cube", {% if p1.state == "Open" %}"opened" : true{% end if %} }'>
+																					<span onClick="javascript:window.location.href='/part_info/{{ p2.sl_no }}'">
+																						<b>SL No.</b> {{ p2.sl_no }} <b>Part No.</b> {{ p2.no }} <b>Part Name</b> {{ p2.name }}
+																						{% if p2.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																					</span>
+																					<!-- level 3 -->
+																					{% if p2.children != None }
+																						<ul>
+																							{% for p3 in p2.children %}
+																								<li data-jstree='{ "icon" : "fa fa-cube", {% if p3.state == "Open" %}"opened" : true{% end if %} }'>
+																									<span onClick="javascript:window.location.href='/part_info/{{ p3.sl_no }}'">
+																										<b>SL No.</b> {{ p3.sl_no }} <b>Part No.</b> {{ p3.no }} <b>Part Name</b> {{ p3.name }}
+																										{% if p3.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																									</span>
+																									<!-- level 4 -->
+																									{% if p3.children != None }
+																										<ul>
+																											{% for p4 in p3.children %}
+																												<li data-jstree='{ "icon" : "fa fa-cube", {% if p4.state == "Open" %}"opened" : true{% end if %} }'>
+																													<span onClick="javascript:window.location.href='/part_info/{{ p4.sl_no }}'">
+																														<b>SL No.</b> {{ p4.sl_no }} <b>Part No.</b> {{ p4.no }} <b>Part Name</b> {{ p4.name }}
+																														{% if p4.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																													</span>
+																													<!-- level 5 -->
+																													{% if p4.children != None }
+																														<ul>
+																															{% for p5 in p4.children %}
+																																<li data-jstree='{ "icon" : "fa fa-cube", {% if p5.state == "Open" %}"opened" : true{% end if %} }'>
+																																	<span onClick="javascript:window.location.href='/part_info/{{ p5.sl_no }}'">
+																																		<b>SL No.</b> {{ p5.sl_no }} <b>Part No.</b> {{ p5.no }} <b>Part Name</b> {{ p5.name }}
+																																		{% if p5.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																																	</span>
+																																	<!-- level 6 -->
+																																	{% if p5.children != None }
+																																		<ul>
+																																			{% for p6 in p5.children %}
+																																				<li data-jstree='{ "icon" : "fa fa-cube", {% if p6.state == "Open" %}"opened" : true{% end if %} }'>
+																																					<span onClick="javascript:window.location.href='/part_info/{{ p6.sl_no }}'">
+																																						<b>SL No.</b> {{ p6.sl_no }} <b>Part No.</b> {{ p6.no }} <b>Part Name</b> {{ p6.name }}
+																																						{% if p6.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																																					</span>
+																																					<!-- level 7 -->
+																																					{% if p6.children != None }
+																																						<ul>
+																																							{% for p7 in p6.children %}
+																																								<li data-jstree='{ "icon" : "fa fa-cube", {% if p7.state == "Open" %}"opened" : true{% end if %} }'>
+																																									<span onClick="javascript:window.location.href='/part_info/{{ p7.sl_no }}'">
+																																										<b>SL No.</b> {{ p7.sl_no }} <b>Part No.</b> {{ p7.no }} <b>Part Name</b> {{ p7.name }}
+																																										{% if p7.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% end if %}
+																																									</span>
+
+																																								</li>
+																																							{% endfor %}
+																																						</ul>
+																																					{% endif %}
+																																					<!-- end Level 7 -->
+																																				</li>
+																																			{% endfor %}
+																																		</ul>
+																																	{% endif %}
+																																	<!-- end Level 6 -->
+																																</li>
+																															{% endfor %}
+																														</ul>
+																													{% endif %}
+																													<!-- end Level 5 -->
+																												</li>
+																											{% endfor %}
+																										</ul>
+																									{% endif %}
+																									<!-- end Level 4 -->
+																								</li>
+																							{% endfor %}
+																						</ul>
+																					{% endif %}
+																					<!-- end Level 3 -->
+																				</li>
+																			{% endfor %}
+																		</ul>
+																	{% endif %}
+																	<!-- end Level 2 -->
+																</li>
+															{% endfor %}
+														</ul>
+													{% endif %}
+													<!-- end Level 1 -->
+												</li>
+											{% endfor %}
+											<!-- end level 0 -->
+										</ul>
+										<!-- <ul>
+											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'>
 													<span onClick="javascript:window.location.href='part_info.html'">
 														<b>SL No.</b> 1 <b>Part No.</b> 725Z2463-101 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.
 														<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
@@ -171,7 +282,7 @@
 													</li>
 												</ul>
 											</li>
-										</ul>
+										</ul> -->
 									</div>
 									<div class="text-right mr-lg">
 										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}"><i class="fa fa-plus"></i> New Child</a>
