@@ -153,6 +153,12 @@ def edit_sp_rate_confirm(request):
 
 def part_info(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
+    base_level = Part_Header.objects.get(pk=sl_no)
+    while(base_level.level > 0):
+        base_level = base_level.parent_sl_no
+    tree = Part_Tree(base_level,part)
+    tree.set_tree()
+    parts = [tree]
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
     sps = SPS.objects.get(sl_no=part)
@@ -163,6 +169,7 @@ def part_info(request, sl_no):
     sp_rate = SP_Rate.objects.get(tracker_no=part.tracker_no)
     context = {
         'part': part,
+        'parts': parts,
         'forecast': forecast,
         'material': material,
         'sps': sps,
@@ -457,3 +464,22 @@ def edit_material_remove(request, sl_no):
     clean_material(delmat)
     delmat.save()
     return redirect('/part_info/'+str(sl_no))
+
+class Part_Tree:
+    def __init__(self, base_level, current_level):
+        self.base_level = base_level
+        self.current_level = current_level
+        self.sl_no = self.base_level.sl_no
+        self.no = self.base_level.no
+        self.name = self.base_level.name
+        self.isOpen = False
+        self.children = []
+    def set_tree(self):
+        children = Part_Header.objects.filter(parent_sl_no=self.base_level)
+        for child in children:
+            pt = Part_Tree(child,self.current_level)
+            self.children.append(pt)
+        for child in self.children:
+            child.set_tree()
+    def set_open(self):
+        pass
