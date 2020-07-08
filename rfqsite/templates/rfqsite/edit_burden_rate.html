@@ -1,0 +1,129 @@
+<!doctype html>
+{% load static %}
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap/css/bootstrap.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/font-awesome/css/font-awesome.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/magnific-popup/magnific-popup.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-datepicker/css/datepicker3.css" %}">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/skins/default.css" %}">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme-custom.css" %}">
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			{% include 'navbar.html' %}
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				{% include 'leftsidebar.html' %}
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>Burden Rate</h2>
+					</header>
+
+					<!-- start: page -->
+					<!-- Information -->
+					<div class="col-md-12">
+							<form id="form" action="/edit_burden_rate_confirm/" method="POST" class="form-horizontal">
+								{% csrf_token %}
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<!-- <a href="#" class="fa fa-caret-down"></a> -->
+											<!-- <a href="#" class="fa fa-times"></a>	 -->
+										</div>
+
+										<h2 class="panel-title">Edit Burden Rate</h2>
+									</header>
+									<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ tracker_no }}">
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Material Burden <font class="text-danger">*</font></b></label>
+											<div class="col-sm-4">
+												<input type="number" step="any" class="form-control" id="rate-material" name="rate-material" value="{{ burden_rate.material }}" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Hardware Burden <font class="text-danger">*</font></b></label>
+											<div class="col-sm-4">
+												<input type="number" step="any" class="form-control" id="rate-hardware" name="rate-hardware" value="{{ burden_rate.hardware }}" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Subcontract Burden <font class="text-danger">*</font></b></label>
+											<div class="col-sm-4">
+												<input type="number" step="any" class="form-control" id="rate-subcontract" name="rate-subcontract" value="{{ burden_rate.subcontract }}" required>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Special Process Burden <font class="text-danger">*</font></b></label>
+											<div class="col-sm-4">
+												<input type="number" step="any" class="form-control" id="rate-sp" name="rate-sp" value="{{ burden_rate.sp }}" required>
+											</div>
+										</div>
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <button class="btn btn-default" type="button" onclick="history.back()">Cancel</button>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+					</div>
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="{% static "assets/vendor/modernizr/modernizr.js" %}"></script>
+
+	<!-- Vendor -->
+	<script src="{% static "assets/vendor/jquery/jquery.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap/js/bootstrap.js" %}"></script>
+	<script src="{% static "assets/vendor/nanoscroller/nanoscroller.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
+	<script src="{% static "assets/vendor/magnific-popup/magnific-popup.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-placeholder/jquery.placeholder.js" %}"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="{% static "assets/javascripts/theme.js" %}"></script>
+
+	<!-- Theme Custom -->
+	<script src="{% static "assets/javascripts/theme.custom.js" %}"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+</html>
