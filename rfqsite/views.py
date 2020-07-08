@@ -403,22 +403,22 @@ def edit_material(request, sl_no):
     return render(request, 'rfqsite/edit_material.html', context)
 
 def clean_material(material):
-    material.description = None
-    material.cross_section = None
-    material.type = None
+    material.description = ''
+    material.cross_section = ''
+    material.type = ''
     material.quantity = 1
     material.rm_density = None
-    material.rm_density_unit = None
+    material.rm_density_unit = ''
     material.rm_d1 = None
-    material.rm_d1_unit = None
+    material.rm_d1_unit = ''
     material.rm_d2 = None
-    material.rm_d2_unit = None
+    material.rm_d2_unit = ''
     material.rm_t = None
-    material.rm_t_unit = None
+    material.rm_t_unit = ''
     material.rm_w = None
-    material.rm_w_unit = None
+    material.rm_w_unit = ''
     material.rm_l = None
-    material.rm_l_unit = None
+    material.rm_l_unit = ''
     material.rm_total_weight = None
     material.save()
 
