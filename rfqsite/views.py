@@ -158,6 +158,7 @@ def part_info(request, sl_no):
         base_level = base_level.parent_sl_no
     tree = Part_Tree(base_level,part)
     tree.set_tree()
+    tree.set_open()
     parts = [tree]
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
@@ -482,4 +483,19 @@ class Part_Tree:
         for child in self.children:
             child.set_tree()
     def set_open(self):
-        pass
+        self.isOpen = True
+        poc = []
+        lcl = self.current_level
+        level = self.current_level.level
+        while(level > 0):
+            poc.append(lcl)
+            lcl = lcl.parent_sl_no
+            level = lcl.level
+        path = self.children
+        while(level+1 < self.current_level.level):
+            for child in path:
+                if child.base_level in poc:
+                    child.isOpen = True
+                    level = child.base_level.level
+                    path = child.children
+                    break
