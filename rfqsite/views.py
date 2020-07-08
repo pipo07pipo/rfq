@@ -32,6 +32,7 @@ def rfq_table(request):
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
+
     context = {
         'project': project,
         'parts': parts
@@ -70,8 +71,10 @@ def add_part_confirm(request):
 
 def edit_rfq(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
+    file_name = project.file_path.split('/')[2]
     context = {
-            'project': project
+            'project': project,
+            'file_name': file_name
     }
     return render(request, 'rfqsite/edit_rfq.html', context)
 
@@ -168,8 +171,6 @@ def part_info(request, sl_no):
     part_costing = Part_Costing.objects.get(sl_no=part)
     active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
     sp_rate = SP_Rate.objects.get(tracker_no=part.tracker_no)
-    image_name = part.image_path.split('/')[2]
-    file_name = part.file_path.split('/')[2]
     context = {
         'part': part,
         'parts': parts,
@@ -180,16 +181,18 @@ def part_info(request, sl_no):
         'ctpp': ctpp,
         'part_costing': part_costing,
         'active_rate': active_rate,
-        'sp_rate': sp_rate,
-        'file_name': file_name,
-        'image_name': image_name,
+        'sp_rate': sp_rate
     }
     return render(request, 'rfqsite/part_info.html', context)
 
 def edit_part_info(request, sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
+    image_name = part.image_path.split('/')[2]
+    file_name = part.file_path.split('/')[2]
     context = {
-            'part': part
+            'part': part,
+            'file_name': file_name,
+            'image_name': image_name,
     }
     return render(request, 'rfqsite/edit_part_info.html', context)
 
