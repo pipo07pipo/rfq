@@ -473,6 +473,22 @@ def edit_material_remove(request, sl_no):
     delmat.save()
     return redirect('/part_info/'+str(sl_no))
 
+def edit_burden_rate(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)
+    burden = []
+    context = {
+            'project': project,
+            'burden': burden
+    }
+    return render(request, 'rfqsite/edit_burden_rate.html', context)
+
+def edit_burden_rate_confirm(request):
+    tracker_no = request.POST.get('tracker-no')
+    if request.method == 'POST':
+        pass
+    return redirect('/part_table/'+tracker_no)
+
+
 class Part_Tree:
     def __init__(self, base_level, current_level):
         self.base_level = base_level
