@@ -76,7 +76,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Description</b></label>
 											<div class="col-sm-5">
-												<input type="text" class="form-control" value="{{ material.description }}">
+												<input type="text" class="form-control" id="description" name="description" value="{{ material.description }}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -127,10 +127,10 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Density</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" value="{{ material.density }}" id="density">
+												<input type="number" class="form-control" id="density" name="density" value="{{ material.density }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="density-unit">
+												<select class="form-control input-md" id="density-unit" name="density-unit">
 													<option value="g/cc" {% if material.rm_density_unit == "g/cc" %}selected{% endif %}>g/cc</option>
 													<option value="lb/in³" {% if material.rm_density_unit == "lb/in³" %}selected{% endif %} disabled>lb/in³</option>
 													<option value="lb/ft³" {% if material.rm_density_unit == "lb/ft³" %}selected{% endif %} disabled>lb/ft³</option>
@@ -141,16 +141,16 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Quantity</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="quantity" value="{{ material.quantity }}">
+												<input type="number" class="form-control" id="quantity" name="quantity" value="{{ material.quantity }}">
 											</div>
 										</div>
 										<div class="form-group" id="group-D1">
 											<label class="col-sm-4 control-label"><b>Outer Diameter (D1)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-d1" value="{{ material.rm_d1 }}">
+												<input type="number" class="form-control" id="rm-d1" name="rm-d1" value="{{ material.rm_d1 }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="rm-d1-unit">
+												<select class="form-control input-md" id="rm-d1-unit" name="rm-d1-unit">
 													<option value="mm" {% if material.rm_d1_unit == "mm" %}selected{% endif %}>mm</option>
 													<option value="cm" {% if material.rm_d1_unit == "cm" %}selected{% endif %}>cm</option>
 													<option value="m" {% if material.rm_d1_unit == "m" %}selected{% endif %}>m</option>
@@ -163,10 +163,10 @@
 										<div class="form-group" id="group-D2">
 											<label class="col-sm-4 control-label"><b>Inner Diameter (D2)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-d2" value="{{ material.rm_d2 }}">
+												<input type="number" class="form-control" id="rm-d2" name="rm-d2" value="{{ material.rm_d2 }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="rm-d2-unit">
+												<select class="form-control input-md" id="rm-d2-unit" name="rm-d2-unit">
 													<option value="mm" {% if material.rm_d2_unit == "mm" %}selected{% endif %}>mm</option>
 													<option value="cm" {% if material.rm_d2_unit == "cm" %}selected{% endif %}>cm</option>
 													<option value="m" {% if material.rm_d2_unit == "m" %}selected{% endif %}>m</option>
@@ -179,10 +179,10 @@
 										<div class="form-group" id="group-T">
 											<label class="col-sm-4 control-label"><b>Thickness (T)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-t" value="{{ material.rm_t }}">
+												<input type="number" class="form-control" id="rm-t" name="rm-t" value="{{ material.rm_t }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="rm-t-unit">
+												<select class="form-control input-md" id="rm-t-unit" name="rm-t-unit">
 													<option value="mm" {% if material.rm_t_unit == "mm" %}selected{% endif %}>mm</option>
 													<option value="cm" {% if material.rm_t_unit == "cm" %}selected{% endif %}>cm</option>
 													<option value="m" {% if material.rm_t_unit == "m" %}selected{% endif %}>m</option>
@@ -195,10 +195,10 @@
 										<div class="form-group" id="group-W">
 											<label class="col-sm-4 control-label"><b>Width (W)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-w" value="{{ material.rm_w }}">
+												<input type="number" class="form-control" id="rm-w" name="rm-w" value="{{ material.rm_w }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="rm-w-unit">
+												<select class="form-control input-md" id="rm-w-unit" name="rm-w-unit">
 													<option value="mm" {% if material.rm_w_unit == "mm" %}selected{% endif %}>mm</option>
 													<option value="cm" {% if material.rm_w_unit == "cm" %}selected{% endif %}>cm</option>
 													<option value="m" {% if material.rm_w_unit == "m" %}selected{% endif %}>m</option>
@@ -211,10 +211,10 @@
 										<div class="form-group" id="group-L">
 											<label class="col-sm-4 control-label"><b>Length (L)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-l" value="{{ material.rm_l }}">
+												<input type="number" class="form-control" id="rm-l" name="rm-l" value="{{ material.rm_l }}">
 											</div>
 											<div class="col-sm-2">
-												<select class="form-control input-md" id="rm-l-unit">
+												<select class="form-control input-md" id="rm-l-unit" name="rm-l-unit">
 													<option value="mm" {% if material.rm_l_unit == "mm" %}selected{% endif %}>mm</option>
 													<option value="cm" {% if material.rm_l_unit == "cm" %}selected{% endif %}>cm</option>
 													<option value="m" {% if material.rm_l_unit == "m" %}selected{% endif %}>m</option>
@@ -227,7 +227,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Total Weight</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-total-weight" readonly value="{{ material.rm_total_weight }}">
+												<input type="number" class="form-control" id="rm-total-weight" name="rm-total-weight" readonly value="{{ material.rm_total_weight }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
