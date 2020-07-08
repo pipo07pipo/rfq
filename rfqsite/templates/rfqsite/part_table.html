@@ -67,7 +67,7 @@
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> {{ project.customer_name }}</p>
 							<div class="text-left mr-md">
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_rfq/{{ project.tracker_no }}"><i class="fa fa-edit"></i> Edit</a>
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/index" disabled><i class="fa fa-download"></i> Download File</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download File</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_part/{{ project.tracker_no }}"><i class="fa fa-plus"></i> Add Part</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_active_rate/{{ project.tracker_no }}"><i class="fa fa-edit"></i>Edit Active Rate</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_rate/{{ project.tracker_no }}"><i class="fa fa-edit"></i>Edit Special Process Rate</a>

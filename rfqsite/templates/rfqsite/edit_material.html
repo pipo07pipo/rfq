@@ -1,4 +1,4 @@
-<!doctype html>
+	<!doctype html>
 {% load static %}
 <html class="fixed">
 	<head>
@@ -66,7 +66,7 @@
 										<div class="panel-actions">
 											<!-- <a href="#" class="fa fa-caret-down"></a> -->
 											<!-- <a href="#" class="fa fa-times"></a>	 -->
-											<button class="btn btn-danger text-right" href="/edit_material_remove/{{ part.sl_no }}" type="button" >Remove</button>
+											<a class="btn btn-danger" style="height:36px;width:78px;" href="/edit_material_remove/{{ part.sl_no }}" type="button" >Remove</a>
 										</div>
 
 										<h2 class="panel-title">Edit Material</h2>
@@ -127,7 +127,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Density</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="density" name="density" value="{{ material.density }}">
+												<input type="number" step="any" class="form-control" id="density" name="density" value="{{ material.rm_density }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="density-unit" name="density-unit">
@@ -147,7 +147,7 @@
 										<div class="form-group" id="group-D1">
 											<label class="col-sm-4 control-label"><b>Outer Diameter (D1)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-d1" name="rm-d1" value="{{ material.rm_d1 }}">
+												<input type="number" step="any" class="form-control" id="rm-d1" name="rm-d1" value="{{ material.rm_d1 }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-d1-unit" name="rm-d1-unit">
@@ -163,7 +163,7 @@
 										<div class="form-group" id="group-D2">
 											<label class="col-sm-4 control-label"><b>Inner Diameter (D2)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-d2" name="rm-d2" value="{{ material.rm_d2 }}">
+												<input type="number" step="any" class="form-control" id="rm-d2" name="rm-d2" value="{{ material.rm_d2 }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-d2-unit" name="rm-d2-unit">
@@ -179,7 +179,7 @@
 										<div class="form-group" id="group-T">
 											<label class="col-sm-4 control-label"><b>Thickness (T)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-t" name="rm-t" value="{{ material.rm_t }}">
+												<input type="number" step="any" class="form-control" id="rm-t" name="rm-t" value="{{ material.rm_t }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-t-unit" name="rm-t-unit">
@@ -195,7 +195,7 @@
 										<div class="form-group" id="group-W">
 											<label class="col-sm-4 control-label"><b>Width (W)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-w" name="rm-w" value="{{ material.rm_w }}">
+												<input type="number" step="any" class="form-control" id="rm-w" name="rm-w" value="{{ material.rm_w }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-w-unit" name="rm-w-unit">
@@ -211,7 +211,7 @@
 										<div class="form-group" id="group-L">
 											<label class="col-sm-4 control-label"><b>Length (L)</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-l" name="rm-l" value="{{ material.rm_l }}">
+												<input type="number" step="any" class="form-control" id="rm-l" name="rm-l" value="{{ material.rm_l }}">
 											</div>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="rm-l-unit" name="rm-l-unit">
@@ -227,7 +227,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Total Weight</b></label>
 											<div class="col-sm-3">
-												<input type="number" class="form-control" id="rm-total-weight" name="rm-total-weight" readonly value="{{ material.rm_total_weight }}">
+												<input type="number" step="any" class="form-control" id="rm-total-weight" name="rm-total-weight" readonly value="{{ material.rm_total_weight }}">
 											</div>
 											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
@@ -272,8 +272,8 @@
 <script>
 $( document ).ready(function() {
 	cross_section_change();
-	material_type_change();
-	calculate_weight();
+	// material_type_change();
+	// calculate_weight();
 });
 
 $( "#cross-section" ).change(function() {
