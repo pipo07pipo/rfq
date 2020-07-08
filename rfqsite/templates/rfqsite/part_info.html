@@ -148,7 +148,118 @@
 								<div class="panel-body">
 									<div id="treeBasic">
 										<ul>
-											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'> <!-- "selected" : true -->
+											<!-- level 0 -->
+											{% for p0 in parts %}
+												<li data-jstree='{ "icon" : "fa fa-cube", {% if p0.isOpen %}"opened" : true{% endif %} }'>
+													<span onClick="javascript:window.location.href='/part_info/{{ p0.sl_no }}'">
+														<b>SL No.</b> {{ p0.sl_no }} <b>Part No.</b> {{ p0.no }} <b>Part Name</b> {{ p0.name }}
+														{% if p0.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+													</span>
+													<!-- level 1 -->
+													{% if p0.children != None %}
+														<ul>
+															{% for p1 in p0.children %}
+																<li data-jstree='{ "icon" : "fa fa-cube", {% if p1.isOpen %}"opened" : true{% endif %} }'>
+																	<span onClick="javascript:window.location.href='/part_info/{{ p1.sl_no }}'">
+																		<b>SL No.</b> {{ p1.sl_no }} <b>Part No.</b> {{ p1.no }} <b>Part Name</b> {{ p1.name }}
+																		{% if p1.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																	</span>
+																	<!-- level 2 -->
+																	{% if p1.children != None %}
+																		<ul>
+																			{% for p2 in p1.children %}
+																				<li data-jstree='{ "icon" : "fa fa-cube", {% if p1.isOpen %}"opened" : true{% endif %} }'>
+																					<span onClick="javascript:window.location.href='/part_info/{{ p2.sl_no }}'">
+																						<b>SL No.</b> {{ p2.sl_no }} <b>Part No.</b> {{ p2.no }} <b>Part Name</b> {{ p2.name }}
+																						{% if p2.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																					</span>
+																					<!-- level 3 -->
+																					{% if p2.children != None %}
+																						<ul>
+																							{% for p3 in p2.children %}
+																								<li data-jstree='{ "icon" : "fa fa-cube", {% if p3.isOpen %}"opened" : true{% endif %} }'>
+																									<span onClick="javascript:window.location.href='/part_info/{{ p3.sl_no }}'">
+																										<b>SL No.</b> {{ p3.sl_no }} <b>Part No.</b> {{ p3.no }} <b>Part Name</b> {{ p3.name }}
+																										{% if p3.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																									</span>
+																									<!-- level 4 -->
+																									{% if p3.children != None %}
+																										<ul>
+																											{% for p4 in p3.children %}
+																												<li data-jstree='{ "icon" : "fa fa-cube", {% if p4.isOpen %}"opened" : true{% endif %} }'>
+																													<span onClick="javascript:window.location.href='/part_info/{{ p4.sl_no }}'">
+																														<b>SL No.</b> {{ p4.sl_no }} <b>Part No.</b> {{ p4.no }} <b>Part Name</b> {{ p4.name }}
+																														{% if p4.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																													</span>
+																													<!-- level 5 -->
+																													{% if p4.children != None %}
+																														<ul>
+																															{% for p5 in p4.children %}
+																																<li data-jstree='{ "icon" : "fa fa-cube", {% if p5.isOpen %}"opened" : true{% endif %} }'>
+																																	<span onClick="javascript:window.location.href='/part_info/{{ p5.sl_no }}'">
+																																		<b>SL No.</b> {{ p5.sl_no }} <b>Part No.</b> {{ p5.no }} <b>Part Name</b> {{ p5.name }}
+																																		{% if p5.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																	</span>
+																																	<!-- level 6 -->
+																																	{% if p5.children != None %}
+																																		<ul>
+																																			{% for p6 in p5.children %}
+																																				<li data-jstree='{ "icon" : "fa fa-cube", {% if p6.isOpen %}"opened" : true{% endif %} }'>
+																																					<span onClick="javascript:window.location.href='/part_info/{{ p6.sl_no }}'">
+																																						<b>SL No.</b> {{ p6.sl_no }} <b>Part No.</b> {{ p6.no }} <b>Part Name</b> {{ p6.name }}
+																																						{% if p6.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																					</span>
+																																					<!-- level 7 -->
+																																					{% if p6.children != None %}
+																																						<ul>
+																																							{% for p7 in p6.children %}
+																																								<li data-jstree='{ "icon" : "fa fa-cube", {% if p7.isOpen %}"opened" : true{% endif %} }'>
+																																									<span onClick="javascript:window.location.href='/part_info/{{ p7.sl_no }}'">
+																																										<b>SL No.</b> {{ p7.sl_no }} <b>Part No.</b> {{ p7.no }} <b>Part Name</b> {{ p7.name }}
+																																										{% if p7.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																									</span>
+
+																																								</li>
+																																							{% endfor %}
+																																						</ul>
+																																					{% endif %}
+																																					<!-- end Level 7 -->
+																																				</li>
+																																			{% endfor %}
+																																		</ul>
+																																	{% endif %}
+																																	<!-- end Level 6 -->
+																																</li>
+																															{% endfor %}
+																														</ul>
+																													{% endif %}
+																													<!-- end Level 5 -->
+																												</li>
+																											{% endfor %}
+																										</ul>
+																									{% endif %}
+																									<!-- end Level 4 -->
+																								</li>
+																							{% endfor %}
+																						</ul>
+																					{% endif %}
+																					<!-- end Level 3 -->
+																				</li>
+																			{% endfor %}
+																		</ul>
+																	{% endif %}
+																	<!-- end Level 2 -->
+																</li>
+															{% endfor %}
+														</ul>
+													{% endif %}
+													<!-- end Level 1 -->
+												</li>
+											{% endfor %}
+											<!-- end level 0 -->
+										</ul>
+										<!-- <ul>
+											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'>
 													<span onClick="javascript:window.location.href='part_info.html'">
 														<b>SL No.</b> 1 <b>Part No.</b> 725Z2463-101 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.
 														<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
@@ -171,7 +282,7 @@
 													</li>
 												</ul>
 											</li>
-										</ul>
+										</ul> -->
 									</div>
 									<div class="text-right mr-lg">
 										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}"><i class="fa fa-plus"></i> New Child</a>
@@ -1136,8 +1247,11 @@
 		var hardware_cost = 3.5 * parseFloat($( "#qty-per-unit" ).text()) * 1.3;
 		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + hardware_cost.toFixed(2));
 
+		// RE$: Base Material Price/kg
+		var base_material_price = parseFloat($( "#base-material-price" ).text());
+		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
+
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * 1.12
-		var base_material_price = parseFloat($( "#base-material-price" ).text().replace('$','')); // Remove $ sign
 		var material_cost = (base_material_price + parseFloat($( "#material-shipping-cost" ).text())) * parseFloat($( "#armwpp" ).text()) * 1.12;
 		$( "#material-cost" ).text(dollar_sign(material_cost) + material_cost.toFixed(2));
 
@@ -1149,8 +1263,11 @@
 		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint + spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
 		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + surface_treatment_cost.toFixed(2));
 
+		// RE$ : NRE Amortizing Cost
+		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text());
+		$( "#nre-amortizing-cost" ).text(dollar_sign(nre_amortizing_cost) + nre_amortizing_cost.toFixed(2));
+
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
-		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text().replace('$','')); // Remove $ sign
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
 		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
 		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + manufacturing_cost.toFixed(2));
@@ -1176,6 +1293,10 @@
 		var ccs_ppp = ccs_ewp;
 		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
 
+		// RE$ : NRE Amortizing Cost
+		var target_price = parseFloat($( "#target-price" ).text());
+		$( "#target-price" ).text(dollar_sign(target_price) + target_price.toFixed(2));
+
 		// -- 3S --
 
 		// * EBQ_CCS QTY (Prodn Lot) = EAU year-3 / 4
@@ -1194,10 +1315,19 @@
 		var oyrmb = trmwpy;
 		$( "#oyrmb" ).text(oyrmb);
 
+		// RE$ : One Time Special Process Set Up Cost
+		var otspsuc = parseFloat($( "#otspsuc" ).text());
+		$( "#otspsuc" ).text(dollar_sign(otspsuc) + otspsuc.toFixed(2));
+
+		// RE$ : One Time RM Airshipments Cost
+		var otrmac = parseFloat($( "#otrmac" ).text());
+		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
+
+		// RE$ : One Time Tooling Cost
+		var ottc = parseFloat($( "#ottc" ).text());
+		$( "#ottc" ).text(dollar_sign(ottc) + ottc.toFixed(2));
+
 		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
-		var otspsuc = parseFloat($( "#otspsuc" ).text().replace('$','')); // Remove $ sign
-		var otrmac = parseFloat($( "#otrmac" ).text().replace('$','')); // Remove $ sign
-		var ottc = parseFloat($( "#ottc" ).text().replace('$','')); // Remove $ sign
 		var total_nre_cost = otspsuc + otrmac	+ ottc;
 		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
 
