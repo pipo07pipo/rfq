@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 
@@ -25,6 +25,8 @@ def rfq_table(request):
     for tracker in active_project:
         active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
         sps = SP_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+        burden_rate = Burden_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+        burden_rate.save()
         active_rate.save()
         sps.save()
     return render(request, 'rfqsite/index.html', context)
@@ -71,7 +73,10 @@ def add_part_confirm(request):
 
 def edit_rfq(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    file_name = project.file_path.split('/')[2]
+    if(len(project.file_path.split('/')) == 3 ):
+        file_name = project.file_path.split('/')[2]
+    else:
+        file_name = ''
     context = {
             'project': project,
             'file_name': file_name
@@ -187,8 +192,14 @@ def part_info(request, sl_no):
 
 def edit_part_info(request, sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
-    image_name = part.image_path.split('/')[2]
-    file_name = part.file_path.split('/')[2]
+    if(len(part.image_path.split('/')) == 3 ):
+        image_name = part.image_path.split('/')[2]
+    else:
+        image_name = ''
+    if(len(part.file_path.split('/')) == 3 ):
+        file_name = part.file_path.split('/')[2]
+    else:
+        file_name = ''
     context = {
             'part': part,
             'file_name': file_name,
@@ -304,6 +315,8 @@ def edit_sps_confirm(request):
         editsps.primer = request.POST.get('sps-primer')
         editsps.solid_film = request.POST.get('sps-solid-film')
         editsps.pmr = request.POST.get('sps-pmr')
+        editsps.hardware_description = request.POST.get('sps-hardware-description')
+        editsps.hardware_qty = request.POST.get('sps-hardware-qty')
         editsps.save()
     return redirect('/part_info/'+sl_no)
 
@@ -414,20 +427,26 @@ def clean_material(material):
     material.cross_section = ''
     material.type = ''
     material.quantity = 1
-    material.rm_density = None
+    material.rm_density = 0
     material.rm_density_unit = ''
-    material.rm_d1 = None
+    material.rm_d1 = 0
     material.rm_d1_unit = ''
-    material.rm_d2 = None
+    material.rm_d2 = 0
     material.rm_d2_unit = ''
-    material.rm_t = None
+    material.rm_t = 0
     material.rm_t_unit = ''
-    material.rm_w = None
+    material.rm_w = 0
     material.rm_w_unit = ''
-    material.rm_l = None
+    material.rm_l = 0
     material.rm_l_unit = ''
-    material.rm_total_weight = None
+    material.rm_total_weight = 0
     material.save()
+
+def to_str(str):
+    if str == None:
+        return ''
+    else:
+        return str
 
 def edit_material_confirm(request):
     sl_no = request.POST.get('sl-no')
@@ -435,9 +454,9 @@ def edit_material_confirm(request):
         editmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         clean_material(editmat)
         type = request.POST.get('cross-section')
-        editmat.description = request.POST.get('description')
-        editmat.cross_section = request.POST.get('cross-section')
-        editmat.type = request.POST.get('type')
+        editmat.description = to_str(request.POST.get('description'))
+        editmat.cross_section = to_str(request.POST.get('cross-section'))
+        editmat.type = to_str(request.POST.get('type'))
         editmat.quantity = to_float(request.POST.get('quantity'))
         editmat.rm_density = to_float(request.POST.get('density'))
         editmat.rm_density_unit = request.POST.get('density-unit')
@@ -474,18 +493,23 @@ def edit_material_remove(request, sl_no):
     return redirect('/part_info/'+str(sl_no))
 
 def edit_burden_rate(request, tracker_no):
-    project = RFQ.objects.get(pk=tracker_no)
-    burden = []
+    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
+    burden_rate = Burden_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
     context = {
-            'project': project,
-            'burden': burden
+            'tracker_no': tracker_no,
+            'burden_rate': burden_rate
     }
     return render(request, 'rfqsite/edit_burden_rate.html', context)
 
 def edit_burden_rate_confirm(request):
     tracker_no = request.POST.get('tracker-no')
     if request.method == 'POST':
-        pass
+        editbd = Burden_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        editbd.material = to_float(request.POST.get('rate-material'))
+        editbd.hardware = to_float(request.POST.get('rate-hardware'))
+        editbd.subcontract = to_float(request.POST.get('rate-subcontract'))
+        editbd.sp = to_float(request.POST.get('rate-sp'))
+        editbd.save()
     return redirect('/part_table/'+tracker_no)
 
 

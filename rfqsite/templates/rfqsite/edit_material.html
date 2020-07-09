@@ -421,7 +421,7 @@ function material_type_change(){
 	var material_type = $( "#type" ).val();
 	var density_unit = $( "#density-unit" ).val();
 	if (material_type == "Optional"){
-		$( "#density" ).val("");
+		$( "#density" ).val(0);
 	} else if (material_type == "Aluminum"){
 		if(density_unit == "g/cc"){
 			$( "#density" ).val(2.7);

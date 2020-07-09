@@ -33,5 +33,6 @@ urlpatterns = [
     path('edit_material_confirm/', views.edit_material_confirm, name='projects'),
     path('edit_material_remove/<int:sl_no>/', views.edit_material_remove, name='projects'),
     path('edit_burden_rate/<int:tracker_no>/', views.edit_burden_rate, name='projects'),
+    path('edit_burden_rate_confirm/', views.edit_burden_rate_confirm, name='projects'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
