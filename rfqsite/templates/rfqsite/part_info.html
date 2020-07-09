@@ -263,34 +263,9 @@
 											{% endfor %}
 											<!-- end level 0 -->
 										</ul>
-										<!-- <ul>
-											<li data-jstree='{ "icon" : "fa fa-cube", "opened" : true }'>
-													<span onClick="javascript:window.location.href='part_info.html'">
-														<b>SL No.</b> 1 <b>Part No.</b> 725Z2463-101 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.
-														<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
-													</span>
-												<ul>
-													<li data-jstree='{ "icon" : "fa fa-cube" }'>
-														 <span onClick="javascript:window.location.href='part_info0.html'">
-															 <b>SL No.</b> 1A <b>Part No.</b> 725Z2463-111 <b>Part Name</b> FCL_CLEVIS_OIL-TANK-ACCESS-DOOR
-														 </span>
-													</li>
-													<li	data-jstree='{ "icon" : "fa fa-cube" }'>
-														 <span onClick="javascript:window.location.href='part_info1.html'">
-																<b>SL No.</b> 1B	<b>Part No.</b> NAS77C4-014 <b>Part Name</b> BUSH
-														 </span>
-													</li>
-													<li data-jstree='{ "icon" : "fa fa-cube" }'>
-														 <span onClick="javascript:window.location.href='part_info0.html'">
-														   <b>SL No.</b> 1C	<b>Part No.</b> NAS77C6-014 <b>Part Name</b> BUSH
-														 </span>
-													</li>
-												</ul>
-											</li>
-										</ul> -->
 									</div>
 									<div class="text-right mr-lg">
-										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}"><i class="fa fa-plus"></i> New Child</a>
+										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}" {% if part.level < 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child</a>
 									</div>
 								</div>
 							</section>
@@ -331,18 +306,18 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td class="center" id="qty-per-unit">{{ forecast.qty_per_unit }}</td>
-													<td class="center" id="forecast-year1">{{ forecast.forecast_year1 }}</td>
-													<td class="center" id="forecast-year2">{{ forecast.forecast_year2 }}</td>
-													<td class="center" id="forecast-year3">{{ forecast.forecast_year3 }}</td>
-													<td class="center" id="forecast-year4">{{ forecast.forecast_year4 }}</td>
-													<td class="center" id="forecast-year5">{{ forecast.forecast_year5 }}</td>
-													<td class="center" id="eau-year1">-</td>
-													<td class="center" id="eau-year2">-</td>
-													<td class="center" id="eau-year3">-</td>
-													<td class="center" id="eau-year4">-</td>
-													<td class="center" id="eau-year5">-</td>
-													<td class="center" id="eau-total-year">-</td>
+													<td class="center" id="qty-per-unit" name="qty-per-unit">{{ forecast.qty_per_unit }}</td>
+													<td class="center" id="forecast-year1" name="forecast-year1">{{ forecast.forecast_year1 }}</td>
+													<td class="center" id="forecast-year2" name="forecast-year2">{{ forecast.forecast_year2 }}</td>
+													<td class="center" id="forecast-year3" name="forecast-year3">{{ forecast.forecast_year3 }}</td>
+													<td class="center" id="forecast-year4" name="forecast-year4">{{ forecast.forecast_year4 }}</td>
+													<td class="center" id="forecast-year5" name="forecast-year5">{{ forecast.forecast_year5 }}</td>
+													<td class="center" id="eau-year1" name="eau-year1">-</td>
+													<td class="center" id="eau-year2" name="eau-year2">-</td>
+													<td class="center" id="eau-year3" name="eau-year3">-</td>
+													<td class="center" id="eau-year4" name="eau-year4">-</td>
+													<td class="center" id="eau-year5" name="eau-year5">-</td>
+													<td class="center" id="eau-total-year" name="eau-total-year">-</td>
 												</tr>
 											</tbody>
 										</table>
@@ -368,25 +343,25 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Description</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-description">{{ material.description }}</label>
+												<label class="control-label" id="material-description" name="material-description">{{ material.description }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Cross Section</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="cross-section">{{ material.cross_section }}</label>
+												<label class="control-label" id="cross-section" name="cross-section">{{ material.cross_section }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Material Type</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-type">{{ material.type }}</label>
+												<label class="control-label" id="material-type" name="material-type">{{ material.type }}</label>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>Quantity</b></label>
 											<div class="col-sm-9">
-												<label class="control-label" id="material-qty">{{ material.quantity }}</label>
+												<label class="control-label" id="material-qty" name="material-qty">{{ material.quantity }}</label>
 											</div>
 										</div>
 										<br>
@@ -425,23 +400,29 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="rm-density">{{ material.rm_density }}</td>
+															<td class="center" id="rm-density" name="rm-density">{{ material.rm_density }}</td>
 															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
-															<td class="center" id="rm-d1">{{ material.rm_d1 }}</td>
+															<td class="center" id="rm-d1" name="rm-d1">{{ material.rm_d1 }}</td>
 															{% endif %}
 															{% if material.cross_section == 'Tube Shape' %}
-															<td class="center" id="rm-d2">{{ material.rm_d2 }}</td>
+															<td class="center" id="rm-d2" name="rm-d2">{{ material.rm_d2 }}</td>
 															{% endif %}
 															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
-															<td class="center" id="rm-t">{{ material.rm_t }}</td>
-															<td class="center" id="rm-w">{{ material.rm_w }}</td>
+															<td class="center" id="rm-t" name="rm-t">{{ material.rm_t }}</td>
+															<td class="center" id="rm-w" name="rm-w">{{ material.rm_w }}</td>
 															{% endif %}
-															<td class="center" id="rm-l">{{ material.rm_l }}</td>
-															<td class="center" id="rm-total-weight">{{ material.rm_total_weight }}</td>
+															<td class="center" id="rm-l" name="rm-l">{{ material.rm_l }}</td>
+															<td class="center" id="rm-total-weight" name="rm-total-weight">{{ material.rm_total_weight }}</td>
 														</tr>
 													</tbody>
 											</table>
 											</div>
+											<input type="hidden" id="rm-density-unit" name="rm-density-unit" value="{{ material.rm_density_unit }}">
+											<input type="hidden" id="rm-d1-unit" name="rm-d1-unit" value="{{ material.rm_d1_unit }}">
+											<input type="hidden" id="rm-d2-unit" name="rm-d2-unit" value="{{ material.rm_d2_unit }}">
+											<input type="hidden" id="rm-t-unit" name="rm-t-unit" value="{{ material.rm_t_unit }}">
+											<input type="hidden" id="rm-w-unit" name="rm-w-unit" value="{{ material.rm_w_unit }}">
+											<input type="hidden" id="rm-l-unit" name="rm-l-unit" value="{{ material.rm_l_unit }}">
 											<br>
 											<!-- Annual Raw Material Requirement (kg) -->
 											<div class="table-responsive">
@@ -458,11 +439,11 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="armr-year1">-</td>
-															<td class="center" id="armr-year2">-</td>
-															<td class="center" id="armr-year3">-</td>
-															<td class="center" id="armr-year4">-</td>
-															<td class="center" id="armr-year5">-</td>
+															<td class="center" id="armr-year1" name="armr-year1">-</td>
+															<td class="center" id="armr-year2" name="armr-year2">-</td>
+															<td class="center" id="armr-year3" name="armr-year3">-</td>
+															<td class="center" id="armr-year4" name="armr-year4">-</td>
+															<td class="center" id="armr-year5" name="armr-year5">-</td>
 														</tr>
 													</tbody>
 											</table>
@@ -481,9 +462,9 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="afpwpp">-</td>
-															<td class="center" id="armwpp">-</td>
-															<td class="center" id="trmwpy">-</td>
+															<td class="center" id="afpwpp" name="afpwpp">-</td>
+															<td class="center" id="armwpp" name="armwpp">-</td>
+															<td class="center" id="trmwpy" name="trmwpy">-</td>
 														</tr>
 													</tbody>
 											</table>
@@ -524,13 +505,13 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="sps-surface-treatment">{{ sps.surface_treatment }}</td>
-															<td class="center" id="sps-ht">{{ sps.ht }}</td>
-															<td class="center" id="sps-fpi">{{ sps.fpi }}</td>
-															<td class="center" id="sps-mpi">{{ sps.mpi }}</td>
-															<td class="center" id="sps-primer">{{ sps.primer }}</td>
-															<td class="center" id="sps-solid-film">{{ sps.solid_film }}</td>
-															<td class="center" id="sps-pmr">{{ sps.pmr }}</td>
+															<td class="center" id="sps-surface-treatment" name="sps-surface-treatment">{{ sps.surface_treatment }}</td>
+															<td class="center" id="sps-ht" name="sps-ht">{{ sps.ht }}</td>
+															<td class="center" id="sps-fpi" name="sps-fpi">{{ sps.fpi }}</td>
+															<td class="center" id="sps-mpi" name="sps-mpi">{{ sps.mpi }}</td>
+															<td class="center" id="sps-primer" name="sps-primer">{{ sps.primer }}</td>
+															<td class="center" id="sps-solid-film" name="sps-solid-film">{{ sps.solid_film }}</td>
+															<td class="center" id="sps-pmr" name="sps-pmr">{{ sps.pmr }}</td>
 														</tr>
 													</tbody>
 											</table>
@@ -539,13 +520,13 @@
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Description</b></label>
 												<div class="col-sm-9">
-													<label class="control-label" id="sps-hardware-description">{{ sps.hardware_description }}</label>
+													<label class="control-label" id="sps-hardware-description" name="sps-hardware-description">{{ sps.hardware_description }}</label>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Qty Per Part</b></label>
 												<div class="col-sm-9">
-													<label class="control-label" id="sps-hardware-qty">{{ sps.hardware_qty }}</label>
+													<label class="control-label" id="sps-hardware-qty" name="sps-hardware-qty">{{ sps.hardware_qty }}</label>
 												</div>
 											</div>
 											<div class="text-right mr-lg">
@@ -571,16 +552,16 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="msut-cla">{{ msut.cla }}</td>
-															<td class="center" id="msut-bta">{{ msut.bta }}</td>
-															<td class="center" id="msut-tma">{{ msut.tma }}</td>
-															<td class="center" id="msut-mca3axis">{{ msut.mca3axis }}</td>
-															<td class="center" id="msut-mca4axis">{{ msut.mca4axis }}</td>
-															<td class="center" id="msut-hmc">{{ msut.hmc }}</td>
-															<td class="center" id="msut-5axis">{{ msut.axis5 }}</td>
-															<td class="center" id="msut-edm">{{ msut.edm }}</td>
-															<td class="center" id="msut-grinding">{{ msut.grinding }}</td>
-															<td class="center" id="production-qty">-</td>
+															<td class="center" id="msut-cla" name="msut-cla">{{ msut.cla }}</td>
+															<td class="center" id="msut-bta" name="msut-bta">{{ msut.bta }}</td>
+															<td class="center" id="msut-tma" name="msut-tma">{{ msut.tma }}</td>
+															<td class="center" id="msut-mca3axis" name="msut-mca3axis">{{ msut.mca3axis }}</td>
+															<td class="center" id="msut-mca4axis" name="msut-mca4axis">{{ msut.mca4axis }}</td>
+															<td class="center" id="msut-hmc" name="msut-hmc">{{ msut.hmc }}</td>
+															<td class="center" id="msut-5axis" name="msut-5axis">{{ msut.axis5 }}</td>
+															<td class="center" id="msut-edm" name="msut-edm">{{ msut.edm }}</td>
+															<td class="center" id="msut-grinding" name="msut-grinding">{{ msut.grinding }}</td>
+															<td class="center" id="production-qty" name="production-qty">-</td>
 														</tr>
 													</tbody>
 											</table>
@@ -611,19 +592,19 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="ctpp-cla">{{ ctpp.cla }}</td>
-															<td class="center" id="ctpp-bta">{{ ctpp.bta }}</td>
-															<td class="center" id="ctpp-tma">{{ ctpp.tma }}</td>
-															<td class="center" id="ctpp-mca3axis">{{ ctpp.mca3axis }}</td>
-															<td class="center" id="ctpp-mca4axis">{{ ctpp.mca4axis }}</td>
-															<td class="center" id="ctpp-hmc">{{ ctpp.hmc }}</td>
-															<td class="center" id="ctpp-5axis">{{ ctpp.axis5 }}</td>
-															<td class="center" id="ctpp-edm">{{ ctpp.edm }}</td>
-															<td class="center" id="ctpp-grinding">{{ ctpp.grinding }}</td>
-															<td class="center" id="ctpp-inspection">{{ ctpp.inspection }}</td>
-															<td class="center" id="ctpp-deburring">{{ ctpp.deburring }}</td>
-															<td class="center" id="ctpp-assembly">{{ ctpp.assembly }}</td>
-															<td class="center" id="ctpp-lapping">{{ ctpp.lapping }}</td>
+															<td class="center" id="ctpp-cla" name="ctpp-cla">{{ ctpp.cla }}</td>
+															<td class="center" id="ctpp-bta" name="ctpp-bta">{{ ctpp.bta }}</td>
+															<td class="center" id="ctpp-tma" name="ctpp-tma">{{ ctpp.tma }}</td>
+															<td class="center" id="ctpp-mca3axis" name="ctpp-mca3axis">{{ ctpp.mca3axis }}</td>
+															<td class="center" id="ctpp-mca4axis" name="ctpp-mca4axis">{{ ctpp.mca4axis }}</td>
+															<td class="center" id="ctpp-hmc" name="ctpp-hmc">{{ ctpp.hmc }}</td>
+															<td class="center" id="ctpp-5axis" name="ctpp-5axis">{{ ctpp.axis5 }}</td>
+															<td class="center" id="ctpp-edm" name="ctpp-edm">{{ ctpp.edm }}</td>
+															<td class="center" id="ctpp-grinding" name="ctpp-grinding">{{ ctpp.grinding }}</td>
+															<td class="center" id="ctpp-inspection" name="ctpp-inspection">{{ ctpp.inspection }}</td>
+															<td class="center" id="ctpp-deburring" name="ctpp-deburring">{{ ctpp.deburring }}</td>
+															<td class="center" id="ctpp-assembly" name="ctpp-assembly">{{ ctpp.assembly }}</td>
+															<td class="center" id="ctpp-lapping" name="ctpp-lapping">{{ ctpp.lapping }}</td>
 														</tr>
 													</tbody>
 											</table>
@@ -668,17 +649,17 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="rate-cla">{{ active_rate.cla }}</td>
-															<td class="center" id="rate-bta">{{ active_rate.bta }}</td>
-															<td class="center" id="rate-tma">{{ active_rate.tma }}</td>
-															<td class="center" id="rate-mca3axis">{{ active_rate.mca3axis }}</td>
-															<td class="center" id="rate-mca4axis">{{ active_rate.mca4axis }}</td>
-															<td class="center" id="rate-hmc">{{ active_rate.hmc }}</td>
-															<td class="center" id="rate-5axis">{{ active_rate.axis5 }}</td>
-															<td class="center" id="rate-edm">{{ active_rate.edm }}</td>
-															<td class="center" id="rate-grinding">{{ active_rate.grinding }}</td>
-															<td class="center" id="rate-deburring">{{ active_rate.deburring }}</td>
-															<td class="center" id="rate-inspection">{{ active_rate.inspection }}</td>
+															<td class="center" id="rate-cla" name="rate-cla">{{ active_rate.cla }}</td>
+															<td class="center" id="rate-bta" name="rate-bta">{{ active_rate.bta }}</td>
+															<td class="center" id="rate-tma" name="rate-tma">{{ active_rate.tma }}</td>
+															<td class="center" id="rate-mca3axis" name="rate-mca3axis">{{ active_rate.mca3axis }}</td>
+															<td class="center" id="rate-mca4axis" name="rate-mca4axis">{{ active_rate.mca4axis }}</td>
+															<td class="center" id="rate-hmc" name="rate-hmc">{{ active_rate.hmc }}</td>
+															<td class="center" id="rate-5axis" name="rate-5axis">{{ active_rate.axis5 }}</td>
+															<td class="center" id="rate-edm" name="rate-edm">{{ active_rate.edm }}</td>
+															<td class="center" id="rate-grinding" name="rate-grinding">{{ active_rate.grinding }}</td>
+															<td class="center" id="rate-deburring" name="rate-deburring">{{ active_rate.deburring }}</td>
+															<td class="center" id="rate-inspection" name="rate-inspection">{{ active_rate.inspection }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -705,18 +686,18 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td class="center" id="rate-fpi">{{ sp_rate.fpi }}</td>
-														<td class="center" id="rate-mpi">{{ sp_rate.mpi }}</td>
-														<td class="center" id="rate-passivation">{{ sp_rate.passivation }}</td>
-														<td class="center" id="rate-caa">{{ sp_rate.caa }}</td>
-														<td class="center" id="rate-saa">{{ sp_rate.saa }}</td>
-														<td class="center" id="rate-hard-anodizing">{{ sp_rate.hard_anodizing }}</td>
-														<td class="center" id="rate-ccc">{{ sp_rate.ccc }}</td>
-														<td class="center" id="rate-dfl">{{ sp_rate.dfl }}</td>
-														<td class="center" id="rate-paint">{{ sp_rate.paint }}</td>
-														<td class="center" id="rate-cadmium-plating">{{ sp_rate.cadmium_plating }}</td>
-														<td class="center" id="rate-chrome-plating">{{ sp_rate.chrome_plating }}</td>
-														<td class="center" id="rate-heat-treatment">{{ sp_rate.heat_treatment }}</td>
+														<td class="center" id="rate-fpi" name="rate-fpi">{{ sp_rate.fpi }}</td>
+														<td class="center" id="rate-mpi" name="rate-mpi">{{ sp_rate.mpi }}</td>
+														<td class="center" id="rate-passivation" name="rate-passivation">{{ sp_rate.passivation }}</td>
+														<td class="center" id="rate-caa" name="rate-caa">{{ sp_rate.caa }}</td>
+														<td class="center" id="rate-saa" name="rate-saa">{{ sp_rate.saa }}</td>
+														<td class="center" id="rate-hard-anodizing" name="rate-hard-anodizing">{{ sp_rate.hard_anodizing }}</td>
+														<td class="center" id="rate-ccc" name="rate-ccc">{{ sp_rate.ccc }}</td>
+														<td class="center" id="rate-dfl" name="rate-dfl">{{ sp_rate.dfl }}</td>
+														<td class="center" id="rate-paint" name="rate-paint">{{ sp_rate.paint }}</td>
+														<td class="center" id="rate-cadmium-plating" name="rate-cadmium-plating">{{ sp_rate.cadmium_plating }}</td>
+														<td class="center" id="rate-chrome-plating" name="rate-chrome-plating">{{ sp_rate.chrome_plating }}</td>
+														<td class="center" id="rate-heat-treatment" name="rate-heat-treatment">{{ sp_rate.heat_treatment }}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -735,10 +716,10 @@
 												</thead>
 												<tbody>
 													<tr>
-														<td class="center" id="rate-material">{{ burden_rate.material }}</td>
-														<td class="center" id="rate-hardware">{{ burden_rate.hardware }}</td>
-														<td class="center" id="rate-subcontract">{{ burden_rate.subcontract }}</td>
-														<td class="center" id="rate-sp">{{ burden_rate.sp }}</td>
+														<td class="center" id="rate-material" name="rate-material">{{ burden_rate.material }}</td>
+														<td class="center" id="rate-hardware" name="rate-hardware">{{ burden_rate.hardware }}</td>
+														<td class="center" id="rate-subcontract" name="rate-subcontract">{{ burden_rate.subcontract }}</td>
+														<td class="center" id="rate-sp" name="rate-sp">{{ burden_rate.sp }}</td>
 													</tr>
 												</tbody>
 											</table>
@@ -764,27 +745,27 @@
 														<tbody>
 															<tr>
 																<td class="center custom1"><b>Time</b></td>
-																<td class="center" id="tctt-cla">-</td>
-																<td class="center" id="tctt-bta">-</td>
-																<td class="center" id="tctt-tma">-</td>
-																<td class="center" id="tctt-mca3axis">-</td>
-																<td class="center" id="tctt-mca4axis">-</td>
-																<td class="center" id="tctt-hmc">-</td>
-																<td class="center" id="tctt-5axis">-</td>
-																<td class="center" id="tctt-edm">-</td>
-																<td class="center" id="tctt-grinding">-</td>
+																<td class="center" id="tctt-cla" name="tctt-cla">-</td>
+																<td class="center" id="tctt-bta" name="tctt-bta">-</td>
+																<td class="center" id="tctt-tma" name="tctt-tma">-</td>
+																<td class="center" id="tctt-mca3axis" name="tctt-mca3axis">-</td>
+																<td class="center" id="tctt-mca4axis" name="tctt-mca4axis">-</td>
+																<td class="center" id="tctt-hmc" name="tctt-hmc">-</td>
+																<td class="center" id="tctt-5axis" name="tctt-5axis">-</td>
+																<td class="center" id="tctt-edm" name="tctt-edm">-</td>
+																<td class="center" id="tctt-grinding" name="tctt-grinding">-</td>
 															</tr>
 															<tr>
 																<td class="center custom1"><b>Cost</b></td>
-																<td class="center" id="tctc-cla">-</td>
-																<td class="center" id="tctc-bta">-</td>
-																<td class="center" id="tctc-tma">-</td>
-																<td class="center" id="tctc-mca3axis">-</td>
-																<td class="center" id="tctc-mca4axis">-</td>
-																<td class="center" id="tctc-hmc">-</td>
-																<td class="center" id="tctc-5axis">-</td>
-																<td class="center" id="tctc-edm">-</td>
-																<td class="center" id="tctc-grinding">-</td>
+																<td class="center" id="tctc-cla" name="tctc-cla">-</td>
+																<td class="center" id="tctc-bta" name="tctc-bta">-</td>
+																<td class="center" id="tctc-tma" name="tctc-tma">-</td>
+																<td class="center" id="tctc-mca3axis" name="tctc-mca3axis">-</td>
+																<td class="center" id="tctc-mca4axis" name="tctc-mca4axis">-</td>
+																<td class="center" id="tctc-hmc" name="tctc-hmc">-</td>
+																<td class="center" id="tctc-5axis" name="tctc-5axis">-</td>
+																<td class="center" id="tctc-edm" name="tctc-edm">-</td>
+																<td class="center" id="tctc-grinding" name="tctc-grinding">-</td>
 															</tr>
 														</tbody>
 												</table>
@@ -812,18 +793,18 @@
 														</thead>
 														<tbody>
 															<tr>
-																<td class="center" id="spc-fpi">-</td>
-																<td class="center" id="spc-mpi">-</td>
-																<td class="center" id="spc-passivation">-</td>
-																<td class="center" id="spc-caa">-</td>
-																<td class="center" id="spc-saa">-</td>
-																<td class="center" id="spc-hard-anodizing">-</td>
-																<td class="center" id="spc-ccc">-</td>
-																<td class="center" id="spc-dfl">-</td>
-																<td class="center" id="spc-paint">-</td>
-																<td class="center" id="spc-cadmium-plating">-</td>
-																<td class="center" id="spc-chrome-plating">-</td>
-																<td class="center" id="spc-heat-treatment">-</td>
+																<td class="center" id="spc-fpi" name="spc-fpi">-</td>
+																<td class="center" id="spc-mpi" name="spc-mpi">-</td>
+																<td class="center" id="spc-passivation" name="spc-passivation">-</td>
+																<td class="center" id="spc-caa" name="spc-caa">-</td>
+																<td class="center" id="spc-saa" name="spc-saa">-</td>
+																<td class="center" id="spc-hard-anodizing" name="spc-hard-anodizing">-</td>
+																<td class="center" id="spc-ccc" name="spc-ccc">-</td>
+																<td class="center" id="spc-dfl" name="spc-dfl">-</td>
+																<td class="center" id="spc-paint" name="spc-paint">-</td>
+																<td class="center" id="spc-cadmium-plating" name="spc-cadmium-plating">-</td>
+																<td class="center" id="spc-chrome-plating" name="spc-chrome-plating">-</td>
+																<td class="center" id="spc-heat-treatment" name="spc-heat-treatment">-</td>
 															</tr>
 														</tbody>
 												</table>
@@ -835,67 +816,67 @@
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Inspection Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="inspection-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="inspection-cost" name="inspection-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Deburring Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="deburring-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="deburring-cost" name="deburring-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Assembly Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="assembly-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="assembly-cost" name="assembly-cost">-</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Lapping/Honing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="lapping-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="lapping-cost" name="lapping-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Supplier</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="hardware-supplier">{{ part_costing.hardware_supplier }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="hardware-supplier" name="hardware-supplier">{{ part_costing.hardware_supplier }}</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Base Material Price/kg</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="base-material-price">{{ part_costing.base_material_price }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="base-material-price" name="base-material-price">{{ part_costing.base_material_price }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Material Supplier</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="material-supplier">{{ part_costing.material_supplier }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="material-supplier" name="material-supplier">{{ part_costing.material_supplier }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Material Shipping Cost USD/kg</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="material-shipping-cost">{{ part_costing.material_shipping_cost }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="material-shipping-cost" name="material-shipping-cost">{{ part_costing.material_shipping_cost }}</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Material Cost DDP CCS</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="material-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="material-cost" name="material-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Manufacturing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="manufacturing-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="manufacturing-cost" name="manufacturing-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total Hardwares Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-hardware-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="total-hardware-cost" name="total-hardware-cost">-</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Surface Treatment Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>NRE Amortizing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="nre-amortizing-cost">{{ part_costing.nre_amortizing_cost }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="nre-amortizing-cost" name="nre-amortizing-cost">{{ part_costing.nre_amortizing_cost }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<!-- Empty -->
@@ -906,31 +887,31 @@
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Additional MFG OH Factor</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="additional-mfg">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="additional-mfg" name="additional-mfg">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Profit Factor</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="profit-factor">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="profit-factor" name="profit-factor">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 
 
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-manufacturing-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="total-manufacturing-cost" name="total-manufacturing-cost">-</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Ex-works Price</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp" name="ccs-ewp">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Part/Assy Ex_works BKK Thailand</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp" name="ccs-ppp">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Target Price (USD)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="target-price">{{ part_costing.target_price }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="target-price" name="target-price">{{ part_costing.target_price }}</label>
 													</div>
 												</div>
 												<hr>
@@ -938,51 +919,51 @@
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty" name="ebq-ccs-qty">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ebq-customer-qty">{{ part_costing.ebq_customer_qty }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ebq-customer-qty" name="ebq-customer-qty">{{ part_costing.ebq_customer_qty }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Minimum Firm Order Quantity/Lot</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="minimum-firm-order-qty">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="minimum-firm-order-qty" name="minimum-firm-order-qty">-</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>MOQ Raw Material Order (kg)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="moq-rm-order">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="moq-rm-order" name="moq-rm-order">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>One Year Raw Material Buy (kg)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="oyrmb">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="oyrmb" name="oyrmb">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Special Process Set Up Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otspsuc">{{ part_costing.otspsuc }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>One Time RM Airshipments Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otrmac">{{ part_costing.otrmac }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Tooling Cost
 															<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
 														</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ottc">{{ part_costing.ottc }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total NRE Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">-</label>
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Quote Assumptions</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<!-- Empty -->
@@ -1006,9 +987,9 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="dltiw-fai">{{ part_costing.dltiw_fai }}</td>
-															<td class="center" id="dltiw-serial-production">{{ part_costing.dltiw_serial_production }}</td>
-															<td class="center" id="dltiw-production">{{ part_costing.dltiw_production }}</td>
+															<td class="center" id="dltiw-fai" name="dltiw-fai">{{ part_costing.dltiw_fai }}</td>
+															<td class="center" id="dltiw-serial-production" name="dltiw-serial-production">{{ part_costing.dltiw_serial_production }}</td>
+															<td class="center" id="dltiw-production" name="dltiw-production">{{ part_costing.dltiw_production }}</td>
 														</tr>
 													</tbody>
 											</table>
@@ -1026,9 +1007,9 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="total-cost">-</td>
-															<td class="center" id ="mtl-cost">-</td>
-															<td class="center" id="spl-process-cost">-</td>
+															<td class="center" id="total-cost" name="total-cost">-</td>
+															<td class="center" id ="mtl-cost" name ="mtl-cost">-</td>
+															<td class="center" id="spl-process-cost" name="spl-process-cost">-</td>
 														</tr>
 													</tbody>
 											</table>
@@ -1070,15 +1051,15 @@
 													</thead>
 													<tbody>
 														<tr>
-															<td class="center" id="mcrftp-cla">-</td>
-															<td class="center" id="mcrftp-bta">-</td>
-															<td class="center" id="mcrftp-tma">-</td>
-															<td class="center" id="mcrftp-mca3axis">-</td>
-															<td class="center" id="mcrftp-mca4axis">-</td>
-															<td class="center" id="mcrftp-hmc">-</td>
-															<td class="center" id="mcrftp-5axis">-</td>
-															<td class="center" id="mcrftp-edm">-</td>
-															<td class="center" id="mcrftp-grinding">-</td>
+															<td class="center" id="mcrftp-cla" name="mcrftp-cla">-</td>
+															<td class="center" id="mcrftp-bta" name="mcrftp-bta">-</td>
+															<td class="center" id="mcrftp-tma" name="mcrftp-tma">-</td>
+															<td class="center" id="mcrftp-mca3axis" name="mcrftp-mca3axis">-</td>
+															<td class="center" id="mcrftp-mca4axis" name="mcrftp-mca4axis">-</td>
+															<td class="center" id="mcrftp-hmc" name="mcrftp-hmc">-</td>
+															<td class="center" id="mcrftp-5axis" name="mcrftp-5axis">-</td>
+															<td class="center" id="mcrftp-edm" name="mcrftp-edm">-</td>
+															<td class="center" id="mcrftp-grinding" name="mcrftp-grinding">-</td>
 														</tr>
 													</tbody>
 											</table>
@@ -1191,7 +1172,7 @@
 		var armwpp = rm_total_weight;
 		var trmwpy = rm_total_weight * (eau_total_year / 5);
 		$( "#afpwpp" ).text(afpwpp.toFixed(2));
-		$( "#armwpp" ).text(armwpp);
+		$( "#armwpp" ).text(armwpp.toFixed(2));
 		$( "#trmwpy" ).text(trmwpy.toFixed(2));
 
 		// -- Part Costing --
