@@ -705,6 +705,28 @@
 												</tbody>
 											</table>
 											</div>
+											<!-- Burden Rate -->
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none" hidden>
+												<thead>
+													<th class="center custom1" colspan="12" scope="colgroup">Burden Rate</th>
+													<tr>
+														<th class="center custom2">FPI</th>
+														<th class="center custom2">MPI</th>
+														<th class="center custom2">Passivation</th>
+														<th class="center custom2">Passivation</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center" id="rate-material">{{ burden_rate.material }}</td>
+														<td class="center" id="rate-hardware">{{ burden_rate.hardware }}</td>
+														<td class="center" id="rate-subcontract">{{ burden_rate.subcontract }}</td>
+														<td class="center" id="rate-sp">{{ burden_rate.sp }}</td>
+													</tr>
+												</tbody>
+											</table>
+											</div>
 											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
