@@ -1169,9 +1169,9 @@
 		// -- Material --
 
 		// RE: Total RM Weight
-
 		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
 		$( "#rm-total-weight" ).text(rm_total_weight.toFixed(2));
+
 		// Annual Raw Material Requirement = Total RM Weight * EAU
 		var armr_year1 = rm_total_weight * eau_year1;
 		var armr_year2 = rm_total_weight * eau_year2;
@@ -1186,7 +1186,7 @@
 
 		// Approximate Finished Part Weight Per Part = Total RM Weight * 0.4
 		// Approximate Raw Material Weight Per Part = Total RM Weight
-		// Total Raw Material Weight Per Year = Total RM Weight * (Total EAU / 5)
+		// Total Raw Material Weight Per Year = Total RM Weight * (5 Years Total EAU / 5)
 		var afpwpp = rm_total_weight * 0.4;
 		var armwpp = rm_total_weight;
 		var trmwpy = rm_total_weight * (eau_total_year / 5);
@@ -1198,7 +1198,7 @@
 
 		// --- Time ---
 
-		// * Production Qty = EAU year-3 / 4
+		// * Production Qty = EAU year3 / 4
 		var production_qty = eau_year3 / 4;
 		$( "#production-qty" ).text(production_qty.toFixed(2));
 
@@ -1272,8 +1272,7 @@
 
 		// -- 1S --
 
-		// X Cycle Cost (Dollar) = (Active Rate / 60) + Cycle Time Per Part
-
+		// ** X Cycle Cost (Dollar) = (Active Rate / 60) + Cycle Time Per Part
 		var inspection_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-inspection" ).text());
 		var deburring_cost = (parseFloat($( "#rate-deburring" ).text()) / 60) * parseFloat($( "#ctpp-deburring" ).text());
 		var assembly_cost = (parseFloat($( "#rate-inspection" ).text()) / 60) * parseFloat($( "#ctpp-assembly" ).text());
@@ -1313,11 +1312,11 @@
 		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + manufacturing_cost.toFixed(2));
 
 		// -- 2S --
-		// Additional MFG OH Factor = Manufacturing Cost * 0.1;
+		// Additional MFG OH Factor = Manufacturing Cost * 0.1
 		var additional_mfg = manufacturing_cost * 0.1;
 		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + additional_mfg.toFixed(2));
 
-		// Profit Factor = Manufacturing Cost * 0.1;
+		// Profit Factor = Manufacturing Cost * 0.1
 		var profit_factor = manufacturing_cost * 0.1;
 		$( "#profit-factor" ).text(dollar_sign(profit_factor) + profit_factor.toFixed(2));
 
@@ -1329,7 +1328,7 @@
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + total_hardware_cost;
 		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + ccs_ewp.toFixed(2));
 
-		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child (ONLY FOR MOTHER)	*****************************
+		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
 		var ccs_ppp = ccs_ewp;
 		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
 
@@ -1339,15 +1338,15 @@
 
 		// -- 3S --
 
-		// * EBQ_CCS QTY (Prodn Lot) = EAU year-3 / 4
+		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
 		var ebq_ccs_qty = eau_year3 / 4;
 		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
 
-		// Minimum Firm Order Quantity/Lot = EAU year-3
+		// Minimum Firm Order Quantity/Lot = EAU year3
 		var minimum_firm_order_qty = eau_year3;
 		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
 
-		// MOQ Raw Material Order (kg) = (eau_year3 * Approximate Raw Material Weight Per Part)  / 4
+		// MOQ Raw Material Order (kg) = (eau_year3 * Approximate Raw Material Weight Per Part) / 4
 		var moq_rm_order = (eau_year3 * armwpp) / 4;
 		$( "#moq-rm-order" ).text(moq_rm_order);
 
