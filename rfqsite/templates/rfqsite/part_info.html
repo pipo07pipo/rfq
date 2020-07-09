@@ -265,7 +265,7 @@
 										</ul>
 									</div>
 									<div class="text-right mr-lg">
-										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}" {% if part.level < 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child</a>
+										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}" {% if part.level >= 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child</a>
 									</div>
 								</div>
 							</section>
@@ -1310,7 +1310,7 @@
 		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + ccs_ewp.toFixed(2));
 
 		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
-		var ccs_ppp = ccs_ewp;
+		var ccs_ppp = 0;
 		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
 
 		// RE$ : NRE Amortizing Cost

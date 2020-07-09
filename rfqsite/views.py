@@ -33,7 +33,7 @@ def rfq_table(request):
 
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no)]
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
 
     context = {
         'project': project,
@@ -411,7 +411,7 @@ def add_child_confirm(request):
         newMSUT.save()
         newCTPP.save()
         newPart_Costing.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_info/'+sl_no)
 
 def edit_material(request, sl_no):
     material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
