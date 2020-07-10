@@ -16,3 +16,5 @@ Flat Bar / Plate / Sheet
 RM Weight in Kg = (Dens<g/cc> * T<in> * 25.4) * (W<in> * 25.4/1000) * (L<in> * 25.4/1000)
 RM Weight in Kg = Dens<g/cc> * T<cm> * W<cm> * L<cm> / 1000
 ----
+
+ python -m pip install Django

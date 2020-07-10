@@ -24,7 +24,7 @@ SECRET_KEY = '2_ywv_v9nz2#&ez!webcs1=&6s#j7uxp+b)r1zm7nqehx*$2kh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
