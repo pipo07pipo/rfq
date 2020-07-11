@@ -18,3 +18,33 @@ RM Weight in Kg = Dens<g/cc> * T<cm> * W<cm> * L<cm> / 1000
 ----
 
  python -m pip install Django
+
+-Material 2-
+Finished Part Weight Percentage - fpwp (NEW,NUMBER)
+Approximate Raw Material Weight Per Part - armwpp (NEW,NUMBER)
+Material Supplier (MOVE FROM Part Costing)
+<label class="control-label" id="base-material-price" name="base-material-price">{{ material2.supplier }}</label>
+Base Material Price/kg (MOVE FROM Part Costing)
+<label class="control-label" id="material-supplier" name="material-supplier">{{ material2.base_material_price }}</label>
+Material Shipping Cost USD/kg (MOVE FROM Part Costing)
+<label class="control-label" id="material-shipping-cost" name="material-shipping-cost">{{ material2.shipping_cost }}</label>
+
+-hardware-
+Hardware Description (MOVE FROM sps)
+<label class="control-label" id="hardware-description" name="hardware-description">{{ hardware.description }}</label>
+Hardware Qty Per Part (MOVE FROM sps)
+<label class="control-label" id="hardware-qty" name="hardware-qty">{{ hardware.qty }}</label>
+Hardware Supplier (MOVE FROM Part Costing)
+<label class="control-label" id="hardware-supplier" name="hardware-supplier">{{ hardware.supplier }}</label>
+Hardware Price (NEW,NUMBER)
+<label class="control-label" id="hardware-qty" name="hardware-qty">{{ hardware.price }}</label>
+
+-part costing- NEW NUMBER
+Base Subcontract
+<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">-</label>
+Subcontract Shipping Cost
+<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
+DDP Shipping Cost
+<label class="col-sm-5 control-label text-left labcustom" id="ddp-shipping-cost" name="ddp-shipping-cost">-</label>
+DDP USD
+<label class="col-sm-5 control-label text-left labcustom" id="ddp-usd" name="ddp-usd">-</label>
