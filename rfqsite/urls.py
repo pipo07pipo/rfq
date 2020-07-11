@@ -12,7 +12,7 @@ urlpatterns = [
     path('edit_rfq_confirm/', views.edit_rfq_confirm, name='projects'),
     path('edit_active_rate/<int:tracker_no>/', views.edit_active_rate, name='projects'),
     path('edit_active_rate_confirm/', views.edit_active_rate_confirm, name='projects'),
-    path('edit_sp_rate/<int:tracker_no>/', views.edit_sp_rate, name='projects'),
+    path('edit_sp_rate/<int:sl_no>/', views.edit_sp_rate, name='projects'),
     path('edit_sp_rate_confirm/', views.edit_sp_rate_confirm, name='projects'),
     path('part_info/<int:sl_no>/', views.part_info, name='projects'),
     path('edit_part_info/<int:sl_no>/', views.edit_part_info, name='projects'),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('edit_material/<int:sl_no>/', views.edit_material, name='projects'),
     path('edit_material_confirm/', views.edit_material_confirm, name='projects'),
     path('edit_material_remove/<int:sl_no>/', views.edit_material_remove, name='projects'),
-    path('edit_burden_rate/<int:tracker_no>/', views.edit_burden_rate, name='projects'),
+    path('edit_burden_rate/<int:sl_no>/', views.edit_burden_rate, name='projects'),
     path('edit_burden_rate_confirm/', views.edit_burden_rate_confirm, name='projects'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

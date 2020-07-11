@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Material2
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 
@@ -12,23 +12,18 @@ def rfq_table(request):
     context = {
         'projects': projects
     }
-    # active_project = []
-    # for project in projects:
-    #     active_project.append(project.tracker_no)
-    # active_to_rfq = []
-    # for active in Active_Rate.objects.all():
-    #     active_to_rfq.append(active.tracker_no.tracker_no)
-    # for tracker in active_to_rfq:
-    #     if tracker in active_project:
-    #         active_project.remove(tracker)
-    # print(active_project)
-    # for tracker in active_project:
-    #     active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-    #     sps = SP_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-    #     burden_rate = Burden_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-    #     burden_rate.save()
-    #     active_rate.save()
-    #     sps.save()
+    active_project = []
+    for project in projects:
+        active_project.append(project.tracker_no)
+    active_to_rfq = []
+    for active in Active_Rate.objects.all():
+        active_to_rfq.append(active.tracker_no.tracker_no)
+    for tracker in active_to_rfq:
+        if tracker in active_project:
+            active_project.remove(tracker)
+    for tracker in active_project:
+        active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+        active_rate.save()
     return render(request, 'rfqsite/index.html', context)
 
 def parts(request, tracker_no):
@@ -64,6 +59,8 @@ def add_part_confirm(request):
         newPart_Costing = Part_Costing(sl_no=newPart)
         newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
+        newHW = Hardware(sl_no=newPart)
+        newMaterial2 = Material2(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -73,6 +70,8 @@ def add_part_confirm(request):
         newPart_Costing.save()
         newSP.save()
         newBR.save()
+        newMaterial2.save()
+        newHW.save()
         return redirect('/part_table/'+tracker_no)
 
 def edit_rfq(request, tracker_no):
@@ -178,7 +177,10 @@ def part_info(request, sl_no):
     ctpp = CTPP.objects.get(sl_no=part)
     part_costing = Part_Costing.objects.get(sl_no=part)
     active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
-    sp_rate = SP_Rate.objects.get(tracker_no=part.tracker_no)
+    sp_rate = SP_Rate.objects.get(sl_no=part)
+    burden_rate = Burden_Rate.objects.get(sl_no=part)
+    hardware = Hardware.objects.get(sl_no=part)
+    material2 = Material2.objects.get(sl_no=part)
     context = {
         'part': part,
         'parts': parts,
@@ -189,7 +191,10 @@ def part_info(request, sl_no):
         'ctpp': ctpp,
         'part_costing': part_costing,
         'active_rate': active_rate,
-        'sp_rate': sp_rate
+        'sp_rate': sp_rate,
+        'burden_rate': burden_rate,
+        'hardware': hardware,
+        'material2': material2
     }
     return render(request, 'rfqsite/part_info.html', context)
 
@@ -318,8 +323,6 @@ def edit_sps_confirm(request):
         editsps.primer = request.POST.get('sps-primer')
         editsps.solid_film = request.POST.get('sps-solid-film')
         editsps.pmr = request.POST.get('sps-pmr')
-        editsps.hardware_description = request.POST.get('sps-hardware-description')
-        editsps.hardware_qty = request.POST.get('sps-hardware-qty')
         editsps.save()
     return redirect('/part_info/'+sl_no)
 
@@ -348,6 +351,46 @@ def edit_msut_confirm(request):
         editmsut.save()
     return redirect('/part_info/'+sl_no)
 
+def edit_material2(request, sl_no):
+    material2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'material2': material2
+    }
+    return render(request, 'rfqsite/edit_material2.html', context)
+
+def edit_material2_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editmat2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editmat2.supplier = request.POST.get('material-supplier')
+        editmat2.base_material_price = to_float(request.POST.get('base-material-price'))
+        editmat2.shipping_cost = to_float(request.POST.get('material-shipping-cost'))
+        editmat2.fpwp = to_float(request.POST.get('fpwp'))
+        editmat2.armwpp = to_float(request.POST.get('armwpp'))
+        editmat2.save()
+    return redirect('/part_info/'+sl_no)
+
+def edit_hardware(request, sl_no):
+    hardware = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'hardware': hardware
+    }
+    return render(request, 'rfqsite/edit_hardware.html', context)
+
+def edit_hardware_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        edithw = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        edithw.description = request.POST.get('sps-surface-treatment')
+        edithw.supplier = request.POST.get('sps-ht')
+        edithw.price = to_float(request.POST.get('sps-fpi'))
+        edithw.qty = to_float(request.POST.get('sps-mpi'))
+        edithw.save()
+    return redirect('/part_info/'+sl_no)
 
 def edit_part_costing(request, sl_no):
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -362,20 +405,20 @@ def edit_part_costing_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editpc.base_material_price = to_float(request.POST.get('base-material-price'))
-        editpc.material_shipping_cost = to_float(request.POST.get('material-shipping-cost'))
         editpc.nre_amortizing_cost = to_float(request.POST.get('nre-amortizing-cost'))
         editpc.target_price = to_float(request.POST.get('target-price'))
         editpc.ebq_customer_qty = to_float(request.POST.get('ebq-customer-qty'))
         editpc.otspsuc = to_float(request.POST.get('otspsuc'))
         editpc.otrmac = to_float(request.POST.get('otrmac'))
         editpc.ottc = to_float(request.POST.get('ottc'))
-        editpc.hardware_supplier = request.POST.get('hardware-supplier')
-        editpc.material_supplier = request.POST.get('material-supplier')
         editpc.ccs_quote_assumptions = request.POST.get('ccs-quote-assumptions')
         editpc.dltiw_fai = request.POST.get('dltiw-fai')
         editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
         editpc.dltiw_production = request.POST.get('dltiw-production')
+        editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
+        editpc.subcontract_shipping_cost = to_float(request.POST.get('subcontract-shipping-cost'))
+        editpc.ddp_shipping_cost = to_float(request.POST.get('ddp-shipping-cost'))
+        editpc.ddp_usd = to_float(request.POST.get('ddp-usd'))
         editpc.save()
     return redirect('/part_info/'+sl_no)
 
@@ -407,6 +450,10 @@ def add_child_confirm(request):
         newMSUT = MSUT(sl_no=newPart)
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
+        newSP = SP_Rate(sl_no=newPart)
+        newBR = Burden_Rate(sl_no=newPart)
+        newHW = Hardware(sl_no=newPart)
+        newMaterial2 = Material2(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -414,6 +461,10 @@ def add_child_confirm(request):
         newMSUT.save()
         newCTPP.save()
         newPart_Costing.save()
+        newSP.save()
+        newBR.save()
+        newHW.save()
+        newMaterial2.save()
         return redirect('/part_info/'+sl_no)
 
 def edit_material(request, sl_no):
@@ -495,19 +546,19 @@ def edit_material_remove(request, sl_no):
     delmat.save()
     return redirect('/part_info/'+str(sl_no))
 
-def edit_burden_rate(request, tracker_no):
-    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    burden_rate = Burden_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+def edit_burden_rate(request, sl_no):
+    burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
     context = {
-            'tracker_no': tracker_no,
+            'part': part,
             'burden_rate': burden_rate
     }
     return render(request, 'rfqsite/edit_burden_rate.html', context)
 
 def edit_burden_rate_confirm(request):
-    tracker_no = request.POST.get('tracker-no')
+    sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
-        editbd = Burden_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        editbd = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         editbd.material = to_float(request.POST.get('rate-material'))
         editbd.hardware = to_float(request.POST.get('rate-hardware'))
         editbd.subcontract = to_float(request.POST.get('rate-subcontract'))
