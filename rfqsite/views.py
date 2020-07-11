@@ -562,9 +562,9 @@ def edit_burden_rate_confirm(request):
         editbd.material = to_float(request.POST.get('rate-material'))
         editbd.hardware = to_float(request.POST.get('rate-hardware'))
         editbd.subcontract = to_float(request.POST.get('rate-subcontract'))
-        editbd.sp = to_float(request.POST.get('rate-sp'))
+        # editbd.sp = to_float(request.POST.get('rate-sp'))
         editbd.save()
-    return redirect('/part_table/'+tracker_no)
+    return redirect('/part_info/'+sl_no)
 
 
 class Part_Tree:

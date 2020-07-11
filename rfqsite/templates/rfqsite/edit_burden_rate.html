@@ -63,7 +63,7 @@
 
 										<h2 class="panel-title">Edit Burden Rate</h2>
 									</header>
-									<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ tracker_no }}">
+									<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
 									<div class="panel-body">
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Burden <font class="text-danger">*</font></b></label>
@@ -83,12 +83,12 @@
 												<input type="number" step="any" class="form-control" id="rate-subcontract" name="rate-subcontract" value="{{ burden_rate.subcontract }}" required>
 											</div>
 										</div>
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<label class="col-sm-4 control-label"><b>Special Process Burden <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="number" step="any" class="form-control" id="rate-sp" name="rate-sp" value="{{ burden_rate.sp }}" required>
 											</div>
-										</div>
+										</div> -->
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
