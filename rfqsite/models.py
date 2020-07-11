@@ -9,8 +9,19 @@ class RFQ(models.Model):
     file_path = models.CharField(max_length=200, null=True, default='')
     update_date = models.DateTimeField('date publish')
 
-class SP_Rate(models.Model):
+class Part_Header(models.Model):
+    sl_no = models.AutoField(primary_key=True)
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
+    no = models.CharField(max_length=10, default='')
+    name = models.CharField(max_length=200, default='')
+    level = models.IntegerField()
+    program = models.CharField(max_length=200, default='')
+    parent_sl_no = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    file_path = models.CharField(max_length=200, default='')
+    image_path = models.CharField(max_length=200, default='')
+
+class SP_Rate(models.Model):
+    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     fpi = models.FloatField(default=1)
     mpi = models.FloatField(default=1)
     passivation = models.FloatField(default=1)
@@ -37,17 +48,6 @@ class Active_Rate(models.Model):
     grinding = models.FloatField(default=1)
     deburring = models.FloatField(default=1)
     inspection = models.FloatField(default=1)
-
-class Part_Header(models.Model):
-    sl_no = models.AutoField(primary_key=True)
-    tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
-    no = models.CharField(max_length=10, default='')
-    name = models.CharField(max_length=200, default='')
-    level = models.IntegerField()
-    program = models.CharField(max_length=200, default='')
-    parent_sl_no = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
-    file_path = models.CharField(max_length=200, default='')
-    image_path = models.CharField(max_length=200, default='')
 
 class SPS(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
@@ -136,7 +136,7 @@ class CTPP(models.Model):
     lapping = models.FloatField(null=True, default=0)
 
 class Burden_Rate(models.Model):
-    tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
+    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     material = models.FloatField(default=1)
     hardware = models.FloatField(default=1)
     subcontract = models.FloatField(default=1)

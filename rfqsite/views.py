@@ -12,23 +12,23 @@ def rfq_table(request):
     context = {
         'projects': projects
     }
-    active_project = []
-    for project in projects:
-        active_project.append(project.tracker_no)
-    active_to_rfq = []
-    for active in Active_Rate.objects.all():
-        active_to_rfq.append(active.tracker_no.tracker_no)
-    for tracker in active_to_rfq:
-        if tracker in active_project:
-            active_project.remove(tracker)
-    print(active_project)
-    for tracker in active_project:
-        active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-        sps = SP_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-        burden_rate = Burden_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-        burden_rate.save()
-        active_rate.save()
-        sps.save()
+    # active_project = []
+    # for project in projects:
+    #     active_project.append(project.tracker_no)
+    # active_to_rfq = []
+    # for active in Active_Rate.objects.all():
+    #     active_to_rfq.append(active.tracker_no.tracker_no)
+    # for tracker in active_to_rfq:
+    #     if tracker in active_project:
+    #         active_project.remove(tracker)
+    # print(active_project)
+    # for tracker in active_project:
+    #     active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+    #     sps = SP_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+    #     burden_rate = Burden_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
+    #     burden_rate.save()
+    #     active_rate.save()
+    #     sps.save()
     return render(request, 'rfqsite/index.html', context)
 
 def parts(request, tracker_no):
@@ -104,20 +104,19 @@ def edit_rfq_confirm(request):
         return redirect('/part_table/'+tracker_no)
 
 
-def edit_active_rate(request, tracker_no):
-    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
-    print(active_rate.cla)
+def edit_active_rate(request, sl_no):
+    active_rate = Active_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
     context = {
-            'tracker_no': tracker_no,
+            'part': part,
             'active_rate': active_rate
     }
     return render(request, 'rfqsite/edit_active_rate.html', context)
 
 def edit_active_rate_confirm(request):
     if request.method == 'POST':
-        tracker_no = request.POST.get('tracker-no')
-        editAR = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        sl_no = request.POST.get('sl-no')
+        editAR = Active_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         editAR.cla = request.POST.get('rate-cla')
         editAR.bta = request.POST.get('rate-bta')
         editAR.tma = request.POST.get('rate-tma')
@@ -130,21 +129,21 @@ def edit_active_rate_confirm(request):
         editAR.deburring = request.POST.get('rate-deburring')
         editAR.inspection = request.POST.get('rate-inspection')
         editAR.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_info/'+sl_no)
 
-def edit_sp_rate(request, tracker_no):
-    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    sp_rate = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+def edit_sp_rate(request, sl_no):
+    sp_rate = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
     context = {
-            'tracker_no': tracker_no,
+            'part': part,
             'sp_rate': sp_rate
     }
     return render(request, 'rfqsite/edit_sp_rate.html', context)
 
 def edit_sp_rate_confirm(request):
     if request.method == 'POST':
-        tracker_no = request.POST.get('tracker-no')
-        editSPR = SP_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
+        sl_no = request.POST.get('sl-no')
+        editSPR = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         editSPR.fpi = request.POST.get('rate-fpi')
         editSPR.mpi = request.POST.get('rate-mpi')
         editSPR.passivation = request.POST.get('rate-passivation')
@@ -157,7 +156,7 @@ def edit_sp_rate_confirm(request):
         editSPR.chrome_plating = request.POST.get('rate-chrome-plating')
         editSPR.heat_treatment = request.POST.get('rate-heat-treatment')
         editSPR.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_info/'+sl_no)
 
 def part_info(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
