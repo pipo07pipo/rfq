@@ -58,8 +58,6 @@ class SPS(models.Model):
     primer = models.CharField(max_length=200, default='')
     solid_film = models.CharField(max_length=200, default='')
     pmr = models.CharField(max_length=200, default='')
-    hardware_description = models.CharField(max_length=200, default='')
-    hardware_qty = models.FloatField(default=0)
 
 class Forecast(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
@@ -91,12 +89,23 @@ class Material(models.Model):
     rm_l_unit = models.CharField(max_length=10, null=True, default='')
     rm_total_weight = models.FloatField(null=True, default=0)
 
+class Material2(models.Model):
+    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
+    fpwp = models.FloatField(null=True, default=0)
+    armwpp = models.FloatField(null=True, default=0)
+    base_material_price = models.FloatField(null=True, default=0)
+    supplier = models.CharField(max_length=200, default='')
+    shipping_cost = models.FloatField(null=True, default=0)
+
+class Hardware(models.Model):
+    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
+    supplier = models.CharField(max_length=200, default='')
+    price = models.FloatField(null=True, default=0)
+    description = models.CharField(max_length=200, default='')
+    qty = models.FloatField(default=0)
+
 class Part_Costing(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    hardware_supplier = models.CharField(max_length=200, default='')
-    base_material_price = models.FloatField(null=True, default=0)
-    material_supplier = models.CharField(max_length=200, default='')
-    material_shipping_cost = models.FloatField(null=True, default=0)
     nre_amortizing_cost = models.FloatField(null=True, default=0)
     target_price = models.FloatField(null=True, default=0)
     ebq_customer_qty = models.FloatField(null=True, default=0)
@@ -107,6 +116,11 @@ class Part_Costing(models.Model):
     dltiw_fai = models.CharField(max_length=200, default='')
     dltiw_serial_production = models.CharField(max_length=200, default='')
     dltiw_production = models.CharField(max_length=200, default='')
+    base_subcontract = models.FloatField(null=True, default=0)
+    subcontract_shipping_cost = models.FloatField(null=True, default=0)
+    ddp_shipping_cost = models.FloatField(null=True, default=0)
+    ddp_usd = models.FloatField(null=True, default=0)
+
 class MSUT(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     cla = models.FloatField(null=True, default=0)
