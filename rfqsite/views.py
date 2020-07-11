@@ -62,6 +62,8 @@ def add_part_confirm(request):
         newMSUT = MSUT(sl_no=newPart)
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
+        newSP = SP_Rate(sl_no=newPart)
+        newBR = Burden_Rate(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -69,6 +71,8 @@ def add_part_confirm(request):
         newMSUT.save()
         newCTPP.save()
         newPart_Costing.save()
+        newSP.save()
+        newBR.save()
         return redirect('/part_table/'+tracker_no)
 
 def edit_rfq(request, tracker_no):
