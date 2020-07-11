@@ -540,9 +540,7 @@
 											<input type="hidden" id="rm-t-unit" name="rm-t-unit" value="{{ material.rm_t_unit }}">
 											<input type="hidden" id="rm-w-unit" name="rm-w-unit" value="{{ material.rm_w_unit }}">
 											<input type="hidden" id="rm-l-unit" name="rm-l-unit" value="{{ material.rm_l_unit }}">
-											<div class="text-right mr-lg">
-												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_material/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-											</div>
+											<br>
 											<!-- Annual Raw Material Requirement (kg) -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -610,7 +608,7 @@
 												</div>
 											</div>
 											<div class="text-right mr-lg">
-												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_material2/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_material/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 											</div>
 							    </div>
 							</section>
@@ -899,7 +897,8 @@
 												<!-- 1S -->
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Quote Assumptions</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<!-- Empty -->
@@ -910,16 +909,48 @@
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+														<label class="col-sm-7 control-label text-right labcustom"><b>NRE Amortizing Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="nre-amortizing-cost" name="nre-amortizing-cost">{{ part_costing.nre_amortizing_cost }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
+														<label class="col-sm-7 control-label text-right labcustom"><b>Target Price (USD)</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="target-price" name="target-price">{{ part_costing.target_price }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<!-- Empty -->
 													</div>
 												</div>
+												<div class="form-group">
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Special Process Set Up Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
+													</div>
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>One Time RM Airshipments Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
+													</div>
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Tooling Cost
+															<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
+														</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>Base Subcontract</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">{{ part_costing.base_subcontract }}</label>
+													</div>
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>Subcontract Shipping Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
+													</div>
+													<div class="col-md-4 labcustom">
+														<label class="col-sm-7 control-label text-right labcustom"><b>DDP Shipping Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ddp-shipping-cost" name="ddp-shipping-cost">{{ part_costing.ddp_shipping_cost }}</label>
+													</div>
+												</div>
+												<hr>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Material Cost DDP CCS</b></label>
@@ -930,7 +961,8 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="manufacturing-cost" name="manufacturing-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
+														<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
 													</div>
 												</div>
 												<div class="form-group">
@@ -939,17 +971,6 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>NRE Amortizing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="nre-amortizing-cost" name="nre-amortizing-cost">{{ part_costing.nre_amortizing_cost }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-												</div>
-												<!-- 2S -->
-												<hr>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Additional MFG OH Factor</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="additional-mfg" name="additional-mfg">-</label>
 													</div>
@@ -957,14 +978,13 @@
 														<label class="col-sm-7 control-label text-right labcustom"><b>Profit Factor</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="profit-factor" name="profit-factor">-</label>
 													</div>
+												</div>
+												<!-- 2S -->
+												<div class="form-group">
 													<div class="col-md-4 labcustom">
-
-
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="total-manufacturing-cost" name="total-manufacturing-cost">-</label>
 													</div>
-												</div>
-												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Ex-works Price</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp" name="ccs-ewp">-</label>
@@ -973,39 +993,19 @@
 														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Part/Assy Ex_works BKK Thailand</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp" name="ccs-ppp">-</label>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Target Price (USD)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="target-price" name="target-price">{{ part_costing.target_price }}</label>
-													</div>
 												</div>
 												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Base Subcontract</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Subcontract Shipping Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
-													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>DDP USD</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ddp-usd" name="ddp-usd">-</label>
 													</div>
-												</div>
-												<div class="form-group">
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>DDP Shipping Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ddp-shipping-cost" name="ddp-shipping-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-
+														<!-- Empty -->
 													</div>
 													<div class="col-md-4 labcustom">
 
 													</div>
 												</div>
-												<hr>
-												<!-- 3S -->
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
@@ -1030,36 +1030,8 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="oyrmb" name="oyrmb">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Special Process Set Up Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>One Time RM Airshipments Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>One Time Tooling Cost
-															<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
-														</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total NRE Cost</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">-</label>
-													</div>
-												</div>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Quote Assumptions</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
 													</div>
 												</div>
 												<hr>
@@ -1084,6 +1056,7 @@
 													</tbody>
 											</table>
 											</div>
+											<br>
 											<!-- Total Project Cost -->
 											<div class="table-responsive">
 											<table class="table table-bordered table-striped table-condensed mb-none">
@@ -1284,6 +1257,14 @@
 		var ctpp_lapping = parseFloat($( "#ctpp-lapping" ).text());
 
 		// -- Part Costing --
+		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text());
+		var target_price = parseFloat($( "#target-price" ).text());
+		var otspsuc = parseFloat($( "#otspsuc" ).text());
+		var otrmac = parseFloat($( "#otrmac" ).text());
+		var ottc = parseFloat($( "#ottc" ).text());
+		var base_subcontract = parseFloat($( "#base-subcontract" ).text()); // NO RESTATE
+		var subcontract_shipping_cost = parseFloat($( "#subcontract-shipping-cost" ).text());
+		var ddp_shipping_cost = parseFloat($( "#ddp-shipping-cost" ).text());
 
 		// -*-*-*-*-*-*-*-*-*-*- RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1331,6 +1312,13 @@
 		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
 
 		// -- Part Costing --
+		$( "#nre-amortizing-cost" ).text(dollar_sign(nre_amortizing_cost) + nre_amortizing_cost.toFixed(2));
+		$( "#target-price" ).text(dollar_sign(target_price) + target_price.toFixed(2));
+		$( "#otspsuc" ).text(dollar_sign(otspsuc) + otspsuc.toFixed(2));
+		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
+		$( "#ottc" ).text(dollar_sign(ottc) + ottc.toFixed(2));
+		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
+		$( "#ddp-shipping-cost" ).text(dollar_sign(ddp_shipping_cost) + ddp_shipping_cost.toFixed(2));
 
 		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1405,6 +1393,60 @@
 		var spc_cadmium_plating = rate_cadmium_plating * (1 / production_qty);
 		var spc_chrome_plating = rate_chrome_plating * (1 / production_qty);
 		var spc_heat_treatment = rate_heat_treatment * (1 / production_qty);
+		// Subcontract Shipping Cost = [Base Subcontract + (Subcontract Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
+		var subcontract_shipping_cost = (base_subcontract + (subcontract_shipping_cost * afpwpp)) * rate_subcontract;
+		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
+		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
+		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
+		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
+		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
+		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
+		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
+		// Surface Treatment Cost = SUM(Special Process Cost)
+		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint
+		+ spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
+		// Additional MFG OH Factor = Manufacturing Cost * 0.1
+		var additional_mfg = manufacturing_cost * 0.1;
+		// Profit Factor = Manufacturing Cost * 0.1
+		var profit_factor = manufacturing_cost * 0.1;
+		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
+		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
+		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
+		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
+		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
+		var ccs_ppp = 0;
+		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Subcontract Shipping Cost * Approximate Finished Part Weight Per Part)
+		var ddp_usd = ccs_ppp + (subcontract_shipping_cost * afpwpp);
+		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
+		var ebq_ccs_qty = eau_year3 / 4;
+		// Minimum Firm Order Quantity/Lot = EAU year3
+		var minimum_firm_order_qty = eau_year3;
+		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
+		var moq_rm_order = (eau_year3 * armwpp) / 4;
+		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
+		var oyrmb = trmwpy;
+		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
+		var total_nre_cost = otspsuc + otrmac	+ ottc;
+		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
+		var total_cost = ccs_ppp * eau_total_year;
+		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
+		var mtl_cost = material_cost * eau_total_year;
+		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
+		var spl_process_cost = surface_treatment_cost * eau_total_year;
+		// Total Hardware Cost = Hardware Cost * SUM(Forecast)
+ 		var total_hardware_cost = hardware_cost * (forecast_year1 + forecast_year2 + forecast_year3 + forecast_year4 + forecast_year5);
+
+		// -- Machining Capacity Required for the Project --
+		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
+		var mcrftp_cla = tctt_cla * eau_total_year;
+		var mcrftp_bta = tctt_bta * eau_total_year;
+		var mcrftp_tma = tctt_tma * eau_total_year;
+		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
+		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
+		var mcrftp_hmc = tctt_hmc * eau_total_year;
+		var mcrftp_5axis = tctt_5axis * eau_total_year;
+		var mcrftp_edm = tctt_edm * eau_total_year;
+		var mcrftp_grinding = tctt_grinding * eau_total_year;
 
 
 		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
@@ -1468,122 +1510,31 @@
 		$( "#spc-cadmium-plating" ).text(dollar_sign(spc_cadmium_plating) + spc_cadmium_plating.toFixed(2));
 		$( "#spc-chrome-plating" ).text(dollar_sign(spc_chrome_plating) + spc_chrome_plating.toFixed(2));
 		$( "#spc-heat-treatment" ).text(dollar_sign(spc_heat_treatment) + spc_heat_treatment.toFixed(2));
-
-		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-		// -- 1S --
-
-		// Hardware Cost = 3.5 * Qty per unit * 1.3
-		// EDIT: Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
-		var hardware_cost = 3.5 * parseFloat($( "#qty-per-unit" ).text()) * 1.3;
-		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + hardware_cost.toFixed(2));
-
-		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * 1.12
-		var material_cost = (base_material_price + parseFloat($( "#material-shipping-cost" ).text())) * parseFloat($( "#armwpp" ).text()) * 1.12;
+		// - S -
+		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
 		$( "#material-cost" ).text(dollar_sign(material_cost) + material_cost.toFixed(2));
-
-		// Surface Treatment Cost = SUM(Special Process Cost)
-		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint + spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
-		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + surface_treatment_cost.toFixed(2));
-
-		// RE$ : NRE Amortizing Cost
-		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text());
-		$( "#nre-amortizing-cost" ).text(dollar_sign(nre_amortizing_cost) + nre_amortizing_cost.toFixed(2));
-
-		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
-		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
 		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + manufacturing_cost.toFixed(2));
-
-		// -- 2S --
-		// Additional MFG OH Factor = Manufacturing Cost * 0.1
-		var additional_mfg = manufacturing_cost * 0.1;
+		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + hardware_cost.toFixed(2));
+		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + surface_treatment_cost.toFixed(2));
 		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + additional_mfg.toFixed(2));
-
-		// Profit Factor = Manufacturing Cost * 0.1
-		var profit_factor = manufacturing_cost * 0.1;
 		$( "#profit-factor" ).text(dollar_sign(profit_factor) + profit_factor.toFixed(2));
-
-		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
-		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
 		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + total_manufacturing_cost.toFixed(2));
-
-		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Total Hardware Cost
-		// EDIT: CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
-		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + total_hardware_cost;
 		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + ccs_ewp.toFixed(2));
-
-		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
-		var ccs_ppp = 0;
 		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
-
-		// RE$ : NRE Amortizing Cost
-		var target_price = parseFloat($( "#target-price" ).text());
-		$( "#target-price" ).text(dollar_sign(target_price) + target_price.toFixed(2));
-
-		// -- 3S --
-
-		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
-		var ebq_ccs_qty = eau_year3 / 4;
+		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + ddp_usd.toFixed(2));
+		// - SS -
 		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
-
-		// Minimum Firm Order Quantity/Lot = EAU year3
-		var minimum_firm_order_qty = eau_year3;
 		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
-
-		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
-		var moq_rm_order = (eau_year3 * armwpp) / 4;
-		$( "#moq-rm-order" ).text(moq_rm_order);
-
-		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
-		var oyrmb = trmwpy;
-		$( "#oyrmb" ).text(oyrmb);
-
-		// RE$ : One Time Special Process Set Up Cost
-		var otspsuc = parseFloat($( "#otspsuc" ).text());
-		$( "#otspsuc" ).text(dollar_sign(otspsuc) + otspsuc.toFixed(2));
-
-		// RE$ : One Time RM Airshipments Cost
-		var otrmac = parseFloat($( "#otrmac" ).text());
-		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
-
-		// RE$ : One Time Tooling Cost
-		var ottc = parseFloat($( "#ottc" ).text());
-		$( "#ottc" ).text(dollar_sign(ottc) + ottc.toFixed(2));
-
-		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
-		var total_nre_cost = otspsuc + otrmac	+ ottc;
+		$( "#moq-rm-order" ).text(moq_rm_order.toFixed(2));
+		$( "#oyrmb" ).text(oyrmb.toFixed(2));
 		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
-
-		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
-		var total_cost = ccs_ppp * eau_total_year;
+		// - SSS -
 		$( "#total-cost" ).text(dollar_sign(total_cost) + total_cost.toFixed(2));
-
-		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
-		var mtl_cost = material_cost * eau_total_year;
 		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + mtl_cost.toFixed(2));
-
-		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
-		var spl_process_cost = surface_treatment_cost * eau_total_year;
-		 $( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + spl_process_cost.toFixed(2));
-
-		// Total Hardware Cost = Hardware Cost
- 		// EDIT: Total Hardware Cost = Hardware Cost * SUM(Forecast)
- 		var total_hardware_cost = hardware_cost;
- 		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + total_hardware_cost.toFixed(2));
+		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + spl_process_cost.toFixed(2));
+		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + total_hardware_cost.toFixed(2));
 
 		// -- Machining Capacity Required for the Project --
-
-		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
-		var mcrftp_cla = tctt_cla * eau_total_year;
-		var mcrftp_bta = tctt_bta * eau_total_year;
-		var mcrftp_tma = tctt_tma * eau_total_year;
-		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
-		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
-		var mcrftp_hmc = tctt_hmc * eau_total_year;
-		var mcrftp_5axis = tctt_5axis * eau_total_year;
-		var mcrftp_edm = tctt_edm * eau_total_year;
-		var mcrftp_grinding = tctt_grinding * eau_total_year;
 		$( "#mcrftp-cla" ).text(mcrftp_cla.toFixed(2));
 		$( "#mcrftp-bta" ).text(mcrftp_bta.toFixed(2));
 		$( "#mcrftp-tma" ).text(mcrftp_tma.toFixed(2));
@@ -1593,6 +1544,8 @@
 		$( "#mcrftp-5axis" ).text(mcrftp_5axis.toFixed(2));
 		$( "#mcrftp-edm" ).text(mcrftp_edm.toFixed(2));
 		$( "#mcrftp-grinding" ).text(mcrftp_grinding.toFixed(2));
+
+		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
 
 	function dollar_sign(value){

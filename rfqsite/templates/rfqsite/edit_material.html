@@ -231,6 +231,55 @@
 											</div>
 											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
+										<hr>
+										<small></small>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b></b></label>
+											<div class="col-sm-6">
+												<div class="checkbox">
+													<label>
+													<input type="checkbox" id="check-armwpp" name="check-armwpp" {% if material2.armwpp %}checked{% endif %}>
+														Use 'Approximate Raw Material Weight Per Part' Instead.
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Approximate Raw Material Weight Per Part</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="armwpp" name="armwpp" value="{{ material2.armwpp }}" {% if material2.armwpp == None %}readonly{% endif %}>
+											</div>
+										</div>
+										<hr>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Finished Part Weight Percentage</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="fpwp" name="fpwp" value="{{ material2.fpwp }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Material Supplier</b></label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" id="material-supplier" name="material-supplier" value="{{ material2.supplier }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Base Material Price/kg</b></label>
+											<div class="col-sm-3">
+												<div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon">$</span>
+														</span>
+														<input type="number" step="any" class="form-control" id="base-material-price" name="base-material-price" value="{{ material2.base_material_price }}">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Material Shipping Cost USD/kg</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="material-shipping-cost" name="material-shipping-cost" value="{{ material2.shipping_cost }}">
+											</div>
+										</div>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
@@ -272,8 +321,6 @@
 <script>
 $( document ).ready(function() {
 	cross_section_change();
-	// material_type_change();
-	// calculate_weight();
 });
 
 $( "#cross-section" ).change(function() {
@@ -337,6 +384,18 @@ $( "#rm-l" ).change(function() {
 $( "#rm-l-unit" ).change(function() {
 	calculate_weight();
 });
+
+$( "#check-armwpp" ).change(function() {
+	armwpp_change();
+});
+
+function armwpp_change(){
+	if ($( "#check-armwpp" ).prop("checked")) {
+		$('#armwpp').attr('readonly', false);
+  } else {
+		$('#armwpp').attr('readonly', true);
+	}
+}
 
 function calculate_weight(){
 	var cross_section = $( "#cross-section" ).val();
