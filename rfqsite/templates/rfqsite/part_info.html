@@ -1379,10 +1379,10 @@
 		var tctc_edm = (rate_edm / 60) * tctt_edm;
 		var tctc_grinding = (rate_grinding / 60) * tctt_grinding;
 		// X Cycle Cost (Dollar) = (Active Rate / 60) * Cycle Time Per Part
-		var inspection_cost = (rate_inspection / 60) * ctpp_inspection; // Active Rate = Inspection Rate
-		var deburring_cost = (rate_deburring / 60) * ctpp_deburring; // Active Rate = Deburring Rate
-		var assembly_cost = (rate_inspection / 60) * ctpp_assembly; // Active Rate = Inspection Rate
-		var lapping_cost = (rate_deburring / 60) * ctpp_lapping; // Active Rate = Deburring Rate
+		var tctc_inspection = (rate_inspection / 60) * ctpp_inspection; // Active Rate = Inspection Rate
+		var tctc_deburring = (rate_deburring / 60) * ctpp_deburring; // Active Rate = Deburring Rate
+		var tctc_assembly = (rate_inspection / 60) * ctpp_assembly; // Active Rate = Inspection Rate
+		var tctc_lapping = (rate_deburring / 60) * ctpp_lapping; // Active Rate = Deburring Rate
 		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
 		var spc_fpi = rate_fpi * (1 / production_qty);
 		var spc_mpi = rate_mpi * (1 / production_qty);
@@ -1402,7 +1402,7 @@
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ inspection_cost + deburring_cost + assembly_cost + lapping_cost + nre_amortizing_cost;
+		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping + nre_amortizing_cost;
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
 		// Surface Treatment Cost = SUM(Special Process Cost)
@@ -1418,8 +1418,8 @@
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
 		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
 		var ccs_ppp = 0;
-		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Subcontract Shipping Cost * Approximate Finished Part Weight Per Part)
-		var ddp_usd = ccs_ppp + (subcontract_shipping_cost * afpwpp);
+		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
+		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
 		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
 		var ebq_ccs_qty = eau_year3 / 4;
 		// Minimum Firm Order Quantity/Lot = EAU year3
@@ -1496,10 +1496,10 @@
 		$( "#tctc-5axis" ).text(dollar_sign(tctc_5axis) + tctc_5axis.toFixed(2));
 		$( "#tctc-edm" ).text(dollar_sign(tctc_edm) + tctc_edm.toFixed(2));
 		$( "#tctc-grinding" ).text(dollar_sign(tctc_grinding) + tctc_grinding.toFixed(2));
-		$( "#tctc-inspection" ).text(dollar_sign(inspection_cost) + inspection_cost.toFixed(2));
-		$( "#tctc-deburring" ).text(dollar_sign(deburring_cost) + deburring_cost.toFixed(2));
-		$( "#tctc-assembly" ).text(dollar_sign(assembly_cost) + assembly_cost.toFixed(2));
-		$( "#tctc-lapping" ).text(dollar_sign(lapping_cost) + lapping_cost.toFixed(2));
+		$( "#tctc-inspection" ).text(dollar_sign(tctc_inspection) + tctc_inspection.toFixed(2));
+		$( "#tctc-deburring" ).text(dollar_sign(tctc_deburring) + tctc_deburring.toFixed(2));
+		$( "#tctc-assembly" ).text(dollar_sign(tctc_assembly) + tctc_assembly.toFixed(2));
+		$( "#tctc-lapping" ).text(dollar_sign(tctc_lapping) + tctc_lapping.toFixed(2));
 		// - Special Process Cost (Dollar) -
 		$( "#spc-fpi" ).text(dollar_sign(spc_fpi) + spc_fpi.toFixed(2));
 		$( "#spc-mpi" ).text(dollar_sign(spc_mpi) + spc_mpi.toFixed(2));
