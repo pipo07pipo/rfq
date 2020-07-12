@@ -385,10 +385,10 @@ def edit_hardware_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         edithw = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        edithw.description = request.POST.get('sps-surface-treatment')
-        edithw.supplier = request.POST.get('sps-ht')
-        edithw.price = to_float(request.POST.get('sps-fpi'))
-        edithw.qty = to_float(request.POST.get('sps-mpi'))
+        edithw.description = request.POST.get('hardware-description')
+        edithw.supplier = request.POST.get('hardware-supplier')
+        edithw.price = to_float(request.POST.get('hardware-price'))
+        edithw.qty = to_float(request.POST.get('hardware-qty'))
         edithw.save()
     return redirect('/part_info/'+sl_no)
 

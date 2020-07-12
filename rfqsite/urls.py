@@ -34,5 +34,7 @@ urlpatterns = [
     path('edit_material_remove/<int:sl_no>/', views.edit_material_remove, name='projects'),
     path('edit_burden_rate/<int:sl_no>/', views.edit_burden_rate, name='projects'),
     path('edit_burden_rate_confirm/', views.edit_burden_rate_confirm, name='projects'),
+    path('edit_hardware/<int:sl_no>/', views.edit_hardware, name='projects'),
+    path('edit_hardware_confirm/', views.edit_hardware_confirm, name='projects'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
