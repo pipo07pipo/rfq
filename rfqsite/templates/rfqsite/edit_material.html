@@ -432,7 +432,7 @@ function calculate_weight(){
 		var result = quantity* density * value_t * value_w * value_l / 1000;
 
 		if(density == "" || quantity == "" || $( "#rm-t" ).val() == "" || $( "#rm-w" ).val() == "" || $( "#rm-l" ).val() == ""){
-			var result = "-1";
+			var result = "0";
 		}
  	}
 	$( "#rm-total-weight" ).val(result);
