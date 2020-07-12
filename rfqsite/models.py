@@ -117,9 +117,7 @@ class Part_Costing(models.Model):
     dltiw_serial_production = models.CharField(max_length=200, default='')
     dltiw_production = models.CharField(max_length=200, default='')
     base_subcontract = models.FloatField(null=True, default=0)
-    subcontract_shipping_cost = models.FloatField(null=True, default=0)
     ddp_shipping_cost = models.FloatField(null=True, default=0)
-    ddp_usd = models.FloatField(null=True, default=0)
 
 class MSUT(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
