@@ -583,6 +583,7 @@
 															<td class="center" id="fpwp" name="fpwp">{{ material.fpwp }}</td>
 															<td class="center" id="afpwpp" name="afpwpp">-</td>
 															<td class="center" id="armwpp" name="armwpp">-</td>
+															<td class="center" id="armwpp2" name="armwpp2" hidden>{{ material.armwpp }}</td>
 															<td class="center" id="trmwpy" name="trmwpy">-</td>
 														</tr>
 													</tbody>
@@ -980,6 +981,7 @@
 													</div>
 												</div>
 												<!-- 2S -->
+												<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_ccs_ewp }}</label>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
@@ -1179,7 +1181,7 @@
 	});
 
 	function data_cal(){
-		// -*-*-*-*-*-*-*-*-*-*- RAW INPUT SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- 1 RAW INPUT SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
 		var qty_per_unit = parseFloat($( "#qty-per-unit" ).text());
@@ -1266,7 +1268,311 @@
 		var subcontract_shipping_cost = parseFloat($( "#subcontract-shipping-cost" ).text());
 		var ddp_shipping_cost = parseFloat($( "#ddp-shipping-cost" ).text());
 
-		// -*-*-*-*-*-*-*-*-*-*- RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -- Special --
+		var armwpp2 = parseFloat($( "#armwpp2" ).text()); // NO RESTATE
+		// SUM(CCS Ex-works Price) of all child
+		var sum_ccs_ewp = parseFloat($( "#sum-ccs-ewp" ).text()); // NO RESTATE
+
+		// -*-*-*-*-*-*-*-*-*-*- 2 CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
+
+		// -- Forecast & EAU --
+		// EAU = Forecast * Qty
+		// 5 Years Total EAU = SUM(EAU)
+		var eau_year1 = forecast_year1 * qty_per_unit;
+		var eau_year2 = forecast_year2 * qty_per_unit;
+		var eau_year3 = forecast_year3 * qty_per_unit;
+		var eau_year4 = forecast_year4 * qty_per_unit;
+		var eau_year5 = forecast_year5 * qty_per_unit;
+		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
+
+		// -- Material --
+		// Annual Raw Material Requirement = Total RM Weight * EAU
+		var armr_year1 = rm_total_weight * eau_year1;
+		var armr_year2 = rm_total_weight * eau_year2;
+		var armr_year3 = rm_total_weight * eau_year3;
+		var armr_year4 = rm_total_weight * eau_year4;
+		var armr_year5 = rm_total_weight * eau_year5;
+
+		// Approximate Finished Part Weight Per Part = Total RM Weight * Finished Part Weight Percentage
+		var afpwpp = rm_total_weight * fpwp;
+
+		// Approximate Raw Material Weight Per Part = Total RM Weight <EDITABLE>
+		var armwpp = rm_total_weight;
+		if(armwpp2 != 0){
+			armwpp = armwpp2;
+		}
+
+		// Total Raw Material Weight Per Year = Total RM Weight * (5 Years Total EAU / 5)
+		var trmwpy = rm_total_weight * (eau_total_year / 5);
+
+		// -- Process and Process Cost --
+		// * Production Qty = EAU year3 / 4
+		var production_qty = eau_year3 / 4;
+
+		// -- Part Costing --
+		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
+		var tctt_cla = (msut_cla / production_qty) + ctpp_cla;
+		var tctt_bta = (msut_bta / production_qty) + ctpp_bta;
+		var tctt_tma = (msut_tma / production_qty) + ctpp_tma;
+		var tctt_mca3axis = (msut_mca3axis / production_qty) + ctpp_mca3axis;
+		var tctt_mca4axis = (msut_mca4axis / production_qty) + ctpp_mca4axis;
+		var tctt_hmc = (msut_hmc / production_qty) + ctpp_hmc;
+		var tctt_5axis = (msut_5axis / production_qty) + ctpp_5axis;
+		var tctt_edm = (msut_edm / production_qty) + ctpp_edm;
+		var tctt_grinding = (msut_grinding / production_qty) + ctpp_grinding;
+		// Total Cycle Cost (Dollar) = (Active Rate / 60) * Total Cycle Time
+		var tctc_cla = (rate_cla / 60) * tctt_cla;
+		var tctc_bta = (rate_bta / 60) * tctt_bta;
+		var tctc_tma = (rate_tma / 60) * tctt_tma;
+		var tctc_mca3axis = (rate_mca3axis / 60) * tctt_mca3axis;
+		var tctc_mca4axis = (rate_mca4axis / 60) * tctt_mca4axis;
+		var tctc_hmc = (rate_hmc / 60) * tctt_hmc;
+		var tctc_5axis = (rate_5axis / 60) * tctt_5axis;
+		var tctc_edm = (rate_edm / 60) * tctt_edm;
+		var tctc_grinding = (rate_grinding / 60) * tctt_grinding;
+		// X Cycle Cost (Dollar) = (Active Rate / 60) * Cycle Time Per Part
+		var tctc_inspection = (rate_inspection / 60) * ctpp_inspection; // Active Rate = Inspection Rate
+		var tctc_deburring = (rate_deburring / 60) * ctpp_deburring; // Active Rate = Deburring Rate
+		var tctc_assembly = (rate_inspection / 60) * ctpp_assembly; // Active Rate = Inspection Rate
+		var tctc_lapping = (rate_deburring / 60) * ctpp_lapping; // Active Rate = Deburring Rate
+		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
+		var spc_fpi = rate_fpi * (1 / production_qty);
+		var spc_mpi = rate_mpi * (1 / production_qty);
+		var spc_passivation = rate_passivation * (1 / production_qty);
+		var spc_caa = rate_caa * (1 / production_qty);
+		var spc_saa = rate_saa * (1 / production_qty);
+		var spc_hard_anodizing = rate_hard_anodizing * (1 / production_qty);
+		var spc_ccc = rate_ccc * (1 / production_qty);
+		var spc_dfl = rate_dfl * (1 / production_qty);
+		var spc_paint = rate_paint * (1 / production_qty);
+		var spc_cadmium_plating = rate_cadmium_plating * (1 / production_qty);
+		var spc_chrome_plating = rate_chrome_plating * (1 / production_qty);
+		var spc_heat_treatment = rate_heat_treatment * (1 / production_qty);
+		// Subcontract Shipping Cost = [Base Subcontract + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
+		var subcontract_shipping_cost = (base_subcontract + (ddp_shipping_cost * afpwpp)) * rate_subcontract;
+		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
+		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
+		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
+		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
+		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping + nre_amortizing_cost;
+		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
+		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
+		// Surface Treatment Cost = SUM(Special Process Cost)
+		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint
+		+ spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
+		// Additional MFG OH Factor = Manufacturing Cost * 0.1
+		var additional_mfg = manufacturing_cost * 0.1;
+		// Profit Factor = Manufacturing Cost * 0.1
+		var profit_factor = manufacturing_cost * 0.1;
+		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
+		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
+		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
+		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
+		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
+		var ccs_ppp = sum_ccs_ewp;
+		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
+		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
+		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
+		var ebq_ccs_qty = eau_year3 / 4;
+		// Minimum Firm Order Quantity/Lot = EAU year3
+		var minimum_firm_order_qty = eau_year3;
+		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
+		var moq_rm_order = (eau_year3 * armwpp) / 4;
+		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
+		var oyrmb = trmwpy;
+		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
+		var total_nre_cost = otspsuc + otrmac	+ ottc;
+		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
+		var total_cost = ccs_ppp * eau_total_year;
+		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
+		var mtl_cost = material_cost * eau_total_year;
+		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
+		var spl_process_cost = surface_treatment_cost * eau_total_year;
+		// Total Hardware Cost = Hardware Cost * SUM(Forecast)
+ 		var total_hardware_cost = hardware_cost * (forecast_year1 + forecast_year2 + forecast_year3 + forecast_year4 + forecast_year5);
+
+		// -- Machining Capacity Required for the Project --
+		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
+		var mcrftp_cla = tctt_cla * eau_total_year;
+		var mcrftp_bta = tctt_bta * eau_total_year;
+		var mcrftp_tma = tctt_tma * eau_total_year;
+		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
+		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
+		var mcrftp_hmc = tctt_hmc * eau_total_year;
+		var mcrftp_5axis = tctt_5axis * eau_total_year;
+		var mcrftp_edm = tctt_edm * eau_total_year;
+		var mcrftp_grinding = tctt_grinding * eau_total_year;
+
+		// -*-*-*-*-*-*-*-*-*-*- 3 RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
+
+		// -- Forecast & EAU --
+		$( "#qty-per-unit" ).text(qty_per_unit);
+		$( "#forecast-year1" ).text(forecast_year1);
+		$( "#forecast-year2" ).text(forecast_year2);
+		$( "#forecast-year3" ).text(forecast_year3);
+		$( "#forecast-year4" ).text(forecast_year4);
+		$( "#forecast-year5" ).text(forecast_year5);
+
+		// -- Rate --
+		// - Active Rate -
+		$( "#rate-cla" ).text(rate_cla);
+		$( "#rate-bta" ).text(rate_bta);
+		$( "#rate-tma" ).text(rate_tma);
+		$( "#rate-mca3axis" ).text(rate_mca3axis);
+		$( "#rate-mca4axis" ).text(rate_mca4axis);
+		$( "#rate-hmc" ).text(rate_hmc);
+		$( "#rate-5axis" ).text(rate_5axis);
+		$( "#rate-edm" ).text(rate_edm);
+		$( "#rate-grinding" ).text(rate_grinding);
+		$( "#rate-deburring" ).text(rate_deburring);
+		$( "#rate-inspection" ).text(rate_inspection);
+		// - Special Process Rate -
+		$( "#rate-fpi" ).text(rate_fpi);
+		$( "#rate-mpi" ).text(rate_mpi);
+		$( "#rate-passivation" ).text(rate_passivation);
+		$( "#rate-caa" ).text(rate_caa);
+		$( "#rate-saa" ).text(rate_saa);
+		$( "#rate-hard-anodizing" ).text(rate_hard_anodizing);
+		$( "#rate-ccc" ).text(rate_ccc);
+		$( "#rate-dfl" ).text(rate_dfl);
+		$( "#rate-paint" ).text(rate_paint);
+		$( "#rate-cadmium-plating" ).text(rate_cadmium_plating);
+		$( "#rate-chrome-plating" ).text(rate_chrome_plating);
+		$( "#rate-heat-treatment" ).text(rate_heat_treatment);
+		// - Burden Rate -
+		$( "#rate-material" ).text(rate_material);
+		$( "#rate-hardware" ).text(rate_hardware);
+		$( "#rate-subcontract" ).text(rate_subcontract);
+
+		// -- Material --
+		$( "#rm-total-weight" ).text(rm_total_weight);
+		$( "#base-material-price" ).text(base_material_price);
+
+		// -- Hardware --
+		$( "#hardware-price" ).text(hardware_price);
+
+		// -- Part Costing --
+		$( "#nre-amortizing-cost" ).text(nre_amortizing_cost);
+		$( "#target-price" ).text(target_price);
+		$( "#otspsuc" ).text(otspsuc);
+		$( "#otrmac" ).text(otrmac);
+		$( "#ottc" ).text(ottc);
+		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
+		$( "#ddp-shipping-cost" ).text(ddp_shipping_cost);
+
+		// -*-*-*-*-*-*-*-*-*-*- 4 CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
+
+		// -- Forecast & EAU --
+		$( "#eau-year1" ).text(eau_year1);
+		$( "#eau-year2" ).text(eau_year2);
+		$( "#eau-year3" ).text(eau_year3);
+		$( "#eau-year4" ).text(eau_year4);
+		$( "#eau-year5" ).text(eau_year5);
+		$( "#eau-total-year" ).text(eau_total_year);
+
+		// -- Material --
+		$( "#armr-year1" ).text(armr_year1);
+		$( "#armr-year2" ).text(armr_year2);
+		$( "#armr-year3" ).text(armr_year3);
+		$( "#armr-year4" ).text(armr_year4);
+		$( "#armr-year5" ).text(armr_year5);
+		$( "#afpwpp" ).text(afpwpp);
+		$( "#armwpp" ).text(armwpp);
+		$( "#trmwpy" ).text(trmwpy);
+
+		// -- Process and Process Cost --
+		$( "#production-qty" ).text(production_qty);
+
+		// -- Part Costing --
+		// - Total Cycle Time (Minutes) -
+		$( "#tctt-cla" ).text(tctt_cla);
+		$( "#tctt-bta" ).text(tctt_bta);
+		$( "#tctt-tma" ).text(tctt_tma);
+		$( "#tctt-mca3axis" ).text(tctt_mca3axis);
+		$( "#tctt-mca4axis" ).text(tctt_mca4axis);
+		$( "#tctt-hmc" ).text(tctt_hmc);
+		$( "#tctt-5axis" ).text(tctt_5axis);
+		$( "#tctt-edm" ).text(tctt_edm);
+		$( "#tctt-grinding" ).text(tctt_grinding);
+		// - Total Cycle Cost (Dollar) -
+		$( "#tctc-cla" ).text(tctc_cla);
+		$( "#tctc-bta" ).text(tctc_bta);
+		$( "#tctc-tma" ).text(tctc_tma);
+		$( "#tctc-mca3axis" ).text(tctc_mca3axis);
+		$( "#tctc-mca4axis" ).text(tctc_mca4axis);
+		$( "#tctc-hmc" ).text(tctc_hmc);
+		$( "#tctc-5axis" ).text(tctc_5axis);
+		$( "#tctc-edm" ).text(tctc_edm);
+		$( "#tctc-grinding" ).text(tctc_grinding);
+		$( "#tctc-inspection" ).text(tctc_inspection);
+		$( "#tctc-deburring" ).text(tctc_deburring);
+		$( "#tctc-assembly" ).text(tctc_assembly);
+		$( "#tctc-lapping" ).text(tctc_lapping);
+		// - Special Process Cost (Dollar) -
+		$( "#spc-fpi" ).text(spc_fpi);
+		$( "#spc-mpi" ).text(spc_mpi);
+		$( "#spc-passivation" ).text(spc_passivation);
+		$( "#spc-caa" ).text(spc_caa);
+		$( "#spc-saa" ).text(spc_saa);
+		$( "#spc-hard-anodizing" ).text(spc_hard_anodizing);
+		$( "#spc-ccc" ).text(spc_ccc);
+		$( "#spc-dfl" ).text(spc_dfl);
+		$( "#spc-paint" ).text(spc_paint);
+		$( "#spc-cadmium-plating" ).text(spc_cadmium_plating);
+		$( "#spc-chrome-plating" ).text(spc_chrome_plating);
+		$( "#spc-heat-treatment" ).text(spc_heat_treatment);
+		// - S -
+		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
+		$( "#material-cost" ).text(material_cost);
+		$( "#manufacturing-cost" ).text(manufacturing_cost);
+		$( "#hardware-cost" ).text(hardware_cost);
+		$( "#surface-treatment-cost" ).text(surface_treatment_cost);
+		$( "#additional-mfg" ).text(additional_mfg);
+		$( "#profit-factor" ).text(profit_factor);
+		$( "#total-manufacturing-cost" ).text(total_manufacturing_cost);
+		$( "#ccs-ewp" ).text(ccs_ewp);
+		$( "#ccs-ppp" ).text(ccs_ppp);
+		$( "#ddp-usd" ).text(ddp_usd);
+		// - SS -
+		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
+		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
+		$( "#moq-rm-order" ).text(moq_rm_order);
+		$( "#oyrmb" ).text(oyrmb);
+		$( "#total-nre-cost" ).text(total_nre_cost);
+		// - SSS -
+		$( "#total-cost" ).text(total_cost);
+		$( "#mtl-cost" ).text(mtl_cost);
+		$( "#spl-process-cost" ).text(spl_process_cost);
+		$( "#total-hardware-cost" ).text(total_hardware_cost);
+
+		// -- Machining Capacity Required for the Project --
+		$( "#mcrftp-cla" ).text(mcrftp_cla);
+		$( "#mcrftp-bta" ).text(mcrftp_bta);
+		$( "#mcrftp-tma" ).text(mcrftp_tma);
+		$( "#mcrftp-mca3axis" ).text(mcrftp_mca3axis);
+		$( "#mcrftp-mca4axis" ).text(mcrftp_mca4axis);
+		$( "#mcrftp-hmc" ).text(mcrftp_hmc);
+		$( "#mcrftp-5axis" ).text(mcrftp_5axis);
+		$( "#mcrftp-edm" ).text(mcrftp_edm);
+		$( "#mcrftp-grinding" ).text(mcrftp_grinding);
+
+		// -*-*-*-*-*-*-*-*-*-*- DATA COLLECT -*-*-*-*-*-*-*-*-*-*-
+
+		$.ajax({
+        url: '{% url '/data_collect/' %}',
+        data: {
+					'sl_no' : sl_no,
+          'ccs_ewp': ccs_ewp
+        },
+        dataType: 'json',
+        success: function (data) {
+					if(data.isChange){
+						// Refresh Page
+					}
+        }
+      });
+
+		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
 		$( "#qty-per-unit" ).text(qty_per_unit.toFixed(2));
@@ -1323,136 +1629,8 @@
 		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
 		$( "#ddp-shipping-cost" ).text(dollar_sign(ddp_shipping_cost) + ddp_shipping_cost.toFixed(2));
 
-		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
 
-		// -- Forecast & EAU --
-		// EAU = Forecast * Qty
-		// 5 Years Total EAU = SUM(EAU)
-		var eau_year1 = forecast_year1 * qty_per_unit;
-		var eau_year2 = forecast_year2 * qty_per_unit;
-		var eau_year3 = forecast_year3 * qty_per_unit;
-		var eau_year4 = forecast_year4 * qty_per_unit;
-		var eau_year5 = forecast_year5 * qty_per_unit;
-		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
-
-		// -- Material --
-		// Annual Raw Material Requirement = Total RM Weight * EAU
-		var armr_year1 = rm_total_weight * eau_year1;
-		var armr_year2 = rm_total_weight * eau_year2;
-		var armr_year3 = rm_total_weight * eau_year3;
-		var armr_year4 = rm_total_weight * eau_year4;
-		var armr_year5 = rm_total_weight * eau_year5;
-
-		// Approximate Finished Part Weight Per Part = Total RM Weight * Finished Part Weight Percentage
-		var afpwpp = rm_total_weight * fpwp;
-
-		// Approximate Raw Material Weight Per Part = Total RM Weight
-		// EDIT: Approximate Raw Material Weight Per Part = Total RM Weight or EDITABLE !!!
-		var armwpp = rm_total_weight;
-
-		// Total Raw Material Weight Per Year = Total RM Weight * (5 Years Total EAU / 5)
-		var trmwpy = rm_total_weight * (eau_total_year / 5);
-
-		// -- Process and Process Cost --
-		// * Production Qty = EAU year3 / 4
-		var production_qty = eau_year3 / 4;
-
-		// -- Part Costing --
-		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
-		var tctt_cla = (msut_cla / production_qty) + ctpp_cla;
-		var tctt_bta = (msut_bta / production_qty) + ctpp_bta;
-		var tctt_tma = (msut_tma / production_qty) + ctpp_tma;
-		var tctt_mca3axis = (msut_mca3axis / production_qty) + ctpp_mca3axis;
-		var tctt_mca4axis = (msut_mca4axis / production_qty) + ctpp_mca4axis;
-		var tctt_hmc = (msut_hmc / production_qty) + ctpp_hmc;
-		var tctt_5axis = (msut_5axis / production_qty) + ctpp_5axis;
-		var tctt_edm = (msut_edm / production_qty) + ctpp_edm;
-		var tctt_grinding = (msut_grinding / production_qty) + ctpp_grinding;
-		// Total Cycle Cost (Dollar) = (Active Rate / 60) * Total Cycle Time
-		var tctc_cla = (rate_cla / 60) * tctt_cla;
-		var tctc_bta = (rate_bta / 60) * tctt_bta;
-		var tctc_tma = (rate_tma / 60) * tctt_tma;
-		var tctc_mca3axis = (rate_mca3axis / 60) * tctt_mca3axis;
-		var tctc_mca4axis = (rate_mca4axis / 60) * tctt_mca4axis;
-		var tctc_hmc = (rate_hmc / 60) * tctt_hmc;
-		var tctc_5axis = (rate_5axis / 60) * tctt_5axis;
-		var tctc_edm = (rate_edm / 60) * tctt_edm;
-		var tctc_grinding = (rate_grinding / 60) * tctt_grinding;
-		// X Cycle Cost (Dollar) = (Active Rate / 60) * Cycle Time Per Part
-		var tctc_inspection = (rate_inspection / 60) * ctpp_inspection; // Active Rate = Inspection Rate
-		var tctc_deburring = (rate_deburring / 60) * ctpp_deburring; // Active Rate = Deburring Rate
-		var tctc_assembly = (rate_inspection / 60) * ctpp_assembly; // Active Rate = Inspection Rate
-		var tctc_lapping = (rate_deburring / 60) * ctpp_lapping; // Active Rate = Deburring Rate
-		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
-		var spc_fpi = rate_fpi * (1 / production_qty);
-		var spc_mpi = rate_mpi * (1 / production_qty);
-		var spc_passivation = rate_passivation * (1 / production_qty);
-		var spc_caa = rate_caa * (1 / production_qty);
-		var spc_saa = rate_saa * (1 / production_qty);
-		var spc_hard_anodizing = rate_hard_anodizing * (1 / production_qty);
-		var spc_ccc = rate_ccc * (1 / production_qty);
-		var spc_dfl = rate_dfl * (1 / production_qty);
-		var spc_paint = rate_paint * (1 / production_qty);
-		var spc_cadmium_plating = rate_cadmium_plating * (1 / production_qty);
-		var spc_chrome_plating = rate_chrome_plating * (1 / production_qty);
-		var spc_heat_treatment = rate_heat_treatment * (1 / production_qty);
-		// Subcontract Shipping Cost = [Base Subcontract + (Subcontract Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
-		var subcontract_shipping_cost = (base_subcontract + (subcontract_shipping_cost * afpwpp)) * rate_subcontract;
-		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
-		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
-		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
-		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping + nre_amortizing_cost;
-		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
-		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
-		// Surface Treatment Cost = SUM(Special Process Cost)
-		var surface_treatment_cost = spc_fpi + spc_mpi + spc_passivation + spc_caa + spc_saa + spc_hard_anodizing + spc_ccc + spc_dfl + spc_paint
-		+ spc_cadmium_plating + spc_chrome_plating + spc_heat_treatment;
-		// Additional MFG OH Factor = Manufacturing Cost * 0.1
-		var additional_mfg = manufacturing_cost * 0.1;
-		// Profit Factor = Manufacturing Cost * 0.1
-		var profit_factor = manufacturing_cost * 0.1;
-		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
-		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
-		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
-		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
-		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
-		var ccs_ppp = 0;
-		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
-		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
-		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
-		var ebq_ccs_qty = eau_year3 / 4;
-		// Minimum Firm Order Quantity/Lot = EAU year3
-		var minimum_firm_order_qty = eau_year3;
-		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
-		var moq_rm_order = (eau_year3 * armwpp) / 4;
-		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
-		var oyrmb = trmwpy;
-		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
-		var total_nre_cost = otspsuc + otrmac	+ ottc;
-		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
-		var total_cost = ccs_ppp * eau_total_year;
-		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
-		var mtl_cost = material_cost * eau_total_year;
-		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
-		var spl_process_cost = surface_treatment_cost * eau_total_year;
-		// Total Hardware Cost = Hardware Cost * SUM(Forecast)
- 		var total_hardware_cost = hardware_cost * (forecast_year1 + forecast_year2 + forecast_year3 + forecast_year4 + forecast_year5);
-
-		// -- Machining Capacity Required for the Project --
-		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
-		var mcrftp_cla = tctt_cla * eau_total_year;
-		var mcrftp_bta = tctt_bta * eau_total_year;
-		var mcrftp_tma = tctt_tma * eau_total_year;
-		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
-		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
-		var mcrftp_hmc = tctt_hmc * eau_total_year;
-		var mcrftp_5axis = tctt_5axis * eau_total_year;
-		var mcrftp_edm = tctt_edm * eau_total_year;
-		var mcrftp_grinding = tctt_grinding * eau_total_year;
-
-
-		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
 		$( "#eau-year1" ).text(eau_year1.toFixed(2));

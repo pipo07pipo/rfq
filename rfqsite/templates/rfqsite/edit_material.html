@@ -238,8 +238,8 @@
 											<div class="col-sm-6">
 												<div class="checkbox">
 													<label>
-													<input type="checkbox" id="check-armwpp" name="check-armwpp" {% if material.armwpp %}checked{% endif %}>
-														Use 'Approximate Raw Material Weight Per Part' Instead.
+													<input type="checkbox" id="check-armwpp" name="check-armwpp" {% if material.armwpp != 0 %}checked{% endif %}>
+														Use 'Approximate Raw Material Weight Per Part' Instead of 'Total Weight'.
 													</label>
 												</div>
 											</div>
@@ -247,7 +247,7 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Approximate Raw Material Weight Per Part</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="armwpp" name="armwpp" value="{{ material.armwpp }}" {% if material.armwpp == None %}readonly{% endif %}>
+												<input type="number" step="any" class="form-control" id="armwpp" name="armwpp" value="{{ material.armwpp }}" {% if material.armwpp == 0 %}readonly{% endif %}>
 											</div>
 										</div>
 										<hr>
