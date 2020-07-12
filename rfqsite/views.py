@@ -149,6 +149,7 @@ def edit_sp_rate_confirm(request):
         editSPR.mpi = request.POST.get('rate-mpi')
         editSPR.passivation = request.POST.get('rate-passivation')
         editSPR.caa = request.POST.get('rate-caa')
+        editSPR.ccc = request.POST.get('rate-ccc')
         editSPR.saa = request.POST.get('rate-saa')
         editSPR.hard_anodizing = request.POST.get('rate-hard-anodizing')
         editSPR.dfl = request.POST.get('rate-dfl')
