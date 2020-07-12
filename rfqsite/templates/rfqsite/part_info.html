@@ -1369,7 +1369,7 @@
 		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
 		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
-		var ccs_ppp = sum_ccs_ewp;
+		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
 		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
 		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
@@ -1566,9 +1566,7 @@
         },
         dataType: 'json',
         success: function (data) {
-					if(data.isChange){
-						// Refresh Page
-					}
+
         }
       });
 
