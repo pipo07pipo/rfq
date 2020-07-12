@@ -92,7 +92,7 @@ class Material(models.Model):
     armwpp = models.FloatField(null=True, default=0)
     base_material_price = models.FloatField(null=True, default=0)
     supplier = models.CharField(max_length=200, default='')
-    shipping_cost = models.FloatField(null=True, default=0)    
+    shipping_cost = models.FloatField(null=True, default=0)
 
 class Hardware(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
@@ -145,8 +145,12 @@ class CTPP(models.Model):
     lapping = models.FloatField(null=True, default=0)
 
 class Burden_Rate(models.Model):
+    subcontract = models.FloatField(default=1)
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     material = models.FloatField(default=1)
     hardware = models.FloatField(default=1)
-    subcontract = models.FloatField(default=1)
     sp = models.FloatField(default=1)
+
+class Output(models.Model):
+    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
+    ccs_ewp = models.FloatField(default=0)

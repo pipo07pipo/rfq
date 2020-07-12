@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
+import json
 
 def rfq_table(request):
     # text = "This is index page"
@@ -60,6 +61,7 @@ def add_part_confirm(request):
         newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
+        newO = Output(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -70,6 +72,7 @@ def add_part_confirm(request):
         newSP.save()
         newBR.save()
         newHW.save()
+        newO.save()
         return redirect('/part_table/'+tracker_no)
 
 def edit_rfq(request, tracker_no):
@@ -179,6 +182,19 @@ def part_info(request, sl_no):
     sp_rate = SP_Rate.objects.get(sl_no=part)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
+    sum_child = 0
+    fchild = Part_Header.objects.filter(parent_sl_no=part)
+    child = [x for x in fchild]
+    while(len(child) > 0):
+        newChild = []
+        for item in child:
+            op = Output.objects.get(sl_no=item)
+            sum_child += op.ccs_ewp
+            addChild = [x for x in Part_Header.objects.filter(parent_sl_no=item)]
+            for c in addChild:
+                 newChild.append(c)
+        child = newChild
+    # print(sum_child)
     context = {
         'part': part,
         'parts': parts,
@@ -191,7 +207,8 @@ def part_info(request, sl_no):
         'active_rate': active_rate,
         'sp_rate': sp_rate,
         'burden_rate': burden_rate,
-        'hardware': hardware
+        'hardware': hardware,
+        'sum_child': sum_child
     }
     return render(request, 'rfqsite/part_info.html', context)
 
@@ -429,6 +446,7 @@ def add_child_confirm(request):
         newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
+        newO = Output(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -439,6 +457,7 @@ def add_child_confirm(request):
         newSP.save()
         newBR.save()
         newHW.save()
+        newO.save()
         return redirect('/part_info/'+sl_no)
 
 def edit_material(request, sl_no):
@@ -569,6 +588,16 @@ def edit_burden_rate_confirm(request):
         editbd.save()
     return redirect('/part_info/'+sl_no)
 
+def data_collect(request):
+    if request.method == 'GET':
+        sl_no = request.GET.get('sl_no')
+        ccs_ewp = request.GET.get('ccs_ewp')
+        if(ccs_ewp == 'NaN'):
+            ccs_ewp = 0
+        editO = Output.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editO.ccs_ewp = ccs_ewp
+        editO.save()
+    return HttpResponse("OK")
 
 class Part_Tree:
     def __init__(self, base_level, current_level):
