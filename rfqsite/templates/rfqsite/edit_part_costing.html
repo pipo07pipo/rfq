@@ -66,37 +66,14 @@
 									<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
 									<div class="panel-body">
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Hardware Supplier</b></label>
-											<div class="col-sm-4">
-												<input type="text" class="form-control" id="hardware-supplier" name="hardware-supplier" value="{{ part_costing.hardware_supplier }}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Base Material Price/kg</b></label>
-											<div class="col-sm-4">
-												<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon">$</span>
-														</span>
-														<input type="number" step="any" class="form-control" id="base-material-price" name="base-material-price" value="{{ part_costing.base_material_price }}">
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Material Supplier</b></label>
-											<div class="col-sm-4">
-												<input type="text" class="form-control" id="material-supplier" name="material-supplier" value="{{ part_costing.material_supplier }}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Material Shipping Cost USD/kg</b></label>
-											<div class="col-sm-4">
-												<input type="number" step="any" class="form-control" id="material-shipping-cost" name="material-shipping-cost" value="{{ part_costing.material_shipping_cost }}">
+											<label class="col-sm-4 control-label"><b>CCS Quote Assumptions</b></label>
+											<div class="col-sm-5">
+												<input type="text" class="form-control" id="ccs-quote-assumptions" name="ccs-quote-assumptions" value="{{ part_costing.ccs_quote_assumptions }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>NRE Amortizing Cost</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
@@ -105,10 +82,9 @@
 												</div>
 											</div>
 										</div>
-										<hr>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Target Price (USD)</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
@@ -118,14 +94,8 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
-											<div class="col-sm-4">
-												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
-											</div>
-										</div>
-										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>One Time Special Process Set Up Cost</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
@@ -136,7 +106,7 @@
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>One Time RM Airshipments Cost</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
@@ -149,7 +119,7 @@
 											<label class="col-sm-4 control-label"><b>One Time Tooling Cost
 												<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
 											</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
@@ -159,9 +129,26 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>CCS Quote Assumptions</b></label>
-											<div class="col-sm-4">
-												<input type="text" class="form-control" id="ccs-quote-assumptions" name="ccs-quote-assumptions" value="{{ part_costing.ccs_quote_assumptions }}">
+											<label class="col-sm-4 control-label"><b>Base Subcontract</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>DDP Shipping Cost</b></label>
+											<div class="col-sm-3">
+												<div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon">$</span>
+														</span>
+														<input type="number" step="any" class="form-control" id="ddp-shipping-cost" name="ddp-shipping-cost" value="{{ part_costing.ddp_shipping_cost }}">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
 											</div>
 										</div>
 										<hr>
@@ -172,19 +159,19 @@
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>FAI</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-5">
 												<input type="text" class="form-control" id="dltiw-fai" name="dltiw-fai" value="{{ part_costing.dltiw_fai }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Serial Production</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-5">
 												<input type="text" class="form-control" id="dltiw-serial-production" name="dltiw-serial-production" value="{{ part_costing.dltiw_serial_production }}">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Production</b></label>
-											<div class="col-sm-4">
+											<div class="col-sm-5">
 												<input type="text" class="form-control" id="dltiw-production" name="dltiw-production" value="{{ part_costing.dltiw_production }}">
 											</div>
 										</div>
