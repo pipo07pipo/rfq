@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Material2
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 
@@ -60,7 +60,6 @@ def add_part_confirm(request):
         newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
-        newMaterial2 = Material2(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -70,7 +69,6 @@ def add_part_confirm(request):
         newPart_Costing.save()
         newSP.save()
         newBR.save()
-        newMaterial2.save()
         newHW.save()
         return redirect('/part_table/'+tracker_no)
 
@@ -180,7 +178,6 @@ def part_info(request, sl_no):
     sp_rate = SP_Rate.objects.get(sl_no=part)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
-    material2 = Material2.objects.get(sl_no=part)
     context = {
         'part': part,
         'parts': parts,
@@ -193,8 +190,7 @@ def part_info(request, sl_no):
         'active_rate': active_rate,
         'sp_rate': sp_rate,
         'burden_rate': burden_rate,
-        'hardware': hardware,
-        'material2': material2
+        'hardware': hardware
     }
     return render(request, 'rfqsite/part_info.html', context)
 
@@ -351,26 +347,7 @@ def edit_msut_confirm(request):
         editmsut.save()
     return redirect('/part_info/'+sl_no)
 
-def edit_material2(request, sl_no):
-    material2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-        'part': part,
-        'material2': material2
-    }
-    return render(request, 'rfqsite/edit_material2.html', context)
 
-def edit_material2_confirm(request):
-    sl_no = request.POST.get('sl-no')
-    if request.method == 'POST':
-        editmat2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editmat2.supplier = request.POST.get('material-supplier')
-        editmat2.base_material_price = to_float(request.POST.get('base-material-price'))
-        editmat2.shipping_cost = to_float(request.POST.get('material-shipping-cost'))
-        editmat2.fpwp = to_float(request.POST.get('fpwp'))
-        editmat2.armwpp = to_float(request.POST.get('armwpp'))
-        editmat2.save()
-    return redirect('/part_info/'+sl_no)
 
 def edit_hardware(request, sl_no):
     hardware = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -451,7 +428,6 @@ def add_child_confirm(request):
         newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
-        newMaterial2 = Material2(sl_no=newPart)
         newPart.save()
         newForecast.save()
         newSPS.save()
@@ -462,7 +438,6 @@ def add_child_confirm(request):
         newSP.save()
         newBR.save()
         newHW.save()
-        newMaterial2.save()
         return redirect('/part_info/'+sl_no)
 
 def edit_material(request, sl_no):
@@ -492,6 +467,11 @@ def clean_material(material):
     material.rm_l = 0
     material.rm_l_unit = ''
     material.rm_total_weight = 0
+    material.supplier = ''
+    material.base_material_price = 0
+    material.shipping_cost = 0
+    material.fpwp = 0
+    material.armwpp = 0
     material.save()
 
 def to_str(str):
@@ -507,12 +487,16 @@ def edit_material_confirm(request):
         clean_material(editmat)
         type = request.POST.get('cross-section')
         editmat.description = to_str(request.POST.get('description'))
-        editmat.cross_section = to_str(request.POST.get('cross-section'))
-        editmat.type = to_str(request.POST.get('type'))
-        editmat.quantity = to_float(request.POST.get('quantity'))
-        editmat.rm_density = to_float(request.POST.get('density'))
-        editmat.rm_density_unit = request.POST.get('density-unit')
-        if(type == "Round Bar Shape"):
+        if(request.POST.get('check-armwpp') == None):
+            editmat.cross_section = to_str(request.POST.get('cross-section'))
+            editmat.type = to_str(request.POST.get('type'))
+            editmat.quantity = to_float(request.POST.get('quantity'))
+            editmat.rm_density = to_float(request.POST.get('density'))
+            editmat.rm_density_unit = request.POST.get('density-unit')
+            editmat.rm_total_weight = request.POST.get('rm-total-weight')
+        if(request.POST.get('check-armwpp') != None):
+            editmat.armwpp = to_float(request.POST.get('armwpp'))
+        elif(type == "Round Bar Shape"):
             #D1,L
             editmat.rm_d1 = to_float(request.POST.get('rm-d1'))
             editmat.rm_d1_unit = request.POST.get('rm-d1-unit')
@@ -534,8 +518,13 @@ def edit_material_confirm(request):
             editmat.rm_w_unit = request.POST.get('rm-w-unit')
             editmat.rm_l = to_float(request.POST.get('rm-l'))
             editmat.rm_l_unit = request.POST.get('rm-l-unit')
-        editmat.rm_total_weight = request.POST.get('rm-total-weight')
+        editmat.supplier = request.POST.get('material-supplier')
+        editmat.base_material_price = to_float(request.POST.get('base-material-price'))
+        editmat.shipping_cost = to_float(request.POST.get('material-shipping-cost'))
+        editmat.fpwp = to_float(request.POST.get('fpwp'))
         editmat.save()
+
+        editmat.armwpp = to_float(request.POST.get('armwpp'))
     return redirect('/part_info/'+sl_no)
 
 def edit_material_remove(request, sl_no):
@@ -543,6 +532,21 @@ def edit_material_remove(request, sl_no):
     clean_material(delmat)
     delmat.save()
     return redirect('/part_info/'+str(sl_no))
+
+def edit_material2(request, sl_no):
+    material2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'material2': material2
+    }
+    return render(request, 'rfqsite/edit_material2.html', context)
+
+def edit_material2_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        pass
+    return redirect('/part_info/'+sl_no)
 
 def edit_burden_rate(request, sl_no):
     burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))

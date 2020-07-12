@@ -88,14 +88,11 @@ class Material(models.Model):
     rm_l = models.FloatField(null=True, default=0)
     rm_l_unit = models.CharField(max_length=10, null=True, default='')
     rm_total_weight = models.FloatField(null=True, default=0)
-
-class Material2(models.Model):
-    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     fpwp = models.FloatField(null=True, default=0)
     armwpp = models.FloatField(null=True, default=0)
     base_material_price = models.FloatField(null=True, default=0)
     supplier = models.CharField(max_length=200, default='')
-    shipping_cost = models.FloatField(null=True, default=0)
+    shipping_cost = models.FloatField(null=True, default=0)    
 
 class Hardware(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
