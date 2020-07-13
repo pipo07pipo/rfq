@@ -93,6 +93,13 @@ def add_part(request, tracker_no):
     }
     return render(request, 'rfqsite/add_part.html', context)
 
+def add_part_multi(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)
+    context = {
+        'project': project
+    }
+    return render(request, 'rfqsite/add_part_multi.html', context)
+
 def add_part_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
