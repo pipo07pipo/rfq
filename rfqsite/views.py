@@ -598,27 +598,30 @@ def edit_burden_rate_confirm(request):
         editbd.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
+def unNan(data):
+    if(data == 'NaN' or data == ''):
+        return 0
+    else:
+        return data
+
 def data_collect(request):
     if request.method == 'GET':
         sl_no = request.GET.get('sl_no')
-        ccs_ewp = request.GET.get('ccs_ewp')
-        if(ccs_ewp == 'NaN'):
-            ccs_ewp = 0
         editO = Output.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editO.ccs_ewp = ccs_ewp
-        editO.total_cost = request.GET.get('total_cost')
-        editO.mtl_cost = request.GET.get('mtl_cost')
-        editO.spl_process_cost = request.GET.get('spl_process_cost')
-        editO.total_hardware_cost = request.GET.get('total_hardware_cost')
-        editO.mcrftp_cla = request.GET.get('mcrftp_cla')
-        editO.mcrftp_bta = request.GET.get('mcrftp_bta')
-        editO.mcrftp_tma = request.GET.get('mcrftp_tma')
-        editO.mcrftp_mca3axis = request.GET.get('mcrftp_mca3axis')
-        editO.mcrftp_mca4axis = request.GET.get('mcrftp_mca4axis')
-        editO.mcrftp_hmc = request.GET.get('mcrftp_hmc')
-        editO.mcrftp_5axis = request.GET.get('mcrftp_5axis')
-        editO.mcrftp_edm = request.GET.get('mcrftp_edm')
-        editO.mcrftp_grinding = request.GET.get('mcrftp_grinding')
+        editO.ccs_ewp = unNan(request.GET.get('ccs_ewp'))
+        editO.total_cost = unNan(request.GET.get('total_cost'))
+        editO.mtl_cost = unNan(request.GET.get('mtl_cost'))
+        editO.spl_process_cost = unNan(request.GET.get('spl_process_cost'))
+        editO.total_hardware_cost = unNan(request.GET.get('total_hardware_cost'))
+        editO.mcrftp_cla = unNan(request.GET.get('mcrftp_cla'))
+        editO.mcrftp_bta = unNan(request.GET.get('mcrftp_bta'))
+        editO.mcrftp_tma = unNan(request.GET.get('mcrftp_tma'))
+        editO.mcrftp_mca3axis = unNan(request.GET.get('mcrftp_mca3axis'))
+        editO.mcrftp_mca4axis = unNan(request.GET.get('mcrftp_mca4axis'))
+        editO.mcrftp_hmc = unNan(request.GET.get('mcrftp_hmc'))
+        editO.mcrftp_5axis = unNan(request.GET.get('mcrftp_5axis'))
+        editO.mcrftp_edm = unNan(request.GET.get('mcrftp_edm'))
+        editO.mcrftp_grinding = unNan(request.GET.get('mcrftp_grinding'))
         editO.save()
     return HttpResponse("OK")
 
