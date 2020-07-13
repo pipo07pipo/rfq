@@ -1,0 +1,205 @@
+<!doctype html>
+{% load static %}
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap/css/bootstrap.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/font-awesome/css/font-awesome.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/magnific-popup/magnific-popup.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-datepicker/css/datepicker3.css" %}">
+
+		<!-- DataTable CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/select2/select2.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" %}">
+
+		<!-- Fileupload CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" %}">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/skins/default.css" %}">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme-custom.css" %}">
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			{% include 'navbar.html' %}
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				{% include 'leftsidebar.html' %}
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>New Part (Multiple)</h2>
+						<div class="right-wrapper pull-right">
+							<ol class="breadcrumbs">
+								<li>
+									<a href="/part_table/{{ project.tracker_no }}">
+										<i class="fa fa-chevron-left"></i><b> Back</b>
+									</a>
+								</li>
+							</ol>
+							<a class="sidebar-right-toggle"></a>
+						</div>
+					</header>
+
+					<!-- start: page -->
+					<!-- Information -->
+					<div class="col-md-12">
+							<form id="form" action="/add_part_multi_confirm/" method="POST" class="form-horizontal">
+								{% csrf_token %}
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<!-- <a href="#" class="fa fa-caret-down"></a> -->
+											<!-- <a href="#" class="fa fa-times"></a>	 -->
+										</div>
+										<h2 class="panel-title">Add New Part (Multiple)</h2>
+									</header>
+									<div class="panel-body">
+										<div class="form-group">
+											<label class="col-sm-2 control-label"><b>RFQ Tracker No.</b></label>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}" readonly>
+											</div>
+											<label class="col-sm-2 control-label"><b>Part Level</b></label>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="part-level" name="part-level" value="0" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-12"><b>Paste Your Text Below..</b>
+											</label>
+											<label class="col-sm-12"><small>Format : Part No. | Part Name | Forecast Year 1 | Forecast Year 2 | Forecast Year 3 | Forecast Year 4 | Forecast Year 5</small></label>
+										</div>
+										<textarea class="form-control" rows="10" id="excel-data" name="excel-data" style="resize:none"></textarea>
+										<br>
+										<input class="btn btn-danger" type="button" onclick="javascript:generateTable()" value="Genereate Table">
+										<br>
+										<br>
+										<label class="col-sm-12" id="excel-info" name="excel-info"></label>
+										<div id="excel-table"></div>
+										<label class="col-sm-12 center" style="color:red"><b>*** Please make sure the table is perfectly correct before click confirm button. ***</b></label>
+									</div>
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-warning" type="submit">Confirm</button>
+                        <a class="btn btn-default" type="button" href="/part_table/{{ project.tracker_no }}">Cancel</a>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+					</div>
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="{% static "assets/vendor/modernizr/modernizr.js" %}"></script>
+
+	<!-- Vendor -->
+	<script src="{% static "assets/vendor/jquery/jquery.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap/js/bootstrap.js" %}"></script>
+	<script src="{% static "assets/vendor/nanoscroller/nanoscroller.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
+	<script src="{% static "assets/vendor/magnific-popup/magnific-popup.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-placeholder/jquery.placeholder.js" %}"></script>
+
+	<!-- DataTable JS -->
+	<script src="{% static "assets/vendor/select2/select2.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables/media/js/jquery.dataTables.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-datatables-bs3/assets/js/datatables.js" %}"></script>
+
+	<!-- Fileupload JS -->
+	<script src="{% static "assets/vendor/jquery-autosize/jquery.autosize.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js" %}"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="{% static "assets/javascripts/theme.js" %}"></script>
+
+	<!-- Theme Custom -->
+	<script src="{% static "assets/javascripts/theme.custom.js" %}"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	function generateTable() {
+		var data = $('textarea[name=excel-data]').val();
+		console.log(data);
+		var rows = data.split("\n");
+
+		var table = $('<table class="table table-bordered table-striped mb-none" id="datatable-default" name="data-table">');
+
+		var header1 = $('<tr>');
+		header1.append('<th class="center" rowspan="2">Part No.</th>');
+		header1.append('<th class="center" rowspan="2">Part Name</th>');
+		header1.append('<th class="center" colspan="5">Forecast</th>');
+		table.append(header1);
+
+		var header2 = $('<tr>');
+		header2.append('<th class="center">Year 1</th>');
+		header2.append('<th class="center">Year 2</th>');
+		header2.append('<th class="center">Year 3</th>');
+		header2.append('<th class="center">Year 4</th>');
+		header2.append('<th class="center">Year 5</th>');
+		table.append(header2);
+
+		for(var y in rows) {
+		var cells = rows[y].split("\t");
+		var row = $('<tr>');
+		for(var x in cells) {
+				row.append('<td>'+cells[x]+'</td>');
+		}
+		table.append(row);
+	}
+	$('#excel-info').text(rows.length + " part(s) found.");
+
+
+	// Insert into DOM
+	$('#excel-table').html(table);
+	}
+	</script>
+
+	<!-- DataTable Default -->
+	<script>
+	(function( $ ) {
+		'use strict';
+		var datatableInit = function() {
+			$('#datatable-default').dataTable();
+		};
+		$(function() {
+			datatableInit();
+		});
+	}).apply( this, [ jQuery ]);
+	</script>
+
+</html>
