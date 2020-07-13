@@ -73,7 +73,7 @@ def add_part_confirm(request):
         newBR.save()
         newHW.save()
         newO.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_table/'+tracker_no+"?alert=1")
 
 def edit_rfq(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
@@ -99,13 +99,13 @@ def edit_rfq_confirm(request):
         project.customer_name = request.POST.get('customer-name')
         project.file_path = path
         project.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_table/'+tracker_no+"?alert=1")
     elif request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         project = RFQ.objects.get(pk=tracker_no)
         project.customer_name = request.POST.get('customer-name')
         project.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_table/'+tracker_no+"?alert=1")
 
 def edit_active_rate(request, tracker_no):
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
@@ -133,7 +133,7 @@ def edit_active_rate_confirm(request):
         editAR.deburring = request.POST.get('rate-deburring')
         editAR.inspection = request.POST.get('rate-inspection')
         editAR.save()
-        return redirect('/part_table/'+tracker_no)
+        return redirect('/part_table/'+tracker_no+"?alert=1")
 
 def edit_sp_rate(request, sl_no):
     sp_rate = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -161,7 +161,7 @@ def edit_sp_rate_confirm(request):
         editSPR.chrome_plating = request.POST.get('rate-chrome-plating')
         editSPR.heat_treatment = request.POST.get('rate-heat-treatment')
         editSPR.save()
-        return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 def part_info(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
@@ -260,7 +260,7 @@ def edit_part_info_confirm(request):
             editPart = Part_Header.objects.get(sl_no=sl_no)
             editPart.image_path = path
             editPart.save()
-    return redirect('/part_info/'+str(sl_no))
+    return redirect('/part_info/'+str(sl_no)+"?alert=1")
 
 def edit_forecast(request, sl_no):
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -282,7 +282,7 @@ def edit_forecast_confirm(request):
         editForecast.forecast_year4 = request.POST.get('forecast-year4')
         editForecast.forecast_year5 = request.POST.get('forecast-year5')
         editForecast.save()
-    return redirect('/part_info/'+sl_no)
+    return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_ctpp(request, sl_no):
     ctpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -315,7 +315,7 @@ def edit_ctpp_confirm(request):
         editCtpp.assembly = to_float(request.POST.get('ctpp-assembly'))
         editCtpp.lapping = to_float(request.POST.get('ctpp-lapping'))
         editCtpp.save()
-    return redirect('/part_info/'+sl_no)
+    return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_sps(request, sl_no):
     sps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -338,7 +338,7 @@ def edit_sps_confirm(request):
         editsps.solid_film = request.POST.get('sps-solid-film')
         editsps.pmr = request.POST.get('sps-pmr')
         editsps.save()
-    return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_msut(request, sl_no):
     msut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -363,7 +363,7 @@ def edit_msut_confirm(request):
         editmsut.edm = to_float(request.POST.get('msut-edm'))
         editmsut.grinding = to_float(request.POST.get('msut-grinding'))
         editmsut.save()
-    return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 
 
@@ -385,7 +385,7 @@ def edit_hardware_confirm(request):
         edithw.price = to_float(request.POST.get('hardware-price'))
         edithw.qty = to_float(request.POST.get('hardware-qty'))
         edithw.save()
-    return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_part_costing(request, sl_no):
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -413,7 +413,7 @@ def edit_part_costing_confirm(request):
         editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
         editpc.ddp_shipping_cost = to_float(request.POST.get('ddp-shipping-cost'))
         editpc.save()
-    return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 def add_child(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
@@ -458,7 +458,7 @@ def add_child_confirm(request):
         newBR.save()
         newHW.save()
         newO.save()
-        return redirect('/part_info/'+sl_no)
+        return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_material(request, sl_no):
     material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -545,7 +545,7 @@ def edit_material_confirm(request):
         editmat.save()
 
         editmat.armwpp = to_float(request.POST.get('armwpp'))
-    return redirect('/part_info/'+sl_no)
+    return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_material_remove(request, sl_no):
     delmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -566,7 +566,7 @@ def edit_material2_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         pass
-    return redirect('/part_info/'+sl_no)
+    return redirect('/part_info/'+sl_no+"?alert=1")
 
 def edit_burden_rate(request, sl_no):
     burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -586,7 +586,7 @@ def edit_burden_rate_confirm(request):
         editbd.subcontract = to_float(request.POST.get('rate-subcontract'))
         # editbd.sp = to_float(request.POST.get('rate-sp'))
         editbd.save()
-    return redirect('/part_info/'+sl_no)
+    return redirect('/part_info/'+sl_no+"?alert=1")
 
 def data_collect(request):
     if request.method == 'GET':
