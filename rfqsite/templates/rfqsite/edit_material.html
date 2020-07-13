@@ -249,6 +249,7 @@
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="armwpp" name="armwpp" value="{{ material.armwpp }}" {% if material.armwpp == 0 %}readonly{% endif %}>
 											</div>
+											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
 										<hr>
 										<div class="form-group">
@@ -256,6 +257,7 @@
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="fpwp" name="fpwp" value="{{ material.fpwp }}">
 											</div>
+											<label style="padding-top:5px" class="text-left"><small>Percentage (Ex. 0.42 = 42%)</small></label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Supplier</b></label>
@@ -277,7 +279,12 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Shipping Cost USD/kg</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="material-shipping-cost" name="material-shipping-cost" value="{{ material.shipping_cost }}">
+												<div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon">$</span>
+														</span>
+														<input type="number" step="any" class="form-control" id="material-shipping-cost" name="material-shipping-cost" value="{{ material.shipping_cost }}">
+												</div>
 											</div>
 										</div>
 									</div>
@@ -480,7 +487,7 @@ function material_type_change(){
 	var material_type = $( "#type" ).val();
 	var density_unit = $( "#density-unit" ).val();
 	if (material_type == "Optional"){
-		$( "#density" ).val(0);
+		$( "#density" ).val(0.0);
 	} else if (material_type == "Aluminum"){
 		if(density_unit == "g/cc"){
 			$( "#density" ).val(2.7);

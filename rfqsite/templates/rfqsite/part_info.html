@@ -491,24 +491,18 @@
 															<th class="center custom2">
 																Density {% if material.rm_density %}({{ material.rm_density_unit }}){% endif %}
 															</th>
-															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 													    <th class="center custom2">
 																Outter Diameter {% if material.rm_d1 %}({{ material.rm_d1_unit }}){% endif %}
 															</th>
-															{% endif %}
-															{% if material.cross_section == 'Tube Shape' %}
 															<th class="center custom2">
 																Inner Diameter {% if material.rm_d2 %}({{ material.rm_d2_unit }}){% endif %}
 															</th>
-															{% endif %}
-															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
 													    <th class="center custom2">
 																Thickness {% if material.rm_t %}({{ material.rm_t_unit }}){% endif %}
 															</th>
 													    <th class="center custom2">
 																Width {% if material.rm_w %}({{ material.rm_w_unit }}){% endif %}
 															</th>
-															{% endif %}
 													    <th class="center custom2">
 																Length {% if material.rm_l %}({{ material.rm_l_unit }}){% endif %}
 															</th>
@@ -518,16 +512,10 @@
 													<tbody>
 														<tr>
 															<td class="center" id="rm-density" name="rm-density">{{ material.rm_density }}</td>
-															{% if material.cross_section == 'Round Bar Shape' or material.cross_section == 'Tube Shape' %}
 															<td class="center" id="rm-d1" name="rm-d1">{{ material.rm_d1 }}</td>
-															{% endif %}
-															{% if material.cross_section == 'Tube Shape' %}
 															<td class="center" id="rm-d2" name="rm-d2">{{ material.rm_d2 }}</td>
-															{% endif %}
-															{% if material.cross_section == 'Flat Bar / Plate / Sheet' %}
 															<td class="center" id="rm-t" name="rm-t">{{ material.rm_t }}</td>
 															<td class="center" id="rm-w" name="rm-w">{{ material.rm_w }}</td>
-															{% endif %}
 															<td class="center" id="rm-l" name="rm-l">{{ material.rm_l }}</td>
 															<td class="center" id="rm-total-weight" name="rm-total-weight">{{ material.rm_total_weight }}</td>
 														</tr>
@@ -981,7 +969,7 @@
 													</div>
 												</div>
 												<!-- 2S -->
-												<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_ccs_ewp }}</label>
+												<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_child }}</label>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
@@ -1228,7 +1216,7 @@
 		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
 		var fpwp = parseFloat($( "#fpwp" ).text()); // NO RESTATE
 		var base_material_price = parseFloat($( "#base-material-price" ).text());
-		var material_shipping_cost = parseFloat($( "#material-shipping-cost" ).text()); // NO RESTATE
+		var material_shipping_cost = parseFloat($( "#material-shipping-cost" ).text());
 
 		// -- Hardware --
 		var hardware_qty = parseFloat($( "#hardware-qty" ).text()); // NO RESTATE
@@ -1308,7 +1296,7 @@
 		var trmwpy = rm_total_weight * (eau_total_year / 5);
 
 		// -- Process and Process Cost --
-		// * Production Qty = EAU year3 / 4
+		// Production Qty = EAU year3 / 4
 		var production_qty = eau_year3 / 4;
 
 		// -- Part Costing --
@@ -1370,11 +1358,11 @@
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
 		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
-		// *** CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child
+		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child and itself
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
 		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
-		// * EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
+		// EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
 		var ebq_ccs_qty = eau_year3 / 4;
 		// Minimum Firm Order Quantity/Lot = EAU year3
 		var minimum_firm_order_qty = eau_year3;
@@ -1449,6 +1437,7 @@
 		// -- Material --
 		$( "#rm-total-weight" ).text(rm_total_weight);
 		$( "#base-material-price" ).text(base_material_price);
+		$( "#material-shipping-cost" ).text(material_shipping_cost);
 
 		// -- Hardware --
 		$( "#hardware-price" ).text(hardware_price);
@@ -1616,6 +1605,7 @@
 		// -- Material --
 		$( "#rm-total-weight" ).text(rm_total_weight.toFixed(2));
 		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
+		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + material_shipping_cost.toFixed(2));
 
 		// -- Hardware --
 		$( "#hardware-price" ).text(dollar_sign(hardware_price) + hardware_price.toFixed(2));

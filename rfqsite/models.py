@@ -75,7 +75,7 @@ class Material(models.Model):
     cross_section = models.CharField(max_length=200, null=True, default='')
     type = models.CharField(max_length=200, null=True, default='')
     quantity = models.FloatField(default=0)
-    rm_density = models.FloatField(null=True)
+    rm_density = models.FloatField(null=True, default=0)
     rm_density_unit = models.CharField(max_length=200, null=True)
     rm_d1 = models.FloatField(null=True, default=0)
     rm_d1_unit = models.CharField(max_length=10, null=True, default='')
