@@ -39,11 +39,50 @@ def parts(request, tracker_no):
 
 def rfq_summary(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
-
+    total_cost_td = 0
+    mtl_cost_td = 0
+    spl_process_cost_td = 0
+    total_hardware_cost_td = 0
+    mcrftp_cla_t = 0
+    mcrftp_bta_t = 0
+    mcrftp_tma_t = 0
+    mcrftp_mca3axis_t = 0
+    mcrftp_mca4axis_t = 0
+    mcrftp_hmc_t = 0
+    mcrftp_5axis_t = 0
+    mcrftp_edm_t = 0
+    mcrftp_grinding_t = 0
+    all_part = Part_Header.objects.filter(tracker_no=project)
+    for item in all_part:
+        op = op.objects.get(sl_no=item)
+        total_cost_td += op.total_cost
+        mtl_cost_td += op.mtl_cost
+        spl_process_cost_td += op.spl_process_cost
+        total_hardware_cost_td += op.total_hardware_cost
+        mcrftp_cla_t += op.mcrftp_cla
+        mcrftp_bta_t += op.mcrftp_bta
+        mcrftp_tma_t += op.mcrftp_tma
+        mcrftp_mca3axis_t += op.mcrftp_mca3axis
+        mcrftp_mca4axis_t += op.mcrftp_mca4axis
+        mcrftp_hmc_t += op.mcrftp_hmc
+        mcrftp_5axis_t += op.mcrftp_5axis
+        mcrftp_edm_t += op.mcrftp_edm
+        mcrftp_grinding_t += op.mcrftp_grinding
     context = {
         'project': project,
-        'parts': parts
+        'total_cost_td': total_cost_td,
+        'mtl_cost_td': mtl_cost_td,
+        'spl_process_cost_td': spl_process_cost_td,
+        'total_hardware_cost_td': total_hardware_cost_td,
+        'mcrftp_cla_t': mcrftp_cla_t,
+        'mcrftp_bta_t': mcrftp_bta_t,
+        'mcrftp_tma_t': mcrftp_tma_t,
+        'mcrftp_mca3axis_t': mcrftp_mca3axis_t,
+        'mcrftp_mca4axis_t': mcrftp_mca4axis_t,
+        'mcrftp_hmc_t': mcrftp_hmc_t,
+        'mcrftp_5axis_t': mcrftp_5axis_t,
+        'mcrftp_edm_t': mcrftp_edm_t,
+        'mcrftp_grinding_t': mcrftp_grinding_t
     }
     return render(request, 'rfqsite/rfq_summary.html', context)
 
