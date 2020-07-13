@@ -8,6 +8,7 @@ class RFQ(models.Model):
     customer_name = models.CharField(max_length=200)
     file_path = models.CharField(max_length=200, null=True, default='')
     update_date = models.DateTimeField('date publish')
+    usd_thb = models.FloatField(default=35)
 
 class Part_Header(models.Model):
     sl_no = models.AutoField(primary_key=True)

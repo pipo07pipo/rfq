@@ -77,7 +77,7 @@
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Tracker No. :</b> {{ project.tracker_no }}</p>
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Description :</b> {{ project.description }}</p>
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> {{ project.customer_name }}</p>
-							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Current File :</b> {{ project.file_path }}</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Current File :</b> {{ file_name }}</p>
 							<div class="text-left mr-md">
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_rfq/{{ project.tracker_no }}"><i class="fa fa-edit"></i> Edit</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download File</a>

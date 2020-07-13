@@ -29,11 +29,16 @@ def rfq_table(request):
 
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
+    if(len(project.file_path.split('/')) == 3 ):
+        file_name = project.file_path.split('/')[2]
+    else:
+        file_name = ''
     parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
 
     context = {
         'project': project,
-        'parts': parts
+        'parts': parts,
+        'file_name': file_name
     }
     return render(request, 'rfqsite/part_table.html', context)
 
@@ -154,12 +159,14 @@ def edit_rfq_confirm(request):
         project = RFQ.objects.get(pk=tracker_no)
         project.customer_name = request.POST.get('customer-name')
         project.file_path = path
+        project.usd_thb = request.POST.get('usd-thb')
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
     elif request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         project = RFQ.objects.get(pk=tracker_no)
         project.customer_name = request.POST.get('customer-name')
+        project.usd_thb = request.POST.get('usd-thb')
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
@@ -250,7 +257,10 @@ def part_info(request, sl_no):
             for c in addChild:
                  newChild.append(c)
         child = newChild
-    # print(sum_child)
+    if(len(part.file_path.split('/')) == 3 ):
+        file_name = project.file_path.split('/')[2]
+    else:
+        file_name = ''
     context = {
         'part': part,
         'parts': parts,
@@ -264,7 +274,8 @@ def part_info(request, sl_no):
         'sp_rate': sp_rate,
         'burden_rate': burden_rate,
         'hardware': hardware,
-        'sum_child': sum_child
+        'sum_child': sum_child,
+        'file_name': file_name
     }
     return render(request, 'rfqsite/part_info.html', context)
 
