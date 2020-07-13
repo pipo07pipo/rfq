@@ -4,7 +4,7 @@ from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecas
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
-import json
+import json, re
 
 def rfq_table(request):
     # text = "This is index page"
@@ -106,10 +106,58 @@ def add_part_multi(request, tracker_no):
     }
     return render(request, 'rfqsite/add_part_multi.html', context)
 
+
+#725Z2463-101	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.	101	101	101	101	101
+#725Z2463-111	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR	101	101	101	101	101
+#NAS77C4-014	BUSH	101	101	101	101	101
+
 def add_part_multi_confirm(request):
     if request.method == 'POST':
-        project = RFQ.objects.get(pk=request.POST.get('tracker-no'))
-        print(request.POST.get('exel-data'))
+        tracker_no = request.POST.get('tracker-no')
+        part_level = request.POST.get('part-level')
+        excel = request.POST.get('excel-data')
+        trans = re.split('	|\r\n',excel)
+        if(len(trans)%7 != 0):
+            return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
+        for i in range(0, len(trans), 7):
+            try:
+                trans[i] = str(trans[i])
+                trans[i+1] = str(trans[i+1])
+                trans[i+2] = int(trans[i+2].replace(',',''))
+                trans[i+3] = int(trans[i+3].replace(',',''))
+                trans[i+4] = int(trans[i+4].replace(',',''))
+                trans[i+5] = int(trans[i+5].replace(',',''))
+                trans[i+6] = int(trans[i+6].replace(',',''))
+            except:
+                return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
+        for i in range(0, len(trans), 7):
+            newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=trans[i],name=trans[i+1])
+            newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+            newForecast.forecast_year1 = trans[i+2]
+            newForecast.forecast_year2 = trans[i+3]
+            newForecast.forecast_year3 = trans[i+4]
+            newForecast.forecast_year4 = trans[i+5]
+            newForecast.forecast_year5 = trans[i+6]
+            newSPS = SPS(sl_no=newPart)
+            newMaterial = Material(sl_no=newPart)
+            newMSUT = MSUT(sl_no=newPart)
+            newCTPP = CTPP(sl_no=newPart)
+            newPart_Costing = Part_Costing(sl_no=newPart)
+            newSP = SP_Rate(sl_no=newPart)
+            newBR = Burden_Rate(sl_no=newPart)
+            newHW = Hardware(sl_no=newPart)
+            newO = Output(sl_no=newPart)
+            newPart.save()
+            newForecast.save()
+            newSPS.save()
+            newMaterial.save()
+            newMSUT.save()
+            newCTPP.save()
+            newPart_Costing.save()
+            newSP.save()
+            newBR.save()
+            newHW.save()
+            newO.save()
         return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=1")
 
 def add_part_confirm(request):
