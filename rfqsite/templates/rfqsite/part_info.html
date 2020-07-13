@@ -1751,18 +1751,31 @@
 	<!-- Notification -->
 	<script>
 	$( document ).ready(function() {
-		var message_title = "Edit Succesful";
-		var message_text = "Active Rate has been changed.";
-		var message_type = "success"; // success error
-		if(message_type){
-			var notice = create_notification(message_title,message_text,message_type);
+		var url = new URL(window.location.href);
+		var message = url.searchParams.get("message");
+		console.log('message :' + message);
+		if(message != null){
+			var notice = create_notification(message);
 			notice.get().click(function() {
 				notice.remove();
 			});
 		}
 	});
 
-	function create_notification(message_title,message_text,message_type){
+	function create_notification(message){
+		var message_title;
+		var message_text;
+		var message_type; // success error
+		if(message == 0){
+			message_title = "Fail";
+			message_text = "Your data has not been saved.";
+			message_type = "error";
+		} else if(message == 1){
+			message_title = "Success";
+			message_text = "Your data has been saved.";
+			message_type = "success";
+		}
+
 		return new PNotify({
 			title: message_title,
 			text: message_text,

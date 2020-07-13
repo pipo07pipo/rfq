@@ -1,9 +1,6 @@
 #e4813a - Orange Color
 #21262d - Grey Color
 ----
-Undone Columns
-X Y
-----
 Round Bar Shape
 RM Weight in Kg = Dens<g/cc> * (25.4 * OD<in>) * (25.4 * OD<in>) * (L<in> * 25.4/1000) * 3.142 / 4000
 RM Weight in Kg = Dens<g/cc> * OD<cm> * OD<cm> * L<cm> * 3.142 / 4000
@@ -16,9 +13,5 @@ Flat Bar / Plate / Sheet
 RM Weight in Kg = (Dens<g/cc> * T<in> * 25.4) * (W<in> * 25.4/1000) * (L<in> * 25.4/1000)
 RM Weight in Kg = Dens<g/cc> * T<cm> * W<cm> * L<cm> / 1000
 ----
-
  python -m pip install Django
-
 ----
-Material2 Edit page
-Hardware Edit page
