@@ -4,8 +4,10 @@ from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecas
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 import json, re
 
+@login_required(login_url='/login')
 def rfq_table(request):
     # text = "This is index page"
     # rfq = RFQ(tracker_no=111,description='Desc',customer_name='sample', update_date=timezone.now())

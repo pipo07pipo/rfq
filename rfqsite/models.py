@@ -1,6 +1,9 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
+class ExtendUser(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    type = models.CharField(max_length=100, default="Administrator")
 
 class RFQ(models.Model):
     tracker_no = models.IntegerField(primary_key=True)
