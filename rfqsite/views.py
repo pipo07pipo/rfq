@@ -54,7 +54,7 @@ def rfq_summary(request, tracker_no):
     mcrftp_grinding_t = 0
     all_part = Part_Header.objects.filter(tracker_no=project)
     for item in all_part:
-        op = op.objects.get(sl_no=item)
+        op = Output.objects.get(sl_no=item)
         total_cost_td += op.total_cost
         mtl_cost_td += op.mtl_cost
         spl_process_cost_td += op.spl_process_cost
