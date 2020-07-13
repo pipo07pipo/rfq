@@ -27,6 +27,9 @@
 		<link rel="stylesheet" href="{% static "assets/vendor/select2/select2.css" %}">
 		<link rel="stylesheet" href="{% static "assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" %}">
 
+		<!-- Notification CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/pnotify/pnotify.custom.css" %}">
+
 		<!-- Tree CSS -->
 		<link rel="stylesheet" href="{% static "assets/vendor/jstree/themes/default/style.css" %}" />
 
@@ -1147,6 +1150,9 @@
 	<script src="{% static "assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js" %}"></script>
 	<script src="{% static "assets/vendor/jquery-datatables-bs3/assets/js/datatables.js" %}"></script>
 
+	<!-- Notification JS -->
+	<script src="{% static "assets/vendor/pnotify/pnotify.custom.js" %}"></script>
+
 	<!-- Spinner JS -->
 	<script src="{% static "assets/vendor/fuelux/js/spinner.js" %}"></script>
 
@@ -1739,6 +1745,33 @@
 	function dollar_sign(value){
 		if(isNaN(value)) return "";
 		return "$";
+	}
+	</script>
+
+	<!-- Notification -->
+	<script>
+	$( document ).ready(function() {
+		var message_title = "Edit Succesful";
+		var message_text = "Active Rate has been changed.";
+		var message_type = "success"; // success error
+		if(message_type){
+			var notice = create_notification(message_title,message_text,message_type);
+			notice.get().click(function() {
+				notice.remove();
+			});
+		}
+	});
+
+	function create_notification(message_title,message_text,message_type){
+		return new PNotify({
+			title: message_title,
+			text: message_text,
+			type: message_type,
+			buttons: {
+			closer: false,
+			sticker: false
+			}
+		});
 	}
 	</script>
 

@@ -92,6 +92,6 @@ body {
 .table > thead > tr.custom2 > th,
 .table > tbody > tr.custom2 > th,
 .table > tfoot > tr.custom2 > th {
-	background-color: #4f8a8b;
-	color: white;
+	background-color: #f1c85a;
+	color: black;
 }
