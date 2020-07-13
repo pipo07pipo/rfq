@@ -19,6 +19,4 @@ from django.urls import include,path
 urlpatterns = [
     path('', include('rfqsite.urls')),
     path('admin/', admin.site.urls),
-    #### ACCOUNT ####
-    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
+from django.contrib.auth import authenticate, login
 import json
 
 def rfq_table(request):
@@ -104,6 +105,12 @@ def add_part_multi(request, tracker_no):
         'project': project
     }
     return render(request, 'rfqsite/add_part_multi.html', context)
+
+def add_part_multi_confirm(request):
+    if request.method == 'POST':
+        project = RFQ.objects.get(pk=request.POST.get('tracker-no'))
+        print(request.POST.get('exel-data'))
+        return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=1")
 
 def add_part_confirm(request):
     if request.method == 'POST':
@@ -258,7 +265,7 @@ def part_info(request, sl_no):
                  newChild.append(c)
         child = newChild
     if(len(part.file_path.split('/')) == 3 ):
-        file_name = project.file_path.split('/')[2]
+        file_name = part.file_path.split('/')[2]
     else:
         file_name = ''
     context = {

@@ -39,6 +39,7 @@ urlpatterns = [
     path('data_collect/', views.data_collect, name='data_collect'),
     path('rfq_summary/<int:tracker_no>/', views.rfq_summary, name='summary'),
     path('add_part_multi/<int:tracker_no>/', views.add_part_multi, name='add_part_multi'),
+    path('add_part_multi_confirm/', views.add_part_multi_confirm, name='add_part_multi_confirm'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
