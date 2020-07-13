@@ -30,6 +30,7 @@ def rfq_table(request):
         active_rate.save()
     return render(request, 'rfqsite/index.html', context)
 
+@login_required(login_url='/login')
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     if(len(project.file_path.split('/')) == 3 ):
@@ -45,6 +46,7 @@ def parts(request, tracker_no):
     }
     return render(request, 'rfqsite/part_table.html', context)
 
+@login_required(login_url='/login')
 def rfq_summary(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     total_cost_td = 0
@@ -94,6 +96,7 @@ def rfq_summary(request, tracker_no):
     }
     return render(request, 'rfqsite/rfq_summary.html', context)
 
+@login_required(login_url='/login')
 def add_part(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     context = {
@@ -101,6 +104,8 @@ def add_part(request, tracker_no):
     }
     return render(request, 'rfqsite/add_part.html', context)
 
+
+@login_required(login_url='/login')
 def add_part_multi(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     context = {
@@ -112,7 +117,7 @@ def add_part_multi(request, tracker_no):
 #725Z2463-101	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.	101	101	101	101	101
 #725Z2463-111	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR	101	101	101	101	101
 #NAS77C4-014	BUSH	101	101	101	101	101
-
+@login_required(login_url='/login')
 def add_part_multi_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
@@ -162,6 +167,7 @@ def add_part_multi_confirm(request):
             newO.save()
         return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=1")
 
+@login_required(login_url='/login')
 def add_part_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
@@ -193,6 +199,7 @@ def add_part_confirm(request):
         newO.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_rfq(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     if(len(project.file_path.split('/')) == 3 ):
@@ -205,6 +212,7 @@ def edit_rfq(request, tracker_no):
     }
     return render(request, 'rfqsite/edit_rfq.html', context)
 
+@login_required(login_url='/login')
 def edit_rfq_confirm(request):
     if request.method == 'POST' and request.FILES:
         file = request.FILES['file']
@@ -227,6 +235,7 @@ def edit_rfq_confirm(request):
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_active_rate(request, tracker_no):
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
     active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
@@ -237,6 +246,7 @@ def edit_active_rate(request, tracker_no):
     }
     return render(request, 'rfqsite/edit_active_rate.html', context)
 
+@login_required(login_url='/login')
 def edit_active_rate_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
@@ -255,6 +265,7 @@ def edit_active_rate_confirm(request):
         editAR.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_sp_rate(request, sl_no):
     sp_rate = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -264,6 +275,7 @@ def edit_sp_rate(request, sl_no):
     }
     return render(request, 'rfqsite/edit_sp_rate.html', context)
 
+@login_required(login_url='/login')
 def edit_sp_rate_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
@@ -283,6 +295,7 @@ def edit_sp_rate_confirm(request):
         editSPR.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def part_info(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
     base_level = Part_Header.objects.get(pk=sl_no)
@@ -336,6 +349,7 @@ def part_info(request, sl_no):
     }
     return render(request, 'rfqsite/part_info.html', context)
 
+@login_required(login_url='/login')
 def edit_part_info(request, sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
     if(len(part.image_path.split('/')) == 3 ):
@@ -353,7 +367,7 @@ def edit_part_info(request, sl_no):
     }
     return render(request, 'rfqsite/edit_part_info.html', context)
 
-
+@login_required(login_url='/login')
 def edit_part_info_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -386,6 +400,7 @@ def edit_part_info_confirm(request):
             editPart.save()
     return redirect('/part_info/'+str(sl_no)+"?message=1")
 
+@login_required(login_url='/login')
 def edit_forecast(request, sl_no):
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -395,6 +410,7 @@ def edit_forecast(request, sl_no):
     }
     return render(request, 'rfqsite/edit_forecast.html', context)
 
+@login_required(login_url='/login')
 def edit_forecast_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -408,6 +424,7 @@ def edit_forecast_confirm(request):
         editForecast.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_ctpp(request, sl_no):
     ctpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -421,6 +438,7 @@ def to_float(s):
     s = s.strip()
     return float(s) if s else None
 
+@login_required(login_url='/login')
 def edit_ctpp_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -441,6 +459,7 @@ def edit_ctpp_confirm(request):
         editCtpp.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_sps(request, sl_no):
     sps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -450,6 +469,7 @@ def edit_sps(request, sl_no):
     }
     return render(request, 'rfqsite/edit_sps.html', context)
 
+@login_required(login_url='/login')
 def edit_sps_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -464,6 +484,7 @@ def edit_sps_confirm(request):
         editsps.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_msut(request, sl_no):
     msut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -473,6 +494,7 @@ def edit_msut(request, sl_no):
     }
     return render(request, 'rfqsite/edit_msut.html', context)
 
+@login_required(login_url='/login')
 def edit_msut_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -490,7 +512,7 @@ def edit_msut_confirm(request):
         return redirect('/part_info/'+sl_no+"?message=1")
 
 
-
+@login_required(login_url='/login')
 def edit_hardware(request, sl_no):
     hardware = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -500,6 +522,7 @@ def edit_hardware(request, sl_no):
     }
     return render(request, 'rfqsite/edit_hardware.html', context)
 
+@login_required(login_url='/login')
 def edit_hardware_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -511,6 +534,7 @@ def edit_hardware_confirm(request):
         edithw.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_part_costing(request, sl_no):
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -520,6 +544,7 @@ def edit_part_costing(request, sl_no):
     }
     return render(request, 'rfqsite/edit_part_costing.html', context)
 
+@login_required(login_url='/login')
 def edit_part_costing_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -539,6 +564,7 @@ def edit_part_costing_confirm(request):
         editpc.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def add_child(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
     project = part.tracker_no
@@ -550,6 +576,7 @@ def add_child(request, sl_no):
     }
     return render(request, 'rfqsite/add_child.html', context)
 
+@login_required(login_url='/login')
 def add_child_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
@@ -584,6 +611,7 @@ def add_child_confirm(request):
         newO.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_material(request, sl_no):
     material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -624,6 +652,7 @@ def to_str(str):
     else:
         return str
 
+@login_required(login_url='/login')
 def edit_material_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -671,27 +700,14 @@ def edit_material_confirm(request):
         editmat.armwpp = to_float(request.POST.get('armwpp'))
     return redirect('/part_info/'+sl_no+"?message=1")
 
+@login_required(login_url='/login')
 def edit_material_remove(request, sl_no):
     delmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     clean_material(delmat)
     delmat.save()
     return redirect('/part_info/'+str(sl_no))
 
-def edit_material2(request, sl_no):
-    material2 = Material2.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-        'part': part,
-        'material2': material2
-    }
-    return render(request, 'rfqsite/edit_material2.html', context)
-
-def edit_material2_confirm(request):
-    sl_no = request.POST.get('sl-no')
-    if request.method == 'POST':
-        pass
-    return redirect('/part_info/'+sl_no+"?message=1")
-
+@login_required(login_url='/login')
 def edit_burden_rate(request, sl_no):
     burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
@@ -701,6 +717,7 @@ def edit_burden_rate(request, sl_no):
     }
     return render(request, 'rfqsite/edit_burden_rate.html', context)
 
+@login_required(login_url='/login')
 def edit_burden_rate_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
@@ -718,6 +735,7 @@ def unNan(data):
     else:
         return data
 
+@login_required(login_url='/login')
 def data_collect(request):
     if request.method == 'GET':
         sl_no = request.GET.get('sl_no')
