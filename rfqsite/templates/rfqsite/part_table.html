@@ -72,6 +72,7 @@
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_rfq/{{ project.tracker_no }}"><i class="fa fa-edit"></i> Edit</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download File</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_part/{{ project.tracker_no }}"><i class="fa fa-plus"></i> Add Part</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_part_multi/{{ project.tracker_no }}"><i class="fa fa-plus"></i> Add Part (Multiple)</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_active_rate/{{ project.tracker_no }}"><i class="fa fa-edit"></i>Edit Active Rate</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-success" href="/rfq_summary/{{ project.tracker_no }}"><i class="fa fa-book"></i> Summary</a>
 							</div>

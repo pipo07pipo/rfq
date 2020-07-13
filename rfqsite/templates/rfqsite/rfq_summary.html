@@ -63,26 +63,132 @@
 							<h2 class="panel-title">RFQ Summary</h2>
 						</header>
 						<div class="panel-body">
-							<table class="table table-bordered table-striped mb-none" id="datatable-default">
-								<thead>
-									<tr>
-										<th class="center">RFQ Tracker No.</th>
-										<th class="center">RFQ Description</th>
-										<th class="center">Customer Name</th>
-										<th class="center">Detail</th>
-									</tr>
-								</thead>
-								<tbody>
-                {% for project in projects %}
-									<tr>
-										<td class="center">{{ project.tracker_no }}</td>
-										<td class="center">{{ project.description }}</td>
-										<td class="center">{{ project.customer_name }}</td>
-										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a</td>
-									</tr>
-                {% endfor %}
-								</tbody>
-							</table>
+							<div class="form-group">
+								<label class="col-sm-3 control-label text-right"><b>USD/THB</b></label>
+								<div class="col-sm-9">
+									<label class="control-label" id="usd-thb" name="usd-thb">32</label>
+								</div>
+							</div>
+							<!-- Total Project Cost -->
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-condensed mb-none">
+										<thead>
+											<th class="center custom1" colspan="5" scope="colgroup">Total Project Cost</th>
+											<tr>
+												<th class="center custom1"></th>
+												<th class="center custom2">Total Cost</th>
+												<th class="center custom2">Mtl Cost</th>
+												<th class="center custom2">Spl Process Cost</th>
+												<th class="center custom2">Total Hardware Cost</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="center custom1">5 Years (USD)</td>
+												<td class="center" id="total-cost-td" name="total-cost-td">{{ total_cost_td }}</td>
+												<td class="center" id ="mtl-cost-td" name ="mtl-cost-td">{{ mtl_cost_td }}</td>
+												<td class="center" id="spl-process-cost-td" name="spl-process-cost-td">{{ spl_process_cost_td }}</td>
+												<td class="center" id="total-hardware-cost-td" name="total-hardware-cost-td">{{ total_hardware_cost_td }}</td>
+												<td class="center" id="total-cost-td2" name="total-cost-td2" hidden>{{ total_cost_td }}</td>
+												<td class="center" id ="mtl-cost-td2" name ="mtl-cost-td2" hidden>{{ mtl_cost_td }}</td>
+												<td class="center" id="spl-process-cost-td2" name="spl-process-cost-td2" hidden>{{ spl_process_cost_td }}</td>
+												<td class="center" id="total-hardware-cost-td2" name="total-hardware-cost-td2" hidden>{{ total_hardware_cost_td }}</td>
+											</tr>
+											<tr>
+												<td class="center custom1">5 Years (‎THB)</td>
+												<td class="center" id="total-cost-tb" name="total-cost-tb">-</td>
+												<td class="center" id ="mtl-cost-tb" name ="mtl-cost-tb">-</td>
+												<td class="center" id="spl-process-cost-tb" name="spl-process-cost-tb">-</td>
+												<td class="center" id="total-hardware-cost-tb" name="total-hardware-cost-tb">-</td>
+											</tr>
+											<tr>
+												<td class="center custom1">Per Year (USD)</td>
+												<td class="center" id="total-cost-yd" name="total-cost-yd">-</td>
+												<td class="center" id ="mtl-cost-yd" name ="mtl-cost-yd">-</td>
+												<td class="center" id="spl-process-cost-yd" name="spl-process-cost-yd">-</td>
+												<td class="center" id="total-hardware-cost-yd" name="total-hardware-cost-yd">-</td>
+											</tr>
+											<tr>
+												<td class="center custom1">Per Year (‎‎THB)</td>
+												<td class="center" id="total-cost-yb" name="total-cost-yb">-</td>
+												<td class="center" id ="mtl-cost-yb" name ="mtl-cost-yb">-</td>
+												<td class="center" id="spl-process-cost-yb" name="spl-process-cost-yb">-</td>
+												<td class="center" id="total-hardware-cost-yb" name="total-hardware-cost-yb">-</td>
+											</tr>
+										</tbody>
+								</table>
+							</div>
+							<hr>
+							<!-- Machining Capacity Planing -->
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-condensed mb-none">
+										<thead>
+											<th class="center custom1" colspan="10" scope="colgroup">Machining Capacity Required for the Project</th>
+											<tr>
+												<th class="center custom1"></th>
+												<th class="center custom2">CLA</th>
+												<th class="center custom2">BTA</th>
+												<th class="center custom2">TMA</th>
+												<th class="center custom2">MCA 3 Axis</th>
+												<th class="center custom2">MCA 4 Axis</th>
+												<th class="center custom2">HMC</th>
+												<th class="center custom2">5 Axis</th>
+												<th class="center custom2">EDM</th>
+												<th class="center custom2">Grinding</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="center custom1">5 Years</td>
+												<td class="center" id="mcrftp-cla-t" name="mcrftp-cla-t">{{ mcrftp_cla_t }}</td>
+												<td class="center" id="mcrftp-bta-t" name="mcrftp-bta-t">{{ mcrftp_bta_t }}</td>
+												<td class="center" id="mcrftp-tma-t" name="mcrftp-tma-t">{{ mcrftp_tma_t }}</td>
+												<td class="center" id="mcrftp-mca3axis-t" name="mcrftp-mca3axis-t">{{ mcrftp_mca3axis_t }}</td>
+												<td class="center" id="mcrftp-mca4axis-t" name="mcrftp-mca4axis-t">{{ mcrftp_mca4axis_t }}</td>
+												<td class="center" id="mcrftp-hmc-t" name="mcrftp-hmc-t">{{ mcrftp_hmc_t }}</td>
+												<td class="center" id="mcrftp-5axis-t" name="mcrftp-5axis-t">{{ mcrftp_5axis_t }}</td>
+												<td class="center" id="mcrftp-edm-t" name="mcrftp-edm-t">{{ mcrftp_edm_t }}</td>
+												<td class="center" id="mcrftp-grinding-t" name="mcrftp-grinding-t">{{ mcrftp_grinding_t }}</td>
+											</tr>
+											<tr>
+												<td class="center custom1">Per Year</td>
+												<td class="center" id="mcrftp-cla-y" name="mcrftp-cla-y">-</td>
+												<td class="center" id="mcrftp-bta-y" name="mcrftp-bta-y">-</td>
+												<td class="center" id="mcrftp-tma-y" name="mcrftp-tma-y">-</td>
+												<td class="center" id="mcrftp-mca3axis-y" name="mcrftp-mca3axis-y">-</td>
+												<td class="center" id="mcrftp-mca4axis-y" name="mcrftp-mca4axis-y">-</td>
+												<td class="center" id="mcrftp-hmc-y" name="mcrftp-hmc-y">-</td>
+												<td class="center" id="mcrftp-5axis-y" name="mcrftp-5axis-y">-</td>
+												<td class="center" id="mcrftp-edm-y" name="mcrftp-edm-y">-</td>
+												<td class="center" id="mcrftp-grinding-y" name="mcrftp-grinding-y">-</td>
+											</tr>
+											<tr>
+												<td class="center custom1">M/C's / Yr</td>
+												<td class="center" id="mcrftp-cla-mc" name="mcrftp-cla-mc">-</td>
+												<td class="center" id="mcrftp-bta-mc" name="mcrftp-bta-mc">-</td>
+												<td class="center" id="mcrftp-tma-mc" name="mcrftp-tma-mc">-</td>
+												<td class="center" id="mcrftp-mca3axis-mc" name="mcrftp-mca3axis-mc">-</td>
+												<td class="center" id="mcrftp-mca4axis-mc" name="mcrftp-mca4axis-mc">-</td>
+												<td class="center" id="mcrftp-hmc-mc" name="mcrftp-hmc-mc">-</td>
+												<td class="center" id="mcrftp-5axis-mc" name="mcrftp-5axis-mc">-</td>
+												<td class="center" id="mcrftp-edm-mc" name="mcrftp-edm-mc">-</td>
+												<td class="center" id="mcrftp-grinding-mc" name="mcrftp-grinding-mc">-</td>
+											</tr>
+											<tr>
+												<td class="center custom1">Manpower / Yr</td>
+												<td class="center" id="mcrftp-cla-man" name="mcrftp-cla-man">-</td>
+												<td class="center" id="mcrftp-bta-man" name="mcrftp-bta-man">-</td>
+												<td class="center" id="mcrftp-tma-man" name="mcrftp-tma-man">-</td>
+												<td class="center" id="mcrftp-mca3axis-man" name="mcrftp-mca3axis-man">-</td>
+												<td class="center" id="mcrftp-mca4axis-man" name="mcrftp-mca4axis-man">-</td>
+												<td class="center" id="mcrftp-hmc-man" name="mcrftp-hmc-man">-</td>
+												<td class="center" id="mcrftp-5axis-man" name="mcrftp-5axis-man">-</td>
+												<td class="center" id="mcrftp-edm-man" name="mcrftp-edm-man">-</td>
+												<td class="center" id="mcrftp-grinding-man" name="mcrftp-grinding-man">-</td>
+											</tr>
+										</tbody>
+								</table>
+							</div>
 						</div>
 					</section>
 					<!-- end: page -->
@@ -116,6 +222,161 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	$( document ).ready(function() {
+		data_cal();
+	});
+
+	function data_cal(){
+		// -*-*-*-*-*-*-*-*-*-*- 1 RAW INPUT SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
+		var usd_thb = parseFloat($( "#usd-thb" ).text()); // NO RESTATE
+		// -- Total Project Cost --
+		var total_cost_td  = parseFloat($( "#total-cost-td2" ).text());
+		var mtl_cost_td  = parseFloat($( "#mtl-cost-td2" ).text());
+		var spl_process_cost_td = parseFloat($( "#spl-process-cost-td2" ).text());
+ 		var total_hardware_cost_td  = parseFloat($( "#total-hardware-cost-td2" ).text());
+
+		// -- Machining Capacity Required for the Project --
+		var mcrftp_cla_t  = parseFloat($( "#mcrftp-cla-t" ).text());
+		var mcrftp_bta_t  = parseFloat($( "#mcrftp-bta-t" ).text());
+		var mcrftp_tma_t  = parseFloat($( "#mcrftp-tma-t" ).text());
+		var mcrftp_mca3axis_t  = parseFloat($( "#mcrftp-mca3axis-t" ).text());
+		var mcrftp_mca4axis_t  = parseFloat($( "#mcrftp-mca4axis-t" ).text());
+		var mcrftp_hmc_t  = parseFloat($( "#mcrftp-hmc-t" ).text());
+		var mcrftp_5axis_t  = parseFloat($( "#mcrftp-5axis-t" ).text());
+		var mcrftp_edm_t  = parseFloat($( "#mcrftp-edm-t" ).text());
+		var mcrftp_grinding_t  = parseFloat($( "#mcrftp-grinding-t" ).text());
+
+		// -*-*-*-*-*-*-*-*-*-*- 2 CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -- Total Project Cost --
+		// 5 Year (THB) = Total Project Cost * USD Per THB
+		var total_cost_tb = total_cost_td * usd_thb;
+		var mtl_cost_tb = mtl_cost_td * usd_thb;
+		var spl_process_cost_tb = spl_process_cost_td * usd_thb;
+ 		var total_hardware_cost_tb = total_hardware_cost_td * usd_thb;
+
+		// Per Year (USD) = Total Project Cost / 5
+		var total_cost_yd = total_cost_td / 5;
+		var mtl_cost_yd = mtl_cost_td / 5;
+		var spl_process_cost_yd = spl_process_cost_td / 5;
+ 		var total_hardware_cost_yd = total_hardware_cost_td / 5;
+
+		// Per Year (THB) = (Total Project Cost / 5) * USD Per THB
+		var total_cost_yb = (total_cost_td / 5) * usd_thb;
+		var mtl_cost_yb = (mtl_cost_td / 5) * usd_thb;
+		var spl_process_cost_yb = (spl_process_cost_td / 5) * usd_thb;
+ 		var total_hardware_cost_yb = (total_hardware_cost_td / 5) * usd_thb;
+
+		// -- Machining Capacity Required for the Project --
+		// Per Year = Machining Capacity Required for the Project / 5
+		var mcrftp_cla_y = mcrftp_cla_t / 5;
+		var mcrftp_bta_y = mcrftp_bta_t / 5;
+		var mcrftp_tma_y = mcrftp_tma_t / 5;
+		var mcrftp_mca3axis_y = mcrftp_mca3axis_t / 5;
+		var mcrftp_mca4axis_y = mcrftp_mca4axis_t / 5;
+		var mcrftp_hmc_y = mcrftp_hmc_t / 5;
+		var mcrftp_5axis_y = mcrftp_5axis_t / 5;
+		var mcrftp_edm_y = mcrftp_edm_t / 5;
+		var mcrftp_grinding_y = mcrftp_grinding_t / 5;
+
+		// Machines Per Year = ( Machining Capacity Required for the Project / 5 ) / 5000
+		var mcrftp_cla_mc = (mcrftp_cla_t / 5) / 5000;
+		var mcrftp_bta_mc = (mcrftp_bta_t / 5) / 5000;
+		var mcrftp_tma_mc = (mcrftp_tma_t / 5) / 5000;
+		var mcrftp_mca3axis_mc = (mcrftp_mca3axis_t / 5) / 5000;
+		var mcrftp_mca4axis_mc = (mcrftp_mca4axis_t / 5) / 5000;
+		var mcrftp_hmc_mc = (mcrftp_hmc_t / 5) / 5000;
+		var mcrftp_5axis_mc = (mcrftp_5axis_t / 5) / 5000;
+		var mcrftp_edm_mc = (mcrftp_edm_t / 5) / 5000;
+		var mcrftp_grinding_mc = (mcrftp_grinding_t / 5) / 5000;
+
+		// Man Power Per Year = Round Up ( Machining Capacity Required for the Project / 5 ) / 5000 )
+		var mcrftp_cla_man = Math.ceil((mcrftp_cla_t / 5) / 5000, 0);
+		var mcrftp_bta_man = Math.ceil((mcrftp_bta_t / 5) / 5000, 0);
+		var mcrftp_tma_man = Math.ceil((mcrftp_tma_t / 5) / 5000, 0);
+		var mcrftp_mca3axis_man = Math.ceil((mcrftp_mca3axis_t / 5) / 5000, 0);
+		var mcrftp_mca4axis_man = Math.ceil((mcrftp_mca4axis_t / 5) / 5000, 0);
+		var mcrftp_hmc_man = Math.ceil((mcrftp_hmc_t / 5) / 5000, 0);
+		var mcrftp_5axis_man = Math.ceil((mcrftp_5axis_t / 5) / 5000, 0);
+		var mcrftp_edm_man = Math.ceil((mcrftp_edm_t / 5) / 5000, 0);
+		var mcrftp_grinding_man = Math.ceil((mcrftp_grinding_t / 5) / 5000, 0);
+
+		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -- Total Project Cost --
+		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + total_cost_td.toFixed(2));
+		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + mtl_cost_td.toFixed(2));
+		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + spl_process_cost_td.toFixed(2));
+		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + total_hardware_cost_td.toFixed(2));
+
+		// -- Machining Capacity Required for the Project --
+		$( "#mcrftp-cla-t" ).text(mcrftp_cla_t.toFixed(2));
+		$( "#mcrftp-bta-t" ).text(mcrftp_bta_t.toFixed(2));
+		$( "#mcrftp-tma-t" ).text(mcrftp_tma_t.toFixed(2));
+		$( "#mcrftp-mca3axis-t" ).text(mcrftp_mca3axis_t.toFixed(2));
+		$( "#mcrftp-mca4axis-t" ).text(mcrftp_mca4axis_t.toFixed(2));
+		$( "#mcrftp-hmc-t" ).text(mcrftp_hmc_t.toFixed(2));
+		$( "#mcrftp-5axis-t" ).text(mcrftp_5axis_t.toFixed(2));
+		$( "#mcrftp-edm-t" ).text(mcrftp_edm_t.toFixed(2));
+		$( "#mcrftp-grinding-t" ).text(mcrftp_grinding_t.toFixed(2));
+		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -- Total Project Cost --
+		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + total_cost_tb.toFixed(2));
+		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + mtl_cost_tb.toFixed(2));
+		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + spl_process_cost_tb.toFixed(2));
+		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + total_hardware_cost_tb.toFixed(2));
+		$( "#total-cost-yd" ).text(dollar_sign(total_cost_yd) + total_cost_yd.toFixed(2));
+		$( "#mtl-cost-yd" ).text(dollar_sign(mtl_cost_yd) + mtl_cost_yd.toFixed(2));
+		$( "#spl-process-cost-yd" ).text(dollar_sign(spl_process_cost_yd) + spl_process_cost_yd.toFixed(2));
+		$( "#total-hardware-cost-yd" ).text(dollar_sign(total_hardware_cost_yd) + total_hardware_cost_yd.toFixed(2));
+		$( "#total-cost-yb" ).text(bath_sign(total_cost_yb) + total_cost_yb.toFixed(2));
+		$( "#mtl-cost-yb" ).text(bath_sign(mtl_cost_yb) + mtl_cost_yb.toFixed(2));
+		$( "#spl-process-cost-yb" ).text(bath_sign(spl_process_cost_yb) + spl_process_cost_yb.toFixed(2));
+		$( "#total-hardware-cost-yb" ).text(bath_sign(total_hardware_cost_yb) + total_hardware_cost_yb.toFixed(2));
+
+		// -- Machining Capacity Required for the Project --
+		$( "#mcrftp-cla-y" ).text(mcrftp_cla_y.toFixed(2));
+		$( "#mcrftp-bta-y" ).text(mcrftp_bta_y.toFixed(2));
+		$( "#mcrftp-tma-y" ).text(mcrftp_tma_y.toFixed(2));
+		$( "#mcrftp-mca3axis-y" ).text(mcrftp_mca3axis_y.toFixed(2));
+		$( "#mcrftp-mca4axis-y" ).text(mcrftp_mca4axis_y.toFixed(2));
+		$( "#mcrftp-hmc-y" ).text(mcrftp_hmc_y.toFixed(2));
+		$( "#mcrftp-5axis-y" ).text(mcrftp_5axis_y.toFixed(2));
+		$( "#mcrftp-edm-y" ).text(mcrftp_edm_y.toFixed(2));
+		$( "#mcrftp-grinding-y" ).text(mcrftp_grinding_y.toFixed(2));
+
+		$( "#mcrftp-cla-mc" ).text(mcrftp_cla_mc.toFixed(2));
+		$( "#mcrftp-bta-mc" ).text(mcrftp_bta_mc.toFixed(2));
+		$( "#mcrftp-tma-mc" ).text(mcrftp_tma_mc.toFixed(2));
+		$( "#mcrftp-mca3axis-mc" ).text(mcrftp_mca3axis_mc.toFixed(2));
+		$( "#mcrftp-mca4axis-mc" ).text(mcrftp_mca4axis_mc.toFixed(2));
+		$( "#mcrftp-hmc-mc" ).text(mcrftp_hmc_mc.toFixed(2));
+		$( "#mcrftp-5axis-mc" ).text(mcrftp_5axis_mc.toFixed(2));
+		$( "#mcrftp-edm-mc" ).text(mcrftp_edm_mc.toFixed(2));
+		$( "#mcrftp-grinding-mc" ).text(mcrftp_grinding_mc.toFixed(2));
+
+		$( "#mcrftp-cla-man" ).text(mcrftp_cla_man);
+		$( "#mcrftp-bta-man" ).text(mcrftp_bta_man);
+		$( "#mcrftp-tma-man" ).text(mcrftp_tma_man);
+		$( "#mcrftp-mca3axis-man" ).text(mcrftp_mca3axis_man);
+		$( "#mcrftp-mca4axis-man" ).text(mcrftp_mca4axis_man);
+		$( "#mcrftp-hmc-man" ).text(mcrftp_hmc_man);
+		$( "#mcrftp-5axis-man" ).text(mcrftp_5axis_man);
+		$( "#mcrftp-edm-man" ).text(mcrftp_edm_man);
+		$( "#mcrftp-grinding-man" ).text(mcrftp_grinding_man);
+	}
+
+	function dollar_sign(value){
+		if(isNaN(value)) return "";
+		return "$";
+	}
+
+	function bath_sign(value){
+		if(isNaN(value)) return "";
+		return "฿";
+	}
+
+	</script>
 
 	<!-- DataTable Default -->
 	<script>
