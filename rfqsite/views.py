@@ -37,6 +37,16 @@ def parts(request, tracker_no):
     }
     return render(request, 'rfqsite/part_table.html', context)
 
+def rfq_summary(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)
+    parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
+
+    context = {
+        'project': project,
+        'parts': parts
+    }
+    return render(request, 'rfqsite/rfq_summary.html', context)
+
 def add_part(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
     context = {
@@ -596,6 +606,19 @@ def data_collect(request):
             ccs_ewp = 0
         editO = Output.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         editO.ccs_ewp = ccs_ewp
+        editO.total_cost = request.GET.get('total_cost')
+        editO.mtl_cost = request.GET.get('mtl_cost')
+        editO.spl_process_cost = request.GET.get('spl_process_cost')
+        editO.total_hardware_cost = request.GET.get('total_hardware_cost')
+        editO.mcrftp_cla = request.GET.get('mcrftp_cla')
+        editO.mcrftp_bta = request.GET.get('mcrftp_bta')
+        editO.mcrftp_tma = request.GET.get('mcrftp_tma')
+        editO.mcrftp_mca3axis = request.GET.get('mcrftp_mca3axis')
+        editO.mcrftp_mca4axis = request.GET.get('mcrftp_mca4axis')
+        editO.mcrftp_hmc = request.GET.get('mcrftp_hmc')
+        editO.mcrftp_5axis = request.GET.get('mcrftp_5axis')
+        editO.mcrftp_edm = request.GET.get('mcrftp_edm')
+        editO.mcrftp_grinding = request.GET.get('mcrftp_grinding')
         editO.save()
     return HttpResponse("OK")
 

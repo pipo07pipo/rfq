@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
@@ -36,6 +36,7 @@ urlpatterns = [
     path('edit_burden_rate_confirm/', views.edit_burden_rate_confirm, name='projects'),
     path('edit_hardware/<int:sl_no>/', views.edit_hardware, name='projects'),
     path('edit_hardware_confirm/', views.edit_hardware_confirm, name='projects'),
-    path('data_collect/', views.data_collect, name='data_collect')
+    path('data_collect/', views.data_collect, name='data_collect'),
+    path('rfq_summary/<int:tracker_no>/', views.rfq_summary, name='summary'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
