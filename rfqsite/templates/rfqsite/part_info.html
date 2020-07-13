@@ -1553,7 +1553,23 @@
         url: '{% url 'data_collect' %}',
         data: {
 					'sl_no' : sl_no,
-          'ccs_ewp': ccs_ewp
+          'ccs_ewp': ccs_ewp,
+
+					'total_cost' : total_cost,
+					'mtl_cost' : mtl_cost,
+					'spl_process_cost' : spl_process_cost,
+					'total_hardware_cost' : total_hardware_cost,
+
+					'mcrftp_cla' : mcrftp_cla,
+					'mcrftp_bta' : mcrftp_bta,
+					'mcrftp_tma' : mcrftp_tma,
+					'mcrftp_mca3axis' : mcrftp_mca3axis,
+					'mcrftp_mca4axis' : mcrftp_mca4axis,
+					'mcrftp_hmc' : mcrftp_hmc,
+					'mcrftp_5axis' : mcrftp_5axis,
+					'mcrftp_edm' : mcrftp_edm,
+					'mcrftp_grinding' : mcrftp_grinding
+
         },
         dataType: 'json',
         success: function (data) {
