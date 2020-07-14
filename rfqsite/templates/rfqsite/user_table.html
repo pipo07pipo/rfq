@@ -27,6 +27,9 @@
 		<link rel="stylesheet" href="{% static "assets/vendor/select2/select2.css" %}">
 		<link rel="stylesheet" href="{% static "assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" %}">
 
+		<!-- Notification CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/pnotify/pnotify.custom.css" %}">
+
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
 
@@ -61,6 +64,7 @@
 								<a href="#" class="fa fa-times"></a> -->
 							</div>
 							<h2 class="panel-title">User Table</h2>
+							<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_user/"><i class="fa fa-plus"></i> Add User</a>
 						</header>
 						<div class="panel-body">
 							<table class="table table-bordered table-striped mb-none" id="datatable-default">
@@ -80,7 +84,7 @@
 										<td class="center">{{ fuser.first_name }}</td>
 										<td class="center">{{ fuser.last_name }}</td>
 										<td class="center">{{ fuser.extenduser.type }}</td>
-										<td class="center"><a href="/user_info/{{ fuser.username }}"><i class="fa fa-search"></i></a</td>
+										<td class="center"><a href="/edit_user/{{ fuser.username }}"><i class="fa fa-search"></i></a</td>
 									</tr>
                 {% endfor %}
 								</tbody>
@@ -110,6 +114,9 @@
 	<script src="{% static "assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js" %}"></script>
 	<script src="{% static "assets/vendor/jquery-datatables-bs3/assets/js/datatables.js" %}"></script>
 
+	<!-- Notification JS -->
+	<script src="{% static "assets/vendor/pnotify/pnotify.custom.js" %}"></script>
+
 	<!-- Theme Base, Components and Settings -->
 	<script src="{% static "assets/javascripts/theme.js" %}"></script>
 
@@ -118,6 +125,46 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<!-- Notification -->
+	<script>
+	$( document ).ready(function() {
+		var url = new URL(window.location.href);
+		var message = url.searchParams.get("message");
+		console.log('message :' + message);
+		if(message != null){
+			var notice = create_notification(message);
+			notice.get().click(function() {
+				notice.remove();
+			});
+		}
+	});
+
+	function create_notification(message){
+		var message_title;
+		var message_text;
+		var message_type; // success error
+		if(message == 0){
+			message_title = "Fail";
+			message_text = "Your data has not been saved.";
+			message_type = "error";
+		} else if(message == 1){
+			message_title = "Success";
+			message_text = "Your data has been saved.";
+			message_type = "success";
+		}
+
+		return new PNotify({
+			title: message_title,
+			text: message_text,
+			type: message_type,
+			buttons: {
+			closer: false,
+			sticker: false
+			}
+		});
+	}
+	</script>
 
 	<!-- DataTable Default -->
 	<script>
