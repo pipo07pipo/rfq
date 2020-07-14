@@ -32,18 +32,24 @@
 		<!-- Theme Custom CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme-custom.css" %}">
 
+		<style>
+		.body-sign .panel-sign .panel-title-sign .title {
+			background-color: #ed9c28;
+		}
+
+		.body-sign .panel-sign .panel-body {
+			border-top-color: #ed9c28;
+		}
+		</style>
+
 	</head>
 	<body>
 		<!-- start: page -->
 		<section class="body-sign">
 			<div class="center-sign">
-				<!-- <a href="/" class="logo pull-left">
-					<img src="assets/images/logo.png" height="54" alt="Porto Admin" />
-				</a> -->
-
 				<div class="panel panel-sign">
 					<div class="panel-title-sign mt-xl text-right">
-						<!-- <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> RFQ Management Application</h2> -->
+						<h2 class="title text-uppercase text-bold m-none"><i class="fa fa-star mr-xs"></i> RFQ Management Application</h2>
 					</div>
 					<div class="panel-body">
 
@@ -52,7 +58,7 @@
 							<div class="form-group mb-lg">
 								<label>Username</label>
 								<div class="input-group input-group-icon">
-									<input name="username" type="text" class="form-control input-lg" />
+									<input name="username" type="text" class="form-control input-lg">
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-user"></i>
@@ -62,11 +68,9 @@
 							</div>
 
 							<div class="form-group mb-lg">
-								<div class="clearfix">
-									<label class="pull-left"></label>
-								</div>
+								<label>Password</label>
 								<div class="input-group input-group-icon">
-									<input name="password" type="password" class="form-control input-lg" />
+									<input name="password" type="password" class="form-control input-lg">
 									<span class="input-group-addon">
 										<span class="icon icon-lg">
 											<i class="fa fa-lock"></i>
@@ -75,17 +79,9 @@
 								</div>
 							</div>
 
-							<!-- <div class="row">
-								<div class="col-sm-8">
-									<div class="checkbox-custom checkbox-default">
-										<input id="RememberMe" name="rememberme" type="checkbox"/>
-										<label for="RememberMe">Remember Me</label>
-									</div>
-								</div> -->
-								<div class="col-sm-4 text-right">
-									<button type="submit" class="btn btn-primary hidden-xs">Sign In</button>
-
-									<!-- <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Sign In</button> -->
+							<div class="row">
+								<div class="col-sm-12 text-right">
+									<button type="submit" class="btn btn-warning hidden-xs">Sign In</button>
 								</div>
 								{% if form.errors %}
 								<p style="color:red">Please enter correct Username and Password</p>

@@ -16,11 +16,8 @@
 
     <div id="userbox" class="userbox">
       <a href="#" data-toggle="dropdown">
-        <figure class="profile-picture">
-          <img src="{% static "assets/images/!logged-user.jpg" %}" alt="Joseph Doe" class="img-circle" data-lock-picture="{% static "assets/images/!logged-user.jpg" %}" />
-        </figure>
-        <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-          <span class="name">{{ user.username }}</span>
+        <div class="profile-info">
+          <span class="name">{{ user.first_name }} {{ user.last_name }}</span>
           <span class="role">{{ user.extenduser.type }}</span>
         </div>
 
