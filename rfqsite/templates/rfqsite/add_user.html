@@ -163,23 +163,39 @@
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
 
 	<script>
+	$( document ).ready(function() {
+		validate_user();
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+
 	$( "#username" ).on('change textInput input', function(){
 		validate_user();
+		validate();
 	});
 	$( "#password" ).on('change textInput input', function(){
 		validate_password();
 		validate_re_password();
+		validate();
 	});
 	$( "#re-password" ).on('change textInput input', function(){
 		validate_password();
 		validate_re_password();
+		validate();
 	});
+
+	function validate(){
+    if($( "#username-group" ).classList.contains("has-success") || $( "#password-group" ).classList.contains("has-success") || $( "#re-password-group" ).classList.contains("has-success"))
+		$('#confirm').prop("disabled", false);
+    else $('#confirm').prop("disabled", true);
+  }
 
 	function validate_user(){
 		var username = $( "#username" ).val();
 		var text = '';
 		if(username.length < 6){
-			text = 'Password need to be at least 6 characters.';
+			text = 'Username need to be at least 6 characters.';
 			$( "#username-validate" ).text(text);
 			$( "#username-group" ).addClass("has-error");
 			$( "#username-group" ).removeClass("has-success");
