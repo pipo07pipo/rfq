@@ -832,9 +832,11 @@ def add_user(request):
     return render(request, 'rfqsite/add_user.html', context)
 
 def edit_user(request,username):
+    roles = Roles.objects.all()
     user = User.objects.get(username=username)
     context = {
-        'fuser': user
+        'fuser': user,
+        'roles': roles
     }
     return render(request, 'rfqsite/edit_user.html', context)
 
