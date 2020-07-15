@@ -15,13 +15,15 @@
 				    <div class="nano-content">
 				      <nav id="menu" class="nav-main" role="navigation">
 				        <ul class="nav nav-main">
-									<li class="nav-parent nav-expanded nav-active">
+									<!-- <li class="nav-parent nav-expanded nav-active"> -->
+									<li class="nav-parent">
 										<a>
 											<i class="fa fa-copy" aria-hidden="true"></i>
 											<span>RFQ</span>
 										</a>
 										<ul class="nav nav-children">
-											<li class="nav-active">
+											<!-- <li class="nav-active">  -->
+											<li>
 												<a href="/rfq_table">
 													 Main Table
 												</a>
@@ -33,6 +35,7 @@
 											</li>
 										</ul>
 									</li>
+									{% if user.extenduser.role.permission == 0 %}
 									<li class="nav-parent">
 										<a>
 											<i class="fa fa-wrench" aria-hidden="true"></i>
@@ -46,6 +49,7 @@
 											</li>
 										</ul>
 									</li>
+									{% endif %}
 				        </ul>
 				      </nav>
 				    </div>

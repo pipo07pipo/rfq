@@ -15,29 +15,17 @@
     <span class="separator"></span>
 
     <div id="userbox" class="userbox">
-      <a href="#" data-toggle="dropdown">
         <div class="profile-info">
           <span class="name">{{ user.first_name }} {{ user.last_name }}</span>
-          <span class="role">{{ user.extenduser.type }}</span>
+          <span class="role">{{ user.extenduser.role.type }}</span>
         </div>
-
-        <i class="fa custom-caret"></i>
-      </a>
-
-      <div class="dropdown-menu">
-        <ul class="list-unstyled">
-          <li class="divider"></li>
-          <!-- <li>
-            <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
-          </li>
-          <li>
-            <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-          </li> -->
-          <li>
-            <a role="menuitem" tabindex="-1" href="/logout"><i class="fa fa-power-off"></i> Logout</a>
-          </li>
-        </ul>
-      </div>
+        <ul class="notifications">
+						<li>
+							<a href="/logout" class="notification-icon" style="box-shadow:0px 0px 2px 1px rgba(0, 0, 0, 0.3)">
+								<i class="fa fa-power-off"></i>
+							</a>
+						</li>
+				</ul>
     </div>
   </div>
 </header>

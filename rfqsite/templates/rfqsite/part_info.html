@@ -150,7 +150,9 @@
 										{% endif %}
 									</div>
 										<div class="text-right mr-lg">
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_info/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ part.file_path }}" {% if part.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download Files</a>
 										</div>
 									</div>
@@ -282,7 +284,9 @@
 										</ul>
 									</div>
 									<div class="text-right mr-lg">
+										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_child/{{ part.sl_no }}" {% if part.level >= 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child</a>
+										{% endif %}
 									</div>
 								</div>
 							</section>
@@ -340,7 +344,9 @@
 										</table>
 										</div>
 										<div class="text-right mr-lg">
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_forecast/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
 										</div>
 									</div>
 								</section>
@@ -433,7 +439,9 @@
 										</table>
 										</div>
 										<div class="text-right mr-lg">
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
 										</div>
 										<!-- Burden Rate -->
 										<div class="table-responsive">
@@ -456,7 +464,9 @@
 										</table>
 							    </div>
 									<div class="text-right mr-lg">
+										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_burden_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+										{% endif %}
 									</div>
 								</div>
 							</section>
@@ -613,7 +623,9 @@
 												</div>
 											</div>
 											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_material/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
 											</div>
 							    </div>
 							</section>
@@ -655,7 +667,9 @@
 											</div>
 										</div>
 										<div class="text-right mr-lg">
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_hardware/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
 										</div>
 							    </div>
 							</section>
@@ -701,7 +715,9 @@
 											</table>
 											</div>
 											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sps/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
 											</div>
 											<!-- Machining Set Up Time (Minutes) -->
 											<div class="table-responsive">
@@ -738,7 +754,9 @@
 											</table>
 											</div>
 											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_msut/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
 											</div>
 											<!-- Cycle Time Per Part (Minutes) -->
 											<div class="table-responsive">
@@ -781,7 +799,9 @@
 											</table>
 											</div>
 											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_ctpp/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
 											</div>
 							    </div>
 							</section>
@@ -1085,7 +1105,9 @@
 												</table>
 											</div>
 											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
 											</div>
 									</div>
 							</section>
