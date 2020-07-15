@@ -44,6 +44,7 @@ urlpatterns = [
     path('add_user/', views.add_user, name='add_user'),
     path('add_user_confirm/', views.add_user, name='add_user_confirm'),
     path('edit_user/<str:username>/', views.edit_user, name='edit_user'),
+    path('edit_user_confirm/', views.edit_user_confirm, name='edit_user'),
     path('validate_user/', views.validate_user, name='validate_user'),
 
 

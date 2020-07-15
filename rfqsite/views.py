@@ -840,7 +840,18 @@ def edit_user(request,username):
     }
     return render(request, 'rfqsite/edit_user.html', context)
 
-
+def edit_user_confirm(request):
+    if request.method == 'POST':
+        user = User.objects.get(username=request.POST.get('username'))
+        user.first_name = username=request.POST.get('first-name')
+        user.last_name = username=request.POST.get('last-name')
+        if(request.POST.get('reset-password') != None):
+            user.set_password(request.POST.get('password'))
+        ext = ExtendUser.objects.get(user=user)
+        ext.role = Roles.objects.get(permission=request.POST.get('role'))
+        user.save()
+        ext.save()
+        return redirect('/user_table/')
 
 def validate_user(request):
     alluser = User.objects.all()
