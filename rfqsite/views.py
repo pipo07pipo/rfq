@@ -298,8 +298,7 @@ def edit_sp_rate_confirm(request):
 
 @login_required(login_url='/login')
 def part_info(request, sl_no):
-    part = Part_Header.objects.get(pk=sl_no).value('no','name')
-    print(part.sl_no)
+    part = Part_Header.objects.get(pk=sl_no)
     base_level = Part_Header.objects.get(pk=sl_no)
     while(base_level.level > 0):
         base_level = base_level.parent_sl_no
@@ -806,11 +805,8 @@ def add_user(request):
         alluser = User.objects.all()
         for user in alluser:
             print(user.username)
+
     else:
-        alluser = User.objects.all()
-        print(len(alluser))
-        for user in alluser:
-            print(len(alluser))
         context = {}
     return render(request, 'rfqsite/add_user.html', context)
 
