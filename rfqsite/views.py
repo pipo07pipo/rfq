@@ -815,7 +815,7 @@ def add_user(request):
                 'message': message,
                 'roles': roles
                 }
-                return render(request, 'rfqsite/add_user.html', context)
+                return redirect('/user_table/?message=0')
             else:
                 newUser = User.objects.create_user(request.POST.get('username'), '', request.POST.get('password'))
                 newUser.first_name = request.POST.get('first-name')
@@ -824,7 +824,7 @@ def add_user(request):
                 ext = ExtendUser(user=newUser,role=role)
                 ext.save()
                 newUser.save()
-                return redirect('/user_table/')
+                return redirect('/user_table/?message=1')
     else:
         context = {
                 'roles': roles
@@ -851,7 +851,7 @@ def edit_user_confirm(request):
         ext.role = Roles.objects.get(permission=request.POST.get('role'))
         user.save()
         ext.save()
-        return redirect('/user_table/')
+        return redirect('/user_table/?message=1')
 
 def validate_user(request):
     alluser = User.objects.all()
