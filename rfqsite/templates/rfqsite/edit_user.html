@@ -77,44 +77,61 @@
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Username <font class="text-danger">*</font></b></label>
+											<label class="col-sm-4 control-label"><b>Username</b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Password <font class="text-danger">*</font></b></label>
-											<div class="col-sm-4">
-												<input type="password" class="form-control" id="password" name="password" value="{{ user.password }}" required>
+												<input type="text" class="form-control" id="username" name="username" value="{{ fuser.username }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>First Name <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="first-name" name="first-name" value="{{ user.first_name }}" required>
+												<input type="text" class="form-control" id="first-name" name="first-name" value="{{ fuser.first_name }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Last Name <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="last-name" name="last-name" value="{{ user.last_name }}" required>
+												<input type="text" class="form-control" id="last-name" name="last-name" value="{{ fuser.last_name }}" required>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Role</b></label>
 											<div class="col-sm-2">
 												<select class="form-control input-md" id="role" name="role">
-													<option value="0">Administrator</option>
-													<option value="1">Editor</option>
-													<option value="2">Monitor</option>
+													{% for role in roles %}
+														<option value="{{ role.permission }}" {% if fuser.extenduser.role.permission == role.permission %}selected{% endif %}>{{ role.type }}</option>
+													{% endfor %}
 												</select>
 											</div>
+										</div>
+										<hr>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b></b></label>
+											<div class="col-sm-6">
+												<div class="checkbox">
+													<label><input type="checkbox" id="reset-password" name="reset-password">Reset Password</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group" id="password-group">
+											<label class="col-sm-4 control-label"><b>New Password</b></label>
+											<div class="col-sm-4">
+												<input type="password" class="form-control" id="password" name="password" readonly>
+											</div>
+											<small><label style="color:red;padding-top:5px;" id="password-validate"></label></small>
+										</div>
+										<div class="form-group" id="re-password-group">
+											<label class="col-sm-4 control-label"><b>Re New Password</b></label>
+											<div class="col-sm-4">
+												<input type="password" class="form-control" id="re-password" name="re-password" readonly>
+											</div>
+											<small><label style="color:red;padding-top:5px;" id="re-password-validate"></label></small>
 										</div>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning" type="submit">Confirm</button>
+												<button class="btn btn-warning" type="submit" id="confirm">Confirm</button>
                         <a class="btn btn-default" type="button" href="/user_table/">Cancel</a>
 											</div>
 										</div>
@@ -151,5 +168,93 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	$( "#password" ).on('change textInput input', function(){
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+
+	$( "#re-password" ).on('change textInput input', function(){
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+
+	$( "#reset-password" ).change(function() {
+		reset_password_check();
+	});
+
+	function reset_password_check(){
+		if ($( "#reset-password" ).prop("checked")) {
+			$('#password').attr('readonly', false);
+			$('#re-password').attr('readonly', false);
+			validate_password();
+			validate_re_password();
+			validate();
+	  } else {
+			$('#password').attr('readonly', true);
+			$('#re-password').attr('readonly', true);
+			$( "#password" ).val("");
+			$( "#re-password" ).val("");
+			$( "#password-validate" ).text("");
+			$( "#re-password-validate" ).text("");
+			$('#confirm').prop("disabled", false);
+		}
+	}
+
+	function validate(){
+    if($( "#password-validate" ).text() == "" && $( "#re-password-validate" ).text() == "")
+		$('#confirm').prop("disabled", false);
+    else $('#confirm').prop("disabled", true);
+  }
+
+	function validate_password(){
+		var password = $( "#password" ).val();
+		var text = '';
+		if(password.length < 6){
+			text = 'Password need to be at least 6 characters.';
+		}
+		$( "#password-validate" ).text(text);
+	}
+
+	function validate_re_password(){
+		var password = $( "#password" ).val();
+		var re_password = $( "#re-password" ).val();
+		var text = '';
+		if(password != re_password){
+			text = 'Password not match';
+		}
+		$( "#re-password-validate" ).text(text);
+	}
+
+$("#password").keypress(function(event){
+  var ew = event.which;
+  if(48 <= ew && ew <= 57) // 0 - 9
+      return true;
+  if(65 <= ew && ew <= 90) // A - Z
+      return true;
+  if(97 <= ew && ew <= 122) // a - z
+      return true;
+  if(ew == 33 || ew == 64 || ew == 35 || ew == 36 || ew == 37 || ew == 38 || ew == 63 || ew == 95) // ! @ # $ % & ? _
+      return true;
+  return false;
+});
+
+$("#re-password").keypress(function(event){
+  var ew = event.which;
+  if(48 <= ew && ew <= 57) // 0 - 9
+      return true;
+  if(65 <= ew && ew <= 90) // A - Z
+      return true;
+  if(97 <= ew && ew <= 122) // a - z
+      return true;
+  if(ew == 33 || ew == 64 || ew == 35 || ew == 36 || ew == 37 || ew == 38 || ew == 63 || ew == 95) // ! @ # $ % & ? _
+      return true;
+  return false;
+});
+
+	</script>
 
 </html>

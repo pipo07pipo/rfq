@@ -74,7 +74,7 @@
 										<th class="center">First Name</th>
 										<th class="center">Last Name</th>
 										<th class="center">Role</th>
-										<th class="center">Detail</th>
+										<th class="center">Edit</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -84,7 +84,7 @@
 										<td class="center">{{ fuser.first_name }}</td>
 										<td class="center">{{ fuser.last_name }}</td>
 										<td class="center">{{ fuser.extenduser.role.type }}</td>
-										<td class="center"><a href="/edit_user/{{ fuser.username }}"><i class="fa fa-search"></i></a</td>
+										<td class="center"><a href="/edit_user/{{ fuser.username }}"><i class="fa fa-edit"></i></a</td>
 									</tr>
                 {% endfor %}
 								</tbody>

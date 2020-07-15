@@ -81,23 +81,22 @@
 											<div class="col-sm-4">
 												<input type="text" class="form-control" id="username" name="username" required>
 											</div>
-											<label style="color:red;padding-top:5px;" id="username-validate"></label>
+											<small><label style="color:red;padding-top:5px;" id="username-validate"></label></small>
 										</div>
 										<div class="form-group" id="password-group">
 											<label class="col-sm-4 control-label"><b>Password <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="password" class="form-control" id="password" name="password" required>
 											</div>
-											<label style="color:red;padding-top:5px;" id="password-validate"></label>
+											<small><label style="color:red;padding-top:5px;" id="password-validate"></label></small>
 										</div>
 										<div class="form-group" id="re-password-group">
 											<label class="col-sm-4 control-label"><b>Re Password <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="password" class="form-control" id="re-password" name="re-password" required>
 											</div>
-											<label style="color:red;padding-top:5px;" id="re-password-validate"></label>
+											<small><label style="color:red;padding-top:5px;" id="re-password-validate"></label></small>
 										</div>
-										<small></small>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>First Name <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
@@ -124,7 +123,7 @@
 									<footer class="panel-footer">
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
-												<button class="btn btn-warning" type="submit">Confirm</button>
+												<button class="btn btn-warning" type="submit" id="confirm">Confirm</button>
                         <a class="btn btn-default" type="button" href="/user_table/">Cancel</a>
 											</div>
 										</div>
@@ -186,7 +185,7 @@
 	});
 
 	function validate(){
-    if($( "#username-group" ).classList.contains("has-success") || $( "#password-group" ).classList.contains("has-success") || $( "#re-password-group" ).classList.contains("has-success"))
+    if($( "#username-validate" ).text() == "" && $( "#password-validate" ).text() == "" && $( "#re-password-validate" ).text() == "")
 		$('#confirm').prop("disabled", false);
     else $('#confirm').prop("disabled", true);
   }
@@ -196,9 +195,6 @@
 		var text = '';
 		if(username.length < 6){
 			text = 'Username need to be at least 6 characters.';
-			$( "#username-validate" ).text(text);
-			$( "#username-group" ).addClass("has-error");
-			$( "#username-group" ).removeClass("has-success");
 		} else {
 			$.ajax({
 	        url: '{% url 'validate_user' %}',
@@ -209,18 +205,11 @@
 	        success: function (data) {
 						if(data.isUsed){
 							text = 'Username has been used.';
-							$( "#username-validate" ).text(text);
-							$( "#username-group" ).addClass("has-error");
-							$( "#username-group" ).removeClass("has-success");
-						} else {
-							text = '';
-							$( "#username-validate" ).text(text);
-							$( "#username-group" ).addClass("has-success");
-							$( "#username-group" ).removeClass("has-error");
 						}
 	        }
 	    });
 		}
+		$( "#username-validate" ).text(text);
 	}
 
 	function validate_password(){
@@ -228,15 +217,8 @@
 		var text = '';
 		if(password.length < 6){
 			text = 'Password need to be at least 6 characters.';
-			$( "#password-validate" ).text(text);
-			$( "#password-group" ).addClass("has-error");
-			$( "#password-group" ).removeClass("has-success");
-		} else {
-			text = '';
-			$( "#password-validate" ).text(text);
-			$( "#password-group" ).addClass("has-success");
-			$( "#password-group" ).removeClass("has-error");
 		}
+		$( "#password-validate" ).text(text);
 	}
 
 	function validate_re_password(){
@@ -245,15 +227,8 @@
 		var text = '';
 		if(password != re_password){
 			text = 'Password not match';
-			$( "#re-password-validate" ).text(text);
-			$( "#re-password-group" ).addClass("has-error");
-			$( "#re-password-group" ).removeClass("has-success");
-		} else {
-			text = '';
-			$( "#re-password-validate" ).text(text);
-			$( "#re-password-group" ).addClass("has-success");
-			$( "#re-password-group" ).removeClass("has-error");
 		}
+		$( "#re-password-validate" ).text(text);
 	}
 
 	$("#username").keypress(function(event){
