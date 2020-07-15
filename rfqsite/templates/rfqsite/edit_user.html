@@ -26,6 +26,9 @@
 		<!-- Fileupload CSS -->
 		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" %}">
 
+		<!-- Notification CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/pnotify/pnotify.custom.css" %}">
+
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
 
@@ -133,12 +136,42 @@
 											<div class="col-sm-9 col-sm-offset-3">
 												<button class="btn btn-warning" type="submit" id="confirm">Confirm</button>
                         <a class="btn btn-default" type="button" href="/user_table/">Cancel</a>
+												{% if user.username != fuser.username %}
+												<a class="modal-basic btn btn-danger" href="#modal-remove"><i class="fa fa-minus-circle"></i> Remove</a>
+												{% endif %}
 											</div>
 										</div>
 									</footer>
 								</section>
 							</form>
 					</div>
+
+					<div id="modal-remove" class="zoom-anim-dialog modal-block modal-block-danger mfp-hide">
+						<section class="panel">
+							<header class="panel-heading">
+								<h2 class="panel-title">Remove User</h2>
+							</header>
+								<div class="panel-body">
+									<div class="modal-wrapper">
+										<div class="modal-icon">
+											<i class="fa fa-minus-circle"></i>
+										</div>
+										<div class="modal-text">
+											<p>Are you sure that you want to delete this user?</p>
+										</div>
+									</div>
+								</div>
+							<footer class="panel-footer">
+								<div class="row">
+									<div class="col-md-12 text-right">
+										<a class="btn btn-danger" href="/remove_user/{{ fuser.username }}">Confirm</a>
+										<button class="btn btn-default modal-dismiss">Cancel</button>
+									</div>
+								</div>
+							</footer>
+						</section>
+					</div>
+
 					<!-- end: page -->
 				</section>
 			</div>
@@ -159,6 +192,10 @@
 	<!-- Fileupload JS -->
 	<script src="{% static "assets/vendor/jquery-autosize/jquery.autosize.js" %}"></script>
 	<script src="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js" %}"></script>
+
+	<!-- Notification JS -->
+	<script src="{% static "assets/vendor/pnotify/pnotify.custom.js" %}"></script>
+	<script src="{% static "assets/javascripts/ui-elements/examples.modals.js" %}"></script>
 
 	<!-- Theme Base, Components and Settings -->
 	<script src="{% static "assets/javascripts/theme.js" %}"></script>
