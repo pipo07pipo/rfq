@@ -40,6 +40,9 @@ urlpatterns = [
     path('rfq_summary/<int:tracker_no>/', views.rfq_summary, name='summary'),
     path('add_part_multi/<int:tracker_no>/', views.add_part_multi, name='add_part_multi'),
     path('add_part_multi_confirm/', views.add_part_multi_confirm, name='add_part_multi_confirm'),
+    path('user_table/', views.user_table, name='user_table'),
+    path('add_user/', views.user_table, name='add_user'),
+    path('edit_user/', views.edit_user, name='edit_user'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

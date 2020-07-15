@@ -297,7 +297,8 @@ def edit_sp_rate_confirm(request):
 
 @login_required(login_url='/login')
 def part_info(request, sl_no):
-    part = Part_Header.objects.get(pk=sl_no)
+    part = Part_Header.objects.get(pk=sl_no).value('no','name')
+    print(part.sl_no)
     base_level = Part_Header.objects.get(pk=sl_no)
     while(base_level.level > 0):
         base_level = base_level.parent_sl_no
@@ -790,3 +791,19 @@ class Part_Tree:
                     level = child.base_level.level
                     path = child.children
                     break
+
+
+
+#################################################################################
+
+def user_table(request):
+    context = {}
+    return render(request, 'rfqsite/user_table.html', context)
+
+def add_user(request):
+    context = {}
+    return render(request, 'rfqsite/add_user.html', context)
+
+def edit_user(request):
+    context = {}
+    return render(request, 'rfqsite/edit_user.html', context)
