@@ -800,7 +800,7 @@ class Part_Tree:
 def user_table(request):
     users = User.objects.all()
     context = {
-            'users': users
+            'fusers': users
     }
     return render(request, 'rfqsite/user_table.html', context)
 
