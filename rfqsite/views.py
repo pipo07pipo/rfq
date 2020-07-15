@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
 from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -100,6 +100,8 @@ def rfq_summary(request, tracker_no):
 
 @login_required(login_url='/login')
 def add_part(request, tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
     context = {
         'project': project
@@ -109,6 +111,8 @@ def add_part(request, tracker_no):
 
 @login_required(login_url='/login')
 def add_part_multi(request, tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
     context = {
         'project': project
@@ -203,6 +207,8 @@ def add_part_confirm(request):
 
 @login_required(login_url='/login')
 def edit_rfq(request, tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
     if(len(project.file_path.split('/')) == 3 ):
         file_name = project.file_path.split('/')[2]
@@ -239,6 +245,8 @@ def edit_rfq_confirm(request):
 
 @login_required(login_url='/login')
 def edit_active_rate(request, tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
     active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
     print(active_rate.cla)
@@ -269,6 +277,8 @@ def edit_active_rate_confirm(request):
 
 @login_required(login_url='/login')
 def edit_sp_rate(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     sp_rate = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -353,6 +363,8 @@ def part_info(request, sl_no):
 
 @login_required(login_url='/login')
 def edit_part_info(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
     if(len(part.image_path.split('/')) == 3 ):
         image_name = part.image_path.split('/')[2]
@@ -404,6 +416,8 @@ def edit_part_info_confirm(request):
 
 @login_required(login_url='/login')
 def edit_forecast(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -428,6 +442,8 @@ def edit_forecast_confirm(request):
 
 @login_required(login_url='/login')
 def edit_ctpp(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     ctpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -463,6 +479,8 @@ def edit_ctpp_confirm(request):
 
 @login_required(login_url='/login')
 def edit_sps(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     sps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -488,6 +506,8 @@ def edit_sps_confirm(request):
 
 @login_required(login_url='/login')
 def edit_msut(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     msut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -516,6 +536,8 @@ def edit_msut_confirm(request):
 
 @login_required(login_url='/login')
 def edit_hardware(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     hardware = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -538,6 +560,8 @@ def edit_hardware_confirm(request):
 
 @login_required(login_url='/login')
 def edit_part_costing(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -568,6 +592,8 @@ def edit_part_costing_confirm(request):
 
 @login_required(login_url='/login')
 def add_child(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(pk=sl_no)
     project = part.tracker_no
     child_level = part.level + 1
@@ -615,6 +641,8 @@ def add_child_confirm(request):
 
 @login_required(login_url='/login')
 def edit_material(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -704,6 +732,8 @@ def edit_material_confirm(request):
 
 @login_required(login_url='/login')
 def edit_material_remove(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     delmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     clean_material(delmat)
     delmat.save()
@@ -711,6 +741,8 @@ def edit_material_remove(request, sl_no):
 
 @login_required(login_url='/login')
 def edit_burden_rate(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     context = {
@@ -796,8 +828,12 @@ class Part_Tree:
 
 
 #################################################################################
+def get_perm(user):
+    return user.extenduser.role.permission
 
 def user_table(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     users = User.objects.all()
     context = {
             'users': users
@@ -805,6 +841,8 @@ def user_table(request):
     return render(request, 'rfqsite/user_table.html', context)
 
 def add_user(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     roles = Roles.objects.all()
     if request.method == 'POST':
         alluser = User.objects.all()
@@ -832,6 +870,8 @@ def add_user(request):
     return render(request, 'rfqsite/add_user.html', context)
 
 def edit_user(request,username):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     roles = Roles.objects.all()
     user = User.objects.get(username=username)
     context = {
@@ -841,6 +881,8 @@ def edit_user(request,username):
     return render(request, 'rfqsite/edit_user.html', context)
 
 def edit_user_confirm(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         user = User.objects.get(username=request.POST.get('username'))
         user.first_name = username=request.POST.get('first-name')
@@ -863,11 +905,15 @@ def validate_user(request):
     return JsonResponse(data)
 
 def remove_user(request,username):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     duser = User.objects.get(username=username)
     duser.delete()
     return redirect('/user_table/?message=1')
 
 def remove_part(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     dpart = Part_Header.objects.get(sl_no=sl_no)
     rfq = dpart.tracker_no
     dpart.delete()
