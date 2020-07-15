@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -837,8 +837,16 @@ def edit_user(request,username):
     }
     return render(request, 'rfqsite/edit_user.html', context)
 
-def user_check(request):
+def validate_user(request):
     alluser = User.objects.all()
     for user in alluser:
-        if(request.POST.get('username') == user.username):
-            return HttpResponse("OK")
+        if(request.GET.get('username') == user.username):
+            data = {'isUsed': True}
+            return JsonResponse(data)
+    data = {'isUsed': False}
+    return JsonResponse(data)
+
+
+class Validate:
+    def __init__(self,bool):
+        self.isUsed = bool
