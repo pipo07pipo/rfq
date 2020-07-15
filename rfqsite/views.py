@@ -797,19 +797,29 @@ class Part_Tree:
 #################################################################################
 
 def user_table(request):
-    context = {}
+    users = User.objects.all()
+    context = {
+            'users': users
+    }
     return render(request, 'rfqsite/user_table.html', context)
 
 def add_user(request):
     if request.method == 'POST':
         alluser = User.objects.all()
         for user in alluser:
-            print(user.username)
-
+            if(request.POST.get('username') == user.username):
+                message = "username already exist"
+                context = {
+                'message': message
+                }
+                return render(request, 'rfqsite/add_user.html', context)
     else:
         context = {}
     return render(request, 'rfqsite/add_user.html', context)
 
-def edit_user(request):
-    context = {}
+def edit_user(request,username):
+    user = User.object.get(username=username)
+    context = {
+        'user': user
+    }
     return render(request, 'rfqsite/edit_user.html', context)
