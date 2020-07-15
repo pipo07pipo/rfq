@@ -815,6 +815,15 @@ def add_user(request):
                 'roles': roles
                 }
                 return render(request, 'rfqsite/add_user.html', context)
+            else:
+                newUser = User.objects.create_user(
+                    username = request.POST.get('username'),
+                    password = request.POST.get('password'),
+                    first_name = request.POST.get('first-name'),
+                    last_name = request.POST.get('last-name'),
+                )
+                newUser.extenduser.role = Roles.objects.get(permission=request.POST.get('permission'))
+                return redirect('/user_table/')
     else:
         context = {
                 'roles': roles
