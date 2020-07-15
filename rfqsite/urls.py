@@ -46,6 +46,7 @@ urlpatterns = [
     path('edit_user/<str:username>/', views.edit_user, name='edit_user'),
     path('edit_user_confirm/', views.edit_user_confirm, name='edit_user'),
     path('validate_user/', views.validate_user, name='validate_user'),
-
+    path('remove_user/<str:username>/', views.remove_user, name='remove_user'),
+    path('remove_part/<int:sl_no>/', views.remove_part, name='remove_part'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

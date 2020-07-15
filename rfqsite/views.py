@@ -861,3 +861,14 @@ def validate_user(request):
             return JsonResponse(data)
     data = {'isUsed': False}
     return JsonResponse(data)
+
+def remove_user(request,username):
+    duser = User.objects.get(username=username)
+    duser.delete()
+    return redirect('/user_table/?message=1')
+
+def remove_part(request, sl_no):
+    dpart = Part_Header.objects.get(sl_no=sl_no)
+    rfq = dpart.tracker_no
+    dpart.delete()
+    return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
