@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -804,17 +804,21 @@ def user_table(request):
     return render(request, 'rfqsite/user_table.html', context)
 
 def add_user(request):
+    roles = Roles.object.all()
     if request.method == 'POST':
         alluser = User.objects.all()
         for user in alluser:
             if(request.POST.get('username') == user.username):
                 message = "username already exist"
                 context = {
-                'message': message
+                'message': message,
+                'roles': roles
                 }
                 return render(request, 'rfqsite/add_user.html', context)
     else:
-        context = {}
+        context = {
+                'roles': roles
+        }
     return render(request, 'rfqsite/add_user.html', context)
 
 def edit_user(request,username):
