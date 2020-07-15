@@ -800,7 +800,7 @@ class Part_Tree:
 def user_table(request):
     users = User.objects.all()
     context = {
-            'fusers': users
+            'users': users
     }
     return render(request, 'rfqsite/user_table.html', context)
 
@@ -834,9 +834,11 @@ def add_user(request):
 def edit_user(request,username):
     user = User.objects.get(username=username)
     context = {
-        'user': user
+        'fuser': user
     }
     return render(request, 'rfqsite/edit_user.html', context)
+
+
 
 def validate_user(request):
     alluser = User.objects.all()

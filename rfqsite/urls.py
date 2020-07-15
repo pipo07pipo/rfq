@@ -43,7 +43,7 @@ urlpatterns = [
     path('user_table/', views.user_table, name='user_table'),
     path('add_user/', views.add_user, name='add_user'),
     path('add_user_confirm/', views.add_user, name='add_user_confirm'),
-    path('edit_user/', views.edit_user, name='edit_user'),
+    path('edit_user/<str:username>/', views.edit_user, name='edit_user'),
     path('validate_user/', views.validate_user, name='validate_user'),
 
 
