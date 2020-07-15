@@ -101,7 +101,8 @@
 												<div class="form-group">
 													<label class="col-sm-3 control-label"><b>Parent Part (SL No.)</b></label>
 													<div class="col-sm-9">
-														<label class="control-label" id="parent-sl-no" name="parent-sl-no">{{ part.parent_sl_no.sl_no }}</label>
+														<label class="control-label" id="parent-sl-no" name="parent-sl-no">{{ part.parent_sl_no.sl_no }}</label>&nbsp;&nbsp;
+														<a href="/part_info/{{ part.parent_sl_no.sl_no }}">	<i class="fa fa-external-link"></i></a>
 													</div>
 												</div>
 												{% endif %}
