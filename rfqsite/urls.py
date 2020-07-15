@@ -42,6 +42,7 @@ urlpatterns = [
     path('add_part_multi_confirm/', views.add_part_multi_confirm, name='add_part_multi_confirm'),
     path('user_table/', views.user_table, name='user_table'),
     path('add_user/', views.add_user, name='add_user'),
+    path('add_user_confirm/', views.add_user, name='add_user_confirm'),
     path('edit_user/', views.edit_user, name='edit_user'),
     path('validate_user/', views.validate_user, name='validate_user'),
 

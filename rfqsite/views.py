@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 import json, re
 
 @login_required(login_url='/login')
@@ -816,13 +817,13 @@ def add_user(request):
                 }
                 return render(request, 'rfqsite/add_user.html', context)
             else:
-                newUser = User.objects.create_user(
-                    username = request.POST.get('username'),
-                    password = request.POST.get('password'),
-                    first_name = request.POST.get('first-name'),
-                    last_name = request.POST.get('last-name'),
-                )
-                newUser.extenduser.role = Roles.objects.get(permission=request.POST.get('permission'))
+                newUser = User.objects.create_user(request.POST.get('username'), '', request.POST.get('password'))
+                newUser.first_name = request.POST.get('first-name')
+                newUser.last_name = request.POST.get('last-name')
+                role = Roles.objects.get(permission=request.POST.get('role'))
+                ext = ExtendUser(user=newUser,role=role)
+                ext.save()
+                newUser.save()
                 return redirect('/user_table/')
     else:
         context = {
@@ -845,8 +846,3 @@ def validate_user(request):
             return JsonResponse(data)
     data = {'isUsed': False}
     return JsonResponse(data)
-
-
-class Validate:
-    def __init__(self,bool):
-        self.isUsed = bool
