@@ -41,7 +41,7 @@ urlpatterns = [
     path('add_part_multi/<int:tracker_no>/', views.add_part_multi, name='add_part_multi'),
     path('add_part_multi_confirm/', views.add_part_multi_confirm, name='add_part_multi_confirm'),
     path('user_table/', views.user_table, name='user_table'),
-    path('add_user/', views.user_table, name='add_user'),
+    path('add_user/', views.add_user, name='add_user'),
     path('edit_user/', views.edit_user, name='edit_user'),
 
 

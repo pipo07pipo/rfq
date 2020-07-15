@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 import json, re
 
 @login_required(login_url='/login')
@@ -801,7 +802,16 @@ def user_table(request):
     return render(request, 'rfqsite/user_table.html', context)
 
 def add_user(request):
-    context = {}
+    if request.method == 'POST':
+        alluser = User.objects.all()
+        for user in alluser:
+            print(user.username)
+    else:
+        alluser = User.objects.all()
+        print(len(alluser))
+        for user in alluser:
+            print(len(alluser))
+        context = {}
     return render(request, 'rfqsite/add_user.html', context)
 
 def edit_user(request):
