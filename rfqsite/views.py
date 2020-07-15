@@ -804,7 +804,7 @@ def user_table(request):
     return render(request, 'rfqsite/user_table.html', context)
 
 def add_user(request):
-    roles = Roles.object.all()
+    roles = Roles.objects.all()
     if request.method == 'POST':
         alluser = User.objects.all()
         for user in alluser:
@@ -831,8 +831,14 @@ def add_user(request):
     return render(request, 'rfqsite/add_user.html', context)
 
 def edit_user(request,username):
-    user = User.object.get(username=username)
+    user = User.objects.get(username=username)
     context = {
         'user': user
     }
     return render(request, 'rfqsite/edit_user.html', context)
+
+def user_check(request):
+    alluser = User.objects.all()
+    for user in alluser:
+        if(request.POST.get('username') == user.username):
+            return HttpResponse("OK")
