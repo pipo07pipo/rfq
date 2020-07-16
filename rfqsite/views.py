@@ -145,7 +145,7 @@ def add_part_multi_confirm(request):
                 return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
         for i in range(0, len(trans), 7):
             newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=trans[i],name=trans[i+1])
-            newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+            newForecast = Forecast(sl_no=newPart)
             newForecast.forecast_year1 = trans[i+2]
             newForecast.forecast_year2 = trans[i+3]
             newForecast.forecast_year3 = trans[i+4]
@@ -182,7 +182,7 @@ def add_part_confirm(request):
         part_name = request.POST.get('part-name')
         program = request.POST.get('program')
         newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
-        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now())
+        newForecast = Forecast(sl_no=newPart)
         newSPS = SPS(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
         newMSUT = MSUT(sl_no=newPart)
@@ -616,7 +616,7 @@ def add_child_confirm(request):
         program = request.POST.get('program')
         fco = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program, parent_sl_no=Part_Header.objects.get(pk=sl_no))
-        newForecast = Forecast(sl_no=newPart,forecast_current_year=timezone.now(), forecast_year1=fco.forecast_year1, forecast_year2=fco.forecast_year2, forecast_year3=fco.forecast_year3, forecast_year4=fco.forecast_year4, forecast_year5=fco.forecast_year5)
+        newForecast = Forecast(sl_no=newPart, forecast_year1=fco.forecast_year1, forecast_year2=fco.forecast_year2, forecast_year3=fco.forecast_year3, forecast_year4=fco.forecast_year4, forecast_year5=fco.forecast_year5)
         newSPS = SPS(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
         newMSUT = MSUT(sl_no=newPart)

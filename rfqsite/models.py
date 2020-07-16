@@ -77,7 +77,7 @@ class Forecast(models.Model):
     forecast_year3 = models.FloatField(default=0)
     forecast_year4 = models.FloatField(default=0)
     forecast_year5 = models.FloatField(default=0)
-    forecast_current_year = models.DateTimeField('date publish')
+    forecast_current_year = models.IntegerField(default=2020)
 
 class Material(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
