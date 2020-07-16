@@ -372,7 +372,7 @@
 										</table>
 										<br>
 										<div class="form-group">
-											<label class="col-sm-3 control-label"><b>Annaul Estimate Qty for Calculation</b></label>
+											<label class="col-sm-3 control-label"><b>Annual Estimate Qty for Calculation</b></label>
 											<div class="col-sm-9">
 												<label class="control-label" id="aeqfc" name="aeqfc">{{ forecast.aeqfc }}</label>
 											</div>
@@ -1257,6 +1257,7 @@
 		var forecast_year3 = parseFloat($( "#forecast-year3" ).text());
 		var forecast_year4 = parseFloat($( "#forecast-year4" ).text());
 		var forecast_year5 = parseFloat($( "#forecast-year5" ).text());
+		var aeqfc = parseFloat($( "#aeqfc" ).text());
 
 		// -- Rate --
 		// - Active Rate -
@@ -1440,37 +1441,39 @@
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
 		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (shipping_cost * afpwpp);
-		// EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4  <EDITABLE>
-		var ebq_ccs_qty = eau_year3 / 4;
+		// EBQ_CCS QTY (Prodn Lot) = Annual Estimate Qty for Calculation / 4  <EDITABLE>
+		var ebq_ccs_qty = aeqfc / 4;
 		if(ebq_ccs_qty2 != 0 && ebq_ccs_qty2){
 			ebq_ccs_qty = ebq_ccs_qty2;
 		}
-		// Minimum Firm Order Quantity/Lot = EAU year3
-		var minimum_firm_order_qty = eau_year3;
-		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
-		var moq_rm_order = (eau_year3 * armwpp) / 4;
+		// Minimum Firm Order Quantity/Lot = Annual Estimate Qty for Calculation
+		var minimum_firm_order_qty = aeqfc;
+		// MOQ Raw Material Order (kg) = (Annual Estimate Qty for Calculation * Approximate Raw Material Weight Per Part) / 4
+		var moq_rm_order = (aeqfc * armwpp) / 4;
 		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
 		var oyrmb = trmwpy;
-		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
-		var total_cost = ccs_ppp * eau_total_year;
-		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
-		var mtl_cost = material_cost * eau_total_year;
-		// Spl Process Cost = Surface Treatment Cost * 5 Years Total EAU
-		var spl_process_cost = surface_treatment_cost * eau_total_year;
-		// Total Hardware Cost = Hardware Cost * SUM(Forecast)
- 		var total_hardware_cost = hardware_cost * (forecast_year1 + forecast_year2 + forecast_year3 + forecast_year4 + forecast_year5);
+		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * Annual Estimate Qty for Calculation
+		var total_cost = ccs_ppp * aeqfc;
+		// Mtl Cost = Material Cost DDP CCS * Annual Estimate Qty for Calculation
+		var mtl_cost = material_cost * aeqfc;
+		// Spl Process Cost = Surface Treatment Cost * Annual Estimate Qty for Calculation
+		var spl_process_cost = surface_treatment_cost * aeqfc;
+		// Total Hardware Cost = Hardware Cost * Annual Estimate Qty for Calculation
+ 		var total_hardware_cost = hardware_cost * aeqfc;
+		// Total Machine Cost = Total Manufacturing Cost * Annual Estimate Qty for Calculation
+		var total_machine_cost = total_manufacturing_cost * aeqfc;
 
 		// -- Machining Capacity Required for the Project --
-		// Machining Capacity Required for the Project = Total Cycle Time * 5 Years Total EAU
-		var mcrftp_cla = tctt_cla * eau_total_year;
-		var mcrftp_bta = tctt_bta * eau_total_year;
-		var mcrftp_tma = tctt_tma * eau_total_year;
-		var mcrftp_mca3axis = tctt_mca3axis * eau_total_year;
-		var mcrftp_mca4axis = tctt_mca4axis * eau_total_year;
-		var mcrftp_hmc = tctt_hmc * eau_total_year;
-		var mcrftp_5axis = tctt_5axis * eau_total_year;
-		var mcrftp_edm = tctt_edm * eau_total_year;
-		var mcrftp_grinding = tctt_grinding * eau_total_year;
+		// Machining Capacity Required for the Project = Total Cycle Time * Annual Estimate Qty for Calculation
+		var mcrftp_cla = tctt_cla * aeqfc;
+		var mcrftp_bta = tctt_bta * aeqfc;
+		var mcrftp_tma = tctt_tma * aeqfc;
+		var mcrftp_mca3axis = tctt_mca3axis * aeqfc;
+		var mcrftp_mca4axis = tctt_mca4axis * aeqfc;
+		var mcrftp_hmc = tctt_hmc * aeqfc;
+		var mcrftp_5axis = tctt_5axis * aeqfc;
+		var mcrftp_edm = tctt_edm * aeqfc;
+		var mcrftp_grinding = tctt_grinding * aeqfc;
 
 		// -*-*-*-*-*-*-*-*-*-*- 3 RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1481,6 +1484,7 @@
 		$( "#forecast-year3" ).text(forecast_year3);
 		$( "#forecast-year4" ).text(forecast_year4);
 		$( "#forecast-year5" ).text(forecast_year5);
+		$( "#aeqfc" ).text(aeqfc);
 
 		// -- Rate --
 		// - Active Rate -
@@ -1613,6 +1617,7 @@
 		$( "#mtl-cost" ).text(mtl_cost);
 		$( "#spl-process-cost" ).text(spl_process_cost);
 		$( "#total-hardware-cost" ).text(total_hardware_cost);
+		$( "#total-machine-cost" ).text(total_machine_cost);
 
 		// -- Machining Capacity Required for the Project --
 		$( "#mcrftp-cla" ).text(mcrftp_cla);
@@ -1664,6 +1669,7 @@
 		$( "#forecast-year3" ).text(forecast_year3.toFixed(2));
 		$( "#forecast-year4" ).text(forecast_year4.toFixed(2));
 		$( "#forecast-year5" ).text(forecast_year5.toFixed(2));
+		$( "#aeqfc" ).text(aeqfc.toFixed(2));
 
 		// -- Rate --
 		// - Active Rate -
@@ -1797,6 +1803,7 @@
 		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + mtl_cost.toFixed(2));
 		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + spl_process_cost.toFixed(2));
 		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + total_hardware_cost.toFixed(2));
+		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + total_machine_cost.toFixed(2));
 
 		// -- Machining Capacity Required for the Project --
 		$( "#mcrftp-cla" ).text(mcrftp_cla.toFixed(2));
