@@ -1006,7 +1006,7 @@
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b><u>Shipping Cost</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ddp-shipping-cost" name="ddp-shipping-cost">{{ part_costing.ddp_shipping_cost }}</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="shipping-cost" name="shipping-cost">{{ part_costing.shipping_cost }}</label>
 													</div>
 												</div>
 												<hr>
@@ -1333,7 +1333,7 @@
 		var ottc = parseFloat($( "#ottc" ).text());
 		var base_subcontract = parseFloat($( "#base-subcontract" ).text()); // NO RESTATE
 		var subcontract_shipping_cost = parseFloat($( "#subcontract-shipping-cost" ).text());
-		var ddp_shipping_cost = parseFloat($( "#ddp-shipping-cost" ).text());
+		var shipping_cost = parseFloat($( "#shipping-cost" ).text());
 
 		// -- Special --
 		var armwpp2 = parseFloat($( "#armwpp2" ).text()); // NO RESTATE
@@ -1417,7 +1417,7 @@
 		var spc_chrome_plating = rate_chrome_plating * (1 / production_qty);
 		var spc_heat_treatment = rate_heat_treatment * (1 / production_qty);
 		// Subcontract Shipping Cost = [Base Subcontract + (Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
-		var subcontract_shipping_cost = (base_subcontract + (ddp_shipping_cost * afpwpp)) * rate_subcontract;
+		var subcontract_shipping_cost = (base_subcontract + (shipping_cost * afpwpp)) * rate_subcontract;
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost)
@@ -1439,7 +1439,7 @@
 		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child and itself
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
 		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Shipping Cost * Approximate Finished Part Weight Per Part)
-		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
+		var ddp_usd = ccs_ppp + (shipping_cost * afpwpp);
 		// EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4  <EDITABLE>
 		var ebq_ccs_qty = eau_year3 / 4;
 		if(ebq_ccs_qty2 != 0 && ebq_ccs_qty2){
@@ -1528,7 +1528,7 @@
 		$( "#otrmac" ).text(otrmac);
 		$( "#ottc" ).text(ottc);
 		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
-		$( "#ddp-shipping-cost" ).text(ddp_shipping_cost);
+		$( "#shipping-cost" ).text(shipping_cost);
 
 		// -*-*-*-*-*-*-*-*-*-*- 4 CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1711,7 +1711,7 @@
 		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
 		$( "#ottc" ).text(dollar_sign(ottc) + ottc.toFixed(2));
 		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
-		$( "#ddp-shipping-cost" ).text(dollar_sign(ddp_shipping_cost) + ddp_shipping_cost.toFixed(2));
+		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + shipping_cost.toFixed(2));
 
 
 		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
