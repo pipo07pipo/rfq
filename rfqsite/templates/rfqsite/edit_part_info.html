@@ -115,6 +115,15 @@
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Type</b></label>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="type" name="type" disabled>
+														<option value="Part" {% if part.type == 'Part' %}selected{% endif %}>Part</option>
+														<option value="Hardware" {% if part.type == 'Hardware' %}selected{% endif %}>Hardware</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Upload Image</b></label>
 											<div class="col-sm-6">
 													<div class="fileupload fileupload-new" data-provides="fileupload">

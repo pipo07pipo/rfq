@@ -85,9 +85,16 @@
 											<div class="col-sm-2">
 												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}" readonly>
 											</div>
-											<label class="col-sm-2 control-label"><b>Part Level</b></label>
+											<label class="col-sm-1 control-label"><b>Part Level</b></label>
 											<div class="col-sm-2">
 												<input type="text" class="form-control" id="part-level" name="part-level" value="0" readonly>
+											</div>
+											<label class="col-sm-1 control-label"><b>Type</b></label>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="type" name="type" disabled>
+														<option value="Part" selected>Part</option>
+														<option value="Hardware">Hardware</option>
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
