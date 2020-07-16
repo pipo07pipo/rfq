@@ -593,7 +593,7 @@ def edit_part_costing_confirm(request):
         editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
         editpc.dltiw_production = request.POST.get('dltiw-production')
         editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
-        editpc.ddp_shipping_cost = to_float(request.POST.get('ddp-shipping-cost'))
+        editpc.shipping_cost = to_float(request.POST.get('shipping-cost'))
         editpc.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 
