@@ -1326,7 +1326,7 @@
 		var ctpp_lapping = parseFloat($( "#ctpp-lapping" ).text());
 
 		// -- Part Costing --
-		var nre_amortizing_cost = parseFloat($( "#nre-amortizing-cost" ).text());
+		var total_nre_cost = parseFloat($( "#total-nre-cost" ).text());
 		var target_price = parseFloat($( "#target-price" ).text());
 		var otspsuc = parseFloat($( "#otspsuc" ).text());
 		var otrmac = parseFloat($( "#otrmac" ).text());
@@ -1420,9 +1420,9 @@
 		var subcontract_shipping_cost = (base_subcontract + (ddp_shipping_cost * afpwpp)) * rate_subcontract;
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
-		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost) + NRE Amortizing Cost
+		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost)
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping + nre_amortizing_cost;
+		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lappin;
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
 		// Surface Treatment Cost = SUM(Special Process Cost)
@@ -1522,7 +1522,7 @@
 		$( "#hardware-price" ).text(hardware_price);
 
 		// -- Part Costing --
-		$( "#nre-amortizing-cost" ).text(nre_amortizing_cost);
+		$( "#total-nre-cost" ).text(total_nre_cost);
 		$( "#target-price" ).text(target_price);
 		$( "#otspsuc" ).text(otspsuc);
 		$( "#otrmac" ).text(otrmac);
@@ -1705,7 +1705,7 @@
 		$( "#hardware-price" ).text(dollar_sign(hardware_price) + hardware_price.toFixed(2));
 
 		// -- Part Costing --
-		$( "#nre-amortizing-cost" ).text(dollar_sign(nre_amortizing_cost) + nre_amortizing_cost.toFixed(2));
+		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
 		$( "#target-price" ).text(dollar_sign(target_price) + target_price.toFixed(2));
 		$( "#otspsuc" ).text(dollar_sign(otspsuc) + otspsuc.toFixed(2));
 		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
