@@ -312,6 +312,7 @@ def edit_sp_rate_confirm(request):
 @login_required(login_url='/login')
 def part_info(request, sl_no):
     part = Part_Header.objects.get(pk=sl_no)
+    current_year = part.tracker_no.current_year
     base_level = Part_Header.objects.get(pk=sl_no)
     while(base_level.level > 0):
         base_level = base_level.parent_sl_no
@@ -346,6 +347,7 @@ def part_info(request, sl_no):
     else:
         file_name = ''
     context = {
+        'current_year': current_year,
         'part': part,
         'parts': parts,
         'forecast': forecast,
@@ -422,7 +424,9 @@ def edit_forecast(request, sl_no):
         return HttpResponseNotFound("Access Denied")
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
+    current_year = part.tracker_no.current_year
     context = {
+        'current_year': current_year,
         'part': part,
         'forecast': forecast
     }
