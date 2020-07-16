@@ -233,6 +233,7 @@ def edit_rfq_confirm(request):
         project.customer_name = request.POST.get('customer-name')
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
+        project.current_year = request.POST.get('current-year')
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
     elif request.method == 'POST':
@@ -240,6 +241,7 @@ def edit_rfq_confirm(request):
         project = RFQ.objects.get(pk=tracker_no)
         project.customer_name = request.POST.get('customer-name')
         project.usd_thb = request.POST.get('usd-thb')
+        project.current_year = request.POST.get('current-year')
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 

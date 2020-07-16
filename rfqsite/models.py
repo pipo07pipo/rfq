@@ -18,6 +18,7 @@ class RFQ(models.Model):
     file_path = models.CharField(max_length=200, null=True, default='')
     update_date = models.DateTimeField('date publish')
     usd_thb = models.FloatField(default=35)
+    current_year = models.IntegerField(default=2020)
 
 class Part_Header(models.Model):
     sl_no = models.AutoField(primary_key=True)
@@ -77,7 +78,6 @@ class Forecast(models.Model):
     forecast_year3 = models.FloatField(default=0)
     forecast_year4 = models.FloatField(default=0)
     forecast_year5 = models.FloatField(default=0)
-    forecast_current_year = models.IntegerField(default=2020)
 
 class Material(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
