@@ -370,6 +370,13 @@
 												</tr>
 											</tbody>
 										</table>
+										<br>
+										<div class="form-group">
+											<label class="col-sm-3 control-label"><b>Annaul Estimate Qty for Calculation</b></label>
+											<div class="col-sm-9">
+												<label class="control-label" id="aeqfc" name="aeqfc">{{ forecast.aeqfc }}</label>
+											</div>
+										</div>
 										</div>
 										<div class="text-right mr-lg">
 											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
@@ -961,7 +968,7 @@
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>NRE Amortizing Cost</u></b></label>
+														<label class="col-sm-7 control-label text-right labcustom"><b><u>Total NRE Cost</u></b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="nre-amortizing-cost" name="nre-amortizing-cost">{{ part_costing.nre_amortizing_cost }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
@@ -998,7 +1005,7 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>DDP Shipping Cost</u></b></label>
+														<label class="col-sm-7 control-label text-right labcustom"><b><u>Shipping Cost</u></b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ddp-shipping-cost" name="ddp-shipping-cost">{{ part_costing.ddp_shipping_cost }}</label>
 													</div>
 												</div>
@@ -1063,6 +1070,7 @@
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty" name="ebq-ccs-qty">-</label>
+														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty2" name="ebq-ccs-qty2" hidden>{{ part_costing.ebq_ccs_qty }}</label>
 													</div>
 													<div class="col-md-4 labcustom">
 														<label class="col-sm-7 control-label text-right labcustom"><b><u>EBQ_Customer QTY (Prodn Lot)</u></b></label>
@@ -1083,8 +1091,7 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="oyrmb" name="oyrmb">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Total NRE Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">-</label>
+														<!-- Empty -->
 													</div>
 												</div>
 												<hr>
@@ -1114,12 +1121,13 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 														<thead>
-															<th class="center custom1" colspan="4" scope="colgroup">Total Project Cost</th>
+															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost</th>
 															<tr>
 														    <th class="center custom2">Total Cost</th>
 														    <th class="center custom2">Mtl Cost</th>
 																<th class="center custom2">Spl Process Cost</th>
 																<th class="center custom2">Total Hardware Cost</th>
+																<th class="center custom2">Total Machine Cost</th>
 														  </tr>
 														</thead>
 														<tbody>
@@ -1128,6 +1136,7 @@
 																<td class="center" id ="mtl-cost" name ="mtl-cost">-</td>
 																<td class="center" id="spl-process-cost" name="spl-process-cost">-</td>
 																<td class="center" id="total-hardware-cost" name="total-hardware-cost">-</td>
+																<td class="center" id="total-machine-cost" name="total-machine-cost">-</td>
 															</tr>
 														</tbody>
 												</table>
@@ -1328,6 +1337,7 @@
 
 		// -- Special --
 		var armwpp2 = parseFloat($( "#armwpp2" ).text()); // NO RESTATE
+		var ebq_ccs_qty2 = parseFloat($( "#ebq-ccs-qty2" ).text()); // NO RESTATE
 		// SUM(CCS Ex-works Price) of all child
 		var sum_ccs_ewp = parseFloat($( "#sum-ccs-ewp" ).text()); // NO RESTATE
 
@@ -1356,7 +1366,7 @@
 
 		// Approximate Raw Material Weight Per Part = Total RM Weight <EDITABLE>
 		var armwpp = rm_total_weight;
-		if(armwpp2 != 0){
+		if(armwpp2 != 0 && armwpp2){
 			armwpp = armwpp2;
 		}
 
@@ -1406,7 +1416,7 @@
 		var spc_cadmium_plating = rate_cadmium_plating * (1 / production_qty);
 		var spc_chrome_plating = rate_chrome_plating * (1 / production_qty);
 		var spc_heat_treatment = rate_heat_treatment * (1 / production_qty);
-		// Subcontract Shipping Cost = [Base Subcontract + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
+		// Subcontract Shipping Cost = [Base Subcontract + (Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
 		var subcontract_shipping_cost = (base_subcontract + (ddp_shipping_cost * afpwpp)) * rate_subcontract;
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
@@ -1428,18 +1438,19 @@
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
 		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child and itself
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
-		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (DDP Shipping Cost * Approximate Finished Part Weight Per Part)
+		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (ddp_shipping_cost * afpwpp);
-		// EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4
+		// EBQ_CCS QTY (Prodn Lot) = EAU year3 / 4  <EDITABLE>
 		var ebq_ccs_qty = eau_year3 / 4;
+		if(ebq_ccs_qty2 != 0 && ebq_ccs_qty2){
+			ebq_ccs_qty = ebq_ccs_qty2;
+		}
 		// Minimum Firm Order Quantity/Lot = EAU year3
 		var minimum_firm_order_qty = eau_year3;
 		// MOQ Raw Material Order (kg) = (EAU year3 * Approximate Raw Material Weight Per Part) / 4
 		var moq_rm_order = (eau_year3 * armwpp) / 4;
 		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
 		var oyrmb = trmwpy;
-		// Total NRE Cost = One Time Special Process Set Up Cost + One Time RM Airshipments Cost + One Time Tooling Cost
-		var total_nre_cost = otspsuc + otrmac	+ ottc;
 		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * 5 Years Total EAU
 		var total_cost = ccs_ppp * eau_total_year;
 		// Mtl Cost = Material Cost DDP CCS * 5 Years Total EAU
@@ -1597,7 +1608,6 @@
 		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
 		$( "#moq-rm-order" ).text(moq_rm_order);
 		$( "#oyrmb" ).text(oyrmb);
-		$( "#total-nre-cost" ).text(total_nre_cost);
 		// - SSS -
 		$( "#total-cost" ).text(total_cost);
 		$( "#mtl-cost" ).text(mtl_cost);
@@ -1782,7 +1792,6 @@
 		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
 		$( "#moq-rm-order" ).text(moq_rm_order.toFixed(2));
 		$( "#oyrmb" ).text(oyrmb.toFixed(2));
-		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
 		// - SSS -
 		$( "#total-cost" ).text(dollar_sign(total_cost) + total_cost.toFixed(2));
 		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + mtl_cost.toFixed(2));
