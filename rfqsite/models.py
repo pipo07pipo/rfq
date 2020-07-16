@@ -114,7 +114,7 @@ class Hardware(models.Model):
 
 class Part_Costing(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    nre_amortizing_cost = models.FloatField(null=True, default=0)
+    total_nre_cost = models.FloatField(null=True, default=0)
     target_price = models.FloatField(null=True, default=0)
     ebq_customer_qty = models.FloatField(null=True, default=0)
     otspsuc = models.FloatField(null=True, default=0)

@@ -582,7 +582,7 @@ def edit_part_costing_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editpc.nre_amortizing_cost = to_float(request.POST.get('nre-amortizing-cost'))
+        editpc.total_nre_cost = to_float(request.POST.get('total-nre-cost'))
         editpc.target_price = to_float(request.POST.get('target-price'))
         editpc.ebq_customer_qty = to_float(request.POST.get('ebq-customer-qty'))
         editpc.otspsuc = to_float(request.POST.get('otspsuc'))
