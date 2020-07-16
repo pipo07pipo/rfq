@@ -443,6 +443,7 @@ def edit_forecast_confirm(request):
         editForecast.forecast_year3 = request.POST.get('forecast-year3')
         editForecast.forecast_year4 = request.POST.get('forecast-year4')
         editForecast.forecast_year5 = request.POST.get('forecast-year5')
+        editForecast.aeqfc = request.POST.get('aeqfc')
         editForecast.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
