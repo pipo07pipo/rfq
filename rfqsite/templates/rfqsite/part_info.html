@@ -1422,7 +1422,7 @@
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost)
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lappin;
+		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping;
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
 		// Surface Treatment Cost = SUM(Special Process Cost)
