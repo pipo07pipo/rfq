@@ -1361,12 +1361,12 @@
 		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
 
 		// -- Material --
-		// Annual Raw Material Requirement = Total RM Weight * EAU
-		var armr_year1 = rm_total_weight * eau_year1;
-		var armr_year2 = rm_total_weight * eau_year2;
-		var armr_year3 = rm_total_weight * eau_year3;
-		var armr_year4 = rm_total_weight * eau_year4;
-		var armr_year5 = rm_total_weight * eau_year5;
+		// Annual Raw Material Requirement = Total RM Weight * Annual Estimate Qty for Calculation
+		var armr_year1 = rm_total_weight * aeqfc;
+		var armr_year2 = rm_total_weight * aeqfc;
+		var armr_year3 = rm_total_weight * aeqfc;
+		var armr_year4 = rm_total_weight * aeqfc;
+		var armr_year5 = rm_total_weight * aeqfc;
 
 		// Approximate Finished Part Weight Per Part = Total RM Weight * Finished Part Weight Percentage
 		var afpwpp = rm_total_weight * fpwp;
@@ -1377,12 +1377,12 @@
 			armwpp = armwpp2;
 		}
 
-		// Total Raw Material Weight Per Year = Total RM Weight * (5 Years Total EAU / 5)
-		var trmwpy = rm_total_weight * (eau_total_year / 5);
+		// Total Raw Material Weight Per Year = Total RM Weight * Annual Estimate Qty for Calculation
+		var trmwpy = rm_total_weight * aeqfc;
 
 		// -- Process and Process Cost --
-		// Production Qty = EAU year3 / 4
-		var production_qty = eau_year3 / 4;
+		// Production Qty = Annual Estimate Qty for Calculation / 4
+		var production_qty = aeqfc / 4;
 
 		// -- Part Costing --
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
