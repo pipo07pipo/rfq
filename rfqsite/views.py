@@ -807,6 +807,7 @@ class Part_Tree:
         self.sl_no = self.base_level.sl_no
         self.no = self.base_level.no
         self.name = self.base_level.name
+        self.type = self.base_level.type
         self.isOpen = False
         self.children = []
     def set_tree(self):
