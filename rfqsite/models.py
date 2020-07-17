@@ -30,6 +30,7 @@ class Part_Header(models.Model):
     parent_sl_no = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
     file_path = models.CharField(max_length=200, default='')
     image_path = models.CharField(max_length=200, default='')
+    type = models.CharField(max_length=50, default='Part')
 
 class SP_Rate(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
