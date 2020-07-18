@@ -891,6 +891,23 @@ def edit_sp_set(request,sl_no):
     }
     return render(request, 'rfqsite/edit_sp_set.html', context)
 
+def edit_sp_set_confirm(request):
+    if request.method == 'POST':
+        sl_no = request.POST.get('sl-no')
+        sp = SP_Set.objects.filter(sl_no=sl_no)
+        for item in request.POST:
+            if('sp-rate' in item):
+                id = int(item.replace('sp-rate-',''))
+                esp1 = SP_Set.objects.get(sl_no=sl_no,sp_id=SP_Master.objects.get(id=id))
+                esp1.rate = request.POST.get(item)
+                esp1.save()
+            elif('sp-spec' in item):
+                id = int(item.replace('sp-spec-',''))
+                esp2 = SP_Set.objects.get(sl_no=sl_no,sp_id=SP_Master.objects.get(id=id))
+                esp2.spec = request.POST.get(item)
+                esp2.save()
+        return redirect('/edit_sp_set/'+str(sl_no))
+
 def select_sp_set(request,sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
     sp_set = SP_Set.objects.filter(sl_no=sl_no)
