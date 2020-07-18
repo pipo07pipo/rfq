@@ -906,7 +906,7 @@ def edit_sp_set_confirm(request):
                 esp2 = SP_Set.objects.get(sl_no=sl_no,sp_id=SP_Master.objects.get(id=id))
                 esp2.spec = request.POST.get(item)
                 esp2.save()
-        return redirect('/edit_sp_set/'+str(sl_no))
+        return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
 def select_sp_set(request,sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
