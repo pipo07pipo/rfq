@@ -50,4 +50,6 @@ urlpatterns = [
     path('remove_part/<int:sl_no>/', views.remove_part, name='remove_part'),
     #####
     path('master_table/', views.master_table, name='master_table'),
+    path('add_sp_master/', views.add_sp_master, name='add_sp_master'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -180,3 +180,7 @@ class Output(models.Model):
     mcrftp_5axis = models.FloatField(default=0)
     mcrftp_edm = models.FloatField(default=0)
     mcrftp_grinding = models.FloatField(default=0)
+
+class SP_Master(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200,default='')
