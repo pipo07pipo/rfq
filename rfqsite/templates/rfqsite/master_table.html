@@ -65,7 +65,9 @@
 									<!-- <a href="#" class="fa fa-times"></a> -->
 								</div>
 								<!-- <h2 class="panel-title">Special Process</h2> -->
+								{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_sp_master/"><i class="fa fa-plus"></i> Add Special Process</a>
+								{% endif %}
 							</header>
 							<div class="panel-body">
 									<div class="table-responsive">
@@ -73,37 +75,6 @@
 											<thead>
 												<tr>
 													<th class="center custom1">Special Process</th>
-												</tr>
-											</thead>
-											<tbody>
-			                {% for sp_master in sp_masters %}
-												<tr>
-													<td class="center">{{ sp_master.name }}</td>
-												</tr>
-			                {% endfor %}
-											</tbody>
-										</table>
-								</div>
-							</div>
-						</section>
-					</div>
-
-					<div class="col-md-6">
-						<section class="panel">
-							<header class="panel-heading">
-								<div class="panel-actions">
-									<!-- <a href="#" class="fa fa-caret-down"></a> -->
-									<!-- <a href="#" class="fa fa-times"></a> -->
-								</div>
-								<!-- <h2 class="panel-title">Machine</h2> -->
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_sp_master/"><i class="fa fa-plus"></i> Add Machine</a>
-							</header>
-							<div class="panel-body">
-									<div class="table-responsive">
-										<table class="table table-bordered table-striped mb-none" id="datatable-default">
-											<thead>
-												<tr>
-													<th class="center custom1">Machine</th>
 												</tr>
 											</thead>
 											<tbody>

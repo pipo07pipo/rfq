@@ -167,6 +167,7 @@
 								</section>
 					</div>
 
+					<!-- Remove Modal -->
 					<div id="modal-remove" class="zoom-anim-dialog modal-block modal-block-danger mfp-hide">
 						<section class="panel">
 							<header class="panel-heading">
@@ -394,126 +395,6 @@
 								</section>
 					</div>
 
-					<!-- Rate -->
-					<div class="col-md-12">
-							<section class="panel panel-featured">
-									<header class="panel-heading">
-												<div class="panel-actions">
-													<a href="#" class="fa fa-caret-down"></a>
-													<!-- <a href="#" class="fa fa-times"></a> -->
-												</div>
-												<h2 class="panel-title"><i class="fa fa-sliders"></i> Rate</h2>
-									</header>
-									<div class="panel-body">
-										<!-- Active Rate -->
-										<div class="table-responsive">
-											<table class="table table-bordered table-striped table-condensed mb-none" hidden>
-												<thead>
-													<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
-													<tr>
-														<th class="center custom2">CLA</th>
-														<th class="center custom2">BTA</th>
-														<th class="center custom2">TMA</th>
-														<th class="center custom2">MCA 3 Axis</th>
-														<th class="center custom2">MCA 4 Axis</th>
-														<th class="center custom2">HMC</th>
-														<th class="center custom2">5 Axis</th>
-														<th class="center custom2">EDM</th>
-														<th class="center custom2">Grinding</th>
-														<th class="center custom2">Deburring/Cleaning</th>
-														<th class="center custom2">Inspection</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="center" id="rate-cla" name="rate-cla">{{ active_rate.cla }}</td>
-														<td class="center" id="rate-bta" name="rate-bta">{{ active_rate.bta }}</td>
-														<td class="center" id="rate-tma" name="rate-tma">{{ active_rate.tma }}</td>
-														<td class="center" id="rate-mca3axis" name="rate-mca3axis">{{ active_rate.mca3axis }}</td>
-														<td class="center" id="rate-mca4axis" name="rate-mca4axis">{{ active_rate.mca4axis }}</td>
-														<td class="center" id="rate-hmc" name="rate-hmc">{{ active_rate.hmc }}</td>
-														<td class="center" id="rate-5axis" name="rate-5axis">{{ active_rate.axis5 }}</td>
-														<td class="center" id="rate-edm" name="rate-edm">{{ active_rate.edm }}</td>
-														<td class="center" id="rate-grinding" name="rate-grinding">{{ active_rate.grinding }}</td>
-														<td class="center" id="rate-deburring" name="rate-deburring">{{ active_rate.deburring }}</td>
-														<td class="center" id="rate-inspection" name="rate-inspection">{{ active_rate.inspection }}</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<!-- <br> -->
-										<!-- SP Rate -->
-										<div class="table-responsive">
-											<table class="table table-bordered table-striped table-condensed mb-none">
-											<thead>
-												<th class="center custom1" colspan="12" scope="colgroup">Special Process Rate</th>
-												<tr>
-													<th class="center custom2">FPI</th>
-													<th class="center custom2">MPI</th>
-													<th class="center custom2">Passivation</th>
-													<th class="center custom2">Chromic Acid Anodizing</th>
-													<th class="center custom2">Sulphuric Acid Anodizing</th>
-													<th class="center custom2">Hard Anodizing</th>
-													<th class="center custom2">Chem. Conv. Coating</th>
-													<th class="center custom2">Dry Film Lubrication</th>
-													<th class="center custom2">Paint/Primer</th>
-													<th class="center custom2">Cadmium Plating</th>
-													<th class="center custom2">Chrome Plating</th>
-													<th class="center custom2">Heat Treatment</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="center" id="rate-fpi" name="rate-fpi">{{ sp_rate.fpi }}</td>
-													<td class="center" id="rate-mpi" name="rate-mpi">{{ sp_rate.mpi }}</td>
-													<td class="center" id="rate-passivation" name="rate-passivation">{{ sp_rate.passivation }}</td>
-													<td class="center" id="rate-caa" name="rate-caa">{{ sp_rate.caa }}</td>
-													<td class="center" id="rate-saa" name="rate-saa">{{ sp_rate.saa }}</td>
-													<td class="center" id="rate-hard-anodizing" name="rate-hard-anodizing">{{ sp_rate.hard_anodizing }}</td>
-													<td class="center" id="rate-ccc" name="rate-ccc">{{ sp_rate.ccc }}</td>
-													<td class="center" id="rate-dfl" name="rate-dfl">{{ sp_rate.dfl }}</td>
-													<td class="center" id="rate-paint" name="rate-paint">{{ sp_rate.paint }}</td>
-													<td class="center" id="rate-cadmium-plating" name="rate-cadmium-plating">{{ sp_rate.cadmium_plating }}</td>
-													<td class="center" id="rate-chrome-plating" name="rate-chrome-plating">{{ sp_rate.chrome_plating }}</td>
-													<td class="center" id="rate-heat-treatment" name="rate-heat-treatment">{{ sp_rate.heat_treatment }}</td>
-												</tr>
-											</tbody>
-										</table>
-										</div>
-										<div class="text-right mr-lg">
-											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-											{% endif %}
-										</div>
-										<!-- Burden Rate -->
-										<div class="table-responsive">
-											<table class="table table-bordered table-striped table-condensed mb-none">
-											<thead>
-												<th class="center custom1" colspan="12" scope="colgroup">Burden Rate</th>
-												<tr>
-													<th class="center custom2">Material</th>
-													<th class="center custom2">Hardware</th>
-													<th class="center custom2">Subcontract</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="center" id="rate-material" name="rate-material">{{ burden_rate.material }}</td>
-													<td class="center" id="rate-hardware" name="rate-hardware">{{ burden_rate.hardware }}</td>
-													<td class="center" id="rate-subcontract" name="rate-subcontract">{{ burden_rate.subcontract }}</td>
-												</tr>
-											</tbody>
-										</table>
-							    </div>
-									<div class="text-right mr-lg">
-										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-										<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_burden_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-										{% endif %}
-									</div>
-								</div>
-							</section>
-					</div>
-
 					<!-- Materials -->
 					<div class="col-md-12">
 							<section class="panel panel-featured">
@@ -717,7 +598,7 @@
 							</section>
 					</div>
 
-					<!-- Process and Process Cost -->
+					<!-- Rate and Process -->
 					<div class="col-md-12">
 							<section class="panel panel-featured">
 									<header class="panel-heading">
@@ -725,9 +606,141 @@
 													<a href="#" class="fa fa-caret-down"></a>
 													<!-- <a href="#" class="fa fa-times"></a> -->
 												</div>
-												<h2 class="panel-title"><i class="fa fa-gears"></i> Process and Process Cost</h2>
+												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate and Process</h2>
 									</header>
 									<div class="panel-body">
+												<!-- Active Rate -->
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped table-condensed mb-none" hidden>
+														<thead>
+															<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
+															<tr>
+																<th class="center custom2">CLA</th>
+																<th class="center custom2">BTA</th>
+																<th class="center custom2">TMA</th>
+																<th class="center custom2">MCA 3 Axis</th>
+																<th class="center custom2">MCA 4 Axis</th>
+																<th class="center custom2">HMC</th>
+																<th class="center custom2">5 Axis</th>
+																<th class="center custom2">EDM</th>
+																<th class="center custom2">Grinding</th>
+																<th class="center custom2">Deburring/Cleaning</th>
+																<th class="center custom2">Inspection</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="center" id="rate-cla" name="rate-cla">{{ active_rate.cla }}</td>
+																<td class="center" id="rate-bta" name="rate-bta">{{ active_rate.bta }}</td>
+																<td class="center" id="rate-tma" name="rate-tma">{{ active_rate.tma }}</td>
+																<td class="center" id="rate-mca3axis" name="rate-mca3axis">{{ active_rate.mca3axis }}</td>
+																<td class="center" id="rate-mca4axis" name="rate-mca4axis">{{ active_rate.mca4axis }}</td>
+																<td class="center" id="rate-hmc" name="rate-hmc">{{ active_rate.hmc }}</td>
+																<td class="center" id="rate-5axis" name="rate-5axis">{{ active_rate.axis5 }}</td>
+																<td class="center" id="rate-edm" name="rate-edm">{{ active_rate.edm }}</td>
+																<td class="center" id="rate-grinding" name="rate-grinding">{{ active_rate.grinding }}</td>
+																<td class="center" id="rate-deburring" name="rate-deburring">{{ active_rate.deburring }}</td>
+																<td class="center" id="rate-inspection" name="rate-inspection">{{ active_rate.inspection }}</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+												<!-- <br> -->
+												<!-- Burden Rate -->
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped table-condensed mb-none">
+													<thead>
+														<th class="center custom1" colspan="12" scope="colgroup">Burden Rate</th>
+														<tr>
+															<th class="center custom2">Material</th>
+															<th class="center custom2">Hardware</th>
+															<th class="center custom2">Subcontract</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td class="center" id="rate-material" name="rate-material">{{ burden_rate.material }}</td>
+															<td class="center" id="rate-hardware" name="rate-hardware">{{ burden_rate.hardware }}</td>
+															<td class="center" id="rate-subcontract" name="rate-subcontract">{{ burden_rate.subcontract }}</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_burden_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
+											</div>
+											<!-- Special Process -->
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+												<thead>
+													<th class="center custom1" colspan="99" scope="colgroup">Special Process</th>
+													<tr>
+														<th class="center custom1"></th>
+														<th class="center custom2">NAME</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center custom1">Rate</td>
+														<td class="center" id="val" name="val">VALUE</td>
+													</tr>
+													<tr>
+														<td class="center custom1">Specification</td>
+														<td class="center" id="val" name="val">TEXT</td>
+													</tr>
+												</tbody>
+											</table>
+											</div>
+											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_set/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
+											</div>
+											<!-- SP Rate -->
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+												<thead>
+													<th class="center custom1" colspan="12" scope="colgroup">Special Process Rate</th>
+													<tr>
+														<th class="center custom2">FPI</th>
+														<th class="center custom2">MPI</th>
+														<th class="center custom2">Passivation</th>
+														<th class="center custom2">Chromic Acid Anodizing</th>
+														<th class="center custom2">Sulphuric Acid Anodizing</th>
+														<th class="center custom2">Hard Anodizing</th>
+														<th class="center custom2">Chem. Conv. Coating</th>
+														<th class="center custom2">Dry Film Lubrication</th>
+														<th class="center custom2">Paint/Primer</th>
+														<th class="center custom2">Cadmium Plating</th>
+														<th class="center custom2">Chrome Plating</th>
+														<th class="center custom2">Heat Treatment</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td class="center" id="rate-fpi" name="rate-fpi">{{ sp_rate.fpi }}</td>
+														<td class="center" id="rate-mpi" name="rate-mpi">{{ sp_rate.mpi }}</td>
+														<td class="center" id="rate-passivation" name="rate-passivation">{{ sp_rate.passivation }}</td>
+														<td class="center" id="rate-caa" name="rate-caa">{{ sp_rate.caa }}</td>
+														<td class="center" id="rate-saa" name="rate-saa">{{ sp_rate.saa }}</td>
+														<td class="center" id="rate-hard-anodizing" name="rate-hard-anodizing">{{ sp_rate.hard_anodizing }}</td>
+														<td class="center" id="rate-ccc" name="rate-ccc">{{ sp_rate.ccc }}</td>
+														<td class="center" id="rate-dfl" name="rate-dfl">{{ sp_rate.dfl }}</td>
+														<td class="center" id="rate-paint" name="rate-paint">{{ sp_rate.paint }}</td>
+														<td class="center" id="rate-cadmium-plating" name="rate-cadmium-plating">{{ sp_rate.cadmium_plating }}</td>
+														<td class="center" id="rate-chrome-plating" name="rate-chrome-plating">{{ sp_rate.chrome_plating }}</td>
+														<td class="center" id="rate-heat-treatment" name="rate-heat-treatment">{{ sp_rate.heat_treatment }}</td>
+													</tr>
+												</tbody>
+											</table>
+											</div>
+											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_rate/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
+											</div>
 											<!-- Special Process Specification -->
 											<div class="table-responsive">
 										  	<table class="table table-bordered table-striped table-condensed mb-none">
@@ -1266,7 +1279,22 @@
 		var forecast_year5 = parseFloat($( "#forecast-year5" ).text());
 		var aeqfc = parseFloat($( "#aeqfc" ).text());
 
-		// -- Rate --
+		// - Burden Rate -
+		var rate_material = parseFloat($( "#rate-material" ).text());
+		var rate_hardware = parseFloat($( "#rate-hardware" ).text());
+		var rate_subcontract = parseFloat($( "#rate-subcontract" ).text());
+
+		// -- Material --
+		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
+		var fpwp = parseFloat($( "#fpwp" ).text()); // NO RESTATE
+		var base_material_price = parseFloat($( "#base-material-price" ).text());
+		var material_shipping_cost = parseFloat($( "#material-shipping-cost" ).text());
+
+		// -- Hardware --
+		var hardware_qty = parseFloat($( "#hardware-qty" ).text()); // NO RESTATE
+		var hardware_price = parseFloat($( "#hardware-price" ).text());
+
+		// -- Rate and Process --
 		// - Active Rate -
 		var rate_cla = parseFloat($( "#rate-cla" ).text());
 		var rate_bta = parseFloat($( "#rate-bta" ).text());
@@ -1292,22 +1320,6 @@
 		var rate_cadmium_plating = parseFloat($( "#rate-cadmium-plating" ).text());
 		var rate_chrome_plating = parseFloat($( "#rate-chrome-plating" ).text());
 		var rate_heat_treatment = parseFloat($( "#rate-heat-treatment" ).text());
-		// - Burden Rate -
-		var rate_material = parseFloat($( "#rate-material" ).text());
-		var rate_hardware = parseFloat($( "#rate-hardware" ).text());
-		var rate_subcontract = parseFloat($( "#rate-subcontract" ).text());
-
-		// -- Material --
-		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
-		var fpwp = parseFloat($( "#fpwp" ).text()); // NO RESTATE
-		var base_material_price = parseFloat($( "#base-material-price" ).text());
-		var material_shipping_cost = parseFloat($( "#material-shipping-cost" ).text());
-
-		// -- Hardware --
-		var hardware_qty = parseFloat($( "#hardware-qty" ).text()); // NO RESTATE
-		var hardware_price = parseFloat($( "#hardware-price" ).text());
-
-		// -- Process and Process Cost --
 		// - Machining Set Up Time (Minutes) - NO RESTATE
 		var msut_cla = parseFloat($( "#msut-cla" ).text());
 		var msut_bta = parseFloat($( "#msut-bta" ).text());
@@ -1381,7 +1393,7 @@
 		// Total Raw Material Weight Per Year = Total RM Weight * Annual Estimate Qty for Calculation
 		var trmwpy = rm_total_weight * aeqfc;
 
-		// -- Process and Process Cost --
+		// -- Rate and Process --
 		// Production Qty = Annual Estimate Qty for Calculation / 4
 		var production_qty = aeqfc / 4;
 
@@ -1493,7 +1505,15 @@
 		$( "#forecast-year5" ).text(forecast_year5);
 		$( "#aeqfc" ).text(aeqfc);
 
-		// -- Rate --
+		// -- Material --
+		$( "#rm-total-weight" ).text(rm_total_weight);
+		$( "#base-material-price" ).text(base_material_price);
+		$( "#material-shipping-cost" ).text(material_shipping_cost);
+
+		// -- Hardware --
+		$( "#hardware-price" ).text(hardware_price);
+
+		// -- Rate & Process --
 		// - Active Rate -
 		$( "#rate-cla" ).text(rate_cla);
 		$( "#rate-bta" ).text(rate_bta);
@@ -1506,6 +1526,10 @@
 		$( "#rate-grinding" ).text(rate_grinding);
 		$( "#rate-deburring" ).text(rate_deburring);
 		$( "#rate-inspection" ).text(rate_inspection);
+		// - Burden Rate -
+		$( "#rate-material" ).text(rate_material);
+		$( "#rate-hardware" ).text(rate_hardware);
+		$( "#rate-subcontract" ).text(rate_subcontract);
 		// - Special Process Rate -
 		$( "#rate-fpi" ).text(rate_fpi);
 		$( "#rate-mpi" ).text(rate_mpi);
@@ -1519,18 +1543,6 @@
 		$( "#rate-cadmium-plating" ).text(rate_cadmium_plating);
 		$( "#rate-chrome-plating" ).text(rate_chrome_plating);
 		$( "#rate-heat-treatment" ).text(rate_heat_treatment);
-		// - Burden Rate -
-		$( "#rate-material" ).text(rate_material);
-		$( "#rate-hardware" ).text(rate_hardware);
-		$( "#rate-subcontract" ).text(rate_subcontract);
-
-		// -- Material --
-		$( "#rm-total-weight" ).text(rm_total_weight);
-		$( "#base-material-price" ).text(base_material_price);
-		$( "#material-shipping-cost" ).text(material_shipping_cost);
-
-		// -- Hardware --
-		$( "#hardware-price" ).text(hardware_price);
 
 		// -- Part Costing --
 		$( "#total-nre-cost" ).text(total_nre_cost);
@@ -1561,7 +1573,7 @@
 		$( "#armwpp" ).text(armwpp);
 		$( "#trmwpy" ).text(trmwpy);
 
-		// -- Process and Process Cost --
+		// -- Rate and Process --
 		$( "#production-qty" ).text(production_qty);
 
 		// -- Part Costing --
@@ -1678,7 +1690,15 @@
 		$( "#forecast-year5" ).text(forecast_year5.toFixed(2));
 		$( "#aeqfc" ).text(aeqfc.toFixed(2));
 
-		// -- Rate --
+		// -- Material --
+		$( "#rm-total-weight" ).text(rm_total_weight.toFixed(2));
+		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
+		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + material_shipping_cost.toFixed(2));
+
+		// -- Hardware --
+		$( "#hardware-price" ).text(dollar_sign(hardware_price) + hardware_price.toFixed(2));
+
+		// -- Rate & Process --
 		// - Active Rate -
 		$( "#rate-cla" ).text(rate_cla);
 		$( "#rate-bta" ).text(rate_bta);
@@ -1691,6 +1711,10 @@
 		$( "#rate-grinding" ).text(rate_grinding);
 		$( "#rate-deburring" ).text(rate_deburring);
 		$( "#rate-inspection" ).text(rate_inspection);
+		// - Burden Rate -
+		$( "#rate-material" ).text(rate_material);
+		$( "#rate-hardware" ).text(rate_hardware);
+		$( "#rate-subcontract" ).text(rate_subcontract);
 		// - Special Process Rate -
 		$( "#rate-fpi" ).text(rate_fpi);
 		$( "#rate-mpi" ).text(rate_mpi);
@@ -1704,18 +1728,6 @@
 		$( "#rate-cadmium-plating" ).text(rate_cadmium_plating);
 		$( "#rate-chrome-plating" ).text(rate_chrome_plating);
 		$( "#rate-heat-treatment" ).text(rate_heat_treatment);
-		// - Burden Rate -
-		$( "#rate-material" ).text(rate_material);
-		$( "#rate-hardware" ).text(rate_hardware);
-		$( "#rate-subcontract" ).text(rate_subcontract);
-
-		// -- Material --
-		$( "#rm-total-weight" ).text(rm_total_weight.toFixed(2));
-		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
-		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + material_shipping_cost.toFixed(2));
-
-		// -- Hardware --
-		$( "#hardware-price" ).text(dollar_sign(hardware_price) + hardware_price.toFixed(2));
 
 		// -- Part Costing --
 		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
@@ -1747,7 +1759,7 @@
 		$( "#armwpp" ).text(armwpp.toFixed(2));
 		$( "#trmwpy" ).text(trmwpy.toFixed(2));
 
-		// -- Process and Process Cost --
+		// -- Rate and Process --
 		$( "#production-qty" ).text(production_qty.toFixed(2));
 
 		// -- Part Costing --
