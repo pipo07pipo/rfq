@@ -76,11 +76,59 @@
 												</tr>
 											</thead>
 											<tbody>
-			                {% for sp_master in sp_masters %}
+			                {% for sp in sp_masters %}
 												<tr>
-													<td class="center">{{ sp_master.name }}</td>
+													<td class="center">{{ sp.name }}</td>
 												</tr>
 			                {% endfor %}
+											</tbody>
+										</table>
+								</div>
+							</div>
+						</section>
+					</div>
+
+					<div class="col-md-6">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<!-- <a href="#" class="fa fa-caret-down"></a> -->
+									<!-- <a href="#" class="fa fa-times"></a> -->
+								</div>
+								<!-- <h2 class="panel-title">Special Process</h2> -->
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/add_mc_master/"><i class="fa fa-plus"></i> Add Machining Process</a>
+							</header>
+							<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-bordered table-striped mb-none" id="datatable-default">
+											<thead>
+												<tr>
+													<th class="center custom1" colspan="2">Machining Process</th>
+												</tr>
+												<tr>
+													<th class="center custom2">Name</th>
+													<th class="center custom2">Rate</th>
+												</tr>
+											</thead>
+											<tbody>
+			                {% for mc in mc_masters %}
+												<tr>
+													<td class="center">{{ mc.name }}</td>
+													<td class="center">{{ mc.rate }}</td>
+												</tr>
+			                {% endfor %}
+											<tr>
+												<td class="center">Test Name</td>
+												<td class="center">0.0</td>
+											</tr>
+											<tr>
+												<td class="center">Test Name</td>
+												<td class="center">0.0</td>
+											</tr>
+											<tr>
+												<td class="center">Test Name</td>
+												<td class="center">0.0</td>
+											</tr>
 											</tbody>
 										</table>
 								</div>
