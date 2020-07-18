@@ -908,7 +908,19 @@ def select_sp_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         sp_master = SP_Master.objects.all()
-        for sp in sp_masters:
+        edit = 0
+        for sp in sp_master:
             id = sp.id
-
-        return redirect('/edit_sp_set/'+str(sl_no))
+            if(request.POST.get(str(id)) == None):
+                delsp = SP_Set.objects.filter(sl_no=sl_no,sp_id=sp)
+                delsp.delete()
+            elif(request.POST.get(str(id)) == 'on'):
+                if(SP_Set.objects.filter(sp_id=sp)):
+                    pass
+                else:
+                    newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
+                    newsp.save()
+                    edit = 1
+        if(edit == 1):
+            return redirect('/edit_sp_set/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1')
