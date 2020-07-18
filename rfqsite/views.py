@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -330,6 +330,7 @@ def part_info(request, sl_no):
     sp_rate = SP_Rate.objects.get(sl_no=part)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
+    sp_set = SP_Set.objects.filter(sl_no=part)
     sum_child = 0
     fchild = Part_Header.objects.filter(parent_sl_no=part)
     child = [x for x in fchild]
@@ -347,6 +348,7 @@ def part_info(request, sl_no):
     else:
         file_name = ''
     context = {
+        'sp_set': sp_set,
         'current_year': current_year,
         'part': part,
         'parts': parts,
