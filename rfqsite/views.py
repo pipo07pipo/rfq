@@ -940,7 +940,7 @@ def add_sp_master(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         for obj in SP_Master.objects.filter(name=name):
-            redirect('/master_table/?message=0')
+            return redirect('/master_table/?message=0')
         sm = SP_Master(name=name)
         sm.save()
         return redirect('/master_table/?message=1')
