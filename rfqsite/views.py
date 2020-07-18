@@ -954,6 +954,8 @@ def set_sp(part,master):
     pass
 
 def edit_sp_set(request,sl_no):
+    part = Part_Header.objects.get(sl_no=sl_no)
     context = {
+            'part': part
     }
     return render(request, 'rfqsite/edit_sp_set.html', context)
