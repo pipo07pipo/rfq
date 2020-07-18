@@ -930,7 +930,7 @@ def remove_part(request, sl_no):
     return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
 
 def master_table(request):
-    mater_table = SP_Master.objects.all()
+    master_table = SP_Master.objects.all()
     context = {
         'sp_masters': master_table
     }
