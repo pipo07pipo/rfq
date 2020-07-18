@@ -947,3 +947,11 @@ def add_sp_master(request):
     context = {
     }
     return render(request, 'rfqsite/add_sp_master.html', context)
+
+def set_sp(part,master):
+    pass
+
+def edit_sp_set(request):
+    context = {
+    }
+    return render(request, 'rfqsite/edit_sp_set.html', context)
