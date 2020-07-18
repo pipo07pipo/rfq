@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -930,13 +930,20 @@ def remove_part(request, sl_no):
     return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
 
 def master_table(request):
-    # sp_master = SP_Master.objects.get()
+    mater_table = SP_Master.objects.all()
     context = {
-
+        'sp_masters': master_table
     }
     return render(request, 'rfqsite/master_table.html', context)
 
 def add_sp_master(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        for obj in SP_Master.objects.filter(name=name):
+            redirect('/master_table/?message=0')
+        sm = SP_Master(name=name)
+        sm.save()
+        return redirect('/master_table/?message=1')
     context = {
     }
     return render(request, 'rfqsite/add_sp_master.html', context)
