@@ -697,6 +697,7 @@
 											</div>
 											<div class="text-right mr-lg">
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/select_sp_set/{{ part.sl_no }}"><i class="fa fa-check-square-o"></i> Select</a>
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_set/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 												{% endif %}
 											</div>
