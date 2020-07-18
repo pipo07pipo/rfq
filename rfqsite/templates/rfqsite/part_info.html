@@ -885,15 +885,12 @@
 												<hr>
 												<!-- 1S -->
 												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
+													<div class="col-md-3 labcustom">
+														<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
+														<!-- <label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label> -->
 													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+													<div class="col-md-8 labcustom">
+														<label class="col-sm-12 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
 													</div>
 												</div>
 												<div class="form-group">
@@ -1546,6 +1543,7 @@
 					'mtl_cost' : mtl_cost,
 					'spl_process_cost' : spl_process_cost,
 					'total_hardware_cost' : total_hardware_cost,
+					'total_machine_cost' : total_machine_cost,
 
 					'mcrftp_cla' : mcrftp_cla,
 					'mcrftp_bta' : mcrftp_bta,
@@ -1567,21 +1565,21 @@
 		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
-		$( "#qty-per-unit" ).text(qty_per_unit.toFixed(2));
-		$( "#forecast-year1" ).text(forecast_year1.toFixed(2));
-		$( "#forecast-year2" ).text(forecast_year2.toFixed(2));
-		$( "#forecast-year3" ).text(forecast_year3.toFixed(2));
-		$( "#forecast-year4" ).text(forecast_year4.toFixed(2));
-		$( "#forecast-year5" ).text(forecast_year5.toFixed(2));
-		$( "#aeqfc" ).text(aeqfc.toFixed(2));
+		$( "#qty-per-unit" ).text(math_fix(qty_per_unit));
+		$( "#forecast-year1" ).text(math_fix(forecast_year1));
+		$( "#forecast-year2" ).text(math_fix(forecast_year2));
+		$( "#forecast-year3" ).text(math_fix(forecast_year3));
+		$( "#forecast-year4" ).text(math_fix(forecast_year4));
+		$( "#forecast-year5" ).text(math_fix(forecast_year5));
+		$( "#aeqfc" ).text(math_fix(aeqfc));
 
 		// -- Material --
-		$( "#rm-total-weight" ).text(rm_total_weight.toFixed(2));
-		$( "#base-material-price" ).text(dollar_sign(base_material_price) + base_material_price.toFixed(2));
-		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + material_shipping_cost.toFixed(2));
+		$( "#rm-total-weight" ).text(math_fix(rm_total_weight));
+		$( "#base-material-price" ).text(dollar_sign(base_material_price) + math_fix(base_material_price));
+		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + math_fix(material_shipping_cost));
 
 		// -- Hardware --
-		$( "#hardware-price" ).text(dollar_sign(hardware_price) + hardware_price.toFixed(2));
+		$( "#hardware-price" ).text(dollar_sign(hardware_price) + math_fix(hardware_price));
 
 		// -- Rate & Process --
 		// - Active Rate -
@@ -1603,106 +1601,106 @@
 		// - Special Process Rate -
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
-			$( text ).text(arr_sp_rate[i]);
+			$( text ).text(math_fix(arr_sp_rate[i]));
 		}
 
 		// -- Part Costing --
-		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + total_nre_cost.toFixed(2));
-		$( "#target-price" ).text(dollar_sign(target_price) + target_price.toFixed(2));
-		$( "#otspsuc" ).text(dollar_sign(otspsuc) + otspsuc.toFixed(2));
-		$( "#otrmac" ).text(dollar_sign(otrmac) + otrmac.toFixed(2));
-		$( "#ottc" ).text(dollar_sign(ottc) + ottc.toFixed(2));
-		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
-		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + shipping_cost.toFixed(2));
+		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + math_fix(total_nre_cost));
+		$( "#target-price" ).text(dollar_sign(target_price) + math_fix(target_price));
+		$( "#otspsuc" ).text(dollar_sign(otspsuc) + math_fix(otspsuc));
+		$( "#otrmac" ).text(dollar_sign(otrmac) + math_fix(otrmac));
+		$( "#ottc" ).text(dollar_sign(ottc) + math_fix(ottc));
+		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost));
+		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + math_fix(shipping_cost));
 
 
 		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
-		$( "#eau-year1" ).text(eau_year1.toFixed(2));
-		$( "#eau-year2" ).text(eau_year2.toFixed(2));
-		$( "#eau-year3" ).text(eau_year3.toFixed(2));
-		$( "#eau-year4" ).text(eau_year4.toFixed(2));
-		$( "#eau-year5" ).text(eau_year5.toFixed(2));
-		$( "#eau-total-year" ).text(eau_total_year.toFixed(2));
+		$( "#eau-year1" ).text(math_fix(eau_year1));
+		$( "#eau-year2" ).text(math_fix(eau_year2));
+		$( "#eau-year3" ).text(math_fix(eau_year3));
+		$( "#eau-year4" ).text(math_fix(eau_year4));
+		$( "#eau-year5" ).text(math_fix(eau_year5));
+		$( "#eau-total-year" ).text(math_fix(eau_total_year));
 
 		// -- Material --
-		$( "#armr-year1" ).text(armr_year1.toFixed(2));
-		$( "#armr-year2" ).text(armr_year2.toFixed(2));
-		$( "#armr-year3" ).text(armr_year3.toFixed(2));
-		$( "#armr-year4" ).text(armr_year4.toFixed(2));
-		$( "#armr-year5" ).text(armr_year5.toFixed(2));
-		$( "#afpwpp" ).text(afpwpp.toFixed(2));
-		$( "#armwpp" ).text(armwpp.toFixed(2));
-		$( "#trmwpy" ).text(trmwpy.toFixed(2));
+		$( "#armr-year1" ).text(math_fix(armr_year1));
+		$( "#armr-year2" ).text(math_fix(armr_year2));
+		$( "#armr-year3" ).text(math_fix(armr_year3));
+		$( "#armr-year4" ).text(math_fix(armr_year4));
+		$( "#armr-year5" ).text(math_fix(armr_year5));
+		$( "#afpwpp" ).text(math_fix(afpwpp));
+		$( "#armwpp" ).text(math_fix(armwpp));
+		$( "#trmwpy" ).text(math_fix(trmwpy));
 
 		// -- Rate & Process --
-		$( "#production-qty" ).text(production_qty.toFixed(2));
+		$( "#production-qty" ).text(math_fix(production_qty));
 
 		// -- Part Costing --
 		// - Total Cycle Time (Minutes) -
-		$( "#tctt-cla" ).text(tctt_cla.toFixed(2));
-		$( "#tctt-bta" ).text(tctt_bta.toFixed(2));
-		$( "#tctt-tma" ).text(tctt_tma.toFixed(2));
-		$( "#tctt-mca3axis" ).text(tctt_mca3axis.toFixed(2));
-		$( "#tctt-mca4axis" ).text(tctt_mca4axis.toFixed(2));
-		$( "#tctt-hmc" ).text(tctt_hmc.toFixed(2));
-		$( "#tctt-5axis" ).text(tctt_5axis.toFixed(2));
-		$( "#tctt-edm" ).text(tctt_edm.toFixed(2));
-		$( "#tctt-grinding" ).text(tctt_grinding.toFixed(2));
+		$( "#tctt-cla" ).text(math_fix(tctt_cla));
+		$( "#tctt-bta" ).text(math_fix(tctt_bta));
+		$( "#tctt-tma" ).text(math_fix(tctt_tma));
+		$( "#tctt-mca3axis" ).text(math_fix(tctt_mca3axis));
+		$( "#tctt-mca4axis" ).text(math_fix(tctt_mca4axis));
+		$( "#tctt-hmc" ).text(math_fix(tctt_hmc));
+		$( "#tctt-5axis" ).text(math_fix(tctt_5axis));
+		$( "#tctt-edm" ).text(math_fix(tctt_edm));
+		$( "#tctt-grinding" ).text(math_fix(tctt_grinding));
 		// - Total Cycle Cost (Dollar) -
-		$( "#tctc-cla" ).text(dollar_sign(tctc_cla) + tctc_cla.toFixed(2));
-		$( "#tctc-bta" ).text(dollar_sign(tctc_bta) + tctc_bta.toFixed(2));
-		$( "#tctc-tma" ).text(dollar_sign(tctc_tma) + tctc_tma.toFixed(2));
-		$( "#tctc-mca3axis" ).text(dollar_sign(tctc_mca3axis) + tctc_mca3axis.toFixed(2));
-		$( "#tctc-mca4axis" ).text(dollar_sign(tctc_mca4axis) + tctc_mca4axis.toFixed(2));
-		$( "#tctc-hmc" ).text(dollar_sign(tctc_hmc) + tctc_hmc.toFixed(2));
-		$( "#tctc-5axis" ).text(dollar_sign(tctc_5axis) + tctc_5axis.toFixed(2));
-		$( "#tctc-edm" ).text(dollar_sign(tctc_edm) + tctc_edm.toFixed(2));
-		$( "#tctc-grinding" ).text(dollar_sign(tctc_grinding) + tctc_grinding.toFixed(2));
-		$( "#tctc-inspection" ).text(dollar_sign(tctc_inspection) + tctc_inspection.toFixed(2));
-		$( "#tctc-deburring" ).text(dollar_sign(tctc_deburring) + tctc_deburring.toFixed(2));
-		$( "#tctc-assembly" ).text(dollar_sign(tctc_assembly) + tctc_assembly.toFixed(2));
-		$( "#tctc-lapping" ).text(dollar_sign(tctc_lapping) + tctc_lapping.toFixed(2));
+		$( "#tctc-cla" ).text(dollar_sign(tctc_cla) + math_fix(tctc_cla));
+		$( "#tctc-bta" ).text(dollar_sign(tctc_bta) + math_fix(tctc_bta));
+		$( "#tctc-tma" ).text(dollar_sign(tctc_tma) + math_fix(tctc_tma));
+		$( "#tctc-mca3axis" ).text(dollar_sign(tctc_mca3axis) + math_fix(tctc_mca3axis));
+		$( "#tctc-mca4axis" ).text(dollar_sign(tctc_mca4axis) + math_fix(tctc_mca4axis));
+		$( "#tctc-hmc" ).text(dollar_sign(tctc_hmc) + math_fix(tctc_hmc));
+		$( "#tctc-5axis" ).text(dollar_sign(tctc_5axis) + math_fix(tctc_5axis));
+		$( "#tctc-edm" ).text(dollar_sign(tctc_edm) + math_fix(tctc_edm));
+		$( "#tctc-grinding" ).text(dollar_sign(tctc_grinding) + math_fix(tctc_grinding));
+		$( "#tctc-inspection" ).text(dollar_sign(tctc_inspection) + math_fix(tctc_inspection));
+		$( "#tctc-deburring" ).text(dollar_sign(tctc_deburring) + math_fix(tctc_deburring));
+		$( "#tctc-assembly" ).text(dollar_sign(tctc_assembly) + math_fix(tctc_assembly));
+		$( "#tctc-lapping" ).text(dollar_sign(tctc_lapping) + math_fix(tctc_lapping));
 		// - Special Process Cost (Dollar) -
 		for(var i = 0; i < sp_set_size;i++){
 			text = "#sp-cost-" + i;
-			$( text ).text(dollar_sign(arr_sp_cost[i]) + arr_sp_cost[i].toFixed(2));
+			$( text ).text(dollar_sign(arr_sp_cost[i]) + math_fix(arr_sp_cost[i]));
 		}
 		// - S -
-		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + subcontract_shipping_cost.toFixed(2));
-		$( "#material-cost" ).text(dollar_sign(material_cost) + material_cost.toFixed(2));
-		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + manufacturing_cost.toFixed(2));
-		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + hardware_cost.toFixed(2));
-		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + surface_treatment_cost.toFixed(2));
-		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + additional_mfg.toFixed(2));
-		$( "#profit-factor" ).text(dollar_sign(profit_factor) + profit_factor.toFixed(2));
-		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + total_manufacturing_cost.toFixed(2));
-		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + ccs_ewp.toFixed(2));
-		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + ccs_ppp.toFixed(2));
-		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + ddp_usd.toFixed(2));
+		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost));
+		$( "#material-cost" ).text(dollar_sign(material_cost) + math_fix(material_cost));
+		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + math_fix(manufacturing_cost));
+		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + math_fix(hardware_cost));
+		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + math_fix(surface_treatment_cost));
+		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + math_fix(additional_mfg));
+		$( "#profit-factor" ).text(dollar_sign(profit_factor) + math_fix(profit_factor));
+		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + math_fix(total_manufacturing_cost));
+		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + math_fix(ccs_ewp));
+		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + math_fix(ccs_ppp));
+		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + math_fix(ddp_usd));
 		// - SS -
-		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
-		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
-		$( "#moq-rm-order" ).text(moq_rm_order.toFixed(2));
-		$( "#oyrmb" ).text(oyrmb.toFixed(2));
+		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty));
+		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty));
+		$( "#moq-rm-order" ).text(math_fix(moq_rm_order));
+		$( "#oyrmb" ).text(math_fix(oyrmb));
 		// - SSS -
-		$( "#total-cost" ).text(dollar_sign(total_cost) + total_cost.toFixed(2));
-		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + mtl_cost.toFixed(2));
-		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + spl_process_cost.toFixed(2));
-		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + total_hardware_cost.toFixed(2));
-		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + total_machine_cost.toFixed(2));
+		$( "#total-cost" ).text(dollar_sign(total_cost) + math_fix(total_cost));
+		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + math_fix(mtl_cost));
+		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + math_fix(spl_process_cost));
+		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + math_fix(total_hardware_cost));
+		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost));
 
 		// -- Machining Capacity Required for the Project --
-		$( "#mcrftp-cla" ).text(mcrftp_cla.toFixed(2));
-		$( "#mcrftp-bta" ).text(mcrftp_bta.toFixed(2));
-		$( "#mcrftp-tma" ).text(mcrftp_tma.toFixed(2));
-		$( "#mcrftp-mca3axis" ).text(mcrftp_mca3axis.toFixed(2));
-		$( "#mcrftp-mca4axis" ).text(mcrftp_mca4axis.toFixed(2));
-		$( "#mcrftp-hmc" ).text(mcrftp_hmc.toFixed(2));
-		$( "#mcrftp-5axis" ).text(mcrftp_5axis.toFixed(2));
-		$( "#mcrftp-edm" ).text(mcrftp_edm.toFixed(2));
-		$( "#mcrftp-grinding" ).text(mcrftp_grinding.toFixed(2));
+		$( "#mcrftp-cla" ).text(math_fix(mcrftp_cla));
+		$( "#mcrftp-bta" ).text(math_fix(mcrftp_bta));
+		$( "#mcrftp-tma" ).text(math_fix(mcrftp_tma));
+		$( "#mcrftp-mca3axis" ).text(math_fix(mcrftp_mca3axis));
+		$( "#mcrftp-mca4axis" ).text(math_fix(mcrftp_mca4axis));
+		$( "#mcrftp-hmc" ).text(math_fix(mcrftp_hmc));
+		$( "#mcrftp-5axis" ).text(math_fix(mcrftp_5axis));
+		$( "#mcrftp-edm" ).text(math_fix(mcrftp_edm));
+		$( "#mcrftp-grinding" ).text(math_fix(mcrftp_grinding));
 
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
@@ -1710,6 +1708,12 @@
 	function dollar_sign(value){
 		if(isNaN(value)) return "";
 		return "$";
+	}
+
+	function math_fix(value){
+		if(isNaN(value)) return value;
+		return value.toFixed(2);
+		// return Math.round((value + Number.EPSILON) * 100) / 100;
 	}
 	</script>
 

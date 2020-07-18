@@ -105,8 +105,7 @@
 												<td class="center" id ="mtl-cost-td2" name ="mtl-cost-td2" hidden>{{ mtl_cost_td }}</td>
 												<td class="center" id="spl-process-cost-td2" name="spl-process-cost-td2" hidden>{{ spl_process_cost_td }}</td>
 												<td class="center" id="total-hardware-cost-td2" name="total-hardware-cost-td2" hidden>{{ total_hardware_cost_td }}</td>
-												<!-- <td class="center" id="total-machine-cost-td2" name="total-machine-cost-td2" hidden>{{ total_machine_cost_td }}</td> -->
-												<td class="center" id="total-machine-cost-td2" name="total-machine-cost-td2" hidden>100</td>
+												<td class="center" id="total-machine-cost-td2" name="total-machine-cost-td2" hidden>{{ total_machine_cost_td }}</td>
 											</tr>
 											<tr>
 												<td class="center custom1">Per Years (‎THB)</td>
@@ -290,45 +289,45 @@
 
 		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 		// -- Total Project Cost --
-		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + total_cost_td.toFixed(2));
-		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + mtl_cost_td.toFixed(2));
-		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + spl_process_cost_td.toFixed(2));
-		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + total_hardware_cost_td.toFixed(2));
-		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + total_machine_cost_td.toFixed(2));
+		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + math_fix(total_cost_td));
+		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + math_fix(mtl_cost_td));
+		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + math_fix(spl_process_cost_td));
+		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td));
+		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td));
 
 		// -- Machining Capacity Required for the Project --
-		$( "#mcrftp-cla-t" ).text(mcrftp_cla_t.toFixed(2));
-		$( "#mcrftp-bta-t" ).text(mcrftp_bta_t.toFixed(2));
-		$( "#mcrftp-tma-t" ).text(mcrftp_tma_t.toFixed(2));
-		$( "#mcrftp-mca3axis-t" ).text(mcrftp_mca3axis_t.toFixed(2));
-		$( "#mcrftp-mca4axis-t" ).text(mcrftp_mca4axis_t.toFixed(2));
-		$( "#mcrftp-hmc-t" ).text(mcrftp_hmc_t.toFixed(2));
-		$( "#mcrftp-5axis-t" ).text(mcrftp_5axis_t.toFixed(2));
-		$( "#mcrftp-edm-t" ).text(mcrftp_edm_t.toFixed(2));
-		$( "#mcrftp-grinding-t" ).text(mcrftp_grinding_t.toFixed(2));
+		$( "#mcrftp-cla-t" ).text(math_fix(mcrftp_cla_t));
+		$( "#mcrftp-bta-t" ).text(math_fix(mcrftp_bta_t));
+		$( "#mcrftp-tma-t" ).text(math_fix(mcrftp_tma_t));
+		$( "#mcrftp-mca3axis-t" ).text(math_fix(mcrftp_mca3axis_t));
+		$( "#mcrftp-mca4axis-t" ).text(math_fix(mcrftp_mca4axis_t));
+		$( "#mcrftp-hmc-t" ).text(math_fix(mcrftp_hmc_t));
+		$( "#mcrftp-5axis-t" ).text(math_fix(mcrftp_5axis_t));
+		$( "#mcrftp-edm-t" ).text(math_fix(mcrftp_edm_t));
+		$( "#mcrftp-grinding-t" ).text(math_fix(mcrftp_grinding_t));
 		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 		// -- Total Project Cost --
-		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + total_cost_tb.toFixed(2));
-		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + mtl_cost_tb.toFixed(2));
-		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + spl_process_cost_tb.toFixed(2));
-		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + total_hardware_cost_tb.toFixed(2));
-		$( "#total-machine-cost-tb" ).text(bath_sign(total_machine_cost_tb) + total_machine_cost_tb.toFixed(2));
+		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + math_fix(total_cost_tb));
+		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + math_fix(mtl_cost_tb));
+		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + math_fix(spl_process_cost_tb));
+		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + math_fix(total_hardware_cost_tb));
+		$( "#total-machine-cost-tb" ).text(bath_sign(total_machine_cost_tb) + math_fix(total_machine_cost_tb));
 
-		$( "#mtl-cost-p" ).text(mtl_cost_p.toFixed(2) + percent_sign(mtl_cost_p));
-		$( "#spl-process-cost-p" ).text(spl_process_cost_p.toFixed(2) + percent_sign(spl_process_cost_p));
-		$( "#total-hardware-cost-p" ).text(total_hardware_cost_p.toFixed(2) + percent_sign(total_hardware_cost_p));
-		$( "#total-machine-cost-p" ).text(total_machine_cost_p.toFixed(2) + percent_sign(total_machine_cost_p));
+		$( "#mtl-cost-p" ).text(math_fix(mtl_cost_p) + percent_sign(mtl_cost_p));
+		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p) + percent_sign(spl_process_cost_p));
+		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p) + percent_sign(total_hardware_cost_p));
+		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p) + percent_sign(total_machine_cost_p));
 
 		// -- Machining Capacity Required for the Project --
-		$( "#mcrftp-cla-mc" ).text(mcrftp_cla_mc.toFixed(2));
-		$( "#mcrftp-bta-mc" ).text(mcrftp_bta_mc.toFixed(2));
-		$( "#mcrftp-tma-mc" ).text(mcrftp_tma_mc.toFixed(2));
-		$( "#mcrftp-mca3axis-mc" ).text(mcrftp_mca3axis_mc.toFixed(2));
-		$( "#mcrftp-mca4axis-mc" ).text(mcrftp_mca4axis_mc.toFixed(2));
-		$( "#mcrftp-hmc-mc" ).text(mcrftp_hmc_mc.toFixed(2));
-		$( "#mcrftp-5axis-mc" ).text(mcrftp_5axis_mc.toFixed(2));
-		$( "#mcrftp-edm-mc" ).text(mcrftp_edm_mc.toFixed(2));
-		$( "#mcrftp-grinding-mc" ).text(mcrftp_grinding_mc.toFixed(2));
+		$( "#mcrftp-cla-mc" ).text(math_fix(mcrftp_cla_mc));
+		$( "#mcrftp-bta-mc" ).text(math_fix(mcrftp_bta_mc));
+		$( "#mcrftp-tma-mc" ).text(math_fix(mcrftp_tma_mc));
+		$( "#mcrftp-mca3axis-mc" ).text(math_fix(mcrftp_mca3axis_mc));
+		$( "#mcrftp-mca4axis-mc" ).text(math_fix(mcrftp_mca4axis_mc));
+		$( "#mcrftp-hmc-mc" ).text(math_fix(mcrftp_hmc_mc));
+		$( "#mcrftp-5axis-mc" ).text(math_fix(mcrftp_5axis_mc));
+		$( "#mcrftp-edm-mc" ).text(math_fix(mcrftp_edm_mc));
+		$( "#mcrftp-grinding-mc" ).text(math_fix(mcrftp_grinding_mc));
 
 		$( "#mcrftp-cla-man" ).text(mcrftp_cla_man);
 		$( "#mcrftp-bta-man" ).text(mcrftp_bta_man);
@@ -354,6 +353,12 @@
 	function percent_sign(value){
 		if(isNaN(value)) return "";
 		return "%";
+	}
+
+	function math_fix(value){
+		if(isNaN(value)) return value;
+		return value.toFixed(2);
+		// return Math.round((value + Number.EPSILON) * 100) / 100;
 	}
 
 	</script>
