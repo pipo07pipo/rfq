@@ -928,3 +928,8 @@ def remove_part(request, sl_no):
     rfq = dpart.tracker_no
     dpart.delete()
     return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
+
+def master_table(request):
+    context = {
+    }
+    return render(request, 'rfqsite/edit_user.html', context)

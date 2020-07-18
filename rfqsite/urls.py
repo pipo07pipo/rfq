@@ -48,5 +48,6 @@ urlpatterns = [
     path('validate_user/', views.validate_user, name='validate_user'),
     path('remove_user/<str:username>/', views.remove_user, name='remove_user'),
     path('remove_part/<int:sl_no>/', views.remove_part, name='remove_part'),
-
+    #####
+    path('master_table/', views.master_table, name='master_table'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
