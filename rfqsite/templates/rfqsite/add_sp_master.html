@@ -1,0 +1,238 @@
+<!doctype html>
+{% load static %}
+<html class="fixed">
+	<head>
+
+		<!-- Basic -->
+		<meta charset="UTF-8">
+
+		<title>RFQ Management Application</title>
+		<meta name="keywords" content="HTML5 Admin Template" />
+		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
+		<meta name="author" content="okler.net">
+
+		<!-- Mobile Metas -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<!-- Web Fonts  -->
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+
+		<!-- Vendor CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap/css/bootstrap.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/font-awesome/css/font-awesome.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/magnific-popup/magnific-popup.css" %}">
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-datepicker/css/datepicker3.css" %}">
+
+		<!-- Fileupload CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" %}">
+
+		<!-- Theme CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
+
+		<!-- Skin CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/skins/default.css" %}">
+
+		<!-- Theme Custom CSS -->
+		<link rel="stylesheet" href="{% static "assets/stylesheets/theme-custom.css" %}">
+	</head>
+	<body>
+		<section class="body">
+
+			<!-- start: header -->
+			{% include 'navbar.html' %}
+			<!-- end: header -->
+
+			<div class="inner-wrapper">
+				<!-- start: sidebar -->
+				{% include 'leftsidebar.html' %}
+				<!-- end: sidebar -->
+
+				<section role="main" class="content-body">
+					<header class="page-header">
+						<h2>New Special Process</h2>
+						<div class="right-wrapper pull-right">
+							<ol class="breadcrumbs">
+								<li>
+									<a href="/user_table/">
+										<i class="fa fa-chevron-left"></i><b> Back</b>
+									</a>
+								</li>
+							</ol>
+							<a class="sidebar-right-toggle"></a>
+						</div>
+					</header>
+
+					<!-- start: page -->
+					<!-- Information -->
+					<div class="col-md-12">
+							<form id="form" action="/add_user_confirm/" method="POST" class="form-horizontal">
+								{% csrf_token %}
+								<section class="panel">
+									<header class="panel-heading">
+										<div class="panel-actions">
+											<!-- <a href="#" class="fa fa-caret-down"></a> -->
+											<!-- <a href="#" class="fa fa-times"></a>	 -->
+										</div>
+										<h2 class="panel-title">Add New Special Process</h2>
+									</header>
+									<div class="panel-body">
+										<div class="form-group" id="username-group">
+											<label class="col-sm-4 control-label"><b>Username <font class="text-danger">*</font></b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="username" name="username" required>
+											</div>
+											<small><label style="color:red;padding-top:5px;" id="username-validate"></label></small>
+										</div>
+									</div>
+									<footer class="panel-footer">
+										<div class="row">
+											<div class="col-sm-9 col-sm-offset-3">
+												<button class="btn btn-warning" type="submit" id="confirm">Confirm</button>
+                        <a class="btn btn-default" type="button" href="/user_table/">Cancel</a>
+											</div>
+										</div>
+									</footer>
+								</section>
+							</form>
+					</div>
+					<!-- end: page -->
+				</section>
+			</div>
+		</section>
+	</body>
+	<!-- Head Libs -->
+	<script src="{% static "assets/vendor/modernizr/modernizr.js" %}"></script>
+
+	<!-- Vendor -->
+	<script src="{% static "assets/vendor/jquery/jquery.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap/js/bootstrap.js" %}"></script>
+	<script src="{% static "assets/vendor/nanoscroller/nanoscroller.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js" %}"></script>
+	<script src="{% static "assets/vendor/magnific-popup/magnific-popup.js" %}"></script>
+	<script src="{% static "assets/vendor/jquery-placeholder/jquery.placeholder.js" %}"></script>
+
+	<!-- Fileupload JS -->
+	<script src="{% static "assets/vendor/jquery-autosize/jquery.autosize.js" %}"></script>
+	<script src="{% static "assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js" %}"></script>
+
+	<!-- Theme Base, Components and Settings -->
+	<script src="{% static "assets/javascripts/theme.js" %}"></script>
+
+	<!-- Theme Custom -->
+	<script src="{% static "assets/javascripts/theme.custom.js" %}"></script>
+
+	<!-- Theme Initialization Files -->
+	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	$( document ).ready(function() {
+		validate_user();
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+
+	$( "#username" ).on('change textInput input', function(){
+		validate_user();
+		validate();
+	});
+	$( "#password" ).on('change textInput input', function(){
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+	$( "#re-password" ).on('change textInput input', function(){
+		validate_password();
+		validate_re_password();
+		validate();
+	});
+
+	function validate(){
+    if($( "#username-validate" ).text() == "" && $( "#password-validate" ).text() == "" && $( "#re-password-validate" ).text() == "")
+		$('#confirm').prop("disabled", false);
+    else $('#confirm').prop("disabled", true);
+  }
+
+	function validate_user(){
+		var username = $( "#username" ).val();
+		var text = '';
+		if(username.length < 6){
+			text = 'Username need to be at least 6 characters.';
+		} else {
+			$.ajax({
+	        url: '{% url 'validate_user' %}',
+	        data: {
+						'username' : username
+	        },
+	        dataType: 'json',
+	        success: function (data) {
+						if(data.isUsed){
+							text = 'Username has been used.';
+						}
+	        }
+	    });
+		}
+		$( "#username-validate" ).text(text);
+	}
+
+	function validate_password(){
+		var password = $( "#password" ).val();
+		var text = '';
+		if(password.length < 6){
+			text = 'Password need to be at least 6 characters.';
+		}
+		$( "#password-validate" ).text(text);
+	}
+
+	function validate_re_password(){
+		var password = $( "#password" ).val();
+		var re_password = $( "#re-password" ).val();
+		var text = '';
+		if(password != re_password){
+			text = 'Password not match';
+		}
+		$( "#re-password-validate" ).text(text);
+	}
+
+	$("#username").keypress(function(event){
+  var ew = event.which;
+  if(48 <= ew && ew <= 57) // 0 - 9
+      return true;
+  if(65 <= ew && ew <= 90) // A - Z
+      return true;
+  if(97 <= ew && ew <= 122) // a - z
+      return true;
+
+  return false;
+});
+
+$("#password").keypress(function(event){
+  var ew = event.which;
+  if(48 <= ew && ew <= 57) // 0 - 9
+      return true;
+  if(65 <= ew && ew <= 90) // A - Z
+      return true;
+  if(97 <= ew && ew <= 122) // a - z
+      return true;
+  if(ew == 33 || ew == 64 || ew == 35 || ew == 36 || ew == 37 || ew == 38 || ew == 63 || ew == 95) // ! @ # $ % & ? _
+      return true;
+  return false;
+});
+
+$("#re-password").keypress(function(event){
+  var ew = event.which;
+  if(48 <= ew && ew <= 57) // 0 - 9
+      return true;
+  if(65 <= ew && ew <= 90) // A - Z
+      return true;
+  if(97 <= ew && ew <= 122) // a - z
+      return true;
+  if(ew == 33 || ew == 64 || ew == 35 || ew == 36 || ew == 37 || ew == 38 || ew == 63 || ew == 95) // ! @ # $ % & ? _
+      return true;
+  return false;
+});
+
+	</script>
+
+</html>
