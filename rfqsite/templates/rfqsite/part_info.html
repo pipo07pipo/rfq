@@ -598,7 +598,7 @@
 							</section>
 					</div>
 
-					<!-- Rate and Process -->
+					<!-- Rate & Process -->
 					<div class="col-md-12">
 							<section class="panel panel-featured">
 									<header class="panel-heading">
@@ -606,7 +606,7 @@
 													<a href="#" class="fa fa-caret-down"></a>
 													<!-- <a href="#" class="fa fa-times"></a> -->
 												</div>
-												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate and Process</h2>
+												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate & Process</h2>
 									</header>
 									<div class="panel-body">
 												<!-- Active Rate -->
@@ -979,14 +979,18 @@
 														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp" name="ccs-ewp">-</label>
 													</div>
 													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Part/Assy Ex_works BKK Thailand</b></label>
+														{% if part.level == 0 %}
+														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Assembly</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp" name="ccs-ppp">-</label>
+														{% endif %}
 													</div>
 												</div>
 												<div class="form-group">
 													<div class="col-md-4 labcustom">
+														{% if part.level == 0 %}
 														<label class="col-sm-7 control-label text-right labcustom"><b>DDP USD</b></label>
 														<label class="col-sm-5 control-label text-left labcustom" id="ddp-usd" name="ddp-usd">-</label>
+														{% endif %}
 													</div>
 													<div class="col-md-4 labcustom">
 														<!-- Empty -->
@@ -1050,7 +1054,7 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 														<thead>
-															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost</th>
+															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost (Only This Level)</th>
 															<tr>
 														    <th class="center custom2">Total Cost</th>
 														    <th class="center custom2">Mtl Cost</th>
@@ -1198,7 +1202,7 @@
 		var hardware_qty = parseFloat($( "#hardware-qty" ).text()); // NO RESTATE
 		var hardware_price = parseFloat($( "#hardware-price" ).text());
 
-		// -- Rate and Process --
+		// -- Rate & Process --
 		// - Active Rate -
 		var rate_cla = parseFloat($( "#rate-cla" ).text());
 		var rate_bta = parseFloat($( "#rate-bta" ).text());
@@ -1295,7 +1299,7 @@
 		// Total Raw Material Weight Per Year = Total RM Weight * Annual Estimate Qty for Calculation
 		var trmwpy = rm_total_weight * aeqfc;
 
-		// -- Rate and Process --
+		// -- Rate & Process --
 		// Production Qty = Annual Estimate Qty for Calculation / 4
 		var production_qty = aeqfc / 4;
 
@@ -1352,9 +1356,9 @@
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
 		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
-		// CCS Price Per Part/Assy Ex_works BKK Thailand = SUM(CCS Ex-works Price) of all child and itself
+		// CCS Price Per Assembly = SUM(CCS Ex-works Price) of all child & itself
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
-		// DDP USD = CCS Price Per Part/Assy Ex_works BKK Thailand + (Shipping Cost * Approximate Finished Part Weight Per Part)
+		// DDP USD = CCS Price Per Assembly + (Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (shipping_cost * afpwpp);
 		// EBQ_CCS QTY (Prodn Lot) = Annual Estimate Qty for Calculation / 4  <EDITABLE>
 		var ebq_ccs_qty = aeqfc / 4;
@@ -1367,8 +1371,8 @@
 		var moq_rm_order = (aeqfc * armwpp) / 4;
 		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
 		var oyrmb = trmwpy;
-		// Total Cost = CCS Price Per Part/Assy Ex_works BKK Thailand * Annual Estimate Qty for Calculation
-		var total_cost = ccs_ppp * aeqfc;
+		// Total Cost = CCS Ex-works Price * Annual Estimate Qty for Calculation
+		var total_cost = ccs_ewp * aeqfc;
 		// Mtl Cost = Material Cost DDP CCS * Annual Estimate Qty for Calculation
 		var mtl_cost = material_cost * aeqfc;
 		// Spl Process Cost = Surface Treatment Cost * Annual Estimate Qty for Calculation
@@ -1461,7 +1465,7 @@
 		$( "#armwpp" ).text(armwpp);
 		$( "#trmwpy" ).text(trmwpy);
 
-		// -- Rate and Process --
+		// -- Rate & Process --
 		$( "#production-qty" ).text(production_qty);
 
 		// -- Part Costing --
@@ -1631,7 +1635,7 @@
 		$( "#armwpp" ).text(armwpp.toFixed(2));
 		$( "#trmwpy" ).text(trmwpy.toFixed(2));
 
-		// -- Rate and Process --
+		// -- Rate & Process --
 		$( "#production-qty" ).text(production_qty.toFixed(2));
 
 		// -- Part Costing --
