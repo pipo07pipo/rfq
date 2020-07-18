@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Roles, ExtendUser,RFQ, SP_Rate, Active_Rate, Part_Header, SPS, Forecast, Material, Part_Costing, MSUT, CTPP, Output, Hardware, Burden_Rate
+from .models import SP_Master, Roles, ExtendUser,RFQ, SP_Rate, Active_Rate, Part_Header, SPS, Forecast, Material, Part_Costing, MSUT, CTPP, Output, Hardware, Burden_Rate
 # Register your models here.
 admin.site.register(RFQ)
 admin.site.register(SP_Rate)
@@ -16,3 +16,4 @@ admin.site.register(ExtendUser)
 admin.site.register(Hardware)
 admin.site.register(Burden_Rate)
 admin.site.register(Roles)
+admin.site.register(SP_Master)
