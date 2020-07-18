@@ -951,7 +951,7 @@ def add_sp_master(request):
 def set_sp(part,master):
     pass
 
-def edit_sp_set(request):
+def edit_sp_set(request,sl_no):
     context = {
     }
     return render(request, 'rfqsite/edit_sp_set.html', context)
