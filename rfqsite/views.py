@@ -55,6 +55,7 @@ def rfq_summary(request, tracker_no):
     mtl_cost_td = 0
     spl_process_cost_td = 0
     total_hardware_cost_td = 0
+    total_machine_cost_td = 0
     mcrftp_cla_t = 0
     mcrftp_bta_t = 0
     mcrftp_tma_t = 0
@@ -71,6 +72,7 @@ def rfq_summary(request, tracker_no):
         mtl_cost_td += op.mtl_cost
         spl_process_cost_td += op.spl_process_cost
         total_hardware_cost_td += op.total_hardware_cost
+        total_machine_cost_td += op.total_machine_cost
         mcrftp_cla_t += op.mcrftp_cla
         mcrftp_bta_t += op.mcrftp_bta
         mcrftp_tma_t += op.mcrftp_tma
@@ -86,6 +88,7 @@ def rfq_summary(request, tracker_no):
         'mtl_cost_td': mtl_cost_td,
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
+        'total_machine_cost_td': total_machine_cost_td,
         'mcrftp_cla_t': mcrftp_cla_t,
         'mcrftp_bta_t': mcrftp_bta_t,
         'mcrftp_tma_t': mcrftp_tma_t,
@@ -719,6 +722,7 @@ def data_collect(request):
         editO.mtl_cost = unNan(request.GET.get('mtl_cost'))
         editO.spl_process_cost = unNan(request.GET.get('spl_process_cost'))
         editO.total_hardware_cost = unNan(request.GET.get('total_hardware_cost'))
+        editO.total_machine_cost = unNan(request.GET.get('total_machine_cost'))
         editO.mcrftp_cla = unNan(request.GET.get('mcrftp_cla'))
         editO.mcrftp_bta = unNan(request.GET.get('mcrftp_bta'))
         editO.mcrftp_tma = unNan(request.GET.get('mcrftp_tma'))

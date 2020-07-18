@@ -148,6 +148,7 @@ class Output(models.Model):
     mtl_cost = models.FloatField(default=0)
     spl_process_cost = models.FloatField(default=0)
     total_hardware_cost = models.FloatField(default=0)
+    total_machine_cost = models.FloatField(default=0)
     mcrftp_cla = models.FloatField(default=0)
     mcrftp_bta = models.FloatField(default=0)
     mcrftp_tma = models.FloatField(default=0)
