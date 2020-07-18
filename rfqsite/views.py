@@ -898,4 +898,4 @@ def select_sp_set(request,sl_no):
             'part': part,
             'sp_set': sp_set
     }
-    return render(request, 'rfqsite/selelct_sp_set.html', context)
+    return render(request, 'rfqsite/select_sp_set.html', context)
