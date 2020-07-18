@@ -62,7 +62,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/edit_sp_rate_confirm/" method="POST" class="form-horizontal">
+							<form id="form" action="/edit_sp_set_confirm/" method="POST" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -79,15 +79,19 @@
 											<label class="col-sm-2 text-center"><b>Rate</b></label>
 											<label class="col-sm-4 text-center"><b>Specification</b></label>
 										</div>
+
+										{% for sp in sp_set %}
 										<div class="form-group">
-											<label class="col-sm-3 control-label"><b>NAME <font class="text-danger">*</font></b></label>
+											<label class="col-sm-3 control-label"><b>{{ sp.sp_id.name }} <font class="text-danger">*</font></b></label>
 											<div class="col-sm-2">
-												<input type="number" step="any" class="form-control" id="" name="" value="" required>
+												<input type="number" step="any" class="form-control" id="sp-rate-{{ forloop.counter0 }}" name="sp-rate-{{ forloop.counter0 }}" value="{{ sp.rate }}" required>
 											</div>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="" name="" value="" required>
+												<input type="text" class="form-control" id="sp-spec-{{ forloop.counter0 }}" name="sp-spec-{{ forloop.counter0 }}" required>
 											</div>
 										</div>
+										{% endfor %}
+
 									</div>
 									<footer class="panel-footer">
 										<div class="row">

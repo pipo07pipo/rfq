@@ -691,6 +691,7 @@
 														<td class="center" id="sp-spec-{{ forloop.counter0 }}" name="sp-spec-{{ forloop.counter0 }}">{{ sp.spec }}</td>
 													</tr>
 													{% endfor %}
+													{% if sp_set.count == 0 %}<tr><td class="center" colspan="3">This part has no special process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 											</div>
@@ -874,6 +875,7 @@
 														<td class="center" id="sp-cost-{{ forloop.counter0 }}" name="sp-cost-{{ forloop.counter0 }}">-</td>
 													</tr>
 													{% endfor %}
+													{% if sp_set.count == 0 %}<tr><td class="center" colspan="2">This part has no special process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 											</div>
