@@ -74,12 +74,12 @@
 									</header>
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
-
 										{% for sp in sp_master %}
 										<div class="form-group">
 											<div class="col-sm-6">
-												<div class="checkbox">
-													<label><input type="checkbox" id="{{ sp.sp_id.id }}" name="{{ sp.sp_id.id }}" {% if sp.id in sp_set.sp_id.id %}checked{% endif %}>{{ sp.name }}</label>
+												<div class="checkbox-custom checkbox-default">
+														<input type="checkbox" id="{{ sp.sp_id.id }}" name="{{ sp.sp_id.id }}" {% if sp.id in select_id %}checked{% endif %}>
+														<label>{{ sp.name }}</label>
 												</div>
 											</div>
 										</div>
