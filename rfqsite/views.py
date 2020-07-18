@@ -932,4 +932,4 @@ def remove_part(request, sl_no):
 def master_table(request):
     context = {
     }
-    return render(request, 'rfqsite/edit_user.html', context)
+    return render(request, 'rfqsite/master_table.html', context)
