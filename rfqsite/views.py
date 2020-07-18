@@ -884,7 +884,7 @@ def set_sp(part,master):
 
 def edit_sp_set(request,sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
-    sp_set = SP_Set.objects.all()
+    sp_set = SP_Set.objects.get(sl_no=part)
     context = {
             'part': part,
             'sp_set': sp_set
@@ -902,6 +902,6 @@ def select_sp_set(request,sl_no):
     }
     return render(request, 'rfqsite/select_sp_set.html', context)
 
-def select_sp_set(request):
+def select_sp_set_confirm(request):
     sl_no = request.POST.get('sl-no')
     return redirect('/edit_sp_set/'+str(sl_no))
