@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, SP_Rate, Forecast, SPS, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -151,23 +151,19 @@ def add_part_multi_confirm(request):
             newForecast.forecast_year3 = trans[i+4]
             newForecast.forecast_year4 = trans[i+5]
             newForecast.forecast_year5 = trans[i+6]
-            newSPS = SPS(sl_no=newPart)
             newMaterial = Material(sl_no=newPart)
             newMSUT = MSUT(sl_no=newPart)
             newCTPP = CTPP(sl_no=newPart)
             newPart_Costing = Part_Costing(sl_no=newPart)
-            newSP = SP_Rate(sl_no=newPart)
             newBR = Burden_Rate(sl_no=newPart)
             newHW = Hardware(sl_no=newPart)
             newO = Output(sl_no=newPart)
             newPart.save()
             newForecast.save()
-            newSPS.save()
             newMaterial.save()
             newMSUT.save()
             newCTPP.save()
             newPart_Costing.save()
-            newSP.save()
             newBR.save()
             newHW.save()
             newO.save()
@@ -183,23 +179,19 @@ def add_part_confirm(request):
         program = request.POST.get('program')
         newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
         newForecast = Forecast(sl_no=newPart)
-        newSPS = SPS(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
         newMSUT = MSUT(sl_no=newPart)
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
-        newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
         newO = Output(sl_no=newPart)
         newPart.save()
         newForecast.save()
-        newSPS.save()
         newMaterial.save()
         newMSUT.save()
         newCTPP.save()
         newPart_Costing.save()
-        newSP.save()
         newBR.save()
         newHW.save()
         newO.save()
@@ -277,37 +269,8 @@ def edit_active_rate_confirm(request):
         editAR.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
-@login_required(login_url='/login')
-def edit_sp_rate(request, sl_no):
-    if(get_perm(request.user) > 1):
-        return HttpResponseNotFound("Access Denied")
-    sp_rate = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-            'part': part,
-            'sp_rate': sp_rate
-    }
-    return render(request, 'rfqsite/edit_sp_rate.html', context)
 
-@login_required(login_url='/login')
-def edit_sp_rate_confirm(request):
-    if request.method == 'POST':
-        sl_no = request.POST.get('sl-no')
-        editSPR = SP_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editSPR.fpi = request.POST.get('rate-fpi')
-        editSPR.mpi = request.POST.get('rate-mpi')
-        editSPR.passivation = request.POST.get('rate-passivation')
-        editSPR.caa = request.POST.get('rate-caa')
-        editSPR.ccc = request.POST.get('rate-ccc')
-        editSPR.saa = request.POST.get('rate-saa')
-        editSPR.hard_anodizing = request.POST.get('rate-hard-anodizing')
-        editSPR.dfl = request.POST.get('rate-dfl')
-        editSPR.paint = request.POST.get('rate-paint')
-        editSPR.cadmium_plating = request.POST.get('rate-cadmium-plating')
-        editSPR.chrome_plating = request.POST.get('rate-chrome-plating')
-        editSPR.heat_treatment = request.POST.get('rate-heat-treatment')
-        editSPR.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
+
 
 @login_required(login_url='/login')
 def part_info(request, sl_no):
@@ -322,12 +285,10 @@ def part_info(request, sl_no):
     parts = [tree]
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
-    sps = SPS.objects.get(sl_no=part)
     msut = MSUT.objects.get(sl_no=part)
     ctpp = CTPP.objects.get(sl_no=part)
     part_costing = Part_Costing.objects.get(sl_no=part)
     active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
-    sp_rate = SP_Rate.objects.get(sl_no=part)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
     sp_set = SP_Set.objects.filter(sl_no=part)
@@ -354,12 +315,10 @@ def part_info(request, sl_no):
         'parts': parts,
         'forecast': forecast,
         'material': material,
-        'sps': sps,
         'msut': msut,
         'ctpp': ctpp,
         'part_costing': part_costing,
         'active_rate': active_rate,
-        'sp_rate': sp_rate,
         'burden_rate': burden_rate,
         'hardware': hardware,
         'sum_child': sum_child,
@@ -486,32 +445,6 @@ def edit_ctpp_confirm(request):
         editCtpp.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
-@login_required(login_url='/login')
-def edit_sps(request, sl_no):
-    if(get_perm(request.user) > 1):
-        return HttpResponseNotFound("Access Denied")
-    sps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-        'part': part,
-        'sps': sps
-    }
-    return render(request, 'rfqsite/edit_sps.html', context)
-
-@login_required(login_url='/login')
-def edit_sps_confirm(request):
-    sl_no = request.POST.get('sl-no')
-    if request.method == 'POST':
-        editsps = SPS.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editsps.surface_treatment = request.POST.get('sps-surface-treatment')
-        editsps.ht = request.POST.get('sps-ht')
-        editsps.fpi = request.POST.get('sps-fpi')
-        editsps.mpi = request.POST.get('sps-mpi')
-        editsps.primer = request.POST.get('sps-primer')
-        editsps.solid_film = request.POST.get('sps-solid-film')
-        editsps.pmr = request.POST.get('sps-pmr')
-        editsps.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
 
 @login_required(login_url='/login')
 def edit_msut(request, sl_no):
@@ -628,23 +561,19 @@ def add_child_confirm(request):
         type = request.POST.get('type')
         newPart = Part_Header(type=type,tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program, parent_sl_no=Part_Header.objects.get(pk=sl_no))
         newForecast = Forecast(sl_no=newPart, forecast_year1=fco.forecast_year1, forecast_year2=fco.forecast_year2, forecast_year3=fco.forecast_year3, forecast_year4=fco.forecast_year4, forecast_year5=fco.forecast_year5)
-        newSPS = SPS(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
         newMSUT = MSUT(sl_no=newPart)
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
-        newSP = SP_Rate(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
         newO = Output(sl_no=newPart)
         newPart.save()
         newForecast.save()
-        newSPS.save()
         newMaterial.save()
         newMSUT.save()
         newCTPP.save()
         newPart_Costing.save()
-        newSP.save()
         newBR.save()
         newHW.save()
         newO.save()

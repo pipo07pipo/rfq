@@ -32,20 +32,6 @@ class Part_Header(models.Model):
     image_path = models.CharField(max_length=200, default='')
     type = models.CharField(max_length=50, default='Part')
 
-class SP_Rate(models.Model):
-    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    fpi = models.FloatField(default=1)
-    mpi = models.FloatField(default=1)
-    passivation = models.FloatField(default=1)
-    caa = models.FloatField(default=1)
-    saa = models.FloatField(default=1)
-    hard_anodizing = models.FloatField(default=1)
-    ccc = models.FloatField(default=1)
-    dfl = models.FloatField(default=1)
-    paint = models.FloatField(default=1)
-    cadmium_plating = models.FloatField(default=1)
-    chrome_plating = models.FloatField(default=1)
-    heat_treatment = models.FloatField(default=1)
 
 class Active_Rate(models.Model):
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
@@ -61,15 +47,6 @@ class Active_Rate(models.Model):
     deburring = models.FloatField(default=1)
     inspection = models.FloatField(default=1)
 
-class SPS(models.Model):
-    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    surface_treatment = models.CharField(max_length=200, default='')
-    ht = models.CharField(max_length=200, default='')
-    fpi = models.CharField(max_length=200, default='')
-    mpi = models.CharField(max_length=200, default='')
-    primer = models.CharField(max_length=200, default='')
-    solid_film = models.CharField(max_length=200, default='')
-    pmr = models.CharField(max_length=200, default='')
 
 class Forecast(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
