@@ -35,6 +35,7 @@ def rfq_table(request):
 @login_required(login_url='/login')
 def parts(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
+    act_set = ACT_Set.objects.filter(tracker_no=project).order_by('mc_id')
     if(len(project.file_path.split('/')) == 3 ):
         file_name = project.file_path.split('/')[2]
     else:
@@ -42,6 +43,7 @@ def parts(request, tracker_no):
     parts = [part for part in Part_Header.objects.filter(tracker_no=tracker_no,level=0)]
 
     context = {
+        'act_set': act_set,
         'project': project,
         'parts': parts,
         'file_name': file_name
