@@ -609,43 +609,6 @@
 												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate & Process</h2>
 									</header>
 									<div class="panel-body">
-												<!-- Active Rate -->
-												<div class="table-responsive">
-													<table class="table table-bordered table-striped table-condensed mb-none" hidden>
-														<thead>
-															<th class="center custom1" colspan="11" scope="colgroup">Active Rate</th>
-															<tr>
-																<th class="center custom2">CLA</th>
-																<th class="center custom2">BTA</th>
-																<th class="center custom2">TMA</th>
-																<th class="center custom2">MCA 3 Axis</th>
-																<th class="center custom2">MCA 4 Axis</th>
-																<th class="center custom2">HMC</th>
-																<th class="center custom2">5 Axis</th>
-																<th class="center custom2">EDM</th>
-																<th class="center custom2">Grinding</th>
-																<th class="center custom2">Deburring/Cleaning</th>
-																<th class="center custom2">Inspection</th>
-															</tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td class="center" id="rate-cla" name="rate-cla">{{ active_rate.cla }}</td>
-																<td class="center" id="rate-bta" name="rate-bta">{{ active_rate.bta }}</td>
-																<td class="center" id="rate-tma" name="rate-tma">{{ active_rate.tma }}</td>
-																<td class="center" id="rate-mca3axis" name="rate-mca3axis">{{ active_rate.mca3axis }}</td>
-																<td class="center" id="rate-mca4axis" name="rate-mca4axis">{{ active_rate.mca4axis }}</td>
-																<td class="center" id="rate-hmc" name="rate-hmc">{{ active_rate.hmc }}</td>
-																<td class="center" id="rate-5axis" name="rate-5axis">{{ active_rate.axis5 }}</td>
-																<td class="center" id="rate-edm" name="rate-edm">{{ active_rate.edm }}</td>
-																<td class="center" id="rate-grinding" name="rate-grinding">{{ active_rate.grinding }}</td>
-																<td class="center" id="rate-deburring" name="rate-deburring">{{ active_rate.deburring }}</td>
-																<td class="center" id="rate-inspection" name="rate-inspection">{{ active_rate.inspection }}</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-												<!-- <br> -->
 												<!-- Burden Rate -->
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none">
@@ -726,6 +689,7 @@
 													{% for mc in mc_set %}
 													<tr>
 														<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
+														<td class="center" id="mc-id-{{ forloop.counter0 }}" name="mc-id-{{ forloop.counter0 }}" hidden>{{ mc.act_id.mc_id.id }}</td>
 														<td class="center" id="act-rate-{{ forloop.counter0 }}" name="act-rate-{{ forloop.counter0 }}">{{ mc.act_id.rate }}</td>
 														<td class="center" id="mc-msut-{{ forloop.counter0 }}" name="mc-msut-{{ forloop.counter0 }}">{{ mc.msut }}</td>
 														<td class="center" id="mc-ctpp-{{ forloop.counter0 }}" name="mc-ctpp-{{ forloop.counter0 }}">{{ mc.ctpp }}</td>
@@ -1127,10 +1091,12 @@
 		// - Activity Rate -
 		// - Machining Set Up Time (Minutes) - NO RESTATE
 		// - Cycle Time Per Part (Minutes)  - NO RESTATE
+		// - MC ID - NO RESTATE
 		var mc_set_size = $( "#mc-set-size" ).val();
 		var arr_act_rate = [];
 		var arr_mc_msut = [];
 		var arr_mc_ctpp = [];
+		var arr_mc_id = [];
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#act-rate-" + i;
 			arr_act_rate[i] =  parseFloat($( text ).text());
@@ -1138,6 +1104,8 @@
 			arr_mc_msut[i] =  parseFloat($( text ).text());
 			var text = "#mc-ctpp-" + i;
 			arr_mc_ctpp[i] =  parseFloat($( text ).text());
+			var text = "#mc-id-" + i;
+			arr_mc_id[i] =  parseFloat($( text ).text());
 		}
 
 		// -- Part Costing --
@@ -1294,7 +1262,7 @@
 			var text = "#sp-rate-" + i;
 			$( text ).text(arr_sp_rate[i]);
 		}
-		// - Machining Process Rate/MSUT/CTPP -
+		// - Machining Process Rate/MSUT/CTPP
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#act-rate-" + i;
 			$( text ).text(arr_act_rate[i]);
@@ -1393,17 +1361,10 @@
 					'mtl_cost' : mtl_cost,
 					'spl_process_cost' : spl_process_cost,
 					'total_hardware_cost' : total_hardware_cost,
-					'total_machine_cost' : total_machine_cost
+					'total_machine_cost' : total_machine_cost,
 
-					// 'mcrftp_cla' : mcrftp_cla,
-					// 'mcrftp_bta' : mcrftp_bta,
-					// 'mcrftp_tma' : mcrftp_tma,
-					// 'mcrftp_mca3axis' : mcrftp_mca3axis,
-					// 'mcrftp_mca4axis' : mcrftp_mca4axis,
-					// 'mcrftp_hmc' : mcrftp_hmc,
-					// 'mcrftp_5axis' : mcrftp_5axis,
-					// 'mcrftp_edm' : mcrftp_edm,
-					// 'mcrftp_grinding' : mcrftp_grinding
+					'arr_mc_id' : arr_mc_id,
+					'arr_mc_mcrftp' : arr_mc_mcrftp
 
         },
         dataType: 'json',
