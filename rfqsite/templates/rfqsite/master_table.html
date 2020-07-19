@@ -103,20 +103,15 @@
 										<table class="table table-bordered table-striped mb-none" id="datatable-default">
 											<thead>
 												<tr>
-													<th class="center custom1" colspan="2">Machining Process</th>
-												</tr>
-												<tr>
-													<th class="center custom2">Name</th>
-													<th class="center custom2">Rate</th>
+													<th class="center custom1">Machining Process</th>
 												</tr>
 											</thead>
 											<tbody>
 			                {% for mc in mc_masters %}
 												<tr>
 													<td class="center">{{ mc.name }}</td>
-													<td class="center">{{ mc.rate }}</td>
 												</tr>
-			                {% endfor %}			
+			                {% endfor %}
 											</tbody>
 										</table>
 								</div>
