@@ -184,3 +184,4 @@ class MC_Set(models.Model):
     act_id = models.ForeignKey(ACT_Set, on_delete=models.CASCADE)
     msut = models.FloatField(default=0)
     ctpp = models.FloatField(default=0)
+    mcrftp = models.FloatField(default=0)

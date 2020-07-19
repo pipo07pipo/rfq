@@ -58,15 +58,6 @@ def rfq_summary(request, tracker_no):
     spl_process_cost_td = 0
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
-    mcrftp_cla_t = 0
-    mcrftp_bta_t = 0
-    mcrftp_tma_t = 0
-    mcrftp_mca3axis_t = 0
-    mcrftp_mca4axis_t = 0
-    mcrftp_hmc_t = 0
-    mcrftp_5axis_t = 0
-    mcrftp_edm_t = 0
-    mcrftp_grinding_t = 0
     all_part = Part_Header.objects.filter(tracker_no=project)
     for item in all_part:
         op = Output.objects.get(sl_no=item)
@@ -75,15 +66,17 @@ def rfq_summary(request, tracker_no):
         spl_process_cost_td += op.spl_process_cost
         total_hardware_cost_td += op.total_hardware_cost
         total_machine_cost_td += op.total_machine_cost
-        mcrftp_cla_t += op.mcrftp_cla
-        mcrftp_bta_t += op.mcrftp_bta
-        mcrftp_tma_t += op.mcrftp_tma
-        mcrftp_mca3axis_t += op.mcrftp_mca3axis
-        mcrftp_mca4axis_t += op.mcrftp_mca4axis
-        mcrftp_hmc_t += op.mcrftp_hmc
-        mcrftp_5axis_t += op.mcrftp_5axis
-        mcrftp_edm_t += op.mcrftp_edm
-        mcrftp_grinding_t += op.mcrftp_grinding
+    all_act = ACT_Set.objects.filter(tracker_no=project)
+    sum = {}
+    for act in all_act:
+        amc = MC_Set.objects.filter(act_id=act)
+        for mc in amc:
+            if mc.act_id.mc_id.name in sum:
+                sum[mc.act_id.mc_id.name] += mc.mcrftp
+            else:
+                sum[mc.act_id.mc_id.name] = mc.mcrftp
+    mc_set = [MC(x,sum[x]) for x in sum]
+    print(mc_set)
     context = {
         'project': project,
         'total_cost_td': total_cost_td,
@@ -91,18 +84,15 @@ def rfq_summary(request, tracker_no):
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
-        'mcrftp_cla_t': mcrftp_cla_t,
-        'mcrftp_bta_t': mcrftp_bta_t,
-        'mcrftp_tma_t': mcrftp_tma_t,
-        'mcrftp_mca3axis_t': mcrftp_mca3axis_t,
-        'mcrftp_mca4axis_t': mcrftp_mca4axis_t,
-        'mcrftp_hmc_t': mcrftp_hmc_t,
-        'mcrftp_5axis_t': mcrftp_5axis_t,
-        'mcrftp_edm_t': mcrftp_edm_t,
-        'mcrftp_grinding_t': mcrftp_grinding_t
+        'mc_set': mc_set
     }
     return render(request, 'rfqsite/rfq_summary.html', context)
 
+class MC:
+    def __init__(self, name, mcrftp):
+        self.name = name
+        self.mcrftp = mcrftp
+        
 @login_required(login_url='/login')
 def add_part(request, tracker_no):
     if(get_perm(request.user) > 1):
@@ -727,16 +717,15 @@ def data_collect(request):
         editO.spl_process_cost = unNan(request.GET.get('spl_process_cost'))
         editO.total_hardware_cost = unNan(request.GET.get('total_hardware_cost'))
         editO.total_machine_cost = unNan(request.GET.get('total_machine_cost'))
-        editO.mcrftp_cla = unNan(request.GET.get('mcrftp_cla'))
-        editO.mcrftp_bta = unNan(request.GET.get('mcrftp_bta'))
-        editO.mcrftp_tma = unNan(request.GET.get('mcrftp_tma'))
-        editO.mcrftp_mca3axis = unNan(request.GET.get('mcrftp_mca3axis'))
-        editO.mcrftp_mca4axis = unNan(request.GET.get('mcrftp_mca4axis'))
-        editO.mcrftp_hmc = unNan(request.GET.get('mcrftp_hmc'))
-        editO.mcrftp_5axis = unNan(request.GET.get('mcrftp_5axis'))
-        editO.mcrftp_edm = unNan(request.GET.get('mcrftp_edm'))
-        editO.mcrftp_grinding = unNan(request.GET.get('mcrftp_grinding'))
         editO.save()
+        id = request.GET.getlist('arr_mc_id[]')
+        value = request.GET.getlist('arr_mc_mcrftp[]')
+        print(request.GET)
+        for i in range(len(id)):
+            act = ACT_Set.objects.get(id=id[i])
+            mc = MC_Set.objects.get(sl_no=sl_no,act_id=act)
+            mc.mcrftp = unNan(value[i])
+            mc.save()
     return HttpResponse("OK")
 
 class Part_Tree:

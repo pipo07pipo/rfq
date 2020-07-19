@@ -689,7 +689,7 @@
 													{% for mc in mc_set %}
 													<tr>
 														<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
-														<td class="center" id="mc-id-{{ forloop.counter0 }}" name="mc-id-{{ forloop.counter0 }}" hidden>{{ mc.act_id.mc_id.id }}</td>
+														<td class="center" id="mc-id-{{ forloop.counter0 }}" name="mc-id-{{ forloop.counter0 }}" hidden>{{ mc.act_id.id }}</td>
 														<td class="center" id="act-rate-{{ forloop.counter0 }}" name="act-rate-{{ forloop.counter0 }}">{{ mc.act_id.rate }}</td>
 														<td class="center" id="mc-msut-{{ forloop.counter0 }}" name="mc-msut-{{ forloop.counter0 }}">{{ mc.msut }}</td>
 														<td class="center" id="mc-ctpp-{{ forloop.counter0 }}" name="mc-ctpp-{{ forloop.counter0 }}">{{ mc.ctpp }}</td>
