@@ -1065,13 +1065,13 @@ def edit_mc_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         for item in request.POST:
-            if('msut' in item):
-                id = int(item.replace('msut-',''))
+            if('mc-msut' in item):
+                id = int(item.replace('mc-msut-',''))
                 emc1 = MC_Set.objects.get(sl_no=sl_no,act_id=ACT_Set.objects.get(id=id))
                 emc1.msut = request.POST.get(item)
                 emc1.save()
-            elif('ctpp' in item):
-                id = int(item.replace('ctpp-',''))
+            elif('mc-ctpp' in item):
+                id = int(item.replace('mc-ctpp-',''))
                 emc2 = MC_Set.objects.get(sl_no=sl_no,act_id=ACT_Set.objects.get(id=id))
                 emc2.ctpp = request.POST.get(item)
                 emc2.save()
