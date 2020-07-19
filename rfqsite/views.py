@@ -992,7 +992,7 @@ def select_act_set_confirm(request):
                     newact.save()
                     edit = 1
         if(edit == 1):
-            return redirect('/edit_act_set/'+str(sl_no)+'/?message=1')
+            return redirect('/edit_act_set/'+str(tracker_no)+'/?message=1')
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 def edit_act_set(request,tracker_no):
