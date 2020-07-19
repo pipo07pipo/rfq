@@ -609,6 +609,29 @@
 												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate & Process</h2>
 									</header>
 									<div class="panel-body">
+												<!-- NEW ENTRY -->
+												<!-- Activity Rate -->
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped table-condensed mb-none">
+													<thead>
+														<th class="center custom1" colspan="3" scope="colgroup">Activity Rate</th>
+														<tr>
+															<th class="center custom2">Name</th>
+															<th class="center custom2">Rate</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for act in act_set %}
+														<tr>
+															<td class="center"><b>{{ act.mc_id.name }}</b></td>
+															<td class="center" id="act-rate-{{ forloop.counter0 }}" name="act-rate-{{ forloop.counter0 }}">{{ act.rate }}</td>
+														</tr>
+														{% endfor %}
+														{% if act_set.count != 0 %}<tr><td class="center" colspan="3">This part has no activity rate.</td></tr>{% endif %}
+													</tbody>
+													</table>
+												</div>
+												<!-- END NEW ENTRY -->
 												<!-- Active Rate -->
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none" hidden>
@@ -655,6 +678,7 @@
 															<th class="center custom2">Material</th>
 															<th class="center custom2">Hardware</th>
 															<th class="center custom2">Subcontract</th>
+															<th class="center custom2">Special Process</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -662,6 +686,7 @@
 															<td class="center" id="rate-material" name="rate-material">{{ burden_rate.material }}</td>
 															<td class="center" id="rate-hardware" name="rate-hardware">{{ burden_rate.hardware }}</td>
 															<td class="center" id="rate-subcontract" name="rate-subcontract">{{ burden_rate.subcontract }}</td>
+															<td class="center" id="rate-sp" name="rate-sp">{{ burden_rate.sp }}</td>
 														</tr>
 													</tbody>
 												</table>
@@ -701,6 +726,44 @@
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_set/{{ part.sl_no }}" {% if sp_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit</a>
 												{% endif %}
 											</div>
+											<!-- NEW ENTRY -->
+											<!-- Machining Process -->
+											<div class="form-group">
+												<label class="col-sm-3 control-label"><b>Production Qty</b></label>
+												<div class="col-sm-9">
+													<label class="control-label" id="production-qty" name="production-qty">-</label>
+												</div>
+											</div>
+											<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set.count }}" hidden>
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+												<thead>
+													<th class="center custom1" colspan="3" scope="colgroup">Machining Process</th>
+													<tr>
+														<th class="center custom2">Name</th>
+														<th class="center custom2">Machining Set Up Time (Minutes)</th>
+														<th class="center custom2">Cycle Time Per Part (Minutes)</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for mc in mc_set %}
+													<tr>
+														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center" id="mc-msut-{{ forloop.counter0 }}" name="mc-msut-{{ forloop.counter0 }}">{{ mc.msut }}</td>
+														<td class="center" id="mc-ctpp-{{ forloop.counter0 }}" name="mc-ctpp-{{ forloop.counter0 }}">{{ mc.ctpp }}</td>
+													</tr>
+													{% endfor %}
+													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+												</tbody>
+											</table>
+											</div>
+											<div class="text-right mr-lg">
+												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/select_mc_set/{{ part.sl_no }}"><i class="fa fa-check-square-o"></i> Select</a>
+												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_mc_set/{{ part.sl_no }}" {% if mc_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit</a>
+												{% endif %}
+											</div>
+											<!-- END NEW ENTRY -->
 											<!-- Machining Set Up Time (Minutes) -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -800,6 +863,31 @@
 												<h2 class="panel-title"><i class="fa fa-dollar"></i> Part Costing</h2>
 									</header>
 									<div class="panel-body">
+											<!-- NEW ENTRY -->
+											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+												<thead>
+													<th class="center custom1" colspan="3" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
+													<tr>
+														<th class="center custom2">Name</th>
+														<th class="center custom2">Time (Minutes)</th>
+														<th class="center custom2">Cost (Dollar)</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for mc in mc_set %}
+													<tr>
+														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center" id="mc-tctt-{{ forloop.counter0 }}" name="mc-tctt-{{ forloop.counter0 }}">-</td>
+														<td class="center" id="mc-tctc-{{ forloop.counter0 }}" name="mc-tctc-{{ forloop.counter0 }}">-</td>
+													</tr>
+													{% endfor %}
+													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+												</tbody>
+											</table>
+											</div>
+											<!-- END NEW ENTRY -->
 											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -887,7 +975,6 @@
 												<div class="form-group">
 													<div class="col-md-3 labcustom">
 														<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
-														<!-- <label class="col-sm-5 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label> -->
 													</div>
 													<div class="col-md-8 labcustom">
 														<label class="col-sm-12 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
@@ -1052,7 +1139,7 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 														<thead>
-															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost (Only This Level)</th>
+															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost</th>
 															<tr>
 														    <th class="center custom2">Total Cost</th>
 														    <th class="center custom2">Mtl Cost</th>
@@ -1093,6 +1180,29 @@
 									</header>
 									<div class="panel-body">
 										<div class="table-responsive">
+											<!-- NEW ENTRY -->
+											<!-- Machining Capacity Required for the Project -->
+											<div class="table-responsive">
+												<table class="table table-bordered table-striped table-condensed mb-none">
+												<thead>
+													<th class="center custom1" colspan="3" scope="colgroup">Machining Capacity Required for the Project</th>
+													<tr>
+														<th class="center custom2">Name</th>
+														<th class="center custom2">Value</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for mc in mc_set %}
+													<tr>
+														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center" id="mc-mcrftp-{{ forloop.counter0 }}" name="mc-mcrftp-{{ forloop.counter0 }}">-</td>
+													</tr>
+													{% endfor %}
+													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+												</tbody>
+											</table>
+											</div>
+											<!-- END NEW ENTRY -->
 											<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
 														<th class="center custom1" colspan="9" scope="colgroup">Machining Capacity Required for the Project</th>
@@ -1217,12 +1327,25 @@
 		var rate_material = parseFloat($( "#rate-material" ).text());
 		var rate_hardware = parseFloat($( "#rate-hardware" ).text());
 		var rate_subcontract = parseFloat($( "#rate-subcontract" ).text());
+		var rate_sp = parseFloat($( "#rate-sp" ).text());
 		// - Special Process Rate -
 		var sp_set_size = $( "#sp-set-size" ).val();
 		var arr_sp_rate = [];
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
 			arr_sp_rate[i] =  parseFloat($( text ).text());
+		}
+		// - Machining Process -
+		// - Machining Set Up Time (Minutes) - NO RESTATE
+		// - Cycle Time Per Part (Minutes)  - NO RESTATE
+		var mc_set_size = $( "#mc-set-size" ).val();
+		var arr_mc_msut = [];
+		var arr_mc_ctpp = [];
+		for(var i = 0; i < mc_set_size;i++){
+			var text = "#mc-msut-" + i;
+			arr_mc_msut[i] =  parseFloat($( text ).text());
+			var text = "#mc-ctpp-" + i;
+			arr_mc_ctpp[i] =  parseFloat($( text ).text());
 		}
 		// - Machining Set Up Time (Minutes) - NO RESTATE
 		var msut_cla = parseFloat($( "#msut-cla" ).text());
@@ -1303,6 +1426,14 @@
 
 		// -- Part Costing --
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
+		// Total Cycle Cost (Dollar) = (Active Rate / 60) * Total Cycle Time
+		var arr_mc_tctt = [];
+		var arr_mc_tctc = [];
+		for(var i = 0; i < mc_set_size;i++){
+			arr_mc_tctt[i] = (arr_mc_msut[i] / production_qty) + arr_mc_ctpp[i];
+			arr_mc_tctc[i] = (9999 / 60) + arr_mc_tctt[i];
+		}
+		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
 		var tctt_cla = (msut_cla / production_qty) + ctpp_cla;
 		var tctt_bta = (msut_bta / production_qty) + ctpp_bta;
 		var tctt_tma = (msut_tma / production_qty) + ctpp_tma;
@@ -1337,15 +1468,20 @@
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
 		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost)
+		// var manufacturing_cost = 0;
+		// for(var i = 0; i < mc_set_size;i++){
+		// 	manufacturing_cost = manufacturing_cost + arr_mc_tctc;
+		// }
 		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
 		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping;
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
-		// Surface Treatment Cost = SUM(Special Process Cost)
+		// Surface Treatment Cost = SUM(Special Process Cost) * Special Process Burden
 		var surface_treatment_cost = 0;
 		for(var i = 0; i < sp_set_size;i++){
 			surface_treatment_cost = surface_treatment_cost + arr_sp_cost[i];
 		}
+		surface_treatment_cost = surface_treatment_cost * rate_sp;
 		// Additional MFG OH Factor = Manufacturing Cost * 0.1
 		var additional_mfg = manufacturing_cost * 0.1;
 		// Profit Factor = Manufacturing Cost * 0.1
@@ -1382,6 +1518,10 @@
 
 		// -- Machining Capacity Required for the Project --
 		// Machining Capacity Required for the Project = Total Cycle Time * Annual Estimate Qty for Calculation
+		var arr_mc_mcrftp = [];
+		for(var i = 0; i < mc_set_size;i++){
+			arr_mc_mcrftp[i] = arr_mc_tctt[i] * aeqfc;
+		}
 		var mcrftp_cla = tctt_cla * aeqfc;
 		var mcrftp_bta = tctt_bta * aeqfc;
 		var mcrftp_tma = tctt_tma * aeqfc;
@@ -1428,6 +1568,7 @@
 		$( "#rate-material" ).text(rate_material);
 		$( "#rate-hardware" ).text(rate_hardware);
 		$( "#rate-subcontract" ).text(rate_subcontract);
+		$( "#rate-sp" ).text(rate_sp);
 		// - Special Process Rate -
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
@@ -1598,6 +1739,7 @@
 		$( "#rate-material" ).text(rate_material);
 		$( "#rate-hardware" ).text(rate_hardware);
 		$( "#rate-subcontract" ).text(rate_subcontract);
+		$( "#rate-sp" ).text(rate_sp);
 		// - Special Process Rate -
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
