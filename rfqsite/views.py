@@ -869,7 +869,7 @@ def master_table(request):
     mc_table = MC_Master.objects.all()
     context = {
         'sp_masters': sp_table,
-        'mc_tables': mc_table
+        'mc_masters': mc_table
     }
     return render(request, 'rfqsite/master_table.html', context)
 
