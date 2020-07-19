@@ -294,7 +294,7 @@ def part_info(request, sl_no):
     active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
-    sp_set = SP_Set.objects.filter(sl_no=part)
+    sp_set = SP_Set.objects.filter(sl_no=part).order_by('sp_id')
     sum_child = 0
     fchild = Part_Header.objects.filter(parent_sl_no=part)
     child = [x for x in fchild]
@@ -888,7 +888,7 @@ def set_sp(part,master):
 
 def edit_sp_set(request,sl_no):
     part = Part_Header.objects.get(sl_no=sl_no)
-    sp_set = SP_Set.objects.filter(sl_no=part)
+    sp_set = SP_Set.objects.filter(sl_no=part).order_by('sp_id')
     context = {
             'part': part,
             'sp_set': sp_set
