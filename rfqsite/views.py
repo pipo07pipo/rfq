@@ -936,7 +936,7 @@ def select_sp_set_confirm(request):
                 delsp = SP_Set.objects.filter(sl_no=sl_no,sp_id=sp)
                 delsp.delete()
             elif(request.POST.get(str(id)) == 'on'):
-                if(SP_Set.objects.filter(sp_id=sp)):
+                if(SP_Set.objects.filter(sp_id=sp,sl_no=sl_no)):
                     pass
                 else:
                     newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
