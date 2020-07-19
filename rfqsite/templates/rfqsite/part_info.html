@@ -731,7 +731,7 @@
 														<td class="center" id="mc-ctpp-{{ forloop.counter0 }}" name="mc-ctpp-{{ forloop.counter0 }}">{{ mc.ctpp }}</td>
 													</tr>
 													{% endfor %}
-													{% if mc_set.count != 0 %}<tr><td class="center" colspan="4">This part has no machining process.</td></tr>{% endif %}
+													{% if mc_set.count == 0 %}<tr><td class="center" colspan="4">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 											</div>
@@ -775,7 +775,7 @@
 														<td class="center" id="mc-tctc-{{ forloop.counter0 }}" name="mc-tctc-{{ forloop.counter0 }}">-</td>
 													</tr>
 													{% endfor %}
-													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+													{% if mc_set.count == 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 											</div>
@@ -1029,7 +1029,7 @@
 														<td class="center" id="mc-mcrftp-{{ forloop.counter0 }}" name="mc-mcrftp-{{ forloop.counter0 }}">-</td>
 													</tr>
 													{% endfor %}
-													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+													{% if mc_set.count == 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 										</div>
