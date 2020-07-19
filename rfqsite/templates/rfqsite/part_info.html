@@ -609,29 +609,6 @@
 												<h2 class="panel-title"><i class="fa fa-gears"></i> Rate & Process</h2>
 									</header>
 									<div class="panel-body">
-												<!-- NEW ENTRY -->
-												<!-- Activity Rate -->
-												<div class="table-responsive">
-													<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="3" scope="colgroup">Activity Rate</th>
-														<tr>
-															<th class="center custom2">Name</th>
-															<th class="center custom2">Rate</th>
-														</tr>
-													</thead>
-													<tbody>
-														{% for act in act_set %}
-														<tr>
-															<td class="center"><b>{{ act.mc_id.name }}</b></td>
-															<td class="center" id="act-rate-{{ forloop.counter0 }}" name="act-rate-{{ forloop.counter0 }}">{{ act.rate }}</td>
-														</tr>
-														{% endfor %}
-														{% if act_set.count != 0 %}<tr><td class="center" colspan="3">This part has no activity rate.</td></tr>{% endif %}
-													</tbody>
-													</table>
-												</div>
-												<!-- END NEW ENTRY -->
 												<!-- Active Rate -->
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none" hidden>
@@ -726,7 +703,6 @@
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_sp_set/{{ part.sl_no }}" {% if sp_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit</a>
 												{% endif %}
 											</div>
-											<!-- NEW ENTRY -->
 											<!-- Machining Process -->
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Production Qty</b></label>
@@ -738,9 +714,10 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="3" scope="colgroup">Machining Process</th>
+													<th class="center custom1" colspan="4" scope="colgroup">Machining Process</th>
 													<tr>
 														<th class="center custom2">Name</th>
+														<th class="center custom2">Activity Rate</th>
 														<th class="center custom2">Machining Set Up Time (Minutes)</th>
 														<th class="center custom2">Cycle Time Per Part (Minutes)</th>
 													</tr>
@@ -748,12 +725,13 @@
 												<tbody>
 													{% for mc in mc_set %}
 													<tr>
-														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
+														<td class="center" id="act-rate-{{ forloop.counter0 }}" name="act-rate-{{ forloop.counter0 }}">{{ mc.act_id.rate }}</td>
 														<td class="center" id="mc-msut-{{ forloop.counter0 }}" name="mc-msut-{{ forloop.counter0 }}">{{ mc.msut }}</td>
 														<td class="center" id="mc-ctpp-{{ forloop.counter0 }}" name="mc-ctpp-{{ forloop.counter0 }}">{{ mc.ctpp }}</td>
 													</tr>
 													{% endfor %}
-													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+													{% if mc_set.count != 0 %}<tr><td class="center" colspan="4">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
 											</table>
 											</div>
@@ -761,91 +739,6 @@
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/select_mc_set/{{ part.sl_no }}"><i class="fa fa-check-square-o"></i> Select</a>
 												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_mc_set/{{ part.sl_no }}" {% if mc_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit</a>
-												{% endif %}
-											</div>
-											<!-- END NEW ENTRY -->
-											<!-- Machining Set Up Time (Minutes) -->
-											<div class="table-responsive">
-												<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="9" scope="colgroup">Machining Set Up Time (Minutes)</th>
-														<th class="center custom1" rowspan="2" scope="colgroup">Production Qty</th>
-														<tr>
-													    <th class="center custom2">CLA</th>
-													    <th class="center custom2">BTA</th>
-													    <th class="center custom2">TMA</th>
-													    <th class="center custom2">MCA 3 Axis</th>
-															<th class="center custom2">MCA 4 Axis</th>
-															<th class="center custom2">HMC</th>
-															<th class="center custom2">5 Axis</th>
-															<th class="center custom2">EDM</th>
-															<th class="center custom2">Grinding</th>
-													  </tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center" id="msut-cla" name="msut-cla">{{ msut.cla }}</td>
-															<td class="center" id="msut-bta" name="msut-bta">{{ msut.bta }}</td>
-															<td class="center" id="msut-tma" name="msut-tma">{{ msut.tma }}</td>
-															<td class="center" id="msut-mca3axis" name="msut-mca3axis">{{ msut.mca3axis }}</td>
-															<td class="center" id="msut-mca4axis" name="msut-mca4axis">{{ msut.mca4axis }}</td>
-															<td class="center" id="msut-hmc" name="msut-hmc">{{ msut.hmc }}</td>
-															<td class="center" id="msut-5axis" name="msut-5axis">{{ msut.axis5 }}</td>
-															<td class="center" id="msut-edm" name="msut-edm">{{ msut.edm }}</td>
-															<td class="center" id="msut-grinding" name="msut-grinding">{{ msut.grinding }}</td>
-															<td class="center" id="production-qty" name="production-qty">-</td>
-														</tr>
-													</tbody>
-											</table>
-											</div>
-											<div class="text-right mr-lg">
-												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_msut/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-												{% endif %}
-											</div>
-											<!-- Cycle Time Per Part (Minutes) -->
-											<div class="table-responsive">
-												<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="13" scope="colgroup">Cycle Time Per Part (Minutes)</th>
-														<tr>
-													    <th class="center custom2">CLA</th>
-													    <th class="center custom2">BTA</th>
-													    <th class="center custom2">TMA</th>
-													    <th class="center custom2">MCA 3 Axis</th>
-															<th class="center custom2">MCA 4 Axis</th>
-															<th class="center custom2">HMC</th>
-															<th class="center custom2">5 Axis</th>
-															<th class="center custom2">EDM</th>
-															<th class="center custom2">Grinding</th>
-															<th class="center custom2">Inspection</th>
-															<th class="center custom2">Deburring</th>
-															<th class="center custom2">Assembly</th>
-															<th class="center custom2">Lapping/Honing</th>
-													  </tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center" id="ctpp-cla" name="ctpp-cla">{{ ctpp.cla }}</td>
-															<td class="center" id="ctpp-bta" name="ctpp-bta">{{ ctpp.bta }}</td>
-															<td class="center" id="ctpp-tma" name="ctpp-tma">{{ ctpp.tma }}</td>
-															<td class="center" id="ctpp-mca3axis" name="ctpp-mca3axis">{{ ctpp.mca3axis }}</td>
-															<td class="center" id="ctpp-mca4axis" name="ctpp-mca4axis">{{ ctpp.mca4axis }}</td>
-															<td class="center" id="ctpp-hmc" name="ctpp-hmc">{{ ctpp.hmc }}</td>
-															<td class="center" id="ctpp-5axis" name="ctpp-5axis">{{ ctpp.axis5 }}</td>
-															<td class="center" id="ctpp-edm" name="ctpp-edm">{{ ctpp.edm }}</td>
-															<td class="center" id="ctpp-grinding" name="ctpp-grinding">{{ ctpp.grinding }}</td>
-															<td class="center" id="ctpp-inspection" name="ctpp-inspection">{{ ctpp.inspection }}</td>
-															<td class="center" id="ctpp-deburring" name="ctpp-deburring">{{ ctpp.deburring }}</td>
-															<td class="center" id="ctpp-assembly" name="ctpp-assembly">{{ ctpp.assembly }}</td>
-															<td class="center" id="ctpp-lapping" name="ctpp-lapping">{{ ctpp.lapping }}</td>
-														</tr>
-													</tbody>
-											</table>
-											</div>
-											<div class="text-right mr-lg">
-												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-												<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_ctpp/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 												{% endif %}
 											</div>
 							    </div>
@@ -863,7 +756,6 @@
 												<h2 class="panel-title"><i class="fa fa-dollar"></i> Part Costing</h2>
 									</header>
 									<div class="panel-body">
-											<!-- NEW ENTRY -->
 											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -878,7 +770,7 @@
 												<tbody>
 													{% for mc in mc_set %}
 													<tr>
-														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
 														<td class="center" id="mc-tctt-{{ forloop.counter0 }}" name="mc-tctt-{{ forloop.counter0 }}">-</td>
 														<td class="center" id="mc-tctc-{{ forloop.counter0 }}" name="mc-tctc-{{ forloop.counter0 }}">-</td>
 													</tr>
@@ -886,65 +778,6 @@
 													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
 											</table>
-											</div>
-											<!-- END NEW ENTRY -->
-											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
-											<div class="table-responsive">
-												<table class="table table-bordered table-striped table-condensed mb-none">
-														<thead>
-															<th class="center custom1" colspan="14" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
-															<tr>
-																<th class="center custom1"></th>
-														    <th class="center custom2">CLA</th>
-														    <th class="center custom2">BTA</th>
-														    <th class="center custom2">TMA</th>
-														    <th class="center custom2">MCA 3 Axis</th>
-																<th class="center custom2">MCA 4 Axis</th>
-																<th class="center custom2">HMC</th>
-																<th class="center custom2">5 Axis</th>
-																<th class="center custom2">EDM</th>
-																<th class="center custom2">Grinding</th>
-																<th class="center custom2">Inspection</th>
-																<th class="center custom2">Debburing</th>
-																<th class="center custom2">Assembly</th>
-																<th class="center custom2">Lapping/Honing</th>
-														  </tr>
-														</thead>
-														<tbody>
-															<tr>
-																<td class="center custom1"><b>Time</b></td>
-																<td class="center" id="tctt-cla" name="tctt-cla">-</td>
-																<td class="center" id="tctt-bta" name="tctt-bta">-</td>
-																<td class="center" id="tctt-tma" name="tctt-tma">-</td>
-																<td class="center" id="tctt-mca3axis" name="tctt-mca3axis">-</td>
-																<td class="center" id="tctt-mca4axis" name="tctt-mca4axis">-</td>
-																<td class="center" id="tctt-hmc" name="tctt-hmc">-</td>
-																<td class="center" id="tctt-5axis" name="tctt-5axis">-</td>
-																<td class="center" id="tctt-edm" name="tctt-edm">-</td>
-																<td class="center" id="tctt-grinding" name="tctt-grinding">-</td>
-																<td class="center">-</td>
-																<td class="center">-</td>
-																<td class="center">-</td>
-																<td class="center">-</td>
-															</tr>
-															<tr>
-																<td class="center custom1"><b>Cost</b></td>
-																<td class="center" id="tctc-cla" name="tctc-cla">-</td>
-																<td class="center" id="tctc-bta" name="tctc-bta">-</td>
-																<td class="center" id="tctc-tma" name="tctc-tma">-</td>
-																<td class="center" id="tctc-mca3axis" name="tctc-mca3axis">-</td>
-																<td class="center" id="tctc-mca4axis" name="tctc-mca4axis">-</td>
-																<td class="center" id="tctc-hmc" name="tctc-hmc">-</td>
-																<td class="center" id="tctc-5axis" name="tctc-5axis">-</td>
-																<td class="center" id="tctc-edm" name="tctc-edm">-</td>
-																<td class="center" id="tctc-grinding" name="tctc-grinding">-</td>
-																<td class="center" id="tctc-inspection" name="tctc-inspection">-</td>
-																<td class="center" id="tctc-deburring" name="tctc-deburring">-</td>
-																<td class="center" id="tctc-assembly" name="tctc-assembly">-</td>
-																<td class="center" id="tctc-lapping" name="tctc-lapping">-</td>
-															</tr>
-														</tbody>
-												</table>
 											</div>
 											<br>
 											<!-- Special Process Cost (Dollar) -->
@@ -1179,8 +1012,6 @@
 												<h2 class="panel-title"><i class="fa fa-rocket"></i> Machining Capacity Planing</h2>
 									</header>
 									<div class="panel-body">
-										<div class="table-responsive">
-											<!-- NEW ENTRY -->
 											<!-- Machining Capacity Required for the Project -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -1194,43 +1025,12 @@
 												<tbody>
 													{% for mc in mc_set %}
 													<tr>
-														<td class="center"><b>{{ mc.mc_id.name }}</b></td>
+														<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
 														<td class="center" id="mc-mcrftp-{{ forloop.counter0 }}" name="mc-mcrftp-{{ forloop.counter0 }}">-</td>
 													</tr>
 													{% endfor %}
 													{% if mc_set.count != 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
 												</tbody>
-											</table>
-											</div>
-											<!-- END NEW ENTRY -->
-											<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="9" scope="colgroup">Machining Capacity Required for the Project</th>
-														<tr>
-													    <th class="center custom2">CLA</th>
-													    <th class="center custom2">BTA</th>
-													    <th class="center custom2">TMA</th>
-													    <th class="center custom2">MCA 3 Axis</th>
-															<th class="center custom2">MCA 4 Axis</th>
-															<th class="center custom2">HMC</th>
-															<th class="center custom2">5 Axis</th>
-															<th class="center custom2">EDM</th>
-															<th class="center custom2">Grinding</th>
-													  </tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td class="center" id="mcrftp-cla" name="mcrftp-cla">-</td>
-															<td class="center" id="mcrftp-bta" name="mcrftp-bta">-</td>
-															<td class="center" id="mcrftp-tma" name="mcrftp-tma">-</td>
-															<td class="center" id="mcrftp-mca3axis" name="mcrftp-mca3axis">-</td>
-															<td class="center" id="mcrftp-mca4axis" name="mcrftp-mca4axis">-</td>
-															<td class="center" id="mcrftp-hmc" name="mcrftp-hmc">-</td>
-															<td class="center" id="mcrftp-5axis" name="mcrftp-5axis">-</td>
-															<td class="center" id="mcrftp-edm" name="mcrftp-edm">-</td>
-															<td class="center" id="mcrftp-grinding" name="mcrftp-grinding">-</td>
-														</tr>
-													</tbody>
 											</table>
 										</div>
 							    </div>
@@ -1311,18 +1111,6 @@
 		var hardware_price = parseFloat($( "#hardware-price" ).text());
 
 		// -- Rate & Process --
-		// - Active Rate -
-		var rate_cla = parseFloat($( "#rate-cla" ).text());
-		var rate_bta = parseFloat($( "#rate-bta" ).text());
-		var rate_tma = parseFloat($( "#rate-tma" ).text());
-		var rate_mca3axis = parseFloat($( "#rate-mca3axis" ).text());
-		var rate_mca4axis = parseFloat($( "#rate-mca4axis" ).text());
-		var rate_hmc = parseFloat($( "#rate-hmc" ).text());
-		var rate_5axis = parseFloat($( "#rate-5axis" ).text());
-		var rate_edm = parseFloat($( "#rate-edm" ).text());
-		var rate_grinding = parseFloat($( "#rate-grinding" ).text());
-		var rate_deburring = parseFloat($( "#rate-deburring" ).text());
-		var rate_inspection = parseFloat($( "#rate-inspection" ).text());
 		// - Burden Rate -
 		var rate_material = parseFloat($( "#rate-material" ).text());
 		var rate_hardware = parseFloat($( "#rate-hardware" ).text());
@@ -1336,41 +1124,21 @@
 			arr_sp_rate[i] =  parseFloat($( text ).text());
 		}
 		// - Machining Process -
+		// - Activity Rate -
 		// - Machining Set Up Time (Minutes) - NO RESTATE
 		// - Cycle Time Per Part (Minutes)  - NO RESTATE
 		var mc_set_size = $( "#mc-set-size" ).val();
+		var arr_act_rate = [];
 		var arr_mc_msut = [];
 		var arr_mc_ctpp = [];
 		for(var i = 0; i < mc_set_size;i++){
+			var text = "#act-rate-" + i;
+			arr_act_rate[i] =  parseFloat($( text ).text());
 			var text = "#mc-msut-" + i;
 			arr_mc_msut[i] =  parseFloat($( text ).text());
 			var text = "#mc-ctpp-" + i;
 			arr_mc_ctpp[i] =  parseFloat($( text ).text());
 		}
-		// - Machining Set Up Time (Minutes) - NO RESTATE
-		var msut_cla = parseFloat($( "#msut-cla" ).text());
-		var msut_bta = parseFloat($( "#msut-bta" ).text());
-		var msut_tma = parseFloat($( "#msut-tma" ).text());
-		var msut_mca3axis = parseFloat($( "#msut-mca3axis" ).text());
-		var msut_mca4axis = parseFloat($( "#msut-mca4axis" ).text());
-		var msut_hmc = parseFloat($( "#msut-hmc" ).text());
-		var msut_5axis = parseFloat($( "#msut-5axis" ).text());
-		var msut_edm = parseFloat($( "#msut-edm" ).text());
-		var msut_grinding = parseFloat($( "#msut-grinding" ).text());
-    // - Cycle Time Per Part (Minutes)  - NO RESTATE
-		var ctpp_cla = parseFloat($( "#ctpp-cla" ).text());
-		var ctpp_bta = parseFloat($( "#ctpp-bta" ).text());
-		var ctpp_tma = parseFloat($( "#ctpp-tma" ).text());
-		var ctpp_mca3axis = parseFloat($( "#ctpp-mca3axis" ).text());
-		var ctpp_mca4axis = parseFloat($( "#ctpp-mca4axis" ).text());
-		var ctpp_hmc = parseFloat($( "#ctpp-hmc" ).text());
-		var ctpp_5axis = parseFloat($( "#ctpp-5axis" ).text());
-		var ctpp_edm = parseFloat($( "#ctpp-edm" ).text());
-		var ctpp_grinding = parseFloat($( "#ctpp-grinding" ).text());
-		var ctpp_inspection = parseFloat($( "#ctpp-inspection" ).text());
-		var ctpp_deburring = parseFloat($( "#ctpp-deburring" ).text());
-		var ctpp_assembly = parseFloat($( "#ctpp-assembly" ).text());
-		var ctpp_lapping = parseFloat($( "#ctpp-lapping" ).text());
 
 		// -- Part Costing --
 		var total_nre_cost = parseFloat($( "#total-nre-cost" ).text());
@@ -1426,38 +1194,13 @@
 
 		// -- Part Costing --
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
-		// Total Cycle Cost (Dollar) = (Active Rate / 60) * Total Cycle Time
+		// Total Cycle Cost (Dollar) = (Activity Rate / 60) * Total Cycle Time
 		var arr_mc_tctt = [];
 		var arr_mc_tctc = [];
 		for(var i = 0; i < mc_set_size;i++){
 			arr_mc_tctt[i] = (arr_mc_msut[i] / production_qty) + arr_mc_ctpp[i];
-			arr_mc_tctc[i] = (9999 / 60) + arr_mc_tctt[i];
+			arr_mc_tctc[i] = (arr_act_rate[i] / 60) + arr_mc_tctt[i];
 		}
-		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
-		var tctt_cla = (msut_cla / production_qty) + ctpp_cla;
-		var tctt_bta = (msut_bta / production_qty) + ctpp_bta;
-		var tctt_tma = (msut_tma / production_qty) + ctpp_tma;
-		var tctt_mca3axis = (msut_mca3axis / production_qty) + ctpp_mca3axis;
-		var tctt_mca4axis = (msut_mca4axis / production_qty) + ctpp_mca4axis;
-		var tctt_hmc = (msut_hmc / production_qty) + ctpp_hmc;
-		var tctt_5axis = (msut_5axis / production_qty) + ctpp_5axis;
-		var tctt_edm = (msut_edm / production_qty) + ctpp_edm;
-		var tctt_grinding = (msut_grinding / production_qty) + ctpp_grinding;
-		// Total Cycle Cost (Dollar) = (Active Rate / 60) * Total Cycle Time
-		var tctc_cla = (rate_cla / 60) * tctt_cla;
-		var tctc_bta = (rate_bta / 60) * tctt_bta;
-		var tctc_tma = (rate_tma / 60) * tctt_tma;
-		var tctc_mca3axis = (rate_mca3axis / 60) * tctt_mca3axis;
-		var tctc_mca4axis = (rate_mca4axis / 60) * tctt_mca4axis;
-		var tctc_hmc = (rate_hmc / 60) * tctt_hmc;
-		var tctc_5axis = (rate_5axis / 60) * tctt_5axis;
-		var tctc_edm = (rate_edm / 60) * tctt_edm;
-		var tctc_grinding = (rate_grinding / 60) * tctt_grinding;
-		// X Cycle Cost (Dollar) = (Active Rate / 60) * Cycle Time Per Part
-		var tctc_inspection = (rate_inspection / 60) * ctpp_inspection; // Active Rate = Inspection Rate
-		var tctc_deburring = (rate_deburring / 60) * ctpp_deburring; // Active Rate = Deburring Rate
-		var tctc_assembly = (rate_inspection / 60) * ctpp_assembly; // Active Rate = Inspection Rate
-		var tctc_lapping = (rate_deburring / 60) * ctpp_lapping; // Active Rate = Deburring Rate
 		// Special Process Cost (Dollar) = Special Process Rate * (1 / Production Qty)
 		var arr_sp_cost = [];
 		for(var i = 0; i < sp_set_size;i++){
@@ -1467,13 +1210,11 @@
 		var subcontract_shipping_cost = (base_subcontract + (shipping_cost * afpwpp)) * rate_subcontract;
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
-		// Manufacturing Cost = SUM(Total Cycle Cost) + SUM(X Cycle Cost)
-		// var manufacturing_cost = 0;
-		// for(var i = 0; i < mc_set_size;i++){
-		// 	manufacturing_cost = manufacturing_cost + arr_mc_tctc;
-		// }
-		var manufacturing_cost = tctc_cla + tctc_bta + tctc_tma + tctc_mca3axis + tctc_mca4axis + tctc_hmc + tctc_5axis + tctc_edm + tctc_grinding
-		+ tctc_inspection + tctc_deburring + tctc_assembly + tctc_lapping;
+		// Manufacturing Cost = SUM(Total Cycle Cost)
+		var manufacturing_cost = 0;
+		for(var i = 0; i < mc_set_size;i++){
+			manufacturing_cost = manufacturing_cost + arr_mc_tctc[i];
+		}
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
 		// Surface Treatment Cost = SUM(Special Process Cost) * Special Process Burden
@@ -1522,15 +1263,6 @@
 		for(var i = 0; i < mc_set_size;i++){
 			arr_mc_mcrftp[i] = arr_mc_tctt[i] * aeqfc;
 		}
-		var mcrftp_cla = tctt_cla * aeqfc;
-		var mcrftp_bta = tctt_bta * aeqfc;
-		var mcrftp_tma = tctt_tma * aeqfc;
-		var mcrftp_mca3axis = tctt_mca3axis * aeqfc;
-		var mcrftp_mca4axis = tctt_mca4axis * aeqfc;
-		var mcrftp_hmc = tctt_hmc * aeqfc;
-		var mcrftp_5axis = tctt_5axis * aeqfc;
-		var mcrftp_edm = tctt_edm * aeqfc;
-		var mcrftp_grinding = tctt_grinding * aeqfc;
 
 		// -*-*-*-*-*-*-*-*-*-*- 3 RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1552,18 +1284,6 @@
 		$( "#hardware-price" ).text(hardware_price);
 
 		// -- Rate & Process --
-		// - Active Rate -
-		$( "#rate-cla" ).text(rate_cla);
-		$( "#rate-bta" ).text(rate_bta);
-		$( "#rate-tma" ).text(rate_tma);
-		$( "#rate-mca3axis" ).text(rate_mca3axis);
-		$( "#rate-mca4axis" ).text(rate_mca4axis);
-		$( "#rate-hmc" ).text(rate_hmc);
-		$( "#rate-5axis" ).text(rate_5axis);
-		$( "#rate-edm" ).text(rate_edm);
-		$( "#rate-grinding" ).text(rate_grinding);
-		$( "#rate-deburring" ).text(rate_deburring);
-		$( "#rate-inspection" ).text(rate_inspection);
 		// - Burden Rate -
 		$( "#rate-material" ).text(rate_material);
 		$( "#rate-hardware" ).text(rate_hardware);
@@ -1573,6 +1293,15 @@
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
 			$( text ).text(arr_sp_rate[i]);
+		}
+		// - Machining Process Rate/MSUT/CTPP -
+		for(var i = 0; i < mc_set_size;i++){
+			var text = "#act-rate-" + i;
+			$( text ).text(arr_act_rate[i]);
+			var text = "#mc-msut-" + i;
+			$( text ).text(arr_mc_msut[i]);
+			var text = "#mc-ctpp-" + i;
+			$( text ).text(arr_mc_ctpp[i]);
 		}
 
 		// -- Part Costing --
@@ -1609,34 +1338,19 @@
 
 		// -- Part Costing --
 		// - Total Cycle Time (Minutes) -
-		$( "#tctt-cla" ).text(tctt_cla);
-		$( "#tctt-bta" ).text(tctt_bta);
-		$( "#tctt-tma" ).text(tctt_tma);
-		$( "#tctt-mca3axis" ).text(tctt_mca3axis);
-		$( "#tctt-mca4axis" ).text(tctt_mca4axis);
-		$( "#tctt-hmc" ).text(tctt_hmc);
-		$( "#tctt-5axis" ).text(tctt_5axis);
-		$( "#tctt-edm" ).text(tctt_edm);
-		$( "#tctt-grinding" ).text(tctt_grinding);
 		// - Total Cycle Cost (Dollar) -
-		$( "#tctc-cla" ).text(tctc_cla);
-		$( "#tctc-bta" ).text(tctc_bta);
-		$( "#tctc-tma" ).text(tctc_tma);
-		$( "#tctc-mca3axis" ).text(tctc_mca3axis);
-		$( "#tctc-mca4axis" ).text(tctc_mca4axis);
-		$( "#tctc-hmc" ).text(tctc_hmc);
-		$( "#tctc-5axis" ).text(tctc_5axis);
-		$( "#tctc-edm" ).text(tctc_edm);
-		$( "#tctc-grinding" ).text(tctc_grinding);
-		$( "#tctc-inspection" ).text(tctc_inspection);
-		$( "#tctc-deburring" ).text(tctc_deburring);
-		$( "#tctc-assembly" ).text(tctc_assembly);
-		$( "#tctc-lapping" ).text(tctc_lapping);
+		for(var i = 0; i < mc_set_size;i++){
+			text = "#mc-tctt-" + i;
+			$( text ).text(arr_mc_tctt[i]);
+			text = "#mc-tctc-" + i;
+			$( text ).text(arr_mc_tctc[i]);
+		}
 		// - Special Process Cost (Dollar) -
 		for(var i = 0; i < sp_set_size;i++){
 			text = "#sp-cost-" + i;
 			$( text ).text(arr_sp_cost[i]);
 		}
+
 		// - S -
 		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
 		$( "#material-cost" ).text(material_cost);
@@ -1662,15 +1376,10 @@
 		$( "#total-machine-cost" ).text(total_machine_cost);
 
 		// -- Machining Capacity Required for the Project --
-		$( "#mcrftp-cla" ).text(mcrftp_cla);
-		$( "#mcrftp-bta" ).text(mcrftp_bta);
-		$( "#mcrftp-tma" ).text(mcrftp_tma);
-		$( "#mcrftp-mca3axis" ).text(mcrftp_mca3axis);
-		$( "#mcrftp-mca4axis" ).text(mcrftp_mca4axis);
-		$( "#mcrftp-hmc" ).text(mcrftp_hmc);
-		$( "#mcrftp-5axis" ).text(mcrftp_5axis);
-		$( "#mcrftp-edm" ).text(mcrftp_edm);
-		$( "#mcrftp-grinding" ).text(mcrftp_grinding);
+		for(var i = 0; i < mc_set_size;i++){
+			text = "#mc-mcrftp-" + i;
+			$( text ).text(arr_mc_mcrftp[i]);
+		}
 
 		// -*-*-*-*-*-*-*-*-*-*- DATA COLLECT -*-*-*-*-*-*-*-*-*-*-
 
@@ -1684,17 +1393,17 @@
 					'mtl_cost' : mtl_cost,
 					'spl_process_cost' : spl_process_cost,
 					'total_hardware_cost' : total_hardware_cost,
-					'total_machine_cost' : total_machine_cost,
+					'total_machine_cost' : total_machine_cost
 
-					'mcrftp_cla' : mcrftp_cla,
-					'mcrftp_bta' : mcrftp_bta,
-					'mcrftp_tma' : mcrftp_tma,
-					'mcrftp_mca3axis' : mcrftp_mca3axis,
-					'mcrftp_mca4axis' : mcrftp_mca4axis,
-					'mcrftp_hmc' : mcrftp_hmc,
-					'mcrftp_5axis' : mcrftp_5axis,
-					'mcrftp_edm' : mcrftp_edm,
-					'mcrftp_grinding' : mcrftp_grinding
+					// 'mcrftp_cla' : mcrftp_cla,
+					// 'mcrftp_bta' : mcrftp_bta,
+					// 'mcrftp_tma' : mcrftp_tma,
+					// 'mcrftp_mca3axis' : mcrftp_mca3axis,
+					// 'mcrftp_mca4axis' : mcrftp_mca4axis,
+					// 'mcrftp_hmc' : mcrftp_hmc,
+					// 'mcrftp_5axis' : mcrftp_5axis,
+					// 'mcrftp_edm' : mcrftp_edm,
+					// 'mcrftp_grinding' : mcrftp_grinding
 
         },
         dataType: 'json',
@@ -1723,18 +1432,6 @@
 		$( "#hardware-price" ).text(dollar_sign(hardware_price) + math_fix(hardware_price));
 
 		// -- Rate & Process --
-		// - Active Rate -
-		$( "#rate-cla" ).text(rate_cla);
-		$( "#rate-bta" ).text(rate_bta);
-		$( "#rate-tma" ).text(rate_tma);
-		$( "#rate-mca3axis" ).text(rate_mca3axis);
-		$( "#rate-mca4axis" ).text(rate_mca4axis);
-		$( "#rate-hmc" ).text(rate_hmc);
-		$( "#rate-5axis" ).text(rate_5axis);
-		$( "#rate-edm" ).text(rate_edm);
-		$( "#rate-grinding" ).text(rate_grinding);
-		$( "#rate-deburring" ).text(rate_deburring);
-		$( "#rate-inspection" ).text(rate_inspection);
 		// - Burden Rate -
 		$( "#rate-material" ).text(rate_material);
 		$( "#rate-hardware" ).text(rate_hardware);
@@ -1744,6 +1441,15 @@
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
 			$( text ).text(math_fix(arr_sp_rate[i]));
+		}
+		// - Machining Process Rate/MSUT/CTPP -
+		for(var i = 0; i < mc_set_size;i++){
+			var text = "#act-rate-" + i;
+			$( text ).text(math_fix(arr_act_rate[i]));
+			var text = "#mc-msut-" + i;
+			$( text ).text(math_fix(arr_mc_msut[i]));
+			var text = "#mc-ctpp-" + i;
+			$( text ).text(math_fix(arr_mc_ctpp[i]));
 		}
 
 		// -- Part Costing --
@@ -1781,29 +1487,13 @@
 
 		// -- Part Costing --
 		// - Total Cycle Time (Minutes) -
-		$( "#tctt-cla" ).text(math_fix(tctt_cla));
-		$( "#tctt-bta" ).text(math_fix(tctt_bta));
-		$( "#tctt-tma" ).text(math_fix(tctt_tma));
-		$( "#tctt-mca3axis" ).text(math_fix(tctt_mca3axis));
-		$( "#tctt-mca4axis" ).text(math_fix(tctt_mca4axis));
-		$( "#tctt-hmc" ).text(math_fix(tctt_hmc));
-		$( "#tctt-5axis" ).text(math_fix(tctt_5axis));
-		$( "#tctt-edm" ).text(math_fix(tctt_edm));
-		$( "#tctt-grinding" ).text(math_fix(tctt_grinding));
 		// - Total Cycle Cost (Dollar) -
-		$( "#tctc-cla" ).text(dollar_sign(tctc_cla) + math_fix(tctc_cla));
-		$( "#tctc-bta" ).text(dollar_sign(tctc_bta) + math_fix(tctc_bta));
-		$( "#tctc-tma" ).text(dollar_sign(tctc_tma) + math_fix(tctc_tma));
-		$( "#tctc-mca3axis" ).text(dollar_sign(tctc_mca3axis) + math_fix(tctc_mca3axis));
-		$( "#tctc-mca4axis" ).text(dollar_sign(tctc_mca4axis) + math_fix(tctc_mca4axis));
-		$( "#tctc-hmc" ).text(dollar_sign(tctc_hmc) + math_fix(tctc_hmc));
-		$( "#tctc-5axis" ).text(dollar_sign(tctc_5axis) + math_fix(tctc_5axis));
-		$( "#tctc-edm" ).text(dollar_sign(tctc_edm) + math_fix(tctc_edm));
-		$( "#tctc-grinding" ).text(dollar_sign(tctc_grinding) + math_fix(tctc_grinding));
-		$( "#tctc-inspection" ).text(dollar_sign(tctc_inspection) + math_fix(tctc_inspection));
-		$( "#tctc-deburring" ).text(dollar_sign(tctc_deburring) + math_fix(tctc_deburring));
-		$( "#tctc-assembly" ).text(dollar_sign(tctc_assembly) + math_fix(tctc_assembly));
-		$( "#tctc-lapping" ).text(dollar_sign(tctc_lapping) + math_fix(tctc_lapping));
+		for(var i = 0; i < mc_set_size;i++){
+			text = "#mc-tctt-" + i;
+			$( text ).text(math_fix(arr_mc_tctt[i]));
+			text = "#mc-tctc-" + i;
+			$( text ).text(dollar_sign(arr_mc_tctc[i]) + math_fix(arr_mc_tctc[i]));
+		}
 		// - Special Process Cost (Dollar) -
 		for(var i = 0; i < sp_set_size;i++){
 			text = "#sp-cost-" + i;
@@ -1834,15 +1524,10 @@
 		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost));
 
 		// -- Machining Capacity Required for the Project --
-		$( "#mcrftp-cla" ).text(math_fix(mcrftp_cla));
-		$( "#mcrftp-bta" ).text(math_fix(mcrftp_bta));
-		$( "#mcrftp-tma" ).text(math_fix(mcrftp_tma));
-		$( "#mcrftp-mca3axis" ).text(math_fix(mcrftp_mca3axis));
-		$( "#mcrftp-mca4axis" ).text(math_fix(mcrftp_mca4axis));
-		$( "#mcrftp-hmc" ).text(math_fix(mcrftp_hmc));
-		$( "#mcrftp-5axis" ).text(math_fix(mcrftp_5axis));
-		$( "#mcrftp-edm" ).text(math_fix(mcrftp_edm));
-		$( "#mcrftp-grinding" ).text(math_fix(mcrftp_grinding));
+		for(var i = 0; i < mc_set_size;i++){
+			text = "#mc-mcrftp-" + i;
+			$( text ).text(math_fix(arr_mc_mcrftp[i]));
+		}
 
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
