@@ -168,6 +168,7 @@ class SP_Set(models.Model):
     sp_id = models.ForeignKey(SP_Master, on_delete=models.CASCADE)
     spec = models.CharField(max_length=200,default='')
     rate = models.FloatField(default=0)
+
 #
 # class AC_Master(models.Model):
 #     id = models.AutoField(primary_key=True)
