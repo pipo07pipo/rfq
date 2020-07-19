@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -865,11 +865,26 @@ def remove_part(request, sl_no):
     return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
 
 def master_table(request):
-    master_table = SP_Master.objects.all()
+    sp_table = SP_Master.objects.all()
+    mc_table = MC_Master.objects.all()
     context = {
-        'sp_masters': master_table
+        'sp_masters': sp_table,
+        'mc_tables': mc_table
     }
     return render(request, 'rfqsite/master_table.html', context)
+
+def add_mc_master(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        rate = request.POST.get('rate')
+        for obj in MC_Master.objects.filter(name=name):
+            return redirect('/master_table/?message=0')
+        sm = MC_Master(name=name,rate=rate)
+        sm.save()
+        return redirect('/master_table/?message=1')
+    context = {
+    }
+    return render(request, 'rfqsite/add_mc_master.html', context)
 
 def add_sp_master(request):
     if request.method == 'POST':

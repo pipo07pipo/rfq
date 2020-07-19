@@ -52,5 +52,7 @@ urlpatterns = [
     path('select_sp_set/<int:sl_no>/', views.select_sp_set, name='select_sp_set'),
     path('select_sp_set_confirm/', views.select_sp_set_confirm, name='select_sp_set_confirm'),
     path('edit_sp_set_confirm/', views.edit_sp_set_confirm, name='edit_sp_set_confirm'),
+    path('add_mc_master/', views.add_mc_master, name='add_mc_master'),
+    path('add_mc_master_confirm/', views.add_mc_master, name='add_mc_master_confirm'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
