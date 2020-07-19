@@ -57,4 +57,5 @@ urlpatterns = [
     path('select_act_set/<int:tracker_no>/', views.select_act_set, name='select_act_set'),
     path('select_act_set_confirm/', views.select_act_set_confirm, name='select_act_set_confirm'),
     path('edit_act_set/<int:tracker_no>/', views.edit_act_set, name='edit_act_set'),
+    path('edit_act_set_confirm/', views.edit_act_set_confirm, name='edit_act_set_confirm'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

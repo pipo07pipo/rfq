@@ -1003,3 +1003,15 @@ def edit_act_set(request,tracker_no):
             'act_set': act_set
     }
     return render(request, 'rfqsite/edit_act_set.html', context)
+
+def edit_act_set_confirm(request):
+    if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        act = ACT_Set.objects.filter(tracker_no=tracker_no)
+        for item in request.POST:
+            if('act-rate' in item):
+                id = int(item.replace('act-rate-',''))
+                eact = ACT_Set.objects.get(tracker_no=tracker_no,mc_id=MC_Master.objects.get(id=id))
+                eact.rate = request.POST.get(item)
+                eact.save()
+        return redirect('/part_table/'+str(tracker_no)+'/?message=1')
