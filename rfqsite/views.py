@@ -286,7 +286,7 @@ def part_info(request, sl_no):
     tree.set_tree()
     tree.set_open()
     parts = [tree]
-    mc_set = MC_Set.objects.get(sl_no=part)
+    mc_set = MC_Set.objects.filter(sl_no=part)
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
     msut = MSUT.objects.get(sl_no=part)
