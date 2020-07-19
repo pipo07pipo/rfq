@@ -876,10 +876,9 @@ def master_table(request):
 def add_mc_master(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        rate = request.POST.get('rate')
         for obj in MC_Master.objects.filter(name=name):
             return redirect('/master_table/?message=0')
-        sm = MC_Master(name=name,rate=rate)
+        sm = MC_Master(name=name)
         sm.save()
         return redirect('/master_table/?message=1')
     context = {
