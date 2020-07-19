@@ -50,7 +50,7 @@
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
-									<a href="/part_info/{{ part.sl_no }}">
+									<a href="/part_table/{{ project.tracker_no }}">
 										<i class="fa fa-chevron-left"></i><b> Back</b>
 									</a>
 								</li>
@@ -62,7 +62,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/edit_sp_set_confirm/" method="POST" class="form-horizontal">
+							<form id="form" action="/edit_act_set_confirm/" method="POST" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -73,7 +73,7 @@
 										<h2 class="panel-title">Edit Special Process</h2>
 									</header>
 									<div class="panel-body">
-										<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
+										<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}">
 										<div class="form-group">
 											<label class="col-sm-3 text-center"><b></b></label>
 											<label class="col-sm-2 text-center"><b>Rate</b></label>
@@ -97,7 +97,7 @@
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
 												<button class="btn btn-warning" type="submit">Confirm</button>
-                        <a class="btn btn-default" type="button" href="/part_info/{{ part.sl_no }}">Cancel</a>
+                        <a class="btn btn-default" type="button" href="/part_table/{{ project.tracker_no }}">Cancel</a>
 											</div>
 										</div>
 									</footer>
