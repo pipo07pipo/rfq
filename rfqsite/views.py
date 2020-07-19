@@ -286,6 +286,7 @@ def part_info(request, sl_no):
     tree.set_tree()
     tree.set_open()
     parts = [tree]
+    mc_set = MC_Set.objects.get(sl_no=part)
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
     msut = MSUT.objects.get(sl_no=part)
@@ -313,6 +314,7 @@ def part_info(request, sl_no):
         file_name = ''
     context = {
         'sp_set': sp_set,
+        'mc_set': mc_set,
         'current_year': current_year,
         'part': part,
         'parts': parts,
