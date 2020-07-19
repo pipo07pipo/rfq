@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -959,3 +959,47 @@ def select_sp_set_confirm(request):
         if(edit == 1):
             return redirect('/edit_sp_set/'+str(sl_no)+'/?message=1')
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
+
+def select_act_set(request,tracker_no):
+    project = RFQ.objects.get(tracker_no=tracker_no)
+    act_set = ACT_Set.objects.filter(tracker_no=project)
+    mc_master = MC_Master.objects.all()
+    select_id = [x.mc_id.id for x in act_set]
+    context = {
+            'project': project,
+            'act_set': act_set,
+            'mc_master': mc_master,
+            'select_id': select_id
+    }
+    return render(request, 'rfqsite/select_act_set.html', context)
+
+
+def select_act_set_confirm(request):
+    if request.method == 'POST':
+        tracker_no = request.POST.get('tracker-no')
+        mc_master = MC_Master.objects.all()
+        edit = 0
+        for mc in mc_master:
+            id = mc.id
+            if(request.POST.get(str(id)) == None):
+                delact = ACT_Set.objects.filter(tracker_no=tracker_no,mc_id=mc)
+                delact.delete()
+            elif(request.POST.get(str(id)) == 'on'):
+                if(ACT_Set.objects.filter(tracker_no=tracker_no,mc_id=mc)):
+                    pass
+                else:
+                    newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
+                    newact.save()
+                    edit = 1
+        if(edit == 1):
+            return redirect('/edit_act_set/'+str(sl_no)+'/?message=1')
+        return redirect('/part_table/'+str(tracker_no)+'/?message=1')
+
+def edit_act_set(request,tracker_no):
+    project = RFQ.objects.get(tracker_no=tracker_no)
+    act_set = ACT_Set.objects.filter(tracker_no=project).order_by('mc_id')
+    context = {
+            'project': project,
+            'act_set': act_set
+    }
+    return render(request, 'rfqsite/edit_act_set.html', context)

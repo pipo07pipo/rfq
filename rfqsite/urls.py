@@ -54,5 +54,7 @@ urlpatterns = [
     path('edit_sp_set_confirm/', views.edit_sp_set_confirm, name='edit_sp_set_confirm'),
     path('add_mc_master/', views.add_mc_master, name='add_mc_master'),
     path('add_mc_master_confirm/', views.add_mc_master, name='add_mc_master_confirm'),
-
+    path('select_act_set/<int:tracker_no>/', views.select_act_set, name='select_act_set'),
+    path('select_act_set_confirm/', views.select_act_set_confirm, name='select_act_set_confirm'),
+    path('edit_act_set/<int:tracker_no>/', views.edit_act_set, name='edit_act_set'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -174,8 +174,7 @@ class MC_Master(models.Model):
     name = models.CharField(max_length=200,default='')
     rate = models.FloatField(default=0)
 
-# class AC_Set(models.Model):
-#     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-#     sp_id = models.ForeignKey(SP_Master, on_delete=models.CASCADE)
-#     spec = models.CharField(max_length=200,default='')
-#     rate = models.FloatField(default=0)
+class ACT_Set(models.Model):
+    tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
+    mc_id = models.ForeignKey(MC_Master, on_delete=models.CASCADE)
+    rate = models.FloatField(default=0)
