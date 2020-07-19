@@ -74,12 +74,12 @@
 									</header>
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}">
-										{% for sp in sp_master %}
+										{% for mc in mc_master %}
 										<div class="form-group">
 											<div class="col-sm-6">
 												<div class="checkbox-custom checkbox-default">
-														<input type="checkbox" id="{{ sp.id }}" name="{{ sp.id }}" {% if sp.id in select_id %}checked{% endif %}>
-														<label>{{ sp.name }}</label>
+														<input type="checkbox" id="{{ mc.id }}" name="{{ mc.id }}" {% if mc.id in select_id %}checked{% endif %}>
+														<label>{{ mc.name }}</label>
 												</div>
 											</div>
 										</div>
