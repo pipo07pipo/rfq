@@ -132,7 +132,7 @@
 							</div>
 							<hr>
 							<!-- Machining Capacity Required for the Project -->
-							<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set.count }}" hidden>
+							<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set|length }}" hidden>
 							<div class="table-responsive">
 								<table class="table table-bordered table-striped table-condensed mb-none">
 									<thead>
@@ -147,7 +147,7 @@
 									<tbody>
 										{% for mc in mc_set %}
 										<tr>
-											<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
+											<td class="center"><b>{{ mc.name }}</b></td>
 											<td class="center" id="mcrftp-total-{{ forloop.counter0 }}" name="mcrftp-total-{{ forloop.counter0 }}">{{ mc.mcrftp }}</td>
 											<td class="center" id="mcrftp-mpy-{{ forloop.counter0 }}" name="mcrftp-mpy-{{ forloop.counter0 }}">-</td>
 											<td class="center" id="mcrftp-man-{{ forloop.counter0 }}" name="mcrftp-man-{{ forloop.counter0 }}">-</td>
@@ -273,6 +273,7 @@
 			var text = "#mcrftp-man-" + i;
 			$( text ).text(math_fix(arr_mcrftp_man[i]));
 		}
+
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
 
