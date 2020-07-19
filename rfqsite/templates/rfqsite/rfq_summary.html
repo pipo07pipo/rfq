@@ -153,7 +153,7 @@
 											<td class="center" id="mcrftp-man-{{ forloop.counter0 }}" name="mcrftp-man-{{ forloop.counter0 }}">-</td>
 										</tr>
 										{% endfor %}
-										{% if mc_set.count == 0 %}<tr><td class="center" colspan="3">This RFQ has no machining process.</td></tr>{% endif %}
+										{% if mc_set|length == 0 %}<tr><td class="center" colspan="4">This RFQ has no machining process.</td></tr>{% endif %}
 									</tbody>
 								</table>
 							</div>
