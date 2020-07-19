@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set
+from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -1015,3 +1015,37 @@ def edit_act_set_confirm(request):
                 eact.rate = request.POST.get(item)
                 eact.save()
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
+
+def select_mc_set(request,sl_no):
+    part = Part_Header.objects.get(sl_no=sl_no)
+    mc_set = MC_Set.objects.filter(sl_no=sl_no)
+    act_set = ACT_Set.objects.filter(tracker_no=part.tracker_no)
+    select_id = [x.act_id.id for x in mc_set]
+    context = {
+            'part': part,
+            'mc_set': mc_set,
+            'act_set': act_set,
+            'select_id': select_id
+    }
+    return render(request, 'rfqsite/select_mc_set.html', context)
+
+def select_mc_set_confirm(request):
+    if request.method == 'POST':
+        sl_no = request.POST.get('sl-no')
+        act_set = ACT_Set.objects.all()
+        edit = 0
+        for act in act_set:
+            id = act.id
+            if(request.POST.get(str(id)) == None):
+                delsp = SP_Set.objects.filter(sl_no=sl_no,sp_id=sp)
+                delsp.delete()
+            elif(request.POST.get(str(id)) == 'on'):
+                if(SP_Set.objects.filter(sp_id=sp,sl_no=sl_no)):
+                    pass
+                else:
+                    newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
+                    newsp.save()
+                    edit = 1
+        if(edit == 1):
+            return redirect('/edit_mc_set/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1')
