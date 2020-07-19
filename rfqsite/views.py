@@ -1034,7 +1034,7 @@ def select_mc_set(request,sl_no):
 def select_mc_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
-        act_set = ACT_Set.objects.filter(tracker_no=RFQ.objects.get(tracker_no=Part_Header.objects.get(sl_no=sl_no).tracker_no))
+        act_set = ACT_Set.objects.filter(tracker_no=RFQ.objects.get(tracker_no=Part_Header.objects.get(sl_no=sl_no).tracker_no.tracker_no))
         edit = 0
         for act in act_set:
             id = act.id
