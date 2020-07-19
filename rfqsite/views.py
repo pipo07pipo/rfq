@@ -1034,20 +1034,45 @@ def select_mc_set(request,sl_no):
 def select_mc_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
-        act_set = ACT_Set.objects.all()
+        act_set = ACT_Set.objects.filter(tracker_no=Part_Header.objects.get(sl_no=sl_no))
         edit = 0
         for act in act_set:
             id = act.id
             if(request.POST.get(str(id)) == None):
-                delsp = SP_Set.objects.filter(sl_no=sl_no,sp_id=sp)
-                delsp.delete()
+                delmc = MC_Set.objects.filter(sl_no=sl_no,act_id=act)
+                delmc.delete()
             elif(request.POST.get(str(id)) == 'on'):
-                if(SP_Set.objects.filter(sp_id=sp,sl_no=sl_no)):
+                if(MC_Set.objects.filter(sl_no=sl_no,act_id=act)):
                     pass
                 else:
-                    newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
-                    newsp.save()
+                    newact = MC_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),act_id=act)
+                    newact.save()
                     edit = 1
         if(edit == 1):
             return redirect('/edit_mc_set/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1')
+
+def edit_mc_set(request,sl_no):
+    part = Part_Header.objects.get(sl_no=sl_no)
+    mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id')
+    context = {
+            'part': part,
+            'mc_set': mc_set
+    }
+    return render(request, 'rfqsite/edit_mc_set.html', context)
+
+def edit_mc_set_confirm(request):
+    if request.method == 'POST':
+        sl_no = request.POST.get('sl-no')
+        for item in request.POST:
+            if('msut' in item):
+                id = int(item.replace('msut-',''))
+                emc1 = MC_Set.objects.get(sl_no=sl_no,act_id=ACT_Set.objects.get(id=id))
+                emc1.msut = request.POST.get(item)
+                emc1.save()
+            elif('ctpp' in item):
+                id = int(item.replace('ctpp-',''))
+                emc2 = MC_Set.objects.get(sl_no=sl_no,act_id=ACT_Set.objects.get(id=id))
+                emc2.ctpp = request.POST.get(item)
+                emc2.save()
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
