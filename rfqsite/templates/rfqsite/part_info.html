@@ -613,19 +613,27 @@
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-														<th class="center custom1" colspan="12" scope="colgroup">Burden Rate</th>
+														<th class="center custom1" colspan="2" scope="colgroup">Burden Rate</th>
 														<tr>
-															<th class="center custom2">Material</th>
-															<th class="center custom2">Hardware</th>
-															<th class="center custom2">Subcontract</th>
-															<th class="center custom2">Special Process</th>
+															<th class="center custom2">Name</th>
+															<th class="center custom2">Rate</th>
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
+														<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+															<td class="center">Material</th>
 															<td class="center" id="rate-material" name="rate-material">{{ burden_rate.material }}</td>
+														</tr>
+														<tr {% if part.type == "Part" %}hidden{% endif %}>
+															<td class="center">Hardware</th>
 															<td class="center" id="rate-hardware" name="rate-hardware">{{ burden_rate.hardware }}</td>
+														</tr>
+														<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+															<td class="center">Subcontract</th>
 															<td class="center" id="rate-subcontract" name="rate-subcontract">{{ burden_rate.subcontract }}</td>
+														</tr>
+														<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+															<td class="center">Special Process</th>
 															<td class="center" id="rate-sp" name="rate-sp">{{ burden_rate.sp }}</td>
 														</tr>
 													</tbody>
@@ -960,21 +968,31 @@
 										<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 														<thead>
-															<th class="center custom1" colspan="5" scope="colgroup">Total Part Cost</th>
+															<th class="center custom1" colspan="2" scope="colgroup">Total Part Cost</th>
 															<tr>
-														    <th class="center custom2">Total Cost</th>
-														    <th class="center custom2">Mtl Cost</th>
-																<th class="center custom2">Spl Process Cost</th>
-																<th class="center custom2">Total Machine Cost</th>
-																<th class="center custom2">Total Hardware Cost</th>
+														    <th class="center custom2">Name</th>
+														    <th class="center custom2">Cost</th>
 														  </tr>
 														</thead>
 														<tbody>
-															<tr>
+															<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+																<td class="center">Total Cost</th>
 																<td class="center" id="total-cost" name="total-cost">-</td>
+															</tr>
+															<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+																<td class="center">Mtl Cost</th>
 																<td class="center" id ="mtl-cost" name ="mtl-cost">-</td>
+															</tr>
+															<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+																<td class="center">Spl Process Cost</th>
 																<td class="center" id="spl-process-cost" name="spl-process-cost">-</td>
+															</tr>
+															<tr {% if part.type == "Hardware" %}hidden{% endif %}>
+																<td class="center">Total Machine Cost</th>
 																<td class="center" id="total-machine-cost" name="total-machine-cost">-</td>
+															</tr>
+															<tr {% if part.type == "Part" %}hidden{% endif %}>
+																<td class="center">Total Hardware Cost</th>
 																<td class="center" id="total-hardware-cost" name="total-hardware-cost">-</td>
 															</tr>
 														</tbody>

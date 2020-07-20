@@ -74,25 +74,25 @@
 									</header>
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Material Burden <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="number" step="any" class="form-control" id="rate-material" name="rate-material" value="{{ burden_rate.material }}" required>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Part" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Hardware Burden <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="number" step="any" class="form-control" id="rate-hardware" name="rate-hardware" value="{{ burden_rate.hardware }}" required>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Subcontract Burden <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="number" step="any" class="form-control" id="rate-subcontract" name="rate-subcontract" value="{{ burden_rate.subcontract }}" required>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Special Process Burden <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
 												<input type="number" step="any" class="form-control" id="rate-sp" name="rate-sp" value="{{ burden_rate.sp }}" required>
