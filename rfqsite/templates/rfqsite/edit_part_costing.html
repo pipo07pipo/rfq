@@ -81,25 +81,33 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Total NRE Cost</b></label>
+											<label class="col-sm-4 control-label"><b>Base Subcontract</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Shipping Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
 														</span>
-														<input type="number" step="any" class="form-control" id="total-nre-cost" name="total-nre-cost" value="{{ part_costing.total_nre_cost }}">
+														<input type="number" step="any" class="form-control" id="shipping-cost" name="shipping-cost" value="{{ part_costing.shipping_cost }}">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Target Price (USD)</b></label>
+											<label class="col-sm-4 control-label"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
 											<div class="col-sm-3">
-												<div class="input-group input-group-icon">
-														<span class="input-group-addon">
-															<span class="icon">$</span>
-														</span>
-														<input type="number" step="any" class="form-control" id="target-price" name="target-price" value="{{ part_costing.target_price }}">
-												</div>
+												<input type="number" step="any" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
+											</div>
+											<label style="padding-top:5px" class="text-left"><small>(Overwrite Value)</small></label>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
+											<div class="col-sm-3">
+												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
 											</div>
 										</div>
 										<div class="form-group">
@@ -138,33 +146,25 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Base Subcontract</b></label>
-											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Shipping Cost</b></label>
+											<label class="col-sm-4 control-label"><b>Total NRE Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
 														<span class="input-group-addon">
 															<span class="icon">$</span>
 														</span>
-														<input type="number" step="any" class="form-control" id="shipping-cost" name="shipping-cost" value="{{ part_costing.shipping_cost }}">
+														<input type="number" step="any" class="form-control" id="total-nre-cost" name="total-nre-cost" value="{{ part_costing.total_nre_cost }}">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
+											<label class="col-sm-4 control-label"><b>Target Price (USD)</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
-											</div>
-											<label style="padding-top:5px" class="text-left"><small>(Overwrite Value)</small></label>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
-											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
+												<div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon">$</span>
+														</span>
+														<input type="number" step="any" class="form-control" id="target-price" name="target-price" value="{{ part_costing.target_price }}">
+												</div>
 											</div>
 										</div>
 										<hr>
