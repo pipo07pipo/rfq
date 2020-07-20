@@ -344,21 +344,21 @@
 											<thead>
 												<tr>
 													<th class="center custom1" rowspan="2"><b>QTY Per Unit</b></td>
-											    <th class="center custom1" colspan="5" scope="colgroup">Forecast</th>
-											    <th class="center custom1" colspan="6" scope="colgroup">EAU</th>
+											    <th class="center custom1" colspan="5">Forecast</th>
+											    <th class="center custom1" colspan="6">EAU</th>
 												</tr>
 												<tr>
-											    <th class="center custom2" scope="col">{{ current_year }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"1" }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"2" }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"3" }}</th>
-													<th class="center custom2" scope="col">{{ current_year|add:"4" }}</th>
-													<th class="center custom2" scope="col">{{ current_year }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"1" }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"2" }}</th>
-											    <th class="center custom2" scope="col">{{ current_year|add:"3" }}</th>
-													<th class="center custom2" scope="col">{{ current_year|add:"4" }}</th>
-													<th class="center custom2" scope="col">5 Years Total</th>
+											    <th class="center custom2">{{ current_year }}</th>
+											    <th class="center custom2">{{ current_year|add:"1" }}</th>
+											    <th class="center custom2">{{ current_year|add:"2" }}</th>
+											    <th class="center custom2">{{ current_year|add:"3" }}</th>
+													<th class="center custom2">{{ current_year|add:"4" }}</th>
+													<th class="center custom2">{{ current_year }}</th>
+											    <th class="center custom2">{{ current_year|add:"1" }}</th>
+											    <th class="center custom2">{{ current_year|add:"2" }}</th>
+											    <th class="center custom2">{{ current_year|add:"3" }}</th>
+													<th class="center custom2">{{ current_year|add:"4" }}</th>
+													<th class="center custom2">5 Years Total</th>
 											  </tr>
 											</thead>
 											<tbody>
@@ -435,7 +435,7 @@
 											<div class="table-responsive">
 										  	<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-													    <th class="center custom1" colspan="7" scope="colgroup">Raw Material Size</th>
+													    <th class="center custom1" colspan="7">Raw Material Size</th>
 														<tr>
 															<th class="center custom2">
 																Density {% if material.rm_density %}({{ material.rm_density_unit }}){% endif %}
@@ -482,13 +482,13 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-													    <th class="center custom1" colspan="5" scope="colgroup">Annual Raw Material Requirement (kg)</th>
+													    <th class="center custom1" colspan="5">Annual Raw Material Requirement (kg)</th>
 														<tr>
-															<th class="center custom2" scope="col">{{ current_year }}</th>
-													    <th class="center custom2" scope="col">{{ current_year|add:"1" }}</th>
-													    <th class="center custom2" scope="col">{{ current_year|add:"2" }}</th>
-													    <th class="center custom2" scope="col">{{ current_year|add:"3" }}</th>
-															<th class="center custom2" scope="col">{{ current_year|add:"4" }}</th>
+															<th class="center custom2">{{ current_year }}</th>
+													    <th class="center custom2">{{ current_year|add:"1" }}</th>
+													    <th class="center custom2">{{ current_year|add:"2" }}</th>
+													    <th class="center custom2">{{ current_year|add:"3" }}</th>
+															<th class="center custom2">{{ current_year|add:"4" }}</th>
 													  </tr>
 													</thead>
 													<tbody>
@@ -507,7 +507,7 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-													    <th class="center custom1" colspan="4" scope="colgroup">Finish & Raw Material Weight Per Part (kg)</th>
+													    <th class="center custom1" colspan="4">Finish & Raw Material Weight Per Part (kg)</th>
 														<tr>
 															<th class="center custom2">Finished Part Weight Percentage</th>
 															<th class="center custom2">Approximate Finished Part Weight Per Part</th>
@@ -613,7 +613,7 @@
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-														<th class="center custom1" colspan="2" scope="colgroup">Burden Rate</th>
+														<th class="center custom1" colspan="2">Burden Rate</th>
 														<tr>
 															<th class="center custom2">Name</th>
 															<th class="center custom2">Rate</th>
@@ -649,7 +649,7 @@
 											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="3" scope="colgroup">Special Process</th>
+													<th class="center custom1" colspan="3">Special Process</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Rate</th>
@@ -685,7 +685,7 @@
 											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="4" scope="colgroup">Machining Process</th>
+													<th class="center custom1" colspan="4" >Machining Process</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Activity Rate</th>
@@ -751,7 +751,7 @@
 										<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="2" scope="colgroup">Special Process Cost (Dollar)</th>
+													<th class="center custom1" colspan="2" >Special Process Cost (Dollar)</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Cost</th>
@@ -789,7 +789,7 @@
 										<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="3" scope="colgroup">Total Cycle Time (Minutes) & Cost (Dollar)</th>
+													<th class="center custom1" colspan="3">Total Cycle Time (Minutes) & Cost (Dollar)</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Time (Minutes)</th>
@@ -808,8 +808,8 @@
 												</tbody>
 											</table>
 										</div>
-										<br>
 										<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
+											<br>
 											<div class="form-group">
 												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom"><b>Manufacturing Cost</b></label>
@@ -855,7 +855,7 @@
 											<hr>
 										</div>
 										<!-- Other Costing -->
-										<div class="row">
+										<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<div class="form-group">
 												<div class="col-md-3 labcustom">
 													<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
@@ -941,13 +941,13 @@
 													<!-- Empty -->
 												</div>
 											</div>
-											<hr>
+											<br>
 										</div>
 										<!-- Delivery Lead Time in Weeks -->
-										<div class="table-responsive">
+										<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<table class="table table-bordered table-striped table-condensed mb-none">
 													<thead>
-														<th class="center custom1" colspan="12" scope="colgroup">Delivery Lead Time in Weeks</th>
+														<th class="center custom1" colspan="3">Delivery Lead Time in Weeks</th>
 														<tr>
 													    <th class="center custom2">FAI</th>
 													    <th class="center custom2">Serial Production</th>
@@ -955,20 +955,30 @@
 													  </tr>
 													</thead>
 													<tbody>
+														{% if part_costing.dltiw_fai == "" and part_costing.dltiw_serial_production == "" and part_costing.dltiw_production == "" %}
+														<tr>
+															<td class="center" colspan="3">No info.</td>
+														</tr>
+														{% else %}
 														<tr>
 															<td class="center" id="dltiw-fai" name="dltiw-fai">{{ part_costing.dltiw_fai }}</td>
 															<td class="center" id="dltiw-serial-production" name="dltiw-serial-production">{{ part_costing.dltiw_serial_production }}</td>
 															<td class="center" id="dltiw-production" name="dltiw-production">{{ part_costing.dltiw_production }}</td>
 														</tr>
+														{% endif %}
 													</tbody>
 											</table>
 										</div>
-										<br>
+										<div class="text-right mr-lg" {% if part.type == "Hardware" %}hidden{% endif %}>
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
+										</div>
 										<!-- Total Part Cost -->
 										<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 														<thead>
-															<th class="center custom1" colspan="2" scope="colgroup">Total Part Cost</th>
+															<th class="center custom1" colspan="2">Total Part Cost</th>
 															<tr>
 														    <th class="center custom2">Name</th>
 														    <th class="center custom2">Cost</th>
@@ -998,11 +1008,6 @@
 														</tbody>
 												</table>
 										</div>
-										<div class="text-right mr-lg">
-											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-											{% endif %}
-										</div>
 									</div>
 							</section>
 					</div>
@@ -1022,7 +1027,7 @@
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="3" scope="colgroup">Machining Capacity Required for this Part</th>
+													<th class="center custom1" colspan="2">Machining Capacity Required for this Part</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Value</th>
