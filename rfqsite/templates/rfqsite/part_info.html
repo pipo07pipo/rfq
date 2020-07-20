@@ -1000,11 +1000,11 @@
 												<h2 class="panel-title"><i class="fa fa-rocket"></i> Machining Capacity Planing</h2>
 									</header>
 									<div class="panel-body">
-											<!-- Machining Capacity Required for the Project -->
+											<!-- Machining Capacity Required for this Part -->
 											<div class="table-responsive">
 												<table class="table table-bordered table-striped table-condensed mb-none">
 												<thead>
-													<th class="center custom1" colspan="3" scope="colgroup">Machining Capacity Required for the Project</th>
+													<th class="center custom1" colspan="3" scope="colgroup">Machining Capacity Required for this Part</th>
 													<tr>
 														<th class="center custom2">Name</th>
 														<th class="center custom2">Value</th>
@@ -1259,8 +1259,8 @@
 		// Total Hardware Cost = Hardware Cost * Annual Estimate Qty for Calculation
  		var total_hardware_cost = hardware_cost * aeqfc;
 
-		// -- Machining Capacity Required for the Project --
-		// Machining Capacity Required for the Project = Total Cycle Time * Annual Estimate Qty for Calculation
+		// -- Machining Capacity Required for this Part --
+		// Machining Capacity Required for this Part = Total Cycle Time * Annual Estimate Qty for Calculation
 		var arr_mc_mcrftp = [];
 		for(var i = 0; i < mc_set_size;i++){
 			arr_mc_mcrftp[i] = arr_mc_tctt[i] * aeqfc;
@@ -1379,7 +1379,7 @@
 		$( "#total-machine-cost" ).text(total_machine_cost);
 		$( "#total-hardware-cost" ).text(total_hardware_cost);
 
-		// -- Machining Capacity Required for the Project --
+		// -- Machining Capacity Required for this Part --
 		for(var i = 0; i < mc_set_size;i++){
 			text = "#mc-mcrftp-" + i;
 			$( text ).text(arr_mc_mcrftp[i]);
@@ -1522,7 +1522,7 @@
 		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost));
 		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + math_fix(total_hardware_cost));
 
-		// -- Machining Capacity Required for the Project --
+		// -- Machining Capacity Required for this Part --
 		for(var i = 0; i < mc_set_size;i++){
 			text = "#mc-mcrftp-" + i;
 			$( text ).text(math_fix(arr_mc_mcrftp[i]));
