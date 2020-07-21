@@ -82,7 +82,7 @@
 										<ul>
 											<li data-jstree='{ "icon" : "fa fa-cubes", "opened" : true }'>
 												<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/'"><b>RFQ</b> <b>Tracker No.</b> {{ project.tracker_no }}
-												<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
+												{% if part.sl_no == None %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
 												</span>
 												<ul>
 												<!-- level 0 -->
@@ -204,13 +204,16 @@
 					</div>
 
 					<div class="col-md-12">
-						<section class="panel">
+						<section class="panel panel-featured">
 							<header class="panel-heading">
 								<div class="panel-actions">
 									<a href="#" class="fa fa-caret-down"></a>
 									<!-- <a href="#" class="fa fa-times"></a> -->
 								</div>
-								<h2 class="panel-title">RFQ Summary</h2>
+								<h2 class="panel-title">Summary</h2>
+								{% if part.sl_no != None %}
+								<p class="panel-subtitle"><i class="fa fa-eye"></i> Viewing from Part No. <u>{{ part.no }}</u> Part Name <u>{{ part.name }}</u></p>
+								{% endif %}
 							</header>
 							<div class="panel-body">
 								<div class="form-group">
@@ -223,7 +226,7 @@
 								<div class="table-responsive">
 									<table class="table table-bordered table-striped table-condensed mb-none">
 											<thead>
-												<th class="center custom1" colspan="6" scope="colgroup">Total Project Cost</th>
+												<th class="center custom1" colspan="6" scope="colgroup">Total {% if part.sl_no == None %}Project{% else %}Part{% endif %} Cost</th>
 												<tr>
 													<th class="center custom1"></th>
 													<th class="center custom2">Total Cost</th>
@@ -256,7 +259,7 @@
 													<td class="center" id="total-machine-cost-tb" name="total-machine-cost-tb">-</td>
 												</tr>
 												<tr>
-													<td class="center custom1">X/Total Cost (%)</td>
+													<td class="center custom1">X / Total Cost (%)</td>
 													<td class="center" id="total-cost-p" name="total-cost-p">-</td>
 													<td class="center" id ="mtl-cost-p" name ="mtl-cost-p">-</td>
 													<td class="center" id="spl-process-cost-p" name="spl-process-cost-p">-</td>
@@ -264,8 +267,8 @@
 													<td class="center" id="total-machine-cost-p" name="total-machine-cost-p">-</td>
 												</tr>
 												<tr>
-													<td class="center custom1">Value A (%)</td>
-													<td class="center" id="value-a" name="value-a" colspan="5">-</td>
+													<td class="center custom1">Value Addition (%)</td>
+													<td class="center" id="value-addition" name="value-addition" colspan="5">-</td>
 												</tr>
 											</tbody>
 									</table>
@@ -276,7 +279,7 @@
 								<div class="table-responsive">
 									<table class="table table-bordered table-striped table-condensed mb-none">
 										<thead>
-											<th class="center custom1" colspan="4" scope="colgroup">Machining Capacity Required for the Project</th>
+											<th class="center custom1" colspan="4" scope="colgroup">Machining Capacity Required for {% if part.sl_no == None %}the Project{% else %}this Part{% endif %}</th>
 											<tr>
 												<th class="center custom2">Name</th>
 												<th class="center custom2">Per Year</th>
@@ -298,6 +301,17 @@
 									</table>
 								</div>
 							</div>
+							<footer class="panel-footer">
+								<div class="row">
+									<div class="col-sm-6">
+										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+										<a class="btn btn-danger" href="#" {% if part.sl_no != None %}disabled{% endif %}>Generate RFQ Table</a>
+										{% endif %}
+										&nbsp;&nbsp;&nbsp;&nbsp;
+										<label>Last Generate : -</label>
+									</div>
+								</div>
+							</footer>
 						</section>
 					</div>
 					<!-- end: page -->
@@ -375,6 +389,9 @@
 		var total_hardware_cost_p = (total_hardware_cost_td / total_cost_td) * 100;
 		var total_machine_cost_p = (total_machine_cost_td / total_cost_td) * 100;
 
+		// Value Addition (%) = [(Spl Process Cost + Machining Cost) / Total Cost ] * 100
+		var value_addition = ((spl_process_cost_td + total_machine_cost_td) / total_cost_td) * 100
+
 		// -- Machining Capacity Required for the Project --
 		// Machines Per Year = Machining Capacity Required for the Project / 5000
 		// Man Power Per Year = Round Up ( Machining Capacity Required for the Project / 5000 )
@@ -411,6 +428,8 @@
 		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p) + percent_sign(spl_process_cost_p));
 		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p) + percent_sign(total_hardware_cost_p));
 		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p) + percent_sign(total_machine_cost_p));
+
+		$( "#value-addition" ).text(math_fix(value_addition) + percent_sign(value_addition));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
