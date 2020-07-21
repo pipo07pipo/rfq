@@ -129,10 +129,11 @@ def rfq_summary2(request, tracker_no, sl_no):
     for act in all_act:
         amc = MC_Set.objects.filter(act_id=act)
         for mc in amc:
-            if mc.act_id.mc_id.name in sum:
-                sum[mc.act_id.mc_id.name] += mc.mcrftp
-            else:
-                sum[mc.act_id.mc_id.name] = mc.mcrftp
+            if(mc.sl_no in all_part):
+                if mc.act_id.mc_id.name in sum:
+                    sum[mc.act_id.mc_id.name] += mc.mcrftp
+                else:
+                    sum[mc.act_id.mc_id.name] = mc.mcrftp
     mc_set = [MC(x,sum[x]) for x in sum]
     ## structure
     parts = []
