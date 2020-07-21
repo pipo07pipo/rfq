@@ -27,6 +27,9 @@
 		<link rel="stylesheet" href="{% static "assets/vendor/select2/select2.css" %}">
 		<link rel="stylesheet" href="{% static "assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" %}">
 
+		<!-- Tree CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/jstree/themes/default/style.css" %}">
+
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
 
@@ -64,101 +67,239 @@
 					</header>
 
 					<!-- start: page -->
-					<section class="panel">
-						<header class="panel-heading">
-							<div class="panel-actions">
-								<!-- <a href="#" class="fa fa-caret-down"></a>
-								<a href="#" class="fa fa-times"></a> -->
-							</div>
-							<h2 class="panel-title">RFQ Summary</h2>
-						</header>
-						<div class="panel-body">
-							<div class="form-group">
-								<label class="col-sm-3 control-label text-right"><b>USD/THB</b></label>
-								<div class="col-sm-9">
-									<label class="control-label" id="usd-thb" name="usd-thb">{{ project.usd_thb }}</label>
+					<!-- Part Structure -->
+					<div class="col-md-12">
+							<section class="panel panel-featured">
+								<header class="panel-heading">
+									<div class="panel-actions">
+										<a href="#" class="fa fa-caret-down"></a>
+										<!-- <a href="#" class="fa fa-times"></a> -->
+									</div>
+									<h2 class="panel-title">RFQ Structure</h2>
+								</header>
+								<div class="panel-body">
+									<div id="treeBasic">
+										<ul>
+											<li data-jstree='{ "icon" : "fa fa-cubes", "opened" : true }'>
+												<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/'"><b>RFQ</b> <b>Tracker No.</b> {{ project.tracker_no }}
+												<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>
+												</span>
+												<ul>
+												<!-- level 0 -->
+												{% for p0 in parts %}
+													<li data-jstree='{ "icon" : {% if p0.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p0.isOpen %}, "opened" : true{% endif %} }'>
+														<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p0.sl_no }}'">
+															<b>SL No.</b> {{ p0.sl_no }} <b>Part No.</b> {{ p0.no }} <b>Part Name</b> {{ p0.name }}
+															{% if p0.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+														</span>
+														<!-- level 1 -->
+														{% if p0.children != None %}
+															<ul>
+																{% for p1 in p0.children %}
+																	<li data-jstree='{ "icon" : {% if p1.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p1.isOpen %}, "opened" : true{% endif %} }'>
+																		<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p1.sl_no }}'">
+																			<b>SL No.</b> {{ p1.sl_no }} <b>Part No.</b> {{ p1.no }} <b>Part Name</b> {{ p1.name }}
+																			{% if p1.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																		</span>
+																		<!-- level 2 -->
+																		{% if p1.children != None %}
+																			<ul>
+																				{% for p2 in p1.children %}
+																					<li data-jstree='{ "icon" : {% if p2.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p2.isOpen %}, "opened" : true{% endif %} }'>
+																						<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p2.sl_no }}'">
+																							<b>SL No.</b> {{ p2.sl_no }} <b>Part No.</b> {{ p2.no }} <b>Part Name</b> {{ p2.name }}
+																							{% if p2.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																						</span>
+																						<!-- level 3 -->
+																						{% if p2.children != None %}
+																							<ul>
+																								{% for p3 in p2.children %}
+																									<li data-jstree='{ "icon" : {% if p3.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p3.isOpen %}, "opened" : true{% endif %} }'>
+																										<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p3.sl_no }}'">
+																											<b>SL No.</b> {{ p3.sl_no }} <b>Part No.</b> {{ p3.no }} <b>Part Name</b> {{ p3.name }}
+																											{% if p3.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																										</span>
+																										<!-- level 4 -->
+																										{% if p3.children != None %}
+																											<ul>
+																												{% for p4 in p3.children %}
+																													<li data-jstree='{ "icon" : {% if p4.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p4.isOpen %}, "opened" : true{% endif %} }'>
+																														<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p4.sl_no }}'">
+																															<b>SL No.</b> {{ p4.sl_no }} <b>Part No.</b> {{ p4.no }} <b>Part Name</b> {{ p4.name }}
+																															{% if p4.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																														</span>
+																														<!-- level 5 -->
+																														{% if p4.children != None %}
+																															<ul>
+																																{% for p5 in p4.children %}
+																																	<li data-jstree='{ "icon" : {% if p5.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p5.isOpen %}, "opened" : true{% endif %} }'>
+																																		<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p5.sl_no }}'">
+																																			<b>SL No.</b> {{ p5.sl_no }} <b>Part No.</b> {{ p5.no }} <b>Part Name</b> {{ p5.name }}
+																																			{% if p5.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																		</span>
+																																		<!-- level 6 -->
+																																		{% if p5.children != None %}
+																																			<ul>
+																																				{% for p6 in p5.children %}
+																																					<li data-jstree='{ "icon" : {% if p6.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p6.isOpen %}, "opened" : true{% endif %} }'>
+																																						<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p6.sl_no }}'">
+																																							<b>SL No.</b> {{ p6.sl_no }} <b>Part No.</b> {{ p6.no }} <b>Part Name</b> {{ p6.name }}
+																																							{% if p6.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																						</span>
+																																						<!-- level 7 -->
+																																						{% if p6.children != None %}
+																																							<ul>
+																																								{% for p7 in p6.children %}
+																																									<li data-jstree='{ "icon" : {% if p7.type == "Part" %}"fa fa-cube"{% else %}"fa fa-codepen"{% endif %}{% if p7.isOpen %}, "opened" : true{% endif %} }'>
+																																										<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/{{ p7.sl_no }}'">
+																																											<b>SL No.</b> {{ p7.sl_no }} <b>Part No.</b> {{ p7.no }} <b>Part Name</b> {{ p7.name }}
+																																											{% if p7.sl_no == part.sl_no %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
+																																										</span>
+
+																																									</li>
+																																								{% endfor %}
+																																							</ul>
+																																						{% endif %}
+																																						<!-- end Level 7 -->
+																																					</li>
+																																				{% endfor %}
+																																			</ul>
+																																		{% endif %}
+																																		<!-- end Level 6 -->
+																																	</li>
+																																{% endfor %}
+																															</ul>
+																														{% endif %}
+																														<!-- end Level 5 -->
+																													</li>
+																												{% endfor %}
+																											</ul>
+																										{% endif %}
+																										<!-- end Level 4 -->
+																									</li>
+																								{% endfor %}
+																							</ul>
+																						{% endif %}
+																						<!-- end Level 3 -->
+																					</li>
+																				{% endfor %}
+																			</ul>
+																		{% endif %}
+																		<!-- end Level 2 -->
+																	</li>
+																{% endfor %}
+															</ul>
+														{% endif %}
+														<!-- end Level 1 -->
+													</li>
+												{% endfor %}
+												<!-- end level 0 -->
+												</ul>
+											</li>
+										</ul>
+									</div>
+									<small class="text-muted"><i class="fa fa-cube"></i> Part | <i class="fa fa-codepen"></i> Hardware</small>
 								</div>
-							</div>
-							<!-- Total Project Cost -->
-							<div class="table-responsive">
-								<table class="table table-bordered table-striped table-condensed mb-none">
+							</section>
+					</div>
+
+					<div class="col-md-12">
+						<section class="panel">
+							<header class="panel-heading">
+								<div class="panel-actions">
+									<a href="#" class="fa fa-caret-down"></a>
+									<!-- <a href="#" class="fa fa-times"></a> -->
+								</div>
+								<h2 class="panel-title">RFQ Summary</h2>
+							</header>
+							<div class="panel-body">
+								<div class="form-group">
+									<label class="col-sm-3 control-label text-right"><b>USD/THB</b></label>
+									<div class="col-sm-9">
+										<label class="control-label" id="usd-thb" name="usd-thb">{{ project.usd_thb }}</label>
+									</div>
+								</div>
+								<!-- Total Project Cost -->
+								<div class="table-responsive">
+									<table class="table table-bordered table-striped table-condensed mb-none">
+											<thead>
+												<th class="center custom1" colspan="6" scope="colgroup">Total Project Cost</th>
+												<tr>
+													<th class="center custom1"></th>
+													<th class="center custom2">Total Cost</th>
+													<th class="center custom2">Mtl Cost</th>
+													<th class="center custom2">Spl Process Cost</th>
+													<th class="center custom2">Total Hardware Cost</th>
+													<th class="center custom2">Total Machine Cost</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="center custom1">Per Years (USD)</td>
+													<td class="center" id="total-cost-td" name="total-cost-td">{{ total_cost_td }}</td>
+													<td class="center" id ="mtl-cost-td" name ="mtl-cost-td">{{ mtl_cost_td }}</td>
+													<td class="center" id="spl-process-cost-td" name="spl-process-cost-td">{{ spl_process_cost_td }}</td>
+													<td class="center" id="total-hardware-cost-td" name="total-hardware-cost-td">{{ total_hardware_cost_td }}</td>
+													<td class="center" id="total-machine-cost-td" name="total-machine-cost-td">{{ total_machine_cost_td }}</td>
+													<td class="center" id="total-cost-td2" name="total-cost-td2" hidden>{{ total_cost_td }}</td>
+													<td class="center" id ="mtl-cost-td2" name ="mtl-cost-td2" hidden>{{ mtl_cost_td }}</td>
+													<td class="center" id="spl-process-cost-td2" name="spl-process-cost-td2" hidden>{{ spl_process_cost_td }}</td>
+													<td class="center" id="total-hardware-cost-td2" name="total-hardware-cost-td2" hidden>{{ total_hardware_cost_td }}</td>
+													<td class="center" id="total-machine-cost-td2" name="total-machine-cost-td2" hidden>{{ total_machine_cost_td }}</td>
+												</tr>
+												<tr>
+													<td class="center custom1">Per Years (‎THB)</td>
+													<td class="center" id="total-cost-tb" name="total-cost-tb">-</td>
+													<td class="center" id ="mtl-cost-tb" name ="mtl-cost-tb">-</td>
+													<td class="center" id="spl-process-cost-tb" name="spl-process-cost-tb">-</td>
+													<td class="center" id="total-hardware-cost-tb" name="total-hardware-cost-tb">-</td>
+													<td class="center" id="total-machine-cost-tb" name="total-machine-cost-tb">-</td>
+												</tr>
+												<tr>
+													<td class="center custom1">X/Total Cost (%)</td>
+													<td class="center" id="total-cost-p" name="total-cost-p">-</td>
+													<td class="center" id ="mtl-cost-p" name ="mtl-cost-p">-</td>
+													<td class="center" id="spl-process-cost-p" name="spl-process-cost-p">-</td>
+													<td class="center" id="total-hardware-cost-p" name="total-hardware-cost-p">-</td>
+													<td class="center" id="total-machine-cost-p" name="total-machine-cost-p">-</td>
+												</tr>
+												<tr>
+													<td class="center custom1">Value A (%)</td>
+													<td class="center" id="value-a" name="value-a" colspan="5">-</td>
+												</tr>
+											</tbody>
+									</table>
+								</div>
+								<hr>
+								<!-- Machining Capacity Required for the Project -->
+								<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set|length }}" hidden>
+								<div class="table-responsive">
+									<table class="table table-bordered table-striped table-condensed mb-none">
 										<thead>
-											<th class="center custom1" colspan="6" scope="colgroup">Total Project Cost</th>
+											<th class="center custom1" colspan="4" scope="colgroup">Machining Capacity Required for the Project</th>
 											<tr>
-												<th class="center custom1"></th>
-												<th class="center custom2">Total Cost</th>
-												<th class="center custom2">Mtl Cost</th>
-												<th class="center custom2">Spl Process Cost</th>
-												<th class="center custom2">Total Hardware Cost</th>
-												<th class="center custom2">Total Machine Cost</th>
+												<th class="center custom2">Name</th>
+												<th class="center custom2">Per Year</th>
+												<th class="center custom2">M/C's / Yr</th>
+												<th class="center custom2">Manpower / Yr</th>
 											</tr>
 										</thead>
 										<tbody>
+											{% for mc in mc_set %}
 											<tr>
-												<td class="center custom1">Per Years (USD)</td>
-												<td class="center" id="total-cost-td" name="total-cost-td">{{ total_cost_td }}</td>
-												<td class="center" id ="mtl-cost-td" name ="mtl-cost-td">{{ mtl_cost_td }}</td>
-												<td class="center" id="spl-process-cost-td" name="spl-process-cost-td">{{ spl_process_cost_td }}</td>
-												<td class="center" id="total-hardware-cost-td" name="total-hardware-cost-td">{{ total_hardware_cost_td }}</td>
-												<td class="center" id="total-machine-cost-td" name="total-machine-cost-td">{{ total_machine_cost_td }}</td>
-												<td class="center" id="total-cost-td2" name="total-cost-td2" hidden>{{ total_cost_td }}</td>
-												<td class="center" id ="mtl-cost-td2" name ="mtl-cost-td2" hidden>{{ mtl_cost_td }}</td>
-												<td class="center" id="spl-process-cost-td2" name="spl-process-cost-td2" hidden>{{ spl_process_cost_td }}</td>
-												<td class="center" id="total-hardware-cost-td2" name="total-hardware-cost-td2" hidden>{{ total_hardware_cost_td }}</td>
-												<td class="center" id="total-machine-cost-td2" name="total-machine-cost-td2" hidden>{{ total_machine_cost_td }}</td>
+												<td class="center"><b>{{ mc.name }}</b></td>
+												<td class="center" id="mcrftp-total-{{ forloop.counter0 }}" name="mcrftp-total-{{ forloop.counter0 }}">{{ mc.mcrftp }}</td>
+												<td class="center" id="mcrftp-mpy-{{ forloop.counter0 }}" name="mcrftp-mpy-{{ forloop.counter0 }}">-</td>
+												<td class="center" id="mcrftp-man-{{ forloop.counter0 }}" name="mcrftp-man-{{ forloop.counter0 }}">-</td>
 											</tr>
-											<tr>
-												<td class="center custom1">Per Years (‎THB)</td>
-												<td class="center" id="total-cost-tb" name="total-cost-tb">-</td>
-												<td class="center" id ="mtl-cost-tb" name ="mtl-cost-tb">-</td>
-												<td class="center" id="spl-process-cost-tb" name="spl-process-cost-tb">-</td>
-												<td class="center" id="total-hardware-cost-tb" name="total-hardware-cost-tb">-</td>
-												<td class="center" id="total-machine-cost-tb" name="total-machine-cost-tb">-</td>
-											</tr>
-											<tr>
-												<td class="center custom1">X/Total Cost (%)</td>
-												<td class="center" id="total-cost-p" name="total-cost-p">-</td>
-												<td class="center" id ="mtl-cost-p" name ="mtl-cost-p">-</td>
-												<td class="center" id="spl-process-cost-p" name="spl-process-cost-p">-</td>
-												<td class="center" id="total-hardware-cost-p" name="total-hardware-cost-p">-</td>
-												<td class="center" id="total-machine-cost-p" name="total-machine-cost-p">-</td>
-											</tr>
-											<tr>
-												<td class="center custom1">Value A (%)</td>
-												<td class="center" id="value-a" name="value-a" colspan="5">-</td>
-											</tr>
+											{% endfor %}
+											{% if mc_set|length == 0 %}<tr><td class="center" colspan="4">This RFQ has no machining process.</td></tr>{% endif %}
 										</tbody>
-								</table>
+									</table>
+								</div>
 							</div>
-							<hr>
-							<!-- Machining Capacity Required for the Project -->
-							<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set|length }}" hidden>
-							<div class="table-responsive">
-								<table class="table table-bordered table-striped table-condensed mb-none">
-									<thead>
-										<th class="center custom1" colspan="4" scope="colgroup">Machining Capacity Required for the Project</th>
-										<tr>
-											<th class="center custom2">Name</th>
-											<th class="center custom2">Per Year</th>
-											<th class="center custom2">M/C's / Yr</th>
-											<th class="center custom2">Manpower / Yr</th>
-										</tr>
-									</thead>
-									<tbody>
-										{% for mc in mc_set %}
-										<tr>
-											<td class="center"><b>{{ mc.name }}</b></td>
-											<td class="center" id="mcrftp-total-{{ forloop.counter0 }}" name="mcrftp-total-{{ forloop.counter0 }}">{{ mc.mcrftp }}</td>
-											<td class="center" id="mcrftp-mpy-{{ forloop.counter0 }}" name="mcrftp-mpy-{{ forloop.counter0 }}">-</td>
-											<td class="center" id="mcrftp-man-{{ forloop.counter0 }}" name="mcrftp-man-{{ forloop.counter0 }}">-</td>
-										</tr>
-										{% endfor %}
-										{% if mc_set|length == 0 %}<tr><td class="center" colspan="4">This RFQ has no machining process.</td></tr>{% endif %}
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</section>
+						</section>
+					</div>
 					<!-- end: page -->
 				</section>
 			</div>
@@ -181,6 +322,11 @@
 	<script src="{% static "assets/vendor/jquery-datatables/media/js/jquery.dataTables.js" %}"></script>
 	<script src="{% static "assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js" %}"></script>
 	<script src="{% static "assets/vendor/jquery-datatables-bs3/assets/js/datatables.js" %}"></script>
+
+	<!-- Tree JS -->
+	<script src="{% static "assets/vendor/jstree/jstree.js" %}"></script>
+	<!-- Examples -->
+	<script src="{% static "assets/javascripts/ui-elements/examples.treeview.js" %}"></script>
 
 	<!-- Theme Base, Components and Settings -->
 	<script src="{% static "assets/javascripts/theme.js" %}"></script>

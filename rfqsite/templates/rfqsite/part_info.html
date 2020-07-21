@@ -31,7 +31,7 @@
 		<link rel="stylesheet" href="{% static "assets/vendor/pnotify/pnotify.custom.css" %}">
 
 		<!-- Tree CSS -->
-		<link rel="stylesheet" href="{% static "assets/vendor/jstree/themes/default/style.css" %}" />
+		<link rel="stylesheet" href="{% static "assets/vendor/jstree/themes/default/style.css" %}">
 
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
@@ -756,7 +756,7 @@
 													<th class="center custom1" colspan="2" >Special Process Cost (Dollar)</th>
 													<tr>
 														<th class="center custom2">Name</th>
-														<th class="center custom2">Cost</th>
+														<th class="center custom2">Cost (Dollar)</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -1010,6 +1010,7 @@
 														</tbody>
 												</table>
 										</div>
+										<label class="text-danger">* Total part cost here is not include its child parts cost.</label>
 									</div>
 							</section>
 					</div>
@@ -1032,7 +1033,7 @@
 													<th class="center custom1" colspan="2">Machining Capacity Required for this Part</th>
 													<tr>
 														<th class="center custom2">Name</th>
-														<th class="center custom2">Value</th>
+														<th class="center custom2">Minutes</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -1046,6 +1047,7 @@
 												</tbody>
 											</table>
 										</div>
+										<label class="text-danger">* Machining capacity planing here is not include its child parts machining capacity planing.</label>
 							    </div>
 							</section>
 					</div>
@@ -1082,6 +1084,7 @@
 
   <!-- Tree JS -->
 	<script src="{% static "assets/vendor/jstree/jstree.js" %}"></script>
+	
 	<!-- Examples -->
 	<script src="{% static "assets/javascripts/ui-elements/examples.treeview.js" %}"></script>
 
