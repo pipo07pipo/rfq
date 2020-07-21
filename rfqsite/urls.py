@@ -34,6 +34,7 @@ urlpatterns = [
     path('edit_hardware_confirm/', views.edit_hardware_confirm, name='edit_hardware_confirm'),
     path('data_collect/', views.data_collect, name='data_collect'),
     path('rfq_summary/<int:tracker_no>/', views.rfq_summary, name='summary'),
+    path('rfq_summary/<int:tracker_no>/<int:sl_no>/', views.rfq_summary2, name='summary2'),
     path('add_part_multi/<int:tracker_no>/', views.add_part_multi, name='add_part_multi'),
     path('add_part_multi_confirm/', views.add_part_multi_confirm, name='add_part_multi_confirm'),
     path('user_table/', views.user_table, name='user_table'),

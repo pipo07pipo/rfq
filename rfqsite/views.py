@@ -100,16 +100,23 @@ def rfq_summary(request, tracker_no):
     }
     return render(request, 'rfqsite/rfq_summary.html', context)
 
-def part_summary(request,sl_no):
+@login_required(login_url='/login')
+def rfq_summary2(request, tracker_no, sl_no):
     project = RFQ.objects.get(pk=tracker_no)
     total_cost_td = 0
     mtl_cost_td = 0
     spl_process_cost_td = 0
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
-    all_part = [Part_Header.objects.get(sl_no=sl_no)]
-    additem = 0
-    Part_Header.objects.filter(tracker_no=project)
+    all_part = []
+    c = [Part_Header.objects.get(pk=sl_no)]
+    while(len(c) > 0):
+        for item in c:
+            all_part.append(item)
+            fo = Part_Header.objects.filter(parent_sl_no=item)
+            for item2 in fo:
+                c.append(item2)
+            c.remove(item)
     for item in all_part:
         op = Output.objects.get(sl_no=item)
         total_cost_td += op.total_cost
@@ -127,6 +134,18 @@ def part_summary(request,sl_no):
             else:
                 sum[mc.act_id.mc_id.name] = mc.mcrftp
     mc_set = [MC(x,sum[x]) for x in sum]
+    ## structure
+    parts = []
+    ph = Part_Header.objects.filter(tracker_no=tracker_no,level=0)
+    for item in ph:
+        sl_no = item.sl_no
+        base_level = Part_Header.objects.get(pk=sl_no)
+        while(base_level.level > 0):
+            base_level = base_level.parent_sl_no
+        tree = Part_Tree(base_level,item)
+        tree.set_tree()
+        # tree.set_open()
+        parts.append(tree)
     context = {
         'project': project,
         'total_cost_td': total_cost_td,
@@ -134,9 +153,10 @@ def part_summary(request,sl_no):
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
-        'mc_set': mc_set
+        'mc_set': mc_set,
+        'parts': parts
     }
-    return render(request, 'rfqsite/part_summary.html', context)
+    return render(request, 'rfqsite/rfq_summary.html', context)
 
 class MC:
     def __init__(self, name, mcrftp):
