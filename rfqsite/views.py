@@ -78,7 +78,7 @@ def rfq_summary(request, tracker_no):
     mc_set = [MC(x,sum[x]) for x in sum]
     ## structure
     parts = []
-    ph = Part_Header.objects.get(tracker_no=tracker_no,level=0)
+    ph = Part_Header.objects.filter(tracker_no=tracker_no,level=0)
     for item in ph:
         sl_no = item.sl_no
         base_level = Part_Header.objects.get(pk=sl_no)
