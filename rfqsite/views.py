@@ -102,6 +102,7 @@ def rfq_summary(request, tracker_no):
 
 @login_required(login_url='/login')
 def rfq_summary2(request, tracker_no, sl_no):
+    part = Part_Header.objects.get(pk=sl_no)
     project = RFQ.objects.get(pk=tracker_no)
     current_sl = sl_no
     total_cost_td = 0
@@ -152,6 +153,7 @@ def rfq_summary2(request, tracker_no, sl_no):
         parts.append(tree)
     context = {
         'project': project,
+        'part': part,
         'total_cost_td': total_cost_td,
         'mtl_cost_td': mtl_cost_td,
         'spl_process_cost_td': spl_process_cost_td,
