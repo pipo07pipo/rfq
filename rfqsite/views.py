@@ -103,6 +103,7 @@ def rfq_summary(request, tracker_no):
 @login_required(login_url='/login')
 def rfq_summary2(request, tracker_no, sl_no):
     project = RFQ.objects.get(pk=tracker_no)
+    current_sl = sl_no
     total_cost_td = 0
     mtl_cost_td = 0
     spl_process_cost_td = 0
@@ -143,9 +144,11 @@ def rfq_summary2(request, tracker_no, sl_no):
         base_level = Part_Header.objects.get(pk=sl_no)
         while(base_level.level > 0):
             base_level = base_level.parent_sl_no
-        tree = Part_Tree(base_level,item)
+        tree = Part_Tree(base_level,Part_Header.objects.get(pk=current_sl))
         tree.set_tree()
-        # tree.set_open()
+        if tree.base_level in tree.get_path():
+            tree.set_open()
+        # print(tree.get_path())
         parts.append(tree)
     context = {
         'project': project,
@@ -837,6 +840,16 @@ class Part_Tree:
                     level = child.base_level.level
                     path = child.children
                     break
+    def get_path(self):
+        poc = []
+        lcl = self.current_level
+        level = self.current_level.level
+        while(level > 0):
+            poc.append(lcl)
+            lcl = lcl.parent_sl_no
+            level = lcl.level
+        poc.append(lcl)
+        return poc
 
 
 
