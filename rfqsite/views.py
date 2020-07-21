@@ -92,7 +92,7 @@ class MC:
     def __init__(self, name, mcrftp):
         self.name = name
         self.mcrftp = mcrftp
-        
+
 @login_required(login_url='/login')
 def add_part(request, tracker_no):
     if(get_perm(request.user) > 1):
@@ -563,6 +563,12 @@ def add_child_confirm(request):
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
+        if(type = 'Hardware'):
+            newBR.material = 0
+            newBR.sp = 0
+            newBR.subcontract = 0
+        else:
+            newBR.hardware = 0
         newHW = Hardware(sl_no=newPart)
         newO = Output(sl_no=newPart)
         newPart.save()
