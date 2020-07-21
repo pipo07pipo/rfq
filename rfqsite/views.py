@@ -613,7 +613,7 @@ def add_child_confirm(request):
         newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
-        if(type = 'Hardware'):
+        if(type == 'Hardware'):
             newBR.material = 0
             newBR.sp = 0
             newBR.subcontract = 0
