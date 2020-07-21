@@ -84,7 +84,7 @@ def rfq_summary(request, tracker_no):
         base_level = Part_Header.objects.get(pk=sl_no)
         while(base_level.level > 0):
             base_level = base_level.parent_sl_no
-        tree = Part_Tree(base_level,part)
+        tree = Part_Tree(base_level,item)
         tree.set_tree()
         tree.set_open()
         parts.append(tree)
