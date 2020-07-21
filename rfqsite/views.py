@@ -76,7 +76,18 @@ def rfq_summary(request, tracker_no):
             else:
                 sum[mc.act_id.mc_id.name] = mc.mcrftp
     mc_set = [MC(x,sum[x]) for x in sum]
-    print(mc_set)
+    ## structure
+    parts = []
+    ph = Part_Header.objects.get(tracker_no=tracker_no,level=0)
+    for item in ph:
+        sl_no = item.sl_no
+        base_level = Part_Header.objects.get(pk=sl_no)
+        while(base_level.level > 0):
+            base_level = base_level.parent_sl_no
+        tree = Part_Tree(base_level,part)
+        tree.set_tree()
+        tree.set_open()
+        parts.append(tree)
     context = {
         'project': project,
         'total_cost_td': total_cost_td,
@@ -84,9 +95,49 @@ def rfq_summary(request, tracker_no):
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
-        'mc_set': mc_set
+        'mc_set': mc_set,
+        'parts': parts
     }
     return render(request, 'rfqsite/rfq_summary.html', context)
+
+# def part_summary(request,sl_no):
+#     project = RFQ.objects.get(pk=tracker_no)
+#     total_cost_td = 0
+#     mtl_cost_td = 0
+#     spl_process_cost_td = 0
+#     total_hardware_cost_td = 0
+#     total_machine_cost_td = 0
+#     all_part = [Part_Header.objects.get(sl_no=sl_no)]
+#     additem = 0
+#     while(len(all_part))
+#     Part_Header.objects.filter(tracker_no=project)
+#     for item in all_part:
+#         op = Output.objects.get(sl_no=item)
+#         total_cost_td += op.total_cost
+#         mtl_cost_td += op.mtl_cost
+#         spl_process_cost_td += op.spl_process_cost
+#         total_hardware_cost_td += op.total_hardware_cost
+#         total_machine_cost_td += op.total_machine_cost
+#     all_act = ACT_Set.objects.filter(tracker_no=project)
+#     sum = {}
+#     for act in all_act:
+#         amc = MC_Set.objects.filter(act_id=act)
+#         for mc in amc:
+#             if mc.act_id.mc_id.name in sum:
+#                 sum[mc.act_id.mc_id.name] += mc.mcrftp
+#             else:
+#                 sum[mc.act_id.mc_id.name] = mc.mcrftp
+#     mc_set = [MC(x,sum[x]) for x in sum]
+#     context = {
+#         'project': project,
+#         'total_cost_td': total_cost_td,
+#         'mtl_cost_td': mtl_cost_td,
+#         'spl_process_cost_td': spl_process_cost_td,
+#         'total_hardware_cost_td': total_hardware_cost_td,
+#         'total_machine_cost_td': total_machine_cost_td,
+#         'mc_set': mc_set
+#     }
+#     return render(request, 'rfqsite/rfq_summary.html', context)
 
 class MC:
     def __init__(self, name, mcrftp):
@@ -238,7 +289,6 @@ def edit_active_rate(request, tracker_no):
         return HttpResponseNotFound("Access Denied")
     tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
     active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
-    print(active_rate.cla)
     context = {
             'tracker_no': tracker_no,
             'active_rate': active_rate
@@ -726,7 +776,6 @@ def data_collect(request):
         editO.save()
         id = request.GET.getlist('arr_mc_id[]')
         value = request.GET.getlist('arr_mc_mcrftp[]')
-        print(request.GET)
         for i in range(len(id)):
             act = ACT_Set.objects.get(id=id[i])
             mc = MC_Set.objects.get(sl_no=sl_no,act_id=act)
