@@ -12,7 +12,8 @@ class ExtendUser(models.Model):
     role = models.ForeignKey(Roles, on_delete=models.SET_NULL, null=True)
 
 class RFQ(models.Model):
-    tracker_no = models.IntegerField(primary_key=True)
+    tracker_no = models.AutoField(primary_key=True)
+    ccs_tracker_no = models.CharField(max_length=200, default='')
     description = models.CharField(max_length=200)
     customer_name = models.CharField(max_length=200)
     file_path = models.CharField(max_length=200, null=True, default='')
