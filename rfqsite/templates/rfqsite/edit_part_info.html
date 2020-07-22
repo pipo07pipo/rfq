@@ -126,11 +126,11 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Upload Image</b></label>
 											<div class="col-sm-6">
-													<div class="fileupload fileupload-new" data-provides="fileupload">
+													<div class="fileupload {% if part.image_path == "" %}fileupload-new{% else %}fileupload-exists{% endif %}" data-provides="fileupload">
 														<div class="input-append">
 															<div class="uneditable-input">
 																<i class="fa fa-file fileupload-exists"></i>
-																<span class="fileupload-preview"></span>
+																<span class="fileupload-preview">{{ image_name }}</span>
 															</div>
 															<span class="btn btn-default btn-file">
 																<span class="fileupload-exists">Change</span>
@@ -138,9 +138,6 @@
 																<input type="file"  id="image" name="image" value="{{ part.image_path }}">
 															</span>
 															<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
-															{% if part.image_path != "" %}
-															<span class="help-block"><small>Current Image : {{ image_name }}</small></span>
-															{% endif %}
 														</div>
 													</div>
 											</div>
@@ -148,11 +145,11 @@
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Upload File</b></label>
 											<div class="col-sm-6">
-													<div class="fileupload fileupload-new" data-provides="fileupload">
+													<div class="fileupload {% if part.file_path == "" %}fileupload-new{% else %}fileupload-exists{% endif %}" data-provides="fileupload">
 														<div class="input-append">
 															<div class="uneditable-input">
 																<i class="fa fa-file fileupload-exists"></i>
-																<span class="fileupload-preview"></span>
+																<span class="fileupload-preview">{{ file_name }}</span>
 															</div>
 															<span class="btn btn-default btn-file">
 																<span class="fileupload-exists">Change</span>
@@ -160,9 +157,6 @@
 																<input type="file"  id="file" name="file" value="{{ part.file_path }}">
 															</span>
 															<a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Remove</a>
-															{% if part.file_path != "" %}
-															<span class="help-block"><small>Current File : {{ file_name }}</small></span>
-															{% endif %}
 														</div>
 													</div>
 											</div>
