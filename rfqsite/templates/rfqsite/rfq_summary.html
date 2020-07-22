@@ -367,11 +367,12 @@
 		var total_machine_cost_td = parseFloat($( "#total-machine-cost-td2" ).text());
 
 		// -- Machining Capacity Required for the Project --
+		// Per Year = SUM(Machining Capacity Required for the Project) / 60
 		var mc_set_size = $( "#mc-set-size" ).val();
 		var arr_mcrftp_total = [];
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#mcrftp-total-" + i;
-			arr_mcrftp_total[i] =  parseFloat($( text ).text());
+			arr_mcrftp_total[i] =  parseFloat($( text ).text()) / 60;
 		}
 
 		// -*-*-*-*-*-*-*-*-*-*- 2 CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
@@ -393,13 +394,13 @@
 		var value_addition = ((spl_process_cost_td + total_machine_cost_td) / total_cost_td) * 100
 
 		// -- Machining Capacity Required for the Project --
-		// Machines Per Year = Machining Capacity Required for the Project / 5000
-		// Man Power Per Year = Round Up ( Machining Capacity Required for the Project / 5000 )
+		// Machines Per Year = Per Year / 5000
+		// Man Power Per Year = Round Up ( Machines Per Year )
 		var arr_mcrftp_mpy = [];
 		var arr_mcrftp_man = [];
 		for(var i = 0; i < mc_set_size;i++){
 			arr_mcrftp_mpy[i] =  arr_mcrftp_total[i] / 5000;
-			arr_mcrftp_man[i] =  Math.ceil(arr_mcrftp_total[i] / 5000);
+			arr_mcrftp_man[i] =  Math.ceil(arr_mcrftp_mpy[i]);
 		}
 
 		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-

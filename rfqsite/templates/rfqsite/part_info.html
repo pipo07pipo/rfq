@@ -513,7 +513,12 @@
 														<tr>
 															<th class="center custom2">Finished Part Weight Percentage</th>
 															<th class="center custom2">Approximate Finished Part Weight Per Part</th>
-													    <th class="center custom2">Approximate Raw Material Weight Per Part </th>
+													    <th class="center custom2">
+																Approximate Raw Material Weight Per Part
+																{% if material.armwpp != 0 %}
+																	<i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="Overwrite Value"></i>
+																{% endif %}
+															</th>
 													    <th class="center custom2">Total Raw Material Weight Per Year</th>
 													  </tr>
 													</thead>
@@ -882,7 +887,12 @@
 											</div>
 											<div class="form-group">
 												<div class="col-md-4 labcustom">
-													<label class="col-sm-7 control-label text-right labcustom"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
+													<label class="col-sm-7 control-label text-right labcustom">
+														<b>EBQ_CCS QTY (Prodn Lot)</b>
+														{% if part_costing.ebq_ccs_qty != 0 %}
+															<b><i class="fa fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Overwrite Value"></i></b>
+														{% endif %}
+												  </label>
 													<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty" name="ebq-ccs-qty">-</label>
 													<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty2" name="ebq-ccs-qty2" hidden>{{ part_costing.ebq_ccs_qty }}</label>
 												</div>
@@ -905,9 +915,10 @@
 													<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
 												</div>
 												<div class="col-md-4 labcustom">
-													<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time Tooling Cost</u>
-														<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
-													</b></label>
+													<label class="col-sm-7 control-label text-right labcustom">
+														<b><u>One Time Tooling Cost</u></b>
+														<b><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i></b>
+													</label>
 													<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
 												</div>
 											</div>
@@ -1245,7 +1256,7 @@
 		var arr_mc_tctc = [];
 		for(var i = 0; i < mc_set_size;i++){
 			arr_mc_tctt[i] = (arr_mc_msut[i] / production_qty) + arr_mc_ctpp[i];
-			arr_mc_tctc[i] = (arr_act_rate[i] / 60) + arr_mc_tctt[i];
+			arr_mc_tctc[i] = (arr_act_rate[i] / 60) * arr_mc_tctt[i];
 		}
 		// Manufacturing Cost = SUM(Total Cycle Cost)
 		var manufacturing_cost = 0;
