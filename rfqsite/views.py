@@ -7,11 +7,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-import json, re
+import os, json, re
 
 @login_required(login_url='/login')
 def rfq_table(request):
     projects = RFQ.objects.all()
+    temp = RFQ.objects.get(tracker_no=0)
+    temp.file_path = ''
+    temp.save()
     context = {
         'projects': projects
     }
@@ -266,10 +269,14 @@ def edit_rfq_confirm(request):
         file = request.FILES['file']
         fs = FileSystemStorage()
         tracker_no = request.POST.get('tracker-no')
+        project = RFQ.objects.get(pk=tracker_no)
+        if(project.file_path != ''):
+            if(os.path.exists(os.getcwd().replace('\\','/')+"/media/"+project.file_path)):
+                os.remove(os.getcwd().replace('\\','/')+"/media/"+project.file_path)
+            project.file_path = ''
         folder = "rfq/"+tracker_no+"/"
         path = folder+file.name
         filename = fs.save(path, file)
-        project = RFQ.objects.get(pk=tracker_no)
         project.customer_name = request.POST.get('customer-name')
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
@@ -279,6 +286,10 @@ def edit_rfq_confirm(request):
     elif request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         project = RFQ.objects.get(pk=tracker_no)
+        # if(request.POST.get('file') == ''):
+        #     if(project.file_path != ''):
+        #         os.remove(os.getcwd().replace('\\','/')+"/media/"+project.file_path)
+        #         project.file_path = ''
         project.customer_name = request.POST.get('customer-name')
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
@@ -361,6 +372,17 @@ def edit_part_info_confirm(request):
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         editPart = Part_Header.objects.get(sl_no=sl_no)
+        print(request.POST)
+        # if(request.POST.get('file') == ''):
+        #     if(editPart.file_path != ''):
+        #         if(os.path.exists(os.getcwd().replace('\\','/')+"/media/"+editPart.file_path)):
+        #             os.remove(os.getcwd().replace('\\','/')+"/media/"+editPart.file_path)
+        #         editPart.file_path = ''
+        # if(request.POST.get('image') == ''):
+        #     if(editPart.image_path != ''):
+        #         if(os.path.exists(os.getcwd().replace('\\','/')+"/media/"+editPart.image_path)):
+        #             os.remove(os.getcwd().replace('\\','/')+"/media/"+editPart.image_path)
+        #         editPart.image_path = ''
         editPart.no = request.POST.get('part-no')
         editPart.name = request.POST.get('part-name')
         editPart.program = request.POST.get('program')
@@ -372,6 +394,9 @@ def edit_part_info_confirm(request):
         if 'file' in files:
             file = request.FILES['file']
             fs = FileSystemStorage()
+            if(editPart.file_path != ''):
+                os.remove(os.getcwd().replace('\\','/')+"/media/"+editPart.file_path)
+                editPart.file_path = ''
             folder = "part/"+sl_no+"/"
             path = folder+file.name
             filename = fs.save(path, file)
@@ -381,6 +406,9 @@ def edit_part_info_confirm(request):
         if 'image' in files:
             file = request.FILES['image']
             fs = FileSystemStorage()
+            if(editPart.image_path != ''):
+                os.remove(os.getcwd().replace('\\','/')+"/media/"+editPart.image_path)
+                editPart.image_path = ''
             folder = "image/"+sl_no+"/"
             path = folder+file.name
             filename = fs.save(path, file)
