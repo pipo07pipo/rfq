@@ -945,6 +945,11 @@
 											</div>
 											<br>
 										</div>
+										<div class="text-right mr-lg" {% if part.type == "Hardware" %}hidden{% endif %}>
+											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											{% endif %}
+										</div>
 										<!-- Delivery Lead Time in Weeks -->
 										<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<table class="table table-bordered table-striped table-condensed mb-none">
@@ -973,7 +978,7 @@
 										</div>
 										<div class="text-right mr-lg" {% if part.type == "Hardware" %}hidden{% endif %}>
 											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
+											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_dltiw/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 											{% endif %}
 										</div>
 										<!-- Total Part Cost -->
@@ -1084,7 +1089,7 @@
 
   <!-- Tree JS -->
 	<script src="{% static "assets/vendor/jstree/jstree.js" %}"></script>
-	
+
 	<!-- Examples -->
 	<script src="{% static "assets/javascripts/ui-elements/examples.treeview.js" %}"></script>
 
