@@ -81,7 +81,7 @@
 									<div id="treeBasic">
 										<ul>
 											<li data-jstree='{ "icon" : "fa fa-cubes", "opened" : true }'>
-												<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/'"><b>RFQ</b> <b>Tracker No.</b> {{ project.tracker_no }}
+												<span onClick="javascript:window.location.href='/rfq_summary/{{ project.tracker_no }}/'"><b class="text-danger">RFQ</b> <b>CCS Tracker No.</b> {{ project.ccs_tracker_no }}
 												{% if part.sl_no == None %}<i class="fa fa-check" data-toggle="tooltip" data-placement="top" title="Current Node"></i>{% endif %}
 												</span>
 												<ul>

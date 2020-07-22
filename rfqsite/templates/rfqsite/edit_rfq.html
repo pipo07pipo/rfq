@@ -76,10 +76,16 @@
 										<h2 class="panel-title">Edit RFQ Information</h2>
 									</header>
 									<div class="panel-body">
-										<div class="form-group">
+										<div class="form-group" hidden>
 											<label class="col-sm-4 control-label"><b>RFQ Tracker No.</b></label>
 											<div class="col-sm-4">
 												<input type="text" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}" readonly>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>CCS Tracker No.</b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="ccs-tracker-no" name="ccs-tracker-no" value="{{ project.ccs_tracker_no }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">

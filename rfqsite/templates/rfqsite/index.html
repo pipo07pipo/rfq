@@ -66,7 +66,8 @@
 							<table class="table table-bordered table-striped mb-none" id="datatable-default">
 								<thead>
 									<tr>
-										<th class="center">RFQ Tracker No.</th>
+										<th class="center" hidden>RFQ Tracker No.</th>
+										<th class="center">CCS Tracker No.</th>
 										<th class="center">RFQ Description</th>
 										<th class="center">Customer Name</th>
 										<th class="center">Detail</th>
@@ -75,7 +76,8 @@
 								<tbody>
                 {% for project in projects %}
 									<tr>
-										<td class="center">{{ project.tracker_no }}</td>
+										<td class="center" hidden>{{ project.tracker_no }}</td>
+										<td class="center">{{ project.ccs_tracker_no }}</td>
 										<td class="center">{{ project.description }}</td>
 										<td class="center">{{ project.customer_name }}</td>
 										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a</td>
