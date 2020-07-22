@@ -32,22 +32,6 @@ class Part_Header(models.Model):
     image_path = models.CharField(max_length=200, default='')
     type = models.CharField(max_length=50, default='Part')
 
-
-class Active_Rate(models.Model):
-    tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
-    cla = models.FloatField(default=1)
-    bta = models.FloatField(default=1)
-    tma = models.FloatField(default=1)
-    mca3axis = models.FloatField(default=1)
-    mca4axis = models.FloatField(default=1)
-    hmc = models.FloatField(default=1)
-    axis5 = models.FloatField(default=1)
-    edm = models.FloatField(default=1)
-    grinding = models.FloatField(default=1)
-    deburring = models.FloatField(default=1)
-    inspection = models.FloatField(default=1)
-
-
 class Forecast(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     qty_per_unit = models.FloatField(default=1)
@@ -106,34 +90,6 @@ class Part_Costing(models.Model):
     shipping_cost = models.FloatField(null=True, default=0)
     ebq_ccs_qty = models.FloatField(null=True, default=0)
 
-class MSUT(models.Model):
-    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    cla = models.FloatField(null=True, default=0)
-    bta = models.FloatField(null=True, default=0)
-    tma = models.FloatField(null=True, default=0)
-    mca3axis = models.FloatField(null=True, default=0)
-    mca4axis = models.FloatField(null=True, default=0)
-    hmc = models.FloatField(null=True, default=0)
-    axis5 = models.FloatField(null=True, default=0)
-    edm = models.FloatField(null=True, default=0)
-    grinding = models.FloatField(null=True, default=0)
-
-class CTPP(models.Model):
-    sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    cla = models.FloatField(null=True, default=0)
-    bta = models.FloatField(null=True, default=0)
-    tma = models.FloatField(null=True, default=0)
-    mca3axis = models.FloatField(null=True, default=0)
-    mca4axis = models.FloatField(null=True, default=0)
-    hmc = models.FloatField(null=True, default=0)
-    axis5 = models.FloatField(null=True, default=0)
-    edm = models.FloatField(null=True, default=0)
-    grinding = models.FloatField(null=True, default=0)
-    inspection = models.FloatField(null=True, default=0)
-    deburring = models.FloatField(null=True, default=0)
-    assembly = models.FloatField(null=True, default=0)
-    lapping = models.FloatField(null=True, default=0)
-
 class Burden_Rate(models.Model):
     subcontract = models.FloatField(default=1)
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
@@ -149,15 +105,6 @@ class Output(models.Model):
     spl_process_cost = models.FloatField(default=0)
     total_hardware_cost = models.FloatField(default=0)
     total_machine_cost = models.FloatField(default=0)
-    mcrftp_cla = models.FloatField(default=0)
-    mcrftp_bta = models.FloatField(default=0)
-    mcrftp_tma = models.FloatField(default=0)
-    mcrftp_mca3axis = models.FloatField(default=0)
-    mcrftp_mca4axis = models.FloatField(default=0)
-    mcrftp_hmc = models.FloatField(default=0)
-    mcrftp_5axis = models.FloatField(default=0)
-    mcrftp_edm = models.FloatField(default=0)
-    mcrftp_grinding = models.FloatField(default=0)
 
 class SP_Master(models.Model):
     id = models.AutoField(primary_key=True)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Active_Rate, Forecast, Material, MSUT, CTPP, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set
+from .models import RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -11,25 +11,10 @@ import json, re
 
 @login_required(login_url='/login')
 def rfq_table(request):
-    # text = "This is index page"
-    # rfq = RFQ(tracker_no=111,description='Desc',customer_name='sample', update_date=timezone.now())
-    # rfq.save()
     projects = RFQ.objects.all()
     context = {
         'projects': projects
     }
-    active_project = []
-    for project in projects:
-        active_project.append(project.tracker_no)
-    active_to_rfq = []
-    for active in Active_Rate.objects.all():
-        active_to_rfq.append(active.tracker_no.tracker_no)
-    for tracker in active_to_rfq:
-        if tracker in active_project:
-            active_project.remove(tracker)
-    for tracker in active_project:
-        active_rate = Active_Rate(tracker_no=RFQ.objects.get(tracker_no=tracker))
-        active_rate.save()
     return render(request, 'rfqsite/index.html', context)
 
 @login_required(login_url='/login')
@@ -223,8 +208,6 @@ def add_part_multi_confirm(request):
             newForecast.forecast_year4 = trans[i+5]
             newForecast.forecast_year5 = trans[i+6]
             newMaterial = Material(sl_no=newPart)
-            newMSUT = MSUT(sl_no=newPart)
-            newCTPP = CTPP(sl_no=newPart)
             newPart_Costing = Part_Costing(sl_no=newPart)
             newBR = Burden_Rate(sl_no=newPart)
             newHW = Hardware(sl_no=newPart)
@@ -232,8 +215,6 @@ def add_part_multi_confirm(request):
             newPart.save()
             newForecast.save()
             newMaterial.save()
-            newMSUT.save()
-            newCTPP.save()
             newPart_Costing.save()
             newBR.save()
             newHW.save()
@@ -251,8 +232,6 @@ def add_part_confirm(request):
         newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program)
         newForecast = Forecast(sl_no=newPart)
         newMaterial = Material(sl_no=newPart)
-        newMSUT = MSUT(sl_no=newPart)
-        newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         newHW = Hardware(sl_no=newPart)
@@ -260,8 +239,6 @@ def add_part_confirm(request):
         newPart.save()
         newForecast.save()
         newMaterial.save()
-        newMSUT.save()
-        newCTPP.save()
         newPart_Costing.save()
         newBR.save()
         newHW.save()
@@ -308,39 +285,6 @@ def edit_rfq_confirm(request):
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
-@login_required(login_url='/login')
-def edit_active_rate(request, tracker_no):
-    if(get_perm(request.user) > 1):
-        return HttpResponseNotFound("Access Denied")
-    tracker_no = RFQ.objects.get(pk=tracker_no).tracker_no
-    active_rate = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
-    context = {
-            'tracker_no': tracker_no,
-            'active_rate': active_rate
-    }
-    return render(request, 'rfqsite/edit_active_rate.html', context)
-
-@login_required(login_url='/login')
-def edit_active_rate_confirm(request):
-    if request.method == 'POST':
-        tracker_no = request.POST.get('tracker-no')
-        editAR = Active_Rate.objects.get(tracker_no=RFQ.objects.get(tracker_no=tracker_no))
-        editAR.cla = request.POST.get('rate-cla')
-        editAR.bta = request.POST.get('rate-bta')
-        editAR.tma = request.POST.get('rate-tma')
-        editAR.mca3axis = request.POST.get('rate-mca3axis')
-        editAR.mca4axis = request.POST.get('rate-mca4axis')
-        editAR.hmc = request.POST.get('rate-hmc')
-        editAR.axis5 = request.POST.get('rate-5axis')
-        editAR.edm = request.POST.get('rate-edm')
-        editAR.grinding = request.POST.get('rate-grinding')
-        editAR.deburring = request.POST.get('rate-deburring')
-        editAR.inspection = request.POST.get('rate-inspection')
-        editAR.save()
-        return redirect('/part_table/'+tracker_no+"?message=1")
-
-
-
 
 @login_required(login_url='/login')
 def part_info(request, sl_no):
@@ -356,10 +300,7 @@ def part_info(request, sl_no):
     mc_set = MC_Set.objects.filter(sl_no=part)
     forecast = Forecast.objects.get(sl_no=part)
     material = Material.objects.get(sl_no=part)
-    msut = MSUT.objects.get(sl_no=part)
-    ctpp = CTPP.objects.get(sl_no=part)
     part_costing = Part_Costing.objects.get(sl_no=part)
-    active_rate = Active_Rate.objects.get(tracker_no=part.tracker_no)
     burden_rate = Burden_Rate.objects.get(sl_no=part)
     hardware = Hardware.objects.get(sl_no=part)
     sp_set = SP_Set.objects.filter(sl_no=part).order_by('sp_id')
@@ -387,10 +328,7 @@ def part_info(request, sl_no):
         'parts': parts,
         'forecast': forecast,
         'material': material,
-        'msut': msut,
-        'ctpp': ctpp,
         'part_costing': part_costing,
-        'active_rate': active_rate,
         'burden_rate': burden_rate,
         'hardware': hardware,
         'sum_child': sum_child,
@@ -480,73 +418,6 @@ def edit_forecast_confirm(request):
         editForecast.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
-@login_required(login_url='/login')
-def edit_ctpp(request, sl_no):
-    if(get_perm(request.user) > 1):
-        return HttpResponseNotFound("Access Denied")
-    ctpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-        'part': part,
-        'ctpp': ctpp
-    }
-    return render(request, 'rfqsite/edit_ctpp.html', context)
-
-def to_float(s):
-    s = s.strip()
-    return float(s) if s else None
-
-@login_required(login_url='/login')
-def edit_ctpp_confirm(request):
-    sl_no = request.POST.get('sl-no')
-    if request.method == 'POST':
-        editCtpp = CTPP.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editCtpp.cla = to_float(request.POST.get('ctpp-cla'))
-        editCtpp.bta = to_float(request.POST.get('ctpp-bta'))
-        editCtpp.tma = to_float(request.POST.get('ctpp-tma'))
-        editCtpp.mca3axis = to_float(request.POST.get('ctpp-mca3axis'))
-        editCtpp.mca4axis = to_float(request.POST.get('ctpp-mca4axis'))
-        editCtpp.hmc = to_float(request.POST.get('ctpp-hmc'))
-        editCtpp.axis5 = to_float(request.POST.get('ctpp-5axis'))
-        editCtpp.edm = to_float(request.POST.get('ctpp-edm'))
-        editCtpp.grinding = to_float(request.POST.get('ctpp-grinding'))
-        editCtpp.inspection = to_float(request.POST.get('ctpp-inspection'))
-        editCtpp.deburring = to_float(request.POST.get('ctpp-deburring'))
-        editCtpp.assembly = to_float(request.POST.get('ctpp-assembly'))
-        editCtpp.lapping = to_float(request.POST.get('ctpp-lapping'))
-        editCtpp.save()
-    return redirect('/part_info/'+sl_no+"?message=1")
-
-
-@login_required(login_url='/login')
-def edit_msut(request, sl_no):
-    if(get_perm(request.user) > 1):
-        return HttpResponseNotFound("Access Denied")
-    msut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-    part = Part_Header.objects.get(pk=sl_no)
-    context = {
-        'part': part,
-        'msut': msut
-    }
-    return render(request, 'rfqsite/edit_msut.html', context)
-
-@login_required(login_url='/login')
-def edit_msut_confirm(request):
-    sl_no = request.POST.get('sl-no')
-    if request.method == 'POST':
-        editmsut = MSUT.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
-        editmsut.cla = to_float(request.POST.get('msut-cla'))
-        editmsut.bta = to_float(request.POST.get('msut-bta'))
-        editmsut.tma = to_float(request.POST.get('msut-tma'))
-        editmsut.mca3axis = to_float(request.POST.get('msut-mca3axis'))
-        editmsut.mca4axis = to_float(request.POST.get('msut-mca4axis'))
-        editmsut.hmc = to_float(request.POST.get('msut-hmc'))
-        editmsut.axis5 = to_float(request.POST.get('msut-5axis'))
-        editmsut.edm = to_float(request.POST.get('msut-edm'))
-        editmsut.grinding = to_float(request.POST.get('msut-grinding'))
-        editmsut.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
-
 
 @login_required(login_url='/login')
 def edit_hardware(request, sl_no):
@@ -634,8 +505,6 @@ def add_child_confirm(request):
         newPart = Part_Header(type=type,tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=part_no,name=part_name,program=program, parent_sl_no=Part_Header.objects.get(pk=sl_no))
         newForecast = Forecast(sl_no=newPart, forecast_year1=fco.forecast_year1, forecast_year2=fco.forecast_year2, forecast_year3=fco.forecast_year3, forecast_year4=fco.forecast_year4, forecast_year5=fco.forecast_year5)
         newMaterial = Material(sl_no=newPart)
-        newMSUT = MSUT(sl_no=newPart)
-        newCTPP = CTPP(sl_no=newPart)
         newPart_Costing = Part_Costing(sl_no=newPart)
         newBR = Burden_Rate(sl_no=newPart)
         if(type == 'Hardware'):
@@ -649,8 +518,6 @@ def add_child_confirm(request):
         newPart.save()
         newForecast.save()
         newMaterial.save()
-        newMSUT.save()
-        newCTPP.save()
         newPart_Costing.save()
         newBR.save()
         newHW.save()
@@ -771,6 +638,8 @@ def edit_burden_rate(request, sl_no):
 
 @login_required(login_url='/login')
 def edit_burden_rate_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     sl_no = request.POST.get('sl-no')
     if request.method == 'POST':
         editbd = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -859,6 +728,7 @@ class Part_Tree:
 def get_perm(user):
     return user.extenduser.role.permission
 
+@login_required(login_url='/login')
 def user_table(request):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
@@ -868,6 +738,7 @@ def user_table(request):
     }
     return render(request, 'rfqsite/user_table.html', context)
 
+@login_required(login_url='/login')
 def add_user(request):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
@@ -897,6 +768,7 @@ def add_user(request):
         }
     return render(request, 'rfqsite/add_user.html', context)
 
+@login_required(login_url='/login')
 def edit_user(request,username):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
@@ -908,6 +780,7 @@ def edit_user(request,username):
     }
     return render(request, 'rfqsite/edit_user.html', context)
 
+@login_required(login_url='/login')
 def edit_user_confirm(request):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
@@ -923,6 +796,7 @@ def edit_user_confirm(request):
         ext.save()
         return redirect('/user_table/?message=1')
 
+@login_required(login_url='/login')
 def validate_user(request):
     alluser = User.objects.all()
     for user in alluser:
@@ -932,6 +806,7 @@ def validate_user(request):
     data = {'isUsed': False}
     return JsonResponse(data)
 
+@login_required(login_url='/login')
 def remove_user(request,username):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
@@ -939,6 +814,7 @@ def remove_user(request,username):
     duser.delete()
     return redirect('/user_table/?message=1')
 
+@login_required(login_url='/login')
 def remove_part(request, sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
@@ -947,7 +823,10 @@ def remove_part(request, sl_no):
     dpart.delete()
     return redirect('/part_table/'+str(rfq.tracker_no)+'?message=1')
 
+@login_required(login_url='/login')
 def master_table(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     sp_table = SP_Master.objects.all()
     mc_table = MC_Master.objects.all()
     context = {
@@ -956,7 +835,10 @@ def master_table(request):
     }
     return render(request, 'rfqsite/master_table.html', context)
 
+@login_required(login_url='/login')
 def add_mc_master(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         name = request.POST.get('name')
         for obj in MC_Master.objects.filter(name=name):
@@ -968,7 +850,10 @@ def add_mc_master(request):
     }
     return render(request, 'rfqsite/add_mc_master.html', context)
 
+@login_required(login_url='/login')
 def add_sp_master(request):
+    if(get_perm(request.user) != 0):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         name = request.POST.get('name')
         for obj in SP_Master.objects.filter(name=name):
@@ -980,10 +865,10 @@ def add_sp_master(request):
     }
     return render(request, 'rfqsite/add_sp_master.html', context)
 
-def set_sp(part,master):
-    pass
-
+@login_required(login_url='/login')
 def edit_sp_set(request,sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
     sp_set = SP_Set.objects.filter(sl_no=part).order_by('sp_id')
     context = {
@@ -992,7 +877,10 @@ def edit_sp_set(request,sl_no):
     }
     return render(request, 'rfqsite/edit_sp_set.html', context)
 
+@login_required(login_url='/login')
 def edit_sp_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         sp = SP_Set.objects.filter(sl_no=sl_no)
@@ -1009,7 +897,10 @@ def edit_sp_set_confirm(request):
                 esp2.save()
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def select_sp_set(request,sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
     sp_set = SP_Set.objects.filter(sl_no=sl_no)
     sp_master = SP_Master.objects.all()
@@ -1022,7 +913,10 @@ def select_sp_set(request,sl_no):
     }
     return render(request, 'rfqsite/select_sp_set.html', context)
 
+@login_required(login_url='/login')
 def select_sp_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         sp_master = SP_Master.objects.all()
@@ -1043,7 +937,10 @@ def select_sp_set_confirm(request):
             return redirect('/edit_sp_set/'+str(sl_no)+'/?message=1')
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def select_act_set(request,tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(tracker_no=tracker_no)
     act_set = ACT_Set.objects.filter(tracker_no=project)
     mc_master = MC_Master.objects.all()
@@ -1057,7 +954,10 @@ def select_act_set(request,tracker_no):
     return render(request, 'rfqsite/select_act_set.html', context)
 
 
+@login_required(login_url='/login')
 def select_act_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         mc_master = MC_Master.objects.all()
@@ -1078,7 +978,10 @@ def select_act_set_confirm(request):
             return redirect('/edit_act_set/'+str(tracker_no)+'/?message=1')
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def edit_act_set(request,tracker_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(tracker_no=tracker_no)
     act_set = ACT_Set.objects.filter(tracker_no=project).order_by('mc_id')
     context = {
@@ -1087,7 +990,10 @@ def edit_act_set(request,tracker_no):
     }
     return render(request, 'rfqsite/edit_act_set.html', context)
 
+@login_required(login_url='/login')
 def edit_act_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         act = ACT_Set.objects.filter(tracker_no=tracker_no)
@@ -1099,7 +1005,10 @@ def edit_act_set_confirm(request):
                 eact.save()
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def select_mc_set(request,sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
     mc_set = MC_Set.objects.filter(sl_no=sl_no)
     act_set = ACT_Set.objects.filter(tracker_no=part.tracker_no)
@@ -1112,7 +1021,10 @@ def select_mc_set(request,sl_no):
     }
     return render(request, 'rfqsite/select_mc_set.html', context)
 
+@login_required(login_url='/login')
 def select_mc_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         act_set = ACT_Set.objects.filter(tracker_no=RFQ.objects.get(tracker_no=Part_Header.objects.get(sl_no=sl_no).tracker_no.tracker_no))
@@ -1133,7 +1045,10 @@ def select_mc_set_confirm(request):
             return redirect('/edit_mc_set/'+str(sl_no)+'/?message=1')
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def edit_mc_set(request,sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
     mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id')
     context = {
@@ -1142,7 +1057,10 @@ def edit_mc_set(request,sl_no):
     }
     return render(request, 'rfqsite/edit_mc_set.html', context)
 
+@login_required(login_url='/login')
 def edit_mc_set_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         for item in request.POST:
