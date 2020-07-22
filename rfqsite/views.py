@@ -9,6 +9,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 import os, json, re
 
+def to_float(s):
+    s = s.strip()
+    return float(s) if s else None
+    
 @login_required(login_url='/login')
 def rfq_table(request):
     projects = RFQ.objects.all()
@@ -495,14 +499,35 @@ def edit_part_costing_confirm(request):
         editpc.otrmac = to_float(request.POST.get('otrmac'))
         editpc.ottc = to_float(request.POST.get('ottc'))
         editpc.ccs_quote_assumptions = request.POST.get('ccs-quote-assumptions')
-        editpc.dltiw_fai = request.POST.get('dltiw-fai')
-        editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
-        editpc.dltiw_production = request.POST.get('dltiw-production')
         editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
         editpc.shipping_cost = to_float(request.POST.get('shipping-cost'))
         editpc.ebq_ccs_qty = to_float(request.POST.get('ebq-ccs-qty'))
         editpc.save()
         return redirect('/part_info/'+sl_no+"?message=1")
+
+@login_required(login_url='/login')
+def edit_dltiw(request, sl_no):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part = Part_Header.objects.get(pk=sl_no)
+    context = {
+        'part': part,
+        'part_costing': part_costing
+    }
+    return render(request, 'rfqsite/edit_dltiw.html', context)
+
+@login_required(login_url='/login')
+def edit_dltiw_confirm(request):
+    sl_no = request.POST.get('sl-no')
+    if request.method == 'POST':
+        editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editpc.dltiw_fai = request.POST.get('dltiw-fai')
+        editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
+        editpc.dltiw_production = request.POST.get('dltiw-production')
+        editpc.save()
+        return redirect('/part_info/'+sl_no+"?message=1")
+
 
 @login_required(login_url='/login')
 def add_child(request, sl_no):
