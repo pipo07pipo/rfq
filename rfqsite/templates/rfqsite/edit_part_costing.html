@@ -80,13 +80,13 @@
 												<input type="text" class="form-control" id="ccs-quote-assumptions" name="ccs-quote-assumptions" value="{{ part_costing.ccs_quote_assumptions }}">
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Base Subcontract</b></label>
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Shipping Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
@@ -97,20 +97,20 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
 											</div>
 											<label style="padding-top:5px" class="text-left"><small>(Overwrite Value)</small></label>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>One Time Special Process Set Up Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
@@ -121,7 +121,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>One Time RM Airshipments Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
@@ -132,7 +132,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>One Time Tooling Cost
 												<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i>
 											</b></label>
@@ -145,7 +145,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Total NRE Cost</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">
@@ -156,7 +156,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="form-group">
+										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Target Price (USD)</b></label>
 											<div class="col-sm-3">
 												<div class="input-group input-group-icon">

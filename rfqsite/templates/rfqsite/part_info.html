@@ -862,7 +862,7 @@
 											<hr>
 										</div>
 										<!-- Other Costing -->
-										<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
+										<div class="row">
 											<div class="form-group">
 												<div class="col-md-3 labcustom">
 													<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
@@ -871,7 +871,7 @@
 													<label class="col-sm-12 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom"><b><u>Base Subcontract</u></b></label>
 													<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">{{ part_costing.base_subcontract }}</label>
@@ -885,7 +885,7 @@
 													<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom">
 														<b>EBQ_CCS QTY (Prodn Lot)</b>
@@ -905,7 +905,7 @@
 													<label class="col-sm-5 control-label text-left labcustom" id="minimum-firm-order-qty" name="minimum-firm-order-qty">-</label>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time Special Process Set Up Cost</u></b></label>
 													<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
@@ -922,7 +922,7 @@
 													<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
 												</div>
 											</div>
-											<div class="form-group">
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom"><b><u>Total NRE Cost</u></b></label>
 													<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">{{ part_costing.total_nre_cost }}</label>
@@ -937,7 +937,7 @@
 												</div>
 											</div>
 											<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_child }}</label>
-											<div class="form-group">
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<div class="col-md-4 labcustom">
 													{% if part.level == 0 %}
 													<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Assembly</b></label>
@@ -956,7 +956,7 @@
 											</div>
 											<br>
 										</div>
-										<div class="text-right mr-lg" {% if part.type == "Hardware" %}hidden{% endif %}>
+										<div class="text-right mr-lg">
 											{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 											<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 											{% endif %}
