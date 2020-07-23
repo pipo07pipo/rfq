@@ -938,7 +938,7 @@ def validate_user(request):
     data = {'isUsed': False}
     return JsonResponse(data)
 
-import requests
+# import requests
 
 # @login_required(login_url='/login')
 # def fetch_data(request, tracker_no):
