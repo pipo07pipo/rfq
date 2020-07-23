@@ -51,14 +51,17 @@ def rfq_summary(request, tracker_no):
     spl_process_cost_td = 0
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
+    total_nre_cost_td = 0
     all_part = Part_Header.objects.filter(tracker_no=project)
     for item in all_part:
         op = Output.objects.get(sl_no=item)
+        pc = Part_Costing.objects.get(sl_no=item)
         total_cost_td += op.total_cost
         mtl_cost_td += op.mtl_cost
         spl_process_cost_td += op.spl_process_cost
         total_hardware_cost_td += op.total_hardware_cost
         total_machine_cost_td += op.total_machine_cost
+        total_nre_cost_td += pc.total_nre_cost
     all_act = ACT_Set.objects.filter(tracker_no=project)
     sum = {}
     for act in all_act:
@@ -88,6 +91,7 @@ def rfq_summary(request, tracker_no):
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
+        'total_nre_cost_td': total_nre_cost_td,
         'mc_set': mc_set,
         'parts': parts
     }
@@ -107,6 +111,7 @@ def rfq_summary2(request, tracker_no, sl_no):
     spl_process_cost_td = 0
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
+    total_nre_cost_td = 0
     all_part = []
     c = [Part_Header.objects.get(pk=sl_no)]
     while(len(c) > 0):
@@ -118,11 +123,13 @@ def rfq_summary2(request, tracker_no, sl_no):
             c.remove(item)
     for item in all_part:
         op = Output.objects.get(sl_no=item)
+        pc = Part_Costing.objects.get(sl_no=item)
         total_cost_td += op.total_cost
         mtl_cost_td += op.mtl_cost
         spl_process_cost_td += op.spl_process_cost
         total_hardware_cost_td += op.total_hardware_cost
         total_machine_cost_td += op.total_machine_cost
+        total_nre_cost_td += pc.total_nre_cost
     all_act = ACT_Set.objects.filter(tracker_no=project)
     sum = {}
     for act in all_act:
@@ -156,6 +163,7 @@ def rfq_summary2(request, tracker_no, sl_no):
         'spl_process_cost_td': spl_process_cost_td,
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
+        'total_nre_cost_td': total_nre_cost_td,
         'mc_set': mc_set,
         'parts': parts
     }
