@@ -72,7 +72,6 @@
 							<section class="panel panel-featured">
 								<header class="panel-heading">
 									<div class="panel-actions">
-										<a href="#"  onclick="fetch_data()"><i class="fa fa-refresh"></i></a>
 										<a href="#" class="fa fa-caret-down"></a>
 										<!-- <a href="#" class="fa fa-times"></a> -->
 									</div>
@@ -505,19 +504,6 @@
 		if(isNaN(value)) return value;
 		return value.toFixed(2);
 		// return Math.round((value + Number.EPSILON) * 100) / 100;
-	}
-
-	function fetch_data(){
-		$.ajax({
-        url: '{% url 'fect_data' %}',
-        data: {
-					'tracker_no' : {{ project.tracker_no }}
-        },
-        dataType: 'json',
-        success: function (data) {
-
-        }
-      });
 	}
 
 	</script>
