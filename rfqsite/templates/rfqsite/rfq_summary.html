@@ -270,6 +270,10 @@
 													<td class="center custom1">Value Addition (%)</td>
 													<td class="center" id="value-addition" name="value-addition" colspan="5">-</td>
 												</tr>
+												<tr>
+													<td class="center custom1">Total NRE Cost</td>
+													<td class="center" id="total-nre-cost-td" name="total-nre-cost-td" colspan="5">{{ total_nre_cost_td }}</td>
+												</tr>
 											</tbody>
 									</table>
 								</div>
@@ -367,6 +371,7 @@
 		var spl_process_cost_td = parseFloat($( "#spl-process-cost-td2" ).text());
  		var total_hardware_cost_td  = parseFloat($( "#total-hardware-cost-td2" ).text());
 		var total_machine_cost_td = parseFloat($( "#total-machine-cost-td2" ).text());
+		var total_nre_cost_td = parseFloat($( "#total-nre-cost-td" ).text());
 
 		// -- Machining Capacity Required for the Project --
 		var mc_set_size = $( "#mc-set-size" ).val();
@@ -414,6 +419,7 @@
 		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + math_fix(spl_process_cost_td));
 		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td));
 		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td));
+		$( "#total-nre-cost-td" ).text(dollar_sign(total_nre_cost_td) + math_fix(total_nre_cost_td));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
