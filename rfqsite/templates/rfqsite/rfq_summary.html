@@ -271,10 +271,30 @@
 													<td class="center" id="value-addition" name="value-addition" colspan="5">-</td>
 												</tr>
 												<tr>
-													<td class="center custom1">Total NRE Cost</td>
+													<td class="center custom1">Total NRE Cost <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="bottom" title="This cost is not include in total cost."></i></td>
 													<td class="center" id="total-nre-cost-td" name="total-nre-cost-td" colspan="5">{{ total_nre_cost_td }}</td>
 												</tr>
 											</tbody>
+									</table>
+								</div>
+								<hr>
+								<div class="table-responsive">
+									<table class="table table-bordered table-striped table-condensed mb-none">
+										<thead>
+											<th class="center custom1" colspan="4" scope="colgroup">Total Burden Cost</th>
+											<tr>
+												<th class="center custom2">Material</th>
+												<th class="center custom2">Special Process</th>
+												<th class="center custom2">Hardware</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="center" id="material-burden-cost-td" name="material-burden-cost-td">{{ material_burden_cost_td }}</td>
+												<td class="center" id="sp-burden-cost-td" name="sp-burden-cost-td">{{ sp_burden_cost_td }}</td>
+												<td class="center" id="hardware-burden-cost-td" name="hardware-burden-cost-td">{{ hardware_burden_cost_td }}</td>
+											</tr>
+										</tbody>
 									</table>
 								</div>
 								<hr>
@@ -373,6 +393,11 @@
 		var total_machine_cost_td = parseFloat($( "#total-machine-cost-td2" ).text());
 		var total_nre_cost_td = parseFloat($( "#total-nre-cost-td" ).text());
 
+		// -- Total Burden Cost --
+		var material_burden_cost_td  = parseFloat($( "#material-burden-cost-td" ).text());
+		var sp_burden_cost_td  = parseFloat($( "#sp-burden-cost-td" ).text());
+		var hardware_burden_cost_td  = parseFloat($( "#hardware-burden-cost-td" ).text());
+
 		// -- Machining Capacity Required for the Project --
 		var mc_set_size = $( "#mc-set-size" ).val();
 		var arr_mcrftp_total = [];
@@ -420,6 +445,11 @@
 		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td));
 		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td));
 		$( "#total-nre-cost-td" ).text(dollar_sign(total_nre_cost_td) + math_fix(total_nre_cost_td));
+
+		// -- Total Burden Cost --
+		$( "#material-burden-cost-td" ).text(dollar_sign(material_burden_cost_td) + math_fix(material_burden_cost_td));
+		$( "#sp-burden-cost-td" ).text(dollar_sign(sp_burden_cost_td) + math_fix(sp_burden_cost_td));
+		$( "#hardware-burden-cost-td" ).text(dollar_sign(hardware_burden_cost_td) + math_fix(hardware_burden_cost_td));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){

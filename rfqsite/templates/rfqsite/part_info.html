@@ -747,8 +747,20 @@
 													<label class="col-sm-5 control-label text-left labcustom" id="moq-rm-order" name="moq-rm-order">-</label>
 												</div>
 												<div class="col-md-4 labcustom">
+													<label class="col-sm-7 control-label text-right labcustom"><b>Material Burden Cost</b></label>
+													<label class="col-sm-5 control-label text-left labcustom" id="material-burden-cost" name="material-burden-cost">-</label>
+												</div>
+											</div>
+											<div class="form-group">
+												<div class="col-md-4 labcustom">
 													<label class="col-sm-7 control-label text-right labcustom"><b>Material Cost DDP CCS</b></label>
 													<label class="col-sm-5 control-label text-left labcustom" id="material-cost" name="material-cost">-</label>
+												</div>
+												<div class="col-md-4 labcustom">
+													<!-- Empty -->
+												</div>
+												<div class="col-md-4 labcustom">
+													<!-- Empty -->
 												</div>
 											</div>
 											<hr>
@@ -779,11 +791,12 @@
 										<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<div class="form-group">
 												<div class="col-md-4 labcustom">
-													<label class="col-sm-7 control-label text-right labcustom"><b>Surface Treatment Cost</b></label>
-													<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
+													<label class="col-sm-7 control-label text-right labcustom"><b>Special Process Burden Cost</b></label>
+													<label class="col-sm-5 control-label text-left labcustom" id="sp-burden-cost" name="sp-burden-cost">-</label>
 												</div>
 												<div class="col-md-4 labcustom">
-													<!-- Empty -->
+													<label class="col-sm-7 control-label text-right labcustom"><b>Surface Treatment Cost</b></label>
+													<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
 												</div>
 												<div class="col-md-4 labcustom">
 													<!-- Empty -->
@@ -849,11 +862,12 @@
 										<div class="row" {% if part.type == "Part" %}hidden{% endif %}>
 											<div class="form-group">
 												<div class="col-md-4 labcustom">
-													<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
-													<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
+													<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Burden Cost</b></label>
+													<label class="col-sm-5 control-label text-left labcustom" id="hardware-burden-cost" name="hardware-burden-cost">-</label>
 												</div>
 												<div class="col-md-4 labcustom">
-													<!-- Empty -->
+													<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
+													<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
 												</div>
 												<div class="col-md-4 labcustom">
 													<!-- Empty -->
@@ -1234,6 +1248,8 @@
 		var oyrmb = trmwpy;
 		// MOQ Raw Material Order (kg) = (Annual Estimate Qty for Calculation * Approximate Raw Material Weight Per Part) / 4
 		var moq_rm_order = (aeqfc * armwpp) / 4;
+		// Material Burden Cost = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * (Material Burden - 1)
+		var material_burden_cost = (base_material_price + material_shipping_cost) * armwpp * (rate_material - 1);
 		// Material Cost DDP CCS = (Base Material Price/kg + Material Shipping Cost USD/Kg) * Approximate Raw Material Weight Per Part * Material Burden
 		var material_cost = (base_material_price + material_shipping_cost) * armwpp * rate_material;
 		// - Special Process Costing -
@@ -1242,12 +1258,20 @@
 		for(var i = 0; i < sp_set_size;i++){
 			arr_sp_cost[i] =  arr_sp_rate[i] * (1 / production_qty);
 		}
+		// Special Process Burden Cost = SUM(Special Process Cost) * (Special Process Burden - 1)
+		var sp_burden_cost = 0;
+		for(var i = 0; i < sp_set_size;i++){
+			sp_burden_cost = sp_burden_cost + arr_sp_cost[i];
+		}
+		sp_burden_cost = sp_burden_cost * (rate_sp - 1);
+
 		// Surface Treatment Cost = SUM(Special Process Cost) * Special Process Burden
 		var surface_treatment_cost = 0;
 		for(var i = 0; i < sp_set_size;i++){
 			surface_treatment_cost = surface_treatment_cost + arr_sp_cost[i];
 		}
 		surface_treatment_cost = surface_treatment_cost * rate_sp;
+
 
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
@@ -1271,6 +1295,8 @@
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
 
 		// - Hardware Costing -
+		// Hardware Burden Cost = Hardware Price * Qty per unit * (Hardware Burden - 1)
+		var hardware_burden_cost = hardware_price * qty_per_unit * (rate_hardware - 1);
 		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
 		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
 
@@ -1386,6 +1412,7 @@
 		// - Material Costing -
 		$( "#oyrmb" ).text(oyrmb);
 		$( "#moq-rm-order" ).text(moq_rm_order);
+		$( "#material-burden-cost" ).text(material_burden_cost);
 		$( "#material-cost" ).text(material_cost);
 		// - Special Process Costing -
 		// - Special Process Cost (Dollar) -
@@ -1393,6 +1420,7 @@
 			text = "#sp-cost-" + i;
 			$( text ).text(arr_sp_cost[i]);
 		}
+		$( "#sp-burden-cost" ).text(sp_burden_cost);
 		$( "#surface-treatment-cost" ).text(surface_treatment_cost);
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes)
@@ -1408,6 +1436,7 @@
 		$( "#profit-factor" ).text(profit_factor);
 		$( "#total-manufacturing-cost" ).text(total_manufacturing_cost);
 		// - Hardware Costing -
+		$( "#hardware-burden-cost" ).text(hardware_burden_cost);
 		$( "#hardware-cost" ).text(hardware_cost);
 		// - Other Costing -
 		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
@@ -1436,6 +1465,10 @@
         data: {
 					'sl_no' : sl_no,
           'ccs_ewp': ccs_ewp,
+
+					'material_burden_cost' : material_burden_cost,
+					'sp_burden_cost' : sp_burden_cost,
+					'hardware_burden_cost' : hardware_burden_cost,
 
 					'total_cost' : total_cost,
 					'mtl_cost' : mtl_cost,
@@ -1529,6 +1562,7 @@
 		// - Material Costing -
 		$( "#oyrmb" ).text(math_fix(oyrmb));
 		$( "#moq-rm-order" ).text(math_fix(moq_rm_order));
+		$( "#material-burden-cost" ).text(dollar_sign(material_burden_cost) + math_fix(material_burden_cost));
 		$( "#material-cost" ).text(dollar_sign(material_cost) + math_fix(material_cost));
 		// - Special Process Costing -
 		// - Special Process Cost (Dollar) -
@@ -1536,6 +1570,7 @@
 			text = "#sp-cost-" + i;
 			$( text ).text(dollar_sign(arr_sp_cost[i]) + math_fix(arr_sp_cost[i]));
 		}
+		$( "#sp-burden-cost" ).text(dollar_sign(sp_burden_cost) + math_fix(sp_burden_cost));
 		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + math_fix(surface_treatment_cost));
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes)
@@ -1551,6 +1586,7 @@
 		$( "#profit-factor" ).text(dollar_sign(profit_factor) + math_fix(profit_factor));
 		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + math_fix(total_manufacturing_cost));
 		// - Hardware Costing -
+		$( "#hardware-burden-cost" ).text(dollar_sign(hardware_burden_cost) + math_fix(hardware_burden_cost));
 		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + math_fix(hardware_cost));
 		// - Other Costing -
 		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost));
