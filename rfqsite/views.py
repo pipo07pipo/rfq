@@ -12,7 +12,7 @@ import os, json, re
 def to_float(s):
     s = s.strip()
     return float(s) if s else None
-    
+
 @login_required(login_url='/login')
 def rfq_table(request):
     projects = RFQ.objects.all()
@@ -26,6 +26,8 @@ def rfq_table(request):
 
 @login_required(login_url='/login')
 def parts(request, tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     project = RFQ.objects.get(pk=tracker_no)
     act_set = ACT_Set.objects.filter(tracker_no=project).order_by('mc_id')
     if(len(project.file_path.split('/')) == 3 ):
@@ -44,6 +46,8 @@ def parts(request, tracker_no):
 
 @login_required(login_url='/login')
 def rfq_summary(request, tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     project = RFQ.objects.get(pk=tracker_no)
     total_cost_td = 0
     mtl_cost_td = 0
@@ -94,6 +98,10 @@ def rfq_summary(request, tracker_no):
 
 @login_required(login_url='/login')
 def rfq_summary2(request, tracker_no, sl_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     part = Part_Header.objects.get(pk=sl_no)
     project = RFQ.objects.get(pk=tracker_no)
     current_sl = sl_no
@@ -163,6 +171,8 @@ class MC:
 
 @login_required(login_url='/login')
 def add_part(request, tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
@@ -174,6 +184,8 @@ def add_part(request, tracker_no):
 
 @login_required(login_url='/login')
 def add_part_multi(request, tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
@@ -254,6 +266,8 @@ def add_part_confirm(request):
 
 @login_required(login_url='/login')
 def edit_rfq(request, tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(pk=tracker_no)
@@ -303,6 +317,8 @@ def edit_rfq_confirm(request):
 
 @login_required(login_url='/login')
 def part_info(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     part = Part_Header.objects.get(pk=sl_no)
     current_year = part.tracker_no.current_year
     base_level = Part_Header.objects.get(pk=sl_no)
@@ -353,6 +369,8 @@ def part_info(request, sl_no):
 
 @login_required(login_url='/login')
 def edit_part_info(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
@@ -423,6 +441,8 @@ def edit_part_info_confirm(request):
 
 @login_required(login_url='/login')
 def edit_forecast(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -453,6 +473,8 @@ def edit_forecast_confirm(request):
 
 @login_required(login_url='/login')
 def edit_hardware(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     hardware = Hardware.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -477,6 +499,8 @@ def edit_hardware_confirm(request):
 
 @login_required(login_url='/login')
 def edit_part_costing(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -507,6 +531,8 @@ def edit_part_costing_confirm(request):
 
 @login_required(login_url='/login')
 def edit_dltiw(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -531,6 +557,8 @@ def edit_dltiw_confirm(request):
 
 @login_required(login_url='/login')
 def add_child(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(pk=sl_no)
@@ -579,6 +607,8 @@ def add_child_confirm(request):
 
 @login_required(login_url='/login')
 def edit_material(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     material = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -670,6 +700,8 @@ def edit_material_confirm(request):
 
 @login_required(login_url='/login')
 def edit_material_remove(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     delmat = Material.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -679,6 +711,8 @@ def edit_material_remove(request, sl_no):
 
 @login_required(login_url='/login')
 def edit_burden_rate(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     burden_rate = Burden_Rate.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
@@ -869,6 +903,8 @@ def remove_user(request,username):
 
 @login_required(login_url='/login')
 def remove_part(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     dpart = Part_Header.objects.get(sl_no=sl_no)
@@ -920,6 +956,8 @@ def add_sp_master(request):
 
 @login_required(login_url='/login')
 def edit_sp_set(request,sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
@@ -952,6 +990,8 @@ def edit_sp_set_confirm(request):
 
 @login_required(login_url='/login')
 def select_sp_set(request,sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
@@ -992,6 +1032,8 @@ def select_sp_set_confirm(request):
 
 @login_required(login_url='/login')
 def select_act_set(request,tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(tracker_no=tracker_no)
@@ -1033,6 +1075,8 @@ def select_act_set_confirm(request):
 
 @login_required(login_url='/login')
 def edit_act_set(request,tracker_no):
+    if(not RFQ.objects.filter(pk=tracker_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     project = RFQ.objects.get(tracker_no=tracker_no)
@@ -1060,6 +1104,8 @@ def edit_act_set_confirm(request):
 
 @login_required(login_url='/login')
 def select_mc_set(request,sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
@@ -1100,6 +1146,8 @@ def select_mc_set_confirm(request):
 
 @login_required(login_url='/login')
 def edit_mc_set(request,sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
