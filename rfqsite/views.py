@@ -16,9 +16,6 @@ def to_float(s):
 @login_required(login_url='/login')
 def rfq_table(request):
     projects = RFQ.objects.all()
-    temp = RFQ.objects.get(tracker_no=0)
-    temp.file_path = ''
-    temp.save()
     context = {
         'projects': projects
     }
