@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 import os, json, re
+from datetime import datetime
 
 def to_float(s):
     s = s.strip()
@@ -16,6 +17,14 @@ def to_float(s):
 @login_required(login_url='/login')
 def rfq_table(request):
     projects = RFQ.objects.all()
+    for rfq in projects:
+        if(rfq.usd_thb == ''):
+            rfq.usd_thb = 35.0
+        if(rfq.update_date == None):
+            rfq.update_date = datetime.now()
+        if(rfq.current_year == 0):
+            rfq.current_year = 2020
+            rfq.save()
     context = {
         'projects': projects
     }
@@ -322,6 +331,10 @@ def edit_rfq_confirm(request):
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
+        if(request.POST.get('usd-thb') == ''):
+            project.usd_thb = 35
+        else:
+            project.usd_thb = request.POST.get('usd-thb')
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
     elif request.method == 'POST':
@@ -332,8 +345,13 @@ def edit_rfq_confirm(request):
         #         os.remove(os.getcwd().replace('\\','/')+"/media/"+project.file_path)
         #         project.file_path = ''
         project.customer_name = request.POST.get('customer-name')
-        project.usd_thb = request.POST.get('usd-thb')
+        if(request.POST.get('usd-thb') == ''):
+            project.usd_thb = 35
+        else:
+            project.usd_thb = request.POST.get('usd-thb')
+
         project.current_year = request.POST.get('current-year')
+        project.update_date = datetime.now()
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 

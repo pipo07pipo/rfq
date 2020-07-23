@@ -16,7 +16,7 @@ class RFQ(models.Model):
     ccs_tracker_no = models.CharField(max_length=200, default='')
     description = models.CharField(max_length=200)
     customer_name = models.CharField(max_length=200)
-    file_path = models.CharField(max_length=200, null=True, default='')
+    file_path = models.CharField(max_length=200, default='')
     update_date = models.DateTimeField('date publish')
     usd_thb = models.FloatField(default=35)
     current_year = models.IntegerField(default=2020)
