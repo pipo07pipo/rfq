@@ -52,6 +52,9 @@ def rfq_summary(request, tracker_no):
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
     total_nre_cost_td = 0
+    hardware_burden_cost_td = 0
+    sp_burden_cost_td = 0
+    material_burden_cost_td = 0
     all_part = Part_Header.objects.filter(tracker_no=project)
     for item in all_part:
         op = Output.objects.get(sl_no=item)
@@ -62,6 +65,9 @@ def rfq_summary(request, tracker_no):
         total_hardware_cost_td += op.total_hardware_cost
         total_machine_cost_td += op.total_machine_cost
         total_nre_cost_td += pc.total_nre_cost
+        hardware_burden_cost_td += op.hardware_burden_cost
+        sp_burden_cost_td += op.sp_burden_cost
+        material_burden_cost_td += op.material_burden_cost
     all_act = ACT_Set.objects.filter(tracker_no=project)
     sum = {}
     for act in all_act:
@@ -92,6 +98,9 @@ def rfq_summary(request, tracker_no):
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
         'total_nre_cost_td': total_nre_cost_td,
+        'material_burden_cost_td': material_burden_cost_td,
+        'sp_burden_cost_td': sp_burden_cost_td,
+        'hardware_burden_cost_td': hardware_burden_cost_td,
         'mc_set': mc_set,
         'parts': parts
     }
@@ -112,6 +121,9 @@ def rfq_summary2(request, tracker_no, sl_no):
     total_hardware_cost_td = 0
     total_machine_cost_td = 0
     total_nre_cost_td = 0
+    hardware_burden_cost_td = 0
+    sp_burden_cost_td = 0
+    material_burden_cost_td = 0
     all_part = []
     c = [Part_Header.objects.get(pk=sl_no)]
     while(len(c) > 0):
@@ -130,6 +142,9 @@ def rfq_summary2(request, tracker_no, sl_no):
         total_hardware_cost_td += op.total_hardware_cost
         total_machine_cost_td += op.total_machine_cost
         total_nre_cost_td += pc.total_nre_cost
+        hardware_burden_cost_td += op.hardware_burden_cost
+        sp_burden_cost_td += op.sp_burden_cost
+        material_burden_cost_td += op.material_burden_cost
     all_act = ACT_Set.objects.filter(tracker_no=project)
     sum = {}
     for act in all_act:
@@ -164,6 +179,9 @@ def rfq_summary2(request, tracker_no, sl_no):
         'total_hardware_cost_td': total_hardware_cost_td,
         'total_machine_cost_td': total_machine_cost_td,
         'total_nre_cost_td': total_nre_cost_td,
+        'material_burden_cost_td': material_burden_cost_td,
+        'sp_burden_cost_td': sp_burden_cost_td,
+        'hardware_burden_cost_td': hardware_burden_cost_td,
         'mc_set': mc_set,
         'parts': parts
     }
@@ -759,6 +777,9 @@ def data_collect(request):
         editO.spl_process_cost = unNan(request.GET.get('spl_process_cost'))
         editO.total_hardware_cost = unNan(request.GET.get('total_hardware_cost'))
         editO.total_machine_cost = unNan(request.GET.get('total_machine_cost'))
+        editO.material_burden_cost = unNan(request.GET.get('material_burden_cost'))
+        editO.sp_burden_cost = unNan(request.GET.get('sp_burden_cost'))
+        editO.hardware_burden_cost = unNan(request.GET.get('hardware_burden_cost'))
         editO.save()
         id = request.GET.getlist('arr_mc_id[]')
         value = request.GET.getlist('arr_mc_mcrftp[]')

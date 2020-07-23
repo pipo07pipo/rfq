@@ -106,6 +106,9 @@ class Output(models.Model):
     spl_process_cost = models.FloatField(default=0)
     total_hardware_cost = models.FloatField(default=0)
     total_machine_cost = models.FloatField(default=0)
+    material_burden_cost = models.FloatField(default=0)
+    sp_burden_cost = models.FloatField(default=0)
+    hardware_burden_cost = models.FloatField(default=0)
 
 class SP_Master(models.Model):
     id = models.AutoField(primary_key=True)
