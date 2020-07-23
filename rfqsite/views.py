@@ -938,6 +938,13 @@ def validate_user(request):
     return JsonResponse(data)
 
 @login_required(login_url='/login')
+def fetch_data(request):
+    rfqp = Part_Header.objects.filter(tracker_no)
+    data_set = [x.sl_no for x in rfqp]
+    data = {'data_set': data_set}
+    return JsonResponse(data)
+
+@login_required(login_url='/login')
 def remove_user(request,username):
     if(get_perm(request.user) != 0):
         return HttpResponseNotFound("Access Denied")
