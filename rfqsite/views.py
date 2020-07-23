@@ -10,6 +10,7 @@ from django.contrib.auth.password_validation import validate_password
 import os, json, re
 from datetime import datetime
 
+
 def to_float(s):
     s = s.strip()
     return float(s) if s else None
@@ -937,12 +938,18 @@ def validate_user(request):
     data = {'isUsed': False}
     return JsonResponse(data)
 
-@login_required(login_url='/login')
-def fetch_data(request):
-    rfqp = Part_Header.objects.filter(tracker_no)
-    data_set = [x.sl_no for x in rfqp]
-    data = {'data_set': data_set}
-    return JsonResponse(data)
+import requests
+
+# @login_required(login_url='/login')
+# def fetch_data(request, tracker_no):
+#     rfqp = Part_Header.objects.filter(tracker_no=tracker_no)
+#     parts = [x.sl_no for x in rfqp]
+#     print(request.get_host())
+#     for part in parts:
+#         path = str(request.get_host())+"/part_info/"+str(part)
+#         response = requests.get(path, headers=None)
+#     data = {'data_set': True}
+#     return JsonResponse(data)
 
 @login_required(login_url='/login')
 def remove_user(request,username):
