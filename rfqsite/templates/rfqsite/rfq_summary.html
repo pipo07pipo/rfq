@@ -282,7 +282,8 @@
 											<th class="center custom1" colspan="4" scope="colgroup">Machining Capacity Required for {% if part.sl_no == None %}the Project{% else %}this Part{% endif %}</th>
 											<tr>
 												<th class="center custom2">Name</th>
-												<th class="center custom2">Per Year</th>
+												<th class="center custom2" hidden>Per Year (Minutes)</th>
+												<th class="center custom2">Per Year (Hours)</th>
 												<th class="center custom2">M/C's / Yr</th>
 												<th class="center custom2">Manpower / Yr</th>
 											</tr>
@@ -291,7 +292,8 @@
 											{% for mc in mc_set %}
 											<tr>
 												<td class="center"><b>{{ mc.name }}</b></td>
-												<td class="center" id="mcrftp-total-{{ forloop.counter0 }}" name="mcrftp-total-{{ forloop.counter0 }}">{{ mc.mcrftp }}</td>
+												<td class="center" id="mcrftp-total-{{ forloop.counter0 }}" name="mcrftp-total-{{ forloop.counter0 }}" hidden>{{ mc.mcrftp }}</td>
+												<td class="center" id="mcrftp-py-{{ forloop.counter0 }}" name="mcrftp-py-{{ forloop.counter0 }}">-</td>
 												<td class="center" id="mcrftp-mpy-{{ forloop.counter0 }}" name="mcrftp-mpy-{{ forloop.counter0 }}">-</td>
 												<td class="center" id="mcrftp-man-{{ forloop.counter0 }}" name="mcrftp-man-{{ forloop.counter0 }}">-</td>
 											</tr>
@@ -367,12 +369,11 @@
 		var total_machine_cost_td = parseFloat($( "#total-machine-cost-td2" ).text());
 
 		// -- Machining Capacity Required for the Project --
-		// Per Year = SUM(Machining Capacity Required for the Project) / 60
 		var mc_set_size = $( "#mc-set-size" ).val();
 		var arr_mcrftp_total = [];
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#mcrftp-total-" + i;
-			arr_mcrftp_total[i] =  parseFloat($( text ).text()) / 60;
+			arr_mcrftp_total[i] =  parseFloat($( text ).text());
 		}
 
 		// -*-*-*-*-*-*-*-*-*-*- 2 CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
@@ -394,12 +395,15 @@
 		var value_addition = ((spl_process_cost_td + total_machine_cost_td) / total_cost_td) * 100
 
 		// -- Machining Capacity Required for the Project --
-		// Machines Per Year = Per Year / 5000
+		// Per Year (Hours) = SUM(Machining Capacity Required for the Project) / 60
+		// Machines Per Year = Per Year (Hours) / 5000
 		// Man Power Per Year = Round Up ( Machines Per Year )
+		var arr_mcrftp_py = [];
 		var arr_mcrftp_mpy = [];
 		var arr_mcrftp_man = [];
 		for(var i = 0; i < mc_set_size;i++){
-			arr_mcrftp_mpy[i] =  arr_mcrftp_total[i] / 5000;
+			arr_mcrftp_py[i] = arr_mcrftp_total[i] / 60;
+			arr_mcrftp_mpy[i] =  arr_mcrftp_py[i] / 5000;
 			arr_mcrftp_man[i] =  Math.ceil(arr_mcrftp_mpy[i]);
 		}
 
@@ -434,6 +438,8 @@
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
+			var text = "#mcrftp-py-" + i;
+			$( text ).text(math_fix(arr_mcrftp_py[i]));
 			var text = "#mcrftp-mpy-" + i;
 			$( text ).text(math_fix(arr_mcrftp_mpy[i]));
 			var text = "#mcrftp-man-" + i;
