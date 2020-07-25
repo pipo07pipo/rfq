@@ -1336,10 +1336,10 @@
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
 
 		// - Hardware Costing -
-		// Hardware Burden Cost = Hardware Price * Qty per unit * (Hardware Burden - 1)
-		var hardware_burden_cost = hardware_price * qty_per_unit * (rate_hardware - 1);
-		// Hardware Cost = Hardware Price * Qty per unit * Hardware Burden
-		var hardware_cost = hardware_price * qty_per_unit * rate_hardware;
+		// Hardware Burden Cost = Hardware Price * Hardware Qty Per Part * (Hardware Burden - 1)
+		var hardware_burden_cost = hardware_price * hardware_qty * (rate_hardware - 1);
+		// Hardware Cost = Hardware Price * Hardware Qty Per Part * Hardware Burden
+		var hardware_cost = hardware_price * hardware_qty * rate_hardware;
 
 		// - Other Costing -
 		// Subcontract Shipping Cost = [Base Subcontract + (Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
