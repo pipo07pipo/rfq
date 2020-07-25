@@ -1143,6 +1143,7 @@
 	function fetch_data(){
 			var url = new URL(window.location.href);
 			var data_set = url.searchParams.get("data_set");
+			console.log(data_set);
 			if(data_set != null){
 				var arr_data_set = data_set.split(",");
 				var next_page = -1;
@@ -1155,7 +1156,7 @@
 				}
 				if(next_page != undefined){
 					setTimeout(function() {
-	  				window.open("/part_info/" + next_page + "data_set=" + data_set , "_self");
+	  				window.open("/part_info/" + next_page + "?data_set=" + data_set , "_self");
 					}, 100);
 				} else {
 					window.open("/part_table/" + current_project , "_self");
