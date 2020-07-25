@@ -1138,7 +1138,7 @@ def select_act_set_confirm(request):
                 data_str = data_str + x + ","
             data_str = data_str[:len(data_str)-1]
             print(data_str)
-            return redirect('/part_info/'+str(refresh[0])+'/?data_set='+data_str)
+            return redirect('/part_info/'+str(refresh[0])+'/?final_page=part_table&data_set='+data_str)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
