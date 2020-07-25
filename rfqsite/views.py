@@ -1071,7 +1071,6 @@ def select_sp_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         sp_master = SP_Master.objects.all()
-        edit = 0
         for sp in sp_master:
             id = sp.id
             if(request.POST.get(str(id)) == None):
@@ -1083,9 +1082,6 @@ def select_sp_set_confirm(request):
                 else:
                     newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
                     newsp.save()
-                    edit = 1
-        if(edit == 1):
-            return redirect('/edit_sp_set/'+str(sl_no)+'/?message=1')
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
 @login_required(login_url='/login')
@@ -1114,7 +1110,6 @@ def select_act_set_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         mc_master = MC_Master.objects.all()
-        edit = 0
         for mc in mc_master:
             id = mc.id
             if(request.POST.get(str(id)) == None):
@@ -1126,9 +1121,6 @@ def select_act_set_confirm(request):
                 else:
                     newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
                     newact.save()
-                    edit = 1
-        if(edit == 1):
-            return redirect('/edit_act_set/'+str(tracker_no)+'/?message=1')
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
@@ -1197,9 +1189,6 @@ def select_mc_set_confirm(request):
                 else:
                     newact = MC_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),act_id=act)
                     newact.save()
-                    edit = 1
-        if(edit == 1):
-            return redirect('/edit_mc_set/'+str(sl_no)+'/?message=1')
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
 @login_required(login_url='/login')
