@@ -51,7 +51,7 @@
 
 	</head>
 	<body>
-		<section class="body">
+		<section class="body" id="content" hidden>
 
 			<!-- start: header -->
 			{% include 'navbar.html' %}
@@ -1130,7 +1130,29 @@
 	<script>
 	$( document ).ready(function() {
 		data_cal();
+		fetch_data();
 	});
+
+	function fetch_data(){
+			var data_set = {{ data_set }};
+			var next_page = -1;
+			var current_page = {{ part.sl_no }};
+			var current_project = {{ part.tracker_no.tracker_no }};
+			for(var i = 0;i < data_set.length;i++){
+				if(data_set[i] == current_page){
+					next_page = data_set[i + 1];
+				}
+			}
+			console.log("Current Page " + current_page);
+			console.log("Next Page " + next_page);
+			if(next_page == -1){
+				$( "#content" ).removeAttr('hidden');
+			} else if(next_page != undefined){
+				window.open("/part_info/" + next_page , "_self");
+			} else {
+				window.open("/part_table/" + current_project , "_self");
+			}
+	}
 
 	function data_cal(){
 		// -*-*-*-*-*-*-*-*-*-*- 1 RAW INPUT SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
