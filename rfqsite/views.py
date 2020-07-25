@@ -100,7 +100,10 @@ def rfq_summary(request, tracker_no):
         tree.set_tree()
         # tree.set_open()
         parts.append(tree)
+    data_set = [x.sl_no for x in Part_Header.objects.filter(tracker_no=tracker_no)]
+    print(data_set)
     context = {
+        'data_set': data_set,
         'project': project,
         'total_cost_td': total_cost_td,
         'mtl_cost_td': mtl_cost_td,
