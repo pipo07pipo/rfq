@@ -1137,7 +1137,6 @@ def select_act_set_confirm(request):
             for x in data_set:
                 data_str = data_str + x + ","
             data_str = data_str[:len(data_str)-1]
-            print(data_str)
             return redirect('/part_info/'+str(refresh[0])+'/?final_page=part_table&data_set='+data_str)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
@@ -1162,12 +1161,25 @@ def edit_act_set_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         act = ACT_Set.objects.filter(tracker_no=tracker_no)
+        refresh = []
         for item in request.POST:
             if('act-rate' in item):
                 id = int(item.replace('act-rate-',''))
                 eact = ACT_Set.objects.get(tracker_no=tracker_no,mc_id=MC_Master.objects.get(id=id))
-                eact.rate = request.POST.get(item)
-                eact.save()
+                if(eact.rate != float(request.POST.get(item))):
+                    eact.rate = request.POST.get(item)
+                    sl_in = MC_Set.objects.filter(act_id=eact)
+                    for mc in sl_in:
+                        if mc.sl_no.sl_no not in refresh:
+                            refresh.append(mc.sl_no.sl_no)
+                    eact.save()
+        if(len(refresh) > 0):
+            data_str = ''
+            data_set = [str(x) for x in refresh]
+            for x in data_set:
+                data_str = data_str + x + ","
+            data_str = data_str[:len(data_str)-1]
+            return redirect('/part_info/'+str(refresh[0])+'/?final_page=part_table&data_set='+data_str)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
