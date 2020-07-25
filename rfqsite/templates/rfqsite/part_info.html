@@ -1143,26 +1143,26 @@
 	function fetch_data(){
 			var url = new URL(window.location.href);
 			var data_set = url.searchParams.get("data_set");
-			var arr_data_set = data_set.split(",");
-			var next_page = -1;
-			var current_page = {{ part.sl_no }};
-			var current_project = {{ part.tracker_no.tracker_no }};
-			for(var i = 0;i < data_set.length;i++){
-				if(arr_data_set[i] == current_page){
-					next_page = arr_data_set[i + 1];
+			if(data_set != null){
+				var arr_data_set = data_set.split(",");
+				var next_page = -1;
+				var current_page = {{ part.sl_no }};
+				var current_project = {{ part.tracker_no.tracker_no }};
+				for(var i = 0;i < data_set.length;i++){
+					if(arr_data_set[i] == current_page){
+						next_page = arr_data_set[i + 1];
+					}
 				}
-			}
-			console.log("Current Page " + current_page);
-			console.log("Next Page " + next_page);
-			if(next_page == -1){
+				if(next_page != undefined){
+					setTimeout(function() {
+	  				window.open("/part_info/" + next_page + "data_set=" + data_set , "_self");
+					}, 100);
+				} else {
+					window.open("/part_table/" + current_project , "_self");
+				}
+			} else {
 				$( "#pre-loading" ).hide();
 				$( "#content" ).show();
-			} else if(next_page != undefined){
-				setTimeout(function() {
-  				window.open("/part_info/" + next_page + "data_set=" + data_set , "_self");
-				}, 100);
-			} else {
-				window.open("/part_table/" + current_project , "_self");
 			}
 	}
 
