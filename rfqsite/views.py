@@ -100,10 +100,7 @@ def rfq_summary(request, tracker_no):
         tree.set_tree()
         # tree.set_open()
         parts.append(tree)
-    data_set = [x.sl_no for x in Part_Header.objects.filter(tracker_no=tracker_no)]
-    print(data_set)
     context = {
-        'data_set': data_set,
         'project': project,
         'total_cost_td': total_cost_td,
         'mtl_cost_td': mtl_cost_td,
@@ -1257,3 +1254,11 @@ def edit_mc_set_confirm(request):
                 emc2.ctpp = request.POST.get(item)
                 emc2.save()
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
+
+def fetch_data(request, tracker_no):
+    data_set = [str(x.sl_no) for x in Part_Header.objects.filter(tracker_no=tracker_no)]
+    data_str = ''
+    for x in data_set:
+        data_str = data_str + x + ','
+    data_str = data_str[:len(data_str)-1]
+    return redirect('/part_info/'+str(data_set[0])+'/?final_page=rfq_summary&data_set='+data_str)
