@@ -393,7 +393,9 @@ def part_info(request, sl_no):
         file_name = part.file_path.split('/')[2]
     else:
         file_name = ''
+    data_set = []
     context = {
+        'data_set': data_set,
         'sp_set': sp_set,
         'mc_set': mc_set,
         'current_year': current_year,
