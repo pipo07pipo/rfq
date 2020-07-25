@@ -75,7 +75,7 @@
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}">
 										{% if mc_master.count == 0 %}
-										There is no machining process in machining process master.
+										There is no machining process in machining process master. Please contact administrator.
 										{% endif %}
 										{% for mc in mc_master %}
 										<div class="form-group">
@@ -87,7 +87,10 @@
 											</div>
 										</div>
 										{% endfor %}
-
+										{% if mc_master.count != 0 %}
+										<br>
+										* If you can't find activity rate that you are looking for. Please contact administrator.
+										{% endif %}
 									</div>
 									<footer class="panel-footer">
 										<div class="row">

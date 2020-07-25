@@ -1143,8 +1143,8 @@
 	function fetch_data(){
 			var url = new URL(window.location.href);
 			var data_set = url.searchParams.get("data_set");
-			console.log(data_set);
-			if(data_set != null){
+			var final_page = url.searchParams.get("final_page");
+			if(data_set != null && final_page != null){
 				var arr_data_set = data_set.split(",");
 				var next_page = -1;
 				var current_page = {{ part.sl_no }};
@@ -1156,10 +1156,10 @@
 				}
 				if(next_page != undefined){
 					setTimeout(function() {
-	  				window.open("/part_info/" + next_page + "?data_set=" + data_set , "_self");
+	  				window.open("/part_info/" + next_page + "?data_set=" + data_set +"&final_page=" + final_page , "_self");
 					}, 100);
 				} else {
-					window.open("/part_table/" + current_project , "_self");
+					window.open("/" + final_page + "/" + current_project + "/?message=1" , "_self");
 				}
 			} else {
 				$( "#pre-loading" ).hide();
