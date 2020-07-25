@@ -393,7 +393,7 @@ def part_info(request, sl_no):
         file_name = part.file_path.split('/')[2]
     else:
         file_name = ''
-    data_set = []
+    data_set = [52,57,60]
     context = {
         'data_set': data_set,
         'sp_set': sp_set,
