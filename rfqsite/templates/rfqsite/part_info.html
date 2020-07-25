@@ -1159,7 +1159,7 @@
 				$( "#content" ).show();
 			} else if(next_page != undefined){
 				setTimeout(function() {
-  				window.open("/part_info/" + next_page , "_self");
+  				window.open("/part_info/" + next_page + "data_set=" + data_set , "_self");
 				}, 100);
 			} else {
 				window.open("/part_table/" + current_project , "_self");
