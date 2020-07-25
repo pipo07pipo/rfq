@@ -83,7 +83,12 @@
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>Base Subcontract</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
+												<div class="input-group input-group-icon">
+														<span class="input-group-addon">
+															<span class="icon">$</span>
+														</span>
+														<input type="number" step="any" class="form-control" id="base-subcontract" name="base-subcontract" value="{{ part_costing.base_subcontract }}">
+												</div>
 											</div>
 										</div>
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
@@ -100,14 +105,14 @@
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>EBQ_CCS QTY (Prodn Lot)</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
+												<input type="number" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
 											</div>
 											<label style="padding-top:5px" class="text-left"><small>(Overwrite Value)</small></label>
 										</div>
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
+												<input type="number" class="form-control" id="ebq-customer-qty" name="ebq-customer-qty" value="{{ part_costing.ebq_customer_qty }}">
 											</div>
 										</div>
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>

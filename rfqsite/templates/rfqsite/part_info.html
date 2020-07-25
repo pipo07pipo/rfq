@@ -1135,6 +1135,7 @@
 
 	function fetch_data(){
 			var data_set = {{ data_set }};
+			//data_set = [52,57,60,61,53,62,63,54,64,65,66,55,67,68,69,56,70,71,72];
 			var next_page = -1;
 			var current_page = {{ part.sl_no }};
 			var current_project = {{ part.tracker_no.tracker_no }};
@@ -1169,13 +1170,20 @@
 		var aeqfc = parseFloat($( "#aeqfc" ).text());
 
 		// -- Material --
+		var material_qty = parseFloat($( "#material-qty" ).text());
+		var rm_density = parseFloat($( "#rm-density" ).text());
+		var rm_d1 = parseFloat($( "#rm-d1" ).text());
+		var rm_d2 = parseFloat($( "#rm-d2" ).text());
+		var rm_t = parseFloat($( "#rm-t" ).text());
+		var rm_w = parseFloat($( "#rm-w" ).text());
+		var rm_l = parseFloat($( "#rm-l" ).text());
 		var rm_total_weight = parseFloat($( "#rm-total-weight" ).text());
-		var fpwp = parseFloat($( "#fpwp" ).text()); // NO RESTATE
+		var fpwp = parseFloat($( "#fpwp" ).text());
 		var base_material_price = parseFloat($( "#base-material-price" ).text());
 		var material_shipping_cost = parseFloat($( "#material-shipping-cost" ).text());
 
 		// -- Hardware --
-		var hardware_qty = parseFloat($( "#hardware-qty" ).text()); // NO RESTATE
+		var hardware_qty = parseFloat($( "#hardware-qty" ).text());
 		var hardware_price = parseFloat($( "#hardware-price" ).text());
 
 		// -- Process & Rate --
@@ -1213,8 +1221,9 @@
 		}
 
 		// -- Part Costing --
-		var base_subcontract = parseFloat($( "#base-subcontract" ).text()); // NO RESTATE
+		var base_subcontract = parseFloat($( "#base-subcontract" ).text());
 		var shipping_cost = parseFloat($( "#shipping-cost" ).text());
+		var ebq_customer_qty = parseFloat($( "#ebq-customer-qty" ).text());
 		var otspsuc = parseFloat($( "#otspsuc" ).text());
 		var otrmac = parseFloat($( "#otrmac" ).text());
 		var ottc = parseFloat($( "#ottc" ).text());
@@ -1222,10 +1231,10 @@
 		var target_price = parseFloat($( "#target-price" ).text());
 
 		// -- Special --
-		var armwpp2 = parseFloat($( "#armwpp2" ).text()); // NO RESTATE
-		var ebq_ccs_qty2 = parseFloat($( "#ebq-ccs-qty2" ).text()); // NO RESTATE
+		var armwpp2 = parseFloat($( "#armwpp2" ).text());
+		var ebq_ccs_qty2 = parseFloat($( "#ebq-ccs-qty2" ).text());
 		// SUM(CCS Ex-works Price) of all child
-		var sum_ccs_ewp = parseFloat($( "#sum-ccs-ewp" ).text()); // NO RESTATE
+		var sum_ccs_ewp = parseFloat($( "#sum-ccs-ewp" ).text());
 
 		// -*-*-*-*-*-*-*-*-*-*- 2 CALCULATE VALUE SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1488,9 +1497,9 @@
 					'sl_no' : sl_no,
           'ccs_ewp': ccs_ewp,
 
-					'material_burden_cost' : material_burden_cost,
-					'sp_burden_cost' : sp_burden_cost,
-					'hardware_burden_cost' : hardware_burden_cost,
+					'material_burden_cost' : material_burden_cost * aeqfc,
+					'sp_burden_cost' : sp_burden_cost* aeqfc,
+					'hardware_burden_cost' : hardware_burden_cost * aeqfc,
 
 					'total_cost' : total_cost,
 					'mtl_cost' : mtl_cost,
@@ -1511,123 +1520,133 @@
 		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
-		$( "#qty-per-unit" ).text(math_fix(qty_per_unit));
-		$( "#forecast-year1" ).text(math_fix(forecast_year1));
-		$( "#forecast-year2" ).text(math_fix(forecast_year2));
-		$( "#forecast-year3" ).text(math_fix(forecast_year3));
-		$( "#forecast-year4" ).text(math_fix(forecast_year4));
-		$( "#forecast-year5" ).text(math_fix(forecast_year5));
-		$( "#aeqfc" ).text(math_fix(aeqfc));
+		$( "#qty-per-unit" ).text(math_fix(qty_per_unit,0));
+		$( "#forecast-year1" ).text(math_fix(forecast_year1,0));
+		$( "#forecast-year2" ).text(math_fix(forecast_year2,0));
+		$( "#forecast-year3" ).text(math_fix(forecast_year3,0));
+		$( "#forecast-year4" ).text(math_fix(forecast_year4,0));
+		$( "#forecast-year5" ).text(math_fix(forecast_year5,0));
+		$( "#aeqfc" ).text(math_fix(aeqfc,0));
 
 		// -- Material --
-		$( "#rm-total-weight" ).text(math_fix(rm_total_weight));
-		$( "#base-material-price" ).text(dollar_sign(base_material_price) + math_fix(base_material_price));
-		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + math_fix(material_shipping_cost));
+		$( "#material-qty" ).text(math_fix(material_qty,0));
+		$( "#rm-density" ).text(math_fix(rm_density,2));
+		$( "#rm-d1" ).text(math_fix(rm_d1,2));
+		$( "#rm-d2" ).text(math_fix(rm_d2,2));
+		$( "#rm-t" ).text(math_fix(rm_t,2));
+		$( "#rm-w" ).text(math_fix(rm_w,2));
+		$( "#rm-l" ).text(math_fix(rm_l,2));
+		$( "#rm-total-weight" ).text(math_fix(rm_total_weight,2));
+		$( "#fpwp" ).text(math_fix(fpwp,2));
+		$( "#base-material-price" ).text(dollar_sign(base_material_price) + math_fix(base_material_price,2));
+		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + math_fix(material_shipping_cost,2));
 
 		// -- Hardware --
-		$( "#hardware-price" ).text(dollar_sign(hardware_price) + math_fix(hardware_price));
+		$( "#hardware-qty" ).text(math_fix(hardware_qty,0));
+		$( "#hardware-price" ).text(dollar_sign(hardware_price) + math_fix(hardware_price,2));
 
 		// -- Process & Rate --
 		// - Burden Rate -
-		$( "#rate-material" ).text(rate_material);
-		$( "#rate-hardware" ).text(rate_hardware);
-		$( "#rate-subcontract" ).text(rate_subcontract);
-		$( "#rate-sp" ).text(rate_sp);
+		$( "#rate-material" ).text(math_fix(rate_material,4));
+		$( "#rate-hardware" ).text(math_fix(rate_hardware,4));
+		$( "#rate-subcontract" ).text(math_fix(rate_subcontract,4));
+		$( "#rate-sp" ).text(math_fix(rate_sp,4));
 		// - Special Process Rate -
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
-			$( text ).text(math_fix(arr_sp_rate[i]));
+			$( text ).text(math_fix(arr_sp_rate[i],4));
 		}
 		// - Machining Process Rate/MSUT/CTPP -
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#act-rate-" + i;
-			$( text ).text(math_fix(arr_act_rate[i]));
+			$( text ).text(math_fix(arr_act_rate[i],4));
 			var text = "#mc-msut-" + i;
-			$( text ).text(math_fix(arr_mc_msut[i]));
+			$( text ).text(math_fix(arr_mc_msut[i],0));
 			var text = "#mc-ctpp-" + i;
-			$( text ).text(math_fix(arr_mc_ctpp[i]));
+			$( text ).text(math_fix(arr_mc_ctpp[i],0));
 		}
 
 		// -- Part Costing --
-		$( "#base-subcontract" ).text(math_fix(base_subcontract));
-		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + math_fix(shipping_cost));
-		$( "#otspsuc" ).text(dollar_sign(otspsuc) + math_fix(otspsuc));
-		$( "#otrmac" ).text(dollar_sign(otrmac) + math_fix(otrmac));
-		$( "#ottc" ).text(dollar_sign(ottc) + math_fix(ottc));
-		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + math_fix(total_nre_cost));
-		$( "#target-price" ).text(dollar_sign(target_price) + math_fix(target_price));
+		$( "#base-subcontract" ).text(dollar_sign(base_subcontract) + math_fix(base_subcontract,2));
+		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + math_fix(shipping_cost,2));
+		$( "#ebq-customer-qty" ).text(math_fix(ebq_customer_qty,0));
+		$( "#otspsuc" ).text(dollar_sign(otspsuc) + math_fix(otspsuc,2));
+		$( "#otrmac" ).text(dollar_sign(otrmac) + math_fix(otrmac,2));
+		$( "#ottc" ).text(dollar_sign(ottc) + math_fix(ottc,2));
+		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + math_fix(total_nre_cost,2));
+		$( "#target-price" ).text(dollar_sign(target_price) + math_fix(target_price,2));
 
 		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
-		$( "#eau-year1" ).text(math_fix(eau_year1));
-		$( "#eau-year2" ).text(math_fix(eau_year2));
-		$( "#eau-year3" ).text(math_fix(eau_year3));
-		$( "#eau-year4" ).text(math_fix(eau_year4));
-		$( "#eau-year5" ).text(math_fix(eau_year5));
-		$( "#eau-total-year" ).text(math_fix(eau_total_year));
+		$( "#eau-year1" ).text(math_fix(eau_year1,0));
+		$( "#eau-year2" ).text(math_fix(eau_year2,0));
+		$( "#eau-year3" ).text(math_fix(eau_year3,0));
+		$( "#eau-year4" ).text(math_fix(eau_year4,0));
+		$( "#eau-year5" ).text(math_fix(eau_year5,0));
+		$( "#eau-total-year" ).text(math_fix(eau_total_year,0));
 
 		// -- Material --
-		$( "#armr-year1" ).text(math_fix(armr_year1));
-		$( "#armr-year2" ).text(math_fix(armr_year2));
-		$( "#armr-year3" ).text(math_fix(armr_year3));
-		$( "#armr-year4" ).text(math_fix(armr_year4));
-		$( "#armr-year5" ).text(math_fix(armr_year5));
-		$( "#afpwpp" ).text(math_fix(afpwpp));
-		$( "#armwpp" ).text(math_fix(armwpp));
-		$( "#trmwpy" ).text(math_fix(trmwpy));
+		$( "#armr-year1" ).text(math_fix(armr_year1,2));
+		$( "#armr-year2" ).text(math_fix(armr_year2,2));
+		$( "#armr-year3" ).text(math_fix(armr_year3,2));
+		$( "#armr-year4" ).text(math_fix(armr_year4,2));
+		$( "#armr-year5" ).text(math_fix(armr_year5,2));
+		$( "#afpwpp" ).text(math_fix(afpwpp,2));
+		$( "#armwpp" ).text(math_fix(armwpp,2));
+		$( "#trmwpy" ).text(math_fix(trmwpy,2));
 
 		// -- Process & Rate --
-		$( "#production-qty" ).text(math_fix(production_qty));
+		$( "#production-qty" ).text(math_fix(production_qty,0));
 
 		// -- Part Costing --
 		// - Material Costing -
-		$( "#oyrmb" ).text(math_fix(oyrmb));
-		$( "#moq-rm-order" ).text(math_fix(moq_rm_order));
-		$( "#material-burden-cost" ).text(dollar_sign(material_burden_cost) + math_fix(material_burden_cost));
-		$( "#material-cost" ).text(dollar_sign(material_cost) + math_fix(material_cost));
+		$( "#oyrmb" ).text(math_fix(oyrmb,2));
+		$( "#moq-rm-order" ).text(math_fix(moq_rm_order,2));
+		$( "#material-burden-cost" ).text(dollar_sign(material_burden_cost) + math_fix(material_burden_cost,2));
+		$( "#material-cost" ).text(dollar_sign(material_cost) + math_fix(material_cost,2));
 		// - Special Process Costing -
 		// - Special Process Cost (Dollar) -
 		for(var i = 0; i < sp_set_size;i++){
 			text = "#sp-cost-" + i;
-			$( text ).text(dollar_sign(arr_sp_cost[i]) + math_fix(arr_sp_cost[i]));
+			$( text ).text(dollar_sign(arr_sp_cost[i]) + math_fix(arr_sp_cost[i],2));
 		}
-		$( "#sp-burden-cost" ).text(dollar_sign(sp_burden_cost) + math_fix(sp_burden_cost));
-		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + math_fix(surface_treatment_cost));
+		$( "#sp-burden-cost" ).text(dollar_sign(sp_burden_cost) + math_fix(sp_burden_cost,2));
+		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + math_fix(surface_treatment_cost,2));
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes)
 		// Total Cycle Cost (Dollar)
 		for(var i = 0; i < mc_set_size;i++){
 			text = "#mc-tctt-" + i;
-			$( text ).text(math_fix(arr_mc_tctt[i]));
+			$( text ).text(math_fix(arr_mc_tctt[i],0));
 			text = "#mc-tctc-" + i;
-			$( text ).text(dollar_sign(arr_mc_tctc[i]) + math_fix(arr_mc_tctc[i]));
+			$( text ).text(dollar_sign(arr_mc_tctc[i]) + math_fix(arr_mc_tctc[i],2));
 		}
-		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + math_fix(manufacturing_cost));
-		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + math_fix(additional_mfg));
-		$( "#profit-factor" ).text(dollar_sign(profit_factor) + math_fix(profit_factor));
-		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + math_fix(total_manufacturing_cost));
+		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + math_fix(manufacturing_cost,2));
+		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + math_fix(additional_mfg,2));
+		$( "#profit-factor" ).text(dollar_sign(profit_factor) + math_fix(profit_factor,2));
+		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + math_fix(total_manufacturing_cost,2));
 		// - Hardware Costing -
-		$( "#hardware-burden-cost" ).text(dollar_sign(hardware_burden_cost) + math_fix(hardware_burden_cost));
-		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + math_fix(hardware_cost));
+		$( "#hardware-burden-cost" ).text(dollar_sign(hardware_burden_cost) + math_fix(hardware_burden_cost,2));
+		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + math_fix(hardware_cost,2));
 		// - Other Costing -
-		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost));
-		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty));
-		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty));
-		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + math_fix(ccs_ewp));
-		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + math_fix(ccs_ppp));
-		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + math_fix(ddp_usd));
+		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost,2));
+		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty,0));
+		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty,0));
+		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + math_fix(ccs_ewp,2));
+		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + math_fix(ccs_ppp,2));
+		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + math_fix(ddp_usd,2));
 		// - Total Costing -
-		$( "#total-cost" ).text(dollar_sign(total_cost) + math_fix(total_cost));
-		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + math_fix(mtl_cost));
-		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + math_fix(spl_process_cost));
-		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost));
-		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + math_fix(total_hardware_cost));
+		$( "#total-cost" ).text(dollar_sign(total_cost) + math_fix(total_cost,2));
+		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + math_fix(mtl_cost,2));
+		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + math_fix(spl_process_cost,2));
+		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost,2));
+		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + math_fix(total_hardware_cost,2));
 
 		// -- Machining Capacity Required for this Part --
 		for(var i = 0; i < mc_set_size;i++){
 			text = "#mc-mcrftp-" + i;
-			$( text ).text(math_fix(arr_mc_mcrftp[i]));
+			$( text ).text(math_fix(arr_mc_mcrftp[i],0));
 		}
 
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -1638,11 +1657,12 @@
 		return "$";
 	}
 
-	function math_fix(value){
+	function math_fix(value, digit){
 		if(isNaN(value)) return value;
-		return value.toFixed(2);
+		return value.toFixed(digit);
 		// return Math.round((value + Number.EPSILON) * 100) / 100;
 	}
+
 	</script>
 
 	<!-- Notification -->

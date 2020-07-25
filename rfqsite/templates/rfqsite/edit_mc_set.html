@@ -84,10 +84,10 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label"><b>{{ mc.act_id.mc_id.name }} <font class="text-danger">*</font></b></label>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="mc-msut-{{ mc.act_id.id }}" name="mc-msut-{{ mc.act_id.id }}" value="{{ mc.msut }}" required>
+												<input type="number" class="form-control" id="mc-msut-{{ mc.act_id.id }}" name="mc-msut-{{ mc.act_id.id }}" value="{{ mc.msut }}" required>
 											</div>
 											<div class="col-sm-3">
-												<input type="number" step="any" class="form-control" id="mc-ctpp-{{ mc.act_id.id }}" name="mc-ctpp-{{ mc.act_id.id }}" value="{{ mc.ctpp }}" required>
+												<input type="number" class="form-control" id="mc-ctpp-{{ mc.act_id.id }}" name="mc-ctpp-{{ mc.act_id.id }}" value="{{ mc.ctpp }}" required>
 											</div>
 										</div>
 										{% endfor %}
