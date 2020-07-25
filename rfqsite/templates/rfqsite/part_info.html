@@ -1132,23 +1132,24 @@
 
 	<script>
 	$( document ).ready(function() {
-		var data_set = {{ data_set }};
-		// data_set = [52,57,60,61,53,62,63,54,64,65,66,55,67,68,69,56,70,71,72];
-		if(data_set.length != 0){
+		var url = new URL(window.location.href);
+		var data_set = url.searchParams.get("data_set");
+		if(data_set != null){
 			$( "#pre-loading" ).show();
 		}
 		data_cal();
 	});
 
 	function fetch_data(){
-			var data_set = {{ data_set }};
-			// data_set = [52,57,60,61,53,62,63,54,64,65,66,55,67,68,69,56,70,71,72];
+			var url = new URL(window.location.href);
+			var data_set = url.searchParams.get("data_set");
+			var arr_data_set = data_set.split(",");
 			var next_page = -1;
 			var current_page = {{ part.sl_no }};
 			var current_project = {{ part.tracker_no.tracker_no }};
 			for(var i = 0;i < data_set.length;i++){
-				if(data_set[i] == current_page){
-					next_page = data_set[i + 1];
+				if(arr_data_set[i] == current_page){
+					next_page = arr_data_set[i + 1];
 				}
 			}
 			console.log("Current Page " + current_page);
