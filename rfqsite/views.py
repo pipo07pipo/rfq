@@ -1132,10 +1132,13 @@ def select_act_set_confirm(request):
                     newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
                     newact.save()
         if(len(refresh) > 0):
-            data_set = refresh
-            data_str = [data_str+str(x)+',' for x in data_set]
+            data_str = ''
+            data_set = [str(x) for x in refresh]
+            for x in data_set:
+                data_str = data_str + x + ","
             data_str = data_str[:len(data_str)-1]
-            return redirect('/part_info/'+str(sl_no)+'/?data_set='+data_str)
+            print(data_str)
+            return redirect('/part_info/'+str(refresh[0])+'/?data_set='+data_str)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
