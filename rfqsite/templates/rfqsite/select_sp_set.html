@@ -75,7 +75,7 @@
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
 										{% if sp_master.count == 0 %}
-										There is no special process in special process master.
+										There is no special process in special process master. Please contact administrator.
 										{% endif %}
 										{% for sp in sp_master %}
 										<div class="form-group">
@@ -87,7 +87,10 @@
 											</div>
 										</div>
 										{% endfor %}
-
+										{% if sp_master.count != 0 %}
+										<br>
+										* If you can't find special process that you are looking for. Please contact administrator.
+										{% endif %}
 									</div>
 									<footer class="panel-footer">
 										<div class="row">

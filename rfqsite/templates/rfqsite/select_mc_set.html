@@ -75,7 +75,8 @@
 									<div class="panel-body">
 										<input type="hidden" class="form-control" id="sl-no" name="sl-no" value="{{ part.sl_no }}">
 										{% if act_set.count == 0 %}
-										If you want to add machining procoess for this part. Please add activity rate to this RFQ first.
+										If you want to add machining process for this part. Please add activity rate to this RFQ first.
+										<a href="/select_act_set/{{ part.tracker_no.tracker_no }}"><i class="fa fa-link"></i> Activity Rate</a>
 										{% endif %}
 										{% for act in act_set %}
 										<div class="form-group">
@@ -87,7 +88,11 @@
 											</div>
 										</div>
 										{% endfor %}
-
+										{% if act_set.count != 0 %}
+										<br>
+										* If you want to have more machining process for this part. Please add activity rate to this RFQ first.
+										<a href="/select_act_set/{{ part.tracker_no.tracker_no }}"><i class="fa fa-link"></i> Activity Rate</a>
+										{% endif %}
 									</div>
 									<footer class="panel-footer">
 										<div class="row">
