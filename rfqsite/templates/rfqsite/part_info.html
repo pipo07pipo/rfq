@@ -1130,7 +1130,6 @@
 	<script>
 	$( document ).ready(function() {
 		data_cal();
-		fetch_data();
 	});
 
 	function fetch_data(){
@@ -1367,56 +1366,7 @@
 			arr_mc_mcrftp[i] = arr_mc_tctt[i] * aeqfc;
 		}
 
-		// -*-*-*-*-*-*-*-*-*-*- 3 RAW INPUT RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
-
-		// -- Forecast & EAU --
-		$( "#qty-per-unit" ).text(qty_per_unit);
-		$( "#forecast-year1" ).text(forecast_year1);
-		$( "#forecast-year2" ).text(forecast_year2);
-		$( "#forecast-year3" ).text(forecast_year3);
-		$( "#forecast-year4" ).text(forecast_year4);
-		$( "#forecast-year5" ).text(forecast_year5);
-		$( "#aeqfc" ).text(aeqfc);
-
-		// -- Material --
-		$( "#rm-total-weight" ).text(rm_total_weight);
-		$( "#base-material-price" ).text(base_material_price);
-		$( "#material-shipping-cost" ).text(material_shipping_cost);
-
-		// -- Hardware --
-		$( "#hardware-price" ).text(hardware_price);
-
-		// -- Process & Rate --
-		// - Burden Rate -
-		$( "#rate-material" ).text(rate_material);
-		$( "#rate-hardware" ).text(rate_hardware);
-		$( "#rate-subcontract" ).text(rate_subcontract);
-		$( "#rate-sp" ).text(rate_sp);
-		// - Special Process Rate -
-		for(var i = 0; i < sp_set_size;i++){
-			var text = "#sp-rate-" + i;
-			$( text ).text(arr_sp_rate[i]);
-		}
-		// - Machining Process Rate/MSUT/CTPP
-		for(var i = 0; i < mc_set_size;i++){
-			var text = "#act-rate-" + i;
-			$( text ).text(arr_act_rate[i]);
-			var text = "#mc-msut-" + i;
-			$( text ).text(arr_mc_msut[i]);
-			var text = "#mc-ctpp-" + i;
-			$( text ).text(arr_mc_ctpp[i]);
-		}
-
-		// -- Part Costing --
-		$( "#base-subcontract" ).text(base_subcontract);
-		$( "#shipping-cost" ).text(shipping_cost);
-		$( "#otspsuc" ).text(otspsuc);
-		$( "#otrmac" ).text(otrmac);
-		$( "#ottc" ).text(ottc);
-		$( "#total-nre-cost" ).text(total_nre_cost);
-		$( "#target-price" ).text(target_price);
-
-		// -*-*-*-*-*-*-*-*-*-*- 4 CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- 3 CALCULATE VALUE RESTATE PHASE -*-*-*-*-*-*-*-*-*-*-
 
 		// -- Forecast & EAU --
 		$( "#eau-year1" ).text(eau_year1);
@@ -1489,7 +1439,7 @@
 			$( text ).text(arr_mc_mcrftp[i]);
 		}
 
-		// -*-*-*-*-*-*-*-*-*-*- DATA COLLECT -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- 4 DATA COLLECT -*-*-*-*-*-*-*-*-*-*-
 
 		$.ajax({
         url: '{% url 'data_collect' %}',
@@ -1516,6 +1466,8 @@
 
         }
       });
+
+		fetch_data();
 
 		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 

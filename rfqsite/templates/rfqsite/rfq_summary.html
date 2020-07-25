@@ -384,7 +384,7 @@
 
 	function data_cal(){
 		// -*-*-*-*-*-*-*-*-*-*- 1 RAW INPUT SAVE PHASE -*-*-*-*-*-*-*-*-*-*-
-		var usd_thb = parseFloat($( "#usd-thb" ).text()); // NO RESTATE
+		var usd_thb = parseFloat($( "#usd-thb" ).text());
 		// -- Total Project Cost --
 		var total_cost_td  = parseFloat($( "#total-cost-td2" ).text());
 		var mtl_cost_td  = parseFloat($( "#mtl-cost-td2" ).text());
@@ -437,49 +437,50 @@
 			arr_mcrftp_man[i] =  Math.ceil(arr_mcrftp_mpy[i]);
 		}
 
-		// -*-*-*-*-*-*-*-*-*-*- 5 RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
+		$( "#usd-thb" ).text(math_fix(usd_thb,4));
 		// -- Total Project Cost --
-		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + math_fix(total_cost_td));
-		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + math_fix(mtl_cost_td));
-		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + math_fix(spl_process_cost_td));
-		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td));
-		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td));
-		$( "#total-nre-cost-td" ).text(dollar_sign(total_nre_cost_td) + math_fix(total_nre_cost_td));
+		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + math_fix(total_cost_td,2));
+		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + math_fix(mtl_cost_td,2));
+		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + math_fix(spl_process_cost_td,2));
+		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td,2));
+		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td,2));
+		$( "#total-nre-cost-td" ).text(dollar_sign(total_nre_cost_td) + math_fix(total_nre_cost_td,2));
 
 		// -- Total Burden Cost --
-		$( "#material-burden-cost-td" ).text(dollar_sign(material_burden_cost_td) + math_fix(material_burden_cost_td));
-		$( "#sp-burden-cost-td" ).text(dollar_sign(sp_burden_cost_td) + math_fix(sp_burden_cost_td));
-		$( "#hardware-burden-cost-td" ).text(dollar_sign(hardware_burden_cost_td) + math_fix(hardware_burden_cost_td));
+		$( "#material-burden-cost-td" ).text(dollar_sign(material_burden_cost_td) + math_fix(material_burden_cost_td,2));
+		$( "#sp-burden-cost-td" ).text(dollar_sign(sp_burden_cost_td) + math_fix(sp_burden_cost_td,2));
+		$( "#hardware-burden-cost-td" ).text(dollar_sign(hardware_burden_cost_td) + math_fix(hardware_burden_cost_td,2));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#mcrftp-total-" + i;
-			$( text ).text(math_fix(arr_mcrftp_total[i]));
+			$( text ).text(math_fix(arr_mcrftp_total[i],0));
 		}
 
-		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
+		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 		// -- Total Project Cost --
-		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + math_fix(total_cost_tb));
-		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + math_fix(mtl_cost_tb));
-		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + math_fix(spl_process_cost_tb));
-		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + math_fix(total_hardware_cost_tb));
-		$( "#total-machine-cost-tb" ).text(bath_sign(total_machine_cost_tb) + math_fix(total_machine_cost_tb));
+		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + math_fix(total_cost_tb,2));
+		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + math_fix(mtl_cost_tb,2));
+		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + math_fix(spl_process_cost_tb,2));
+		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + math_fix(total_hardware_cost_tb,2));
+		$( "#total-machine-cost-tb" ).text(bath_sign(total_machine_cost_tb) + math_fix(total_machine_cost_tb,2));
 
-		$( "#mtl-cost-p" ).text(math_fix(mtl_cost_p) + percent_sign(mtl_cost_p));
-		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p) + percent_sign(spl_process_cost_p));
-		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p) + percent_sign(total_hardware_cost_p));
-		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p) + percent_sign(total_machine_cost_p));
+		$( "#mtl-cost-p" ).text(math_fix(mtl_cost_p,2) + percent_sign(mtl_cost_p));
+		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p,2) + percent_sign(spl_process_cost_p));
+		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p,2) + percent_sign(total_hardware_cost_p));
+		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p,2) + percent_sign(total_machine_cost_p));
 
-		$( "#value-addition" ).text(math_fix(value_addition) + percent_sign(value_addition));
+		$( "#value-addition" ).text(math_fix(value_addition,2) + percent_sign(value_addition));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#mcrftp-py-" + i;
-			$( text ).text(math_fix(arr_mcrftp_py[i]));
+			$( text ).text(math_fix(arr_mcrftp_py[i],0));
 			var text = "#mcrftp-mpy-" + i;
-			$( text ).text(math_fix(arr_mcrftp_mpy[i]));
+			$( text ).text(math_fix(arr_mcrftp_mpy[i],0));
 			var text = "#mcrftp-man-" + i;
-			$( text ).text(math_fix(arr_mcrftp_man[i]));
+			$( text ).text(math_fix(arr_mcrftp_man[i],0));
 		}
 
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -500,9 +501,9 @@
 		return "%";
 	}
 
-	function math_fix(value){
+	function math_fix(value, digit){
 		if(isNaN(value)) return value;
-		return value.toFixed(2);
+		return value.toFixed(digit);
 		// return Math.round((value + Number.EPSILON) * 100) / 100;
 	}
 
