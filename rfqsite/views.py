@@ -1112,10 +1112,18 @@ def select_act_set_confirm(request):
     if request.method == 'POST':
         tracker_no = request.POST.get('tracker-no')
         mc_master = MC_Master.objects.all()
+        refresh = []
         for mc in mc_master:
             id = mc.id
             if(request.POST.get(str(id)) == None):
                 delact = ACT_Set.objects.filter(tracker_no=tracker_no,mc_id=mc)
+                act = None
+                if(delact):
+                    act = delact[0]
+                sl_in = MC_Set.objects.filter(act_id=act)
+                for mc in sl_in:
+                    if mc.sl_no.sl_no not in refresh:
+                        refresh.append(mc.sl_no.sl_no)
                 delact.delete()
             elif(request.POST.get(str(id)) == 'on'):
                 if(ACT_Set.objects.filter(tracker_no=tracker_no,mc_id=mc)):
@@ -1123,6 +1131,44 @@ def select_act_set_confirm(request):
                 else:
                     newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
                     newact.save()
+        if(len(refresh) > 0):
+            sl_no = refresh[0]
+            part = Part_Header.objects.get(pk=sl_no)
+            current_year = part.tracker_no.current_year
+            mc_set = MC_Set.objects.filter(sl_no=part)
+            forecast = Forecast.objects.get(sl_no=part)
+            material = Material.objects.get(sl_no=part)
+            part_costing = Part_Costing.objects.get(sl_no=part)
+            burden_rate = Burden_Rate.objects.get(sl_no=part)
+            hardware = Hardware.objects.get(sl_no=part)
+            sp_set = SP_Set.objects.filter(sl_no=part).order_by('sp_id')
+            sum_child = 0
+            fchild = Part_Header.objects.filter(parent_sl_no=part)
+            child = [x for x in fchild]
+            while(len(child) > 0):
+                newChild = []
+                for item in child:
+                    op = Output.objects.get(sl_no=item)
+                    sum_child += op.ccs_ewp
+                    addChild = [x for x in Part_Header.objects.filter(parent_sl_no=item)]
+                    for c in addChild:
+                         newChild.append(c)
+                child = newChild
+            data_set = refresh
+            context = {
+                'data_set': data_set,
+                'sp_set': sp_set,
+                'mc_set': mc_set,
+                'current_year': current_year,
+                'part': part,
+                'forecast': forecast,
+                'material': material,
+                'part_costing': part_costing,
+                'burden_rate': burden_rate,
+                'hardware': hardware,
+                'sum_child': sum_child
+            }
+            return render(request, 'rfqsite/part_info.html', context)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
@@ -1179,11 +1225,12 @@ def select_mc_set_confirm(request):
     if request.method == 'POST':
         sl_no = request.POST.get('sl-no')
         act_set = ACT_Set.objects.filter(tracker_no=RFQ.objects.get(tracker_no=Part_Header.objects.get(sl_no=sl_no).tracker_no.tracker_no))
-        edit = 0
+        refresh = []
         for act in act_set:
             id = act.id
             if(request.POST.get(str(id)) == None):
                 delmc = MC_Set.objects.filter(sl_no=sl_no,act_id=act)
+                refresh.append(delmc.sl_no)
                 delmc.delete()
             elif(request.POST.get(str(id)) == 'on'):
                 if(MC_Set.objects.filter(sl_no=sl_no,act_id=act)):
