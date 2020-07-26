@@ -165,11 +165,18 @@
 	<script>
 	function generateTable() {
 		var data = $('textarea[name=excel-data]').val();
-		console.log(data);
+		data = $.trim(data);
 		var rows = data.split("\n");
-		if(rows[rows.length - 1] == ""){
-			rows.splice(rows.length -1);
+		for(var i = rows.length - 1;i >= 0;i--){
+			if(rows[i] == ""){
+				rows.splice(i);
+			} else {
+				break;
+			}
 		}
+		// if(rows[rows.length - 1] == ""){
+		// 	rows.splice(rows.length -1);
+		// }
 
 		var table = $('<table class="table table-bordered table-striped mb-none" id="datatable-default" name="data-table">');
 
