@@ -783,7 +783,7 @@ def edit_burden_rate_confirm(request):
     return redirect('/part_info/'+sl_no+"?message=1")
 
 def unNan(data):
-    if(data == 'NaN' or data == ''):
+    if(data == 'NaN' or data == '' or data == None):
         return 0
     else:
         return data
