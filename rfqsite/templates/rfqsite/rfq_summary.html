@@ -30,6 +30,9 @@
 		<!-- Tree CSS -->
 		<link rel="stylesheet" href="{% static "assets/vendor/jstree/themes/default/style.css" %}">
 
+		<!-- Notification CSS -->
+		<link rel="stylesheet" href="{% static "assets/vendor/pnotify/pnotify.custom.css" %}">
+
 		<!-- Theme CSS -->
 		<link rel="stylesheet" href="{% static "assets/stylesheets/theme.css" %}">
 
@@ -271,7 +274,7 @@
 													<td class="center" id="value-addition" name="value-addition" colspan="5">-</td>
 												</tr>
 												<tr>
-													<td class="center custom1">Total NRE Cost <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="bottom" title="This cost is not include in total cost."></i></td>
+													<td class="center custom1">Total NRE Cost <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="bottom" title="This cost is not include in total cost."></i></td>
 													<td class="center" id="total-nre-cost-td" name="total-nre-cost-td" colspan="5">{{ total_nre_cost_td }}</td>
 												</tr>
 											</tbody>
@@ -330,8 +333,9 @@
 							<footer class="panel-footer">
 								<div class="row">
 									<div class="col-sm-6">
+										<a class="btn btn-info" href="/fetch_data/{{ project.tracker_no }}">Update Data</a>
 										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-										<a class="btn btn-danger" href="/fetch_data/{{ project.tracker_no }}" {% if part.sl_no != None %}disabled{% endif %}>Generate RFQ Table</a>
+										<a class="btn btn-danger" href="#" {% if part.sl_no != None %}disabled{% endif %}>Generate RFQ Table</a>
 										{% endif %}
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<label>Last Generate : -</label>
@@ -367,6 +371,9 @@
 	<script src="{% static "assets/vendor/jstree/jstree.js" %}"></script>
 	<!-- Examples -->
 	<script src="{% static "assets/javascripts/ui-elements/examples.treeview.js" %}"></script>
+
+	<!-- Notification JS -->
+	<script src="{% static "assets/vendor/pnotify/pnotify.custom.js" %}"></script>
 
 	<!-- Theme Base, Components and Settings -->
 	<script src="{% static "assets/javascripts/theme.js" %}"></script>
@@ -496,6 +503,50 @@
 		return pre_sign + result + post_sign;
 	}
 
+	</script>
+
+	<!-- Notification -->
+	<script>
+	$( document ).ready(function() {
+		var url = new URL(window.location.href);
+		var message = url.searchParams.get("message");
+		console.log('message :' + message);
+		if(message != null){
+			var notice = create_notification(message);
+			notice.get().click(function() {
+				notice.remove();
+			});
+		}
+	});
+
+	function create_notification(message){
+		var message_title;
+		var message_text;
+		var message_type; // success error
+		if(message == 0){
+			message_title = "Fail";
+			message_text = "Your data has not been saved.";
+			message_type = "error";
+		} else if(message == 1){
+			message_title = "Success";
+			message_text = "Your data has been saved.";
+			message_type = "success";
+		} else if(message == 2){
+			message_title = "Updated";
+			message_text = "Your data has been updated.";
+			message_type = "info";
+		}
+
+		return new PNotify({
+			title: message_title,
+			text: message_text,
+			type: message_type,
+			buttons: {
+			closer: false,
+			sticker: false
+			}
+		});
+	}
 	</script>
 
 	<!-- DataTable Default -->
