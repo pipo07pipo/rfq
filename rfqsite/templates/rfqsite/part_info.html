@@ -619,6 +619,12 @@
 												<h2 class="panel-title"><i class="fa fa-gears"></i> Process & Rate</h2>
 									</header>
 									<div class="panel-body">
+												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+													<label class="col-sm-3 control-label"><b>Production Qty</b></label>
+													<div class="col-sm-9">
+														<label class="control-label" id="production-qty" name="production-qty">-</label>
+													</div>
+												</div>
 												<!-- Burden Rate -->
 												<div class="table-responsive">
 													<table class="table table-bordered table-striped table-condensed mb-none">
@@ -685,12 +691,6 @@
 												{% endif %}
 											</div>
 											<!-- Machining Process -->
-											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<label class="col-sm-3 control-label"><b>Production Qty</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="production-qty" name="production-qty">-</label>
-												</div>
-											</div>
 											<input type="number" id="mc-set-size" name="mc-set-size" value="{{ mc_set.count }}" hidden>
 											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
 												<table class="table table-bordered table-striped table-condensed mb-none">
@@ -1285,7 +1285,6 @@
 		var production_qty = aeqfc / 4;
 
 		// -- Part Costing --
-
 		// - Material Costing -
 		// One Year Raw Material Buy (kg) = Total Raw Material Weight Per Year
 		var oyrmb = trmwpy;
@@ -1307,15 +1306,12 @@
 			sp_burden_cost = sp_burden_cost + arr_sp_cost[i];
 		}
 		sp_burden_cost = sp_burden_cost * (rate_sp - 1);
-
 		// Surface Treatment Cost = SUM(Special Process Cost) * Special Process Burden
 		var surface_treatment_cost = 0;
 		for(var i = 0; i < sp_set_size;i++){
 			surface_treatment_cost = surface_treatment_cost + arr_sp_cost[i];
 		}
 		surface_treatment_cost = surface_treatment_cost * rate_sp;
-
-
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes) = (Machining Set Up Time / Production Qty) + Cycle Time Per Part
 		// Total Cycle Cost (Dollar) = (Activity Rate / 60) * Total Cycle Time
@@ -1336,13 +1332,11 @@
 		var profit_factor = manufacturing_cost * 0.1;
 		// Total Manufacturing Cost = Manufacturing Cost + Additional MFG OH Factor + Profit Factor
 		var total_manufacturing_cost = manufacturing_cost + additional_mfg + profit_factor;
-
 		// - Hardware Costing -
 		// Hardware Burden Cost = Hardware Price * Hardware Qty Per Part * (Hardware Burden - 1)
 		var hardware_burden_cost = hardware_price * hardware_qty * (rate_hardware - 1);
 		// Hardware Cost = Hardware Price * Hardware Qty Per Part * Hardware Burden
 		var hardware_cost = hardware_price * hardware_qty * rate_hardware;
-
 		// - Other Costing -
 		// Subcontract Shipping Cost = [Base Subcontract + (Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
 		var subcontract_shipping_cost = (base_subcontract + (shipping_cost * afpwpp)) * rate_subcontract;
@@ -1359,7 +1353,6 @@
 		var ccs_ppp = ccs_ewp + sum_ccs_ewp;
 		// DDP USD = CCS Price Per Assembly + (Shipping Cost * Approximate Finished Part Weight Per Part)
 		var ddp_usd = ccs_ppp + (shipping_cost * afpwpp);
-
 		// - Total Costing -
 		// Total Cost = CCS Ex-works Price * Annual Estimate Qty for Calculation
 		var total_cost = ccs_ewp * aeqfc;
@@ -1463,7 +1456,7 @@
 					'surface_treatment_cost' : surface_treatment_cost,
 					'hardware_cost' : hardware_cost,
 					'total_manufacturing_cost' : total_manufacturing_cost,
-          'ccs_ewp': ccs_ewp,	
+          'ccs_ewp': ccs_ewp,
 
 					'material_burden_cost' : material_burden_cost * aeqfc,
 					'sp_burden_cost' : sp_burden_cost* aeqfc,
