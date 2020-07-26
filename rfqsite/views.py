@@ -1260,9 +1260,10 @@ def edit_mc_set_confirm(request):
                 emc2.save()
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
+@login_required(login_url='/login')
 def fetch_data(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    project.update_date = datetime.now()
+    project.last_generate = datetime.now()
     project.save()
     data_set = [str(x.sl_no) for x in Part_Header.objects.filter(tracker_no=tracker_no)]
     data_str = ''
@@ -1270,3 +1271,54 @@ def fetch_data(request, tracker_no):
         data_str = data_str + x + ','
     data_str = data_str[:len(data_str)-1]
     return redirect('/part_info/'+str(data_set[0])+'/?final_page=rfq_summary&data_set='+data_str)
+
+@login_required(login_url='/login')
+def generate_table(request, tracker_no):
+    rfq = RFQ.objects.get(pk=tracker_no)
+    main_part = Part_Header.objects.filter(tracker_no=rfq).order_by('sl_no')
+    sl_no = 1
+    exist = Customer_Part.objects.filter(tracker_no=rfq)
+    if(exist):
+        exist.delete()
+    for part in main_part:
+        c_part = Customer_Part(tracker_no=rfq)
+        c_part.sl_no = sl_no
+        c_part.no = part.no
+        c_part.name = part.name
+        c_part.program = part.program
+        c_part.current_year = rfq.current_year
+        forecast = Forecast.objects.get(sl_no=part)
+        c_part.forecast_year1 = forecast.forecast_year1
+        c_part.forecast_year2 = forecast.forecast_year2
+        c_part.forecast_year3 = forecast.forecast_year3
+        c_part.forecast_year4 = forecast.forecast_year4
+        c_part.forecast_year5 = forecast.forecast_year5
+        c_part.aeqfc = forecast.aeqfc
+        material = Material.objects.get(sl_no=part)
+        c_part.description = material.description
+        part_costing = Part_Costing.objects.get(sl_no=part)
+        c_part.ottc = part_costing.ottc
+        c_part.ccs_quote_assumptions = part_costing.ccs_quote_assumptions
+        c_part.dltiw_fai = part_costing.dltiw_fai
+        c_part.dltiw_serial_production = part_costing.dltiw_serial_production
+        c_part.dltiw_production = part_costing.dltiw_production
+        all_part = []
+        c = [part]
+        while(len(c) > 0):
+            for item in c:
+                all_part.append(item)
+                fo = Part_Header.objects.filter(parent_sl_no=item)
+                for item2 in fo:
+                    c.append(item2)
+                c.remove(item)
+        for sigle_part in all_part:
+            output = Output.objects.get(sl_no=single_part)
+            c_part.material_cost += output.material_cost
+            c_part.surface_treatment_cost += output.surface_treatment_cost
+            c_part.hardware_cost += output.hardware_cost
+            c_part.total_manufacturing_cost += output.total_manufacturing_cost
+            c_part.ccs_ewp += output.ccs_ewp
+        c_part.save()
+        sl_no += 1
+
+    return redirect('/rfq_summary/'+str(tracker_no)+'/?message=3')

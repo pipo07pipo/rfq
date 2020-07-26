@@ -61,4 +61,5 @@ urlpatterns = [
     path('edit_mc_set/<int:sl_no>/', views.edit_mc_set, name='edit_mc_set'),
     path('edit_mc_set_confirm/', views.edit_mc_set_confirm, name='edit_mc_set_confirm'),
     path('fetch_data/<int:tracker_no>/', views.fetch_data, name='fetch_data'),
+    path('generate_table/<int:tracker_no>/', views.generate_table, name='generate_table'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
