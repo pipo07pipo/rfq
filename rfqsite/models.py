@@ -20,6 +20,7 @@ class RFQ(models.Model):
     update_date = models.DateTimeField('date publish')
     usd_thb = models.FloatField(default=35)
     current_year = models.IntegerField(default=2020)
+    last_generate = models.DateTimeField('date publish', null=True)
 
 class Part_Header(models.Model):
     sl_no = models.AutoField(primary_key=True)
@@ -35,12 +36,12 @@ class Part_Header(models.Model):
 
 class Forecast(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
-    qty_per_unit = models.FloatField(default=1)
-    forecast_year1 = models.FloatField(default=0)
-    forecast_year2 = models.FloatField(default=0)
-    forecast_year3 = models.FloatField(default=0)
-    forecast_year4 = models.FloatField(default=0)
-    forecast_year5 = models.FloatField(default=0)
+    qty_per_unit = models.IntegerField(default=1)
+    forecast_year1 = models.IntegerField(default=0)
+    forecast_year2 = models.IntegerField(default=0)
+    forecast_year3 = models.IntegerField(default=0)
+    forecast_year4 = models.IntegerField(default=0)
+    forecast_year5 = models.IntegerField(default=0)
     aeqfc = models.FloatField(default=0)
 
 class Material(models.Model):
@@ -48,7 +49,7 @@ class Material(models.Model):
     description = models.CharField(max_length=200, null=True, default='')
     cross_section = models.CharField(max_length=200, null=True, default='')
     type = models.CharField(max_length=200, null=True, default='')
-    quantity = models.FloatField(default=0)
+    quantity = models.IntegerField(default=0)
     rm_density = models.FloatField(null=True, default=0)
     rm_density_unit = models.CharField(max_length=200, null=True)
     rm_d1 = models.FloatField(null=True, default=0)
@@ -79,7 +80,7 @@ class Part_Costing(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
     total_nre_cost = models.FloatField(null=True, default=0)
     target_price = models.FloatField(null=True, default=0)
-    ebq_customer_qty = models.FloatField(null=True, default=0)
+    ebq_customer_qty = models.IntegerField(null=True, default=0)
     otspsuc = models.FloatField(null=True, default=0)
     otrmac = models.FloatField(null=True, default=0)
     ottc = models.FloatField(null=True, default=0)
@@ -89,7 +90,7 @@ class Part_Costing(models.Model):
     dltiw_production = models.CharField(max_length=200, default='')
     base_subcontract = models.FloatField(null=True, default=0)
     shipping_cost = models.FloatField(null=True, default=0)
-    ebq_ccs_qty = models.FloatField(null=True, default=0)
+    ebq_ccs_qty = models.IntegerField(null=True, default=0)
 
 class Burden_Rate(models.Model):
     subcontract = models.FloatField(default=1)
