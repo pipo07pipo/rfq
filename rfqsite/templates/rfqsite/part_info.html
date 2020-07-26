@@ -1458,6 +1458,11 @@
         url: '{% url 'data_collect' %}',
         data: {
 					'sl_no' : sl_no,
+
+					'material_cost' : material_cost,
+					'surface_treatment_cost' : surface_treatment_cost,
+					'total_hardware_cost' : total_hardware_cost,
+					'total_manufacturing_cost' : total_manufacturing_cost,
           'ccs_ewp': ccs_ewp,
 
 					'material_burden_cost' : material_burden_cost * aeqfc,
