@@ -1503,12 +1503,12 @@
 		$( "#rm-l" ).text(math_fix(rm_l,2));
 		$( "#rm-total-weight" ).text(math_fix(rm_total_weight,2));
 		$( "#fpwp" ).text(math_fix(fpwp,2));
-		$( "#base-material-price" ).text(dollar_sign(base_material_price) + math_fix(base_material_price,2));
-		$( "#material-shipping-cost" ).text(dollar_sign(material_shipping_cost) + math_fix(material_shipping_cost,2));
+		$( "#base-material-price" ).text(math_fix(base_material_price,2,"$"));
+		$( "#material-shipping-cost" ).text(math_fix(material_shipping_cost,2,"$"));
 
 		// -- Hardware --
 		$( "#hardware-qty" ).text(math_fix(hardware_qty,0));
-		$( "#hardware-price" ).text(dollar_sign(hardware_price) + math_fix(hardware_price,2));
+		$( "#hardware-price" ).text(math_fix(hardware_price,2,"$"));
 
 		// -- Process & Rate --
 		// - Burden Rate -
@@ -1532,14 +1532,14 @@
 		}
 
 		// -- Part Costing --
-		$( "#base-subcontract" ).text(dollar_sign(base_subcontract) + math_fix(base_subcontract,2));
-		$( "#shipping-cost" ).text(dollar_sign(shipping_cost) + math_fix(shipping_cost,2));
+		$( "#base-subcontract" ).text(math_fix(base_subcontract,2,"$"));
+		$( "#shipping-cost" ).text(math_fix(shipping_cost,2,"$"));
 		$( "#ebq-customer-qty" ).text(math_fix(ebq_customer_qty,0));
-		$( "#otspsuc" ).text(dollar_sign(otspsuc) + math_fix(otspsuc,2));
-		$( "#otrmac" ).text(dollar_sign(otrmac) + math_fix(otrmac,2));
-		$( "#ottc" ).text(dollar_sign(ottc) + math_fix(ottc,2));
-		$( "#total-nre-cost" ).text(dollar_sign(total_nre_cost) + math_fix(total_nre_cost,2));
-		$( "#target-price" ).text(dollar_sign(target_price) + math_fix(target_price,2));
+		$( "#otspsuc" ).text(math_fix(otspsuc,2,"$"));
+		$( "#otrmac" ).text(math_fix(otrmac,2,"$"));
+		$( "#ottc" ).text(math_fix(ottc,2,"$"));
+		$( "#total-nre-cost" ).text(math_fix(total_nre_cost,2,"$"));
+		$( "#target-price" ).text(math_fix(target_price,2,"$"));
 
 		// -*-*-*-*-*-*-*-*-*-*- 6 CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 
@@ -1568,16 +1568,16 @@
 		// - Material Costing -
 		$( "#oyrmb" ).text(math_fix(oyrmb,2));
 		$( "#moq-rm-order" ).text(math_fix(moq_rm_order,2));
-		$( "#material-burden-cost" ).text(dollar_sign(material_burden_cost) + math_fix(material_burden_cost,2));
-		$( "#material-cost" ).text(dollar_sign(material_cost) + math_fix(material_cost,2));
+		$( "#material-burden-cost" ).text(math_fix(material_burden_cost,2,"$"));
+		$( "#material-cost" ).text(math_fix(material_cost,2,"$"));
 		// - Special Process Costing -
 		// - Special Process Cost (Dollar) -
 		for(var i = 0; i < sp_set_size;i++){
 			text = "#sp-cost-" + i;
-			$( text ).text(dollar_sign(arr_sp_cost[i]) + math_fix(arr_sp_cost[i],2));
+			$( text ).text(math_fix(arr_sp_cost[i],2,"$"));
 		}
-		$( "#sp-burden-cost" ).text(dollar_sign(sp_burden_cost) + math_fix(sp_burden_cost,2));
-		$( "#surface-treatment-cost" ).text(dollar_sign(surface_treatment_cost) + math_fix(surface_treatment_cost,2));
+		$( "#sp-burden-cost" ).text(math_fix(sp_burden_cost,2,"$"));
+		$( "#surface-treatment-cost" ).text(math_fix(surface_treatment_cost,2,"$"));
 		// - Machining Process Costing -
 		// Total Cycle Time (Minutes)
 		// Total Cycle Cost (Dollar)
@@ -1585,28 +1585,28 @@
 			text = "#mc-tctt-" + i;
 			$( text ).text(math_fix(arr_mc_tctt[i],0));
 			text = "#mc-tctc-" + i;
-			$( text ).text(dollar_sign(arr_mc_tctc[i]) + math_fix(arr_mc_tctc[i],2));
+			$( text ).text(math_fix(arr_mc_tctc[i],2,"$"));
 		}
-		$( "#manufacturing-cost" ).text(dollar_sign(manufacturing_cost) + math_fix(manufacturing_cost,2));
-		$( "#additional-mfg" ).text(dollar_sign(additional_mfg) + math_fix(additional_mfg,2));
-		$( "#profit-factor" ).text(dollar_sign(profit_factor) + math_fix(profit_factor,2));
-		$( "#total-manufacturing-cost" ).text(dollar_sign(total_manufacturing_cost) + math_fix(total_manufacturing_cost,2));
+		$( "#manufacturing-cost" ).text(math_fix(manufacturing_cost,2,"$"));
+		$( "#additional-mfg" ).text(math_fix(additional_mfg,2,"$"));
+		$( "#profit-factor" ).text(math_fix(profit_factor,2,"$"));
+		$( "#total-manufacturing-cost" ).text(math_fix(total_manufacturing_cost,2,"$"));
 		// - Hardware Costing -
-		$( "#hardware-burden-cost" ).text(dollar_sign(hardware_burden_cost) + math_fix(hardware_burden_cost,2));
-		$( "#hardware-cost" ).text(dollar_sign(hardware_cost) + math_fix(hardware_cost,2));
+		$( "#hardware-burden-cost" ).text(math_fix(hardware_burden_cost,2,"$"));
+		$( "#hardware-cost" ).text(math_fix(hardware_cost,2,"$"));
 		// - Other Costing -
-		$( "#subcontract-shipping-cost" ).text(dollar_sign(subcontract_shipping_cost) + math_fix(subcontract_shipping_cost,2));
+		$( "#subcontract-shipping-cost" ).text(math_fix(subcontract_shipping_cost,2,"$"));
 		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty,0));
 		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty,0));
-		$( "#ccs-ewp" ).text(dollar_sign(ccs_ewp) + math_fix(ccs_ewp,2));
-		$( "#ccs-ppp" ).text(dollar_sign(ccs_ppp) + math_fix(ccs_ppp,2));
-		$( "#ddp-usd" ).text(dollar_sign(ddp_usd) + math_fix(ddp_usd,2));
+		$( "#ccs-ewp" ).text(math_fix(ccs_ewp,2,"$"));
+		$( "#ccs-ppp" ).text(math_fix(ccs_ppp,2,"$"));
+		$( "#ddp-usd" ).text(math_fix(ddp_usd,2,"$"));
 		// - Total Costing -
-		$( "#total-cost" ).text(dollar_sign(total_cost) + math_fix(total_cost,2));
-		$( "#mtl-cost" ).text(dollar_sign(mtl_cost) + math_fix(mtl_cost,2));
-		$( "#spl-process-cost" ).text(dollar_sign(spl_process_cost) + math_fix(spl_process_cost,2));
-		$( "#total-machine-cost" ).text(dollar_sign(total_machine_cost) + math_fix(total_machine_cost,2));
-		$( "#total-hardware-cost" ).text(dollar_sign(total_hardware_cost) + math_fix(total_hardware_cost,2));
+		$( "#total-cost" ).text(math_fix(total_cost,2,"$"));
+		$( "#mtl-cost" ).text(math_fix(mtl_cost,2,"$"));
+		$( "#spl-process-cost" ).text(math_fix(spl_process_cost,2,"$"));
+		$( "#total-machine-cost" ).text(math_fix(total_machine_cost,2,"$"));
+		$( "#total-hardware-cost" ).text(math_fix(total_hardware_cost,2,"$"));
 
 		// -- Machining Capacity Required for this Part --
 		for(var i = 0; i < mc_set_size;i++){
@@ -1617,15 +1617,14 @@
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
 
-	function dollar_sign(value){
-		if(isNaN(value)) return "";
-		return "$";
-	}
-
-	function math_fix(value, digit){
+	function math_fix(value, digit, pre_sign, post_sign){
 		if(isNaN(value)) return value;
-		return value.toFixed(digit);
-		// return Math.round((value + Number.EPSILON) * 100) / 100;
+		if(digit == undefined) digit = 0;
+		if(pre_sign == undefined) pre_sign = "";
+		if(post_sign == undefined) post_sign = "";
+		var result = value.toFixed(digit);
+		if(post_sign != "%") result = result.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return pre_sign + result + post_sign;
 	}
 
 	</script>

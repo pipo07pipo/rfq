@@ -440,17 +440,17 @@
 		// -*-*-*-*-*-*-*-*-*-*- RAW INPUT RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 		$( "#usd-thb" ).text(math_fix(usd_thb,4));
 		// -- Total Project Cost --
-		$( "#total-cost-td" ).text(dollar_sign(total_cost_td) + math_fix(total_cost_td,2));
-		$( "#mtl-cost-td" ).text(dollar_sign(mtl_cost_td) + math_fix(mtl_cost_td,2));
-		$( "#spl-process-cost-td" ).text(dollar_sign(spl_process_cost_td) + math_fix(spl_process_cost_td,2));
-		$( "#total-hardware-cost-td" ).text(dollar_sign(total_hardware_cost_td) + math_fix(total_hardware_cost_td,2));
-		$( "#total-machine-cost-td" ).text(dollar_sign(total_machine_cost_td) + math_fix(total_machine_cost_td,2));
-		$( "#total-nre-cost-td" ).text(dollar_sign(total_nre_cost_td) + math_fix(total_nre_cost_td,2));
+		$( "#total-cost-td" ).text(math_fix(total_cost_td,2,"$"));
+		$( "#mtl-cost-td" ).text(math_fix(mtl_cost_td,2,"$"));
+		$( "#spl-process-cost-td" ).text(math_fix(spl_process_cost_td,2,"$"));
+		$( "#total-hardware-cost-td" ).text(math_fix(total_hardware_cost_td,2,"$"));
+		$( "#total-machine-cost-td" ).text(math_fix(total_machine_cost_td,2,"$"));
+		$( "#total-nre-cost-td" ).text(math_fix(total_nre_cost_td,2,"$"));
 
 		// -- Total Burden Cost --
-		$( "#material-burden-cost-td" ).text(dollar_sign(material_burden_cost_td) + math_fix(material_burden_cost_td,2));
-		$( "#sp-burden-cost-td" ).text(dollar_sign(sp_burden_cost_td) + math_fix(sp_burden_cost_td,2));
-		$( "#hardware-burden-cost-td" ).text(dollar_sign(hardware_burden_cost_td) + math_fix(hardware_burden_cost_td,2));
+		$( "#material-burden-cost-td" ).text(math_fix(material_burden_cost_td,2,"$"));
+		$( "#sp-burden-cost-td" ).text(math_fix(sp_burden_cost_td,2,"$"));
+		$( "#hardware-burden-cost-td" ).text(math_fix(hardware_burden_cost_td,2,"$"));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
@@ -460,18 +460,18 @@
 
 		// -*-*-*-*-*-*-*-*-*-*- CALCULATE VALUE RESTATE-2 PHASE -*-*-*-*-*-*-*-*-*-*-
 		// -- Total Project Cost --
-		$( "#total-cost-tb" ).text(bath_sign(total_cost_tb) + math_fix(total_cost_tb,2));
-		$( "#mtl-cost-tb" ).text(bath_sign(mtl_cost_tb) + math_fix(mtl_cost_tb,2));
-		$( "#spl-process-cost-tb" ).text(bath_sign(spl_process_cost_tb) + math_fix(spl_process_cost_tb,2));
-		$( "#total-hardware-cost-tb" ).text(bath_sign(total_hardware_cost_tb) + math_fix(total_hardware_cost_tb,2));
-		$( "#total-machine-cost-tb" ).text(bath_sign(total_machine_cost_tb) + math_fix(total_machine_cost_tb,2));
+		$( "#total-cost-tb" ).text(math_fix(total_cost_tb,2,"฿"));
+		$( "#mtl-cost-tb" ).text(math_fix(mtl_cost_tb,2,"฿"));
+		$( "#spl-process-cost-tb" ).text(math_fix(spl_process_cost_tb,2,"฿"));
+		$( "#total-hardware-cost-tb" ).text(math_fix(total_hardware_cost_tb,2,"฿"));
+		$( "#total-machine-cost-tb" ).text(math_fix(total_machine_cost_tb,2,"฿"));
 
-		$( "#mtl-cost-p" ).text(math_fix(mtl_cost_p,2) + percent_sign(mtl_cost_p));
-		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p,2) + percent_sign(spl_process_cost_p));
-		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p,2) + percent_sign(total_hardware_cost_p));
-		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p,2) + percent_sign(total_machine_cost_p));
+		$( "#mtl-cost-p" ).text(math_fix(mtl_cost_p,2,"","%"));
+		$( "#spl-process-cost-p" ).text(math_fix(spl_process_cost_p,2,"","%"));
+		$( "#total-hardware-cost-p" ).text(math_fix(total_hardware_cost_p,2,"","%"));
+		$( "#total-machine-cost-p" ).text(math_fix(total_machine_cost_p,2,"","%"));
 
-		$( "#value-addition" ).text(math_fix(value_addition,2) + percent_sign(value_addition));
+		$( "#value-addition" ).text(math_fix(value_addition,2,"","%"));
 
 		// -- Machining Capacity Required for the Project --
 		for(var i = 0; i < mc_set_size;i++){
@@ -486,25 +486,14 @@
 		// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 	}
 
-	function dollar_sign(value){
-		if(isNaN(value)) return "";
-		return "$";
-	}
-
-	function bath_sign(value){
-		if(isNaN(value)) return "";
-		return "฿";
-	}
-
-	function percent_sign(value){
-		if(isNaN(value)) return "";
-		return "%";
-	}
-
-	function math_fix(value, digit){
+	function math_fix(value, digit, pre_sign, post_sign){
 		if(isNaN(value)) return value;
-		return value.toFixed(digit);
-		// return Math.round((value + Number.EPSILON) * 100) / 100;
+		if(digit == undefined) digit = 0;
+		if(pre_sign == undefined) pre_sign = "";
+		if(post_sign == undefined) post_sign = "";
+		var result = value.toFixed(digit);
+		if(post_sign != "%") result = result.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		return pre_sign + result + post_sign;
 	}
 
 	</script>
