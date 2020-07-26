@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set
+from .models import RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set, Customer_Part
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -1263,7 +1263,6 @@ def edit_mc_set_confirm(request):
 @login_required(login_url='/login')
 def fetch_data(request, tracker_no):
     project = RFQ.objects.get(pk=tracker_no)
-    project.last_generate = datetime.now()
     project.save()
     data_set = [str(x.sl_no) for x in Part_Header.objects.filter(tracker_no=tracker_no)]
     data_str = ''
@@ -1275,7 +1274,9 @@ def fetch_data(request, tracker_no):
 @login_required(login_url='/login')
 def generate_table(request, tracker_no):
     rfq = RFQ.objects.get(pk=tracker_no)
-    main_part = Part_Header.objects.filter(tracker_no=rfq).order_by('sl_no')
+    rfq.last_generate = datetime.now()
+    rfq.save()
+    main_part = Part_Header.objects.filter(tracker_no=rfq,level=0).order_by('sl_no')
     sl_no = 1
     exist = Customer_Part.objects.filter(tracker_no=rfq)
     if(exist):
@@ -1311,7 +1312,7 @@ def generate_table(request, tracker_no):
                 for item2 in fo:
                     c.append(item2)
                 c.remove(item)
-        for sigle_part in all_part:
+        for single_part in all_part:
             output = Output.objects.get(sl_no=single_part)
             c_part.material_cost += output.material_cost
             c_part.surface_treatment_cost += output.surface_treatment_cost
