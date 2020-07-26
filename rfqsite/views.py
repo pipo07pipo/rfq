@@ -332,6 +332,7 @@ def edit_rfq_confirm(request):
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
+        project.update_date = datetime.now()
         if(request.POST.get('usd-thb') == ''):
             project.usd_thb = 35
         else:
@@ -1256,6 +1257,9 @@ def edit_mc_set_confirm(request):
         return redirect('/part_info/'+str(sl_no)+'/?message=1')
 
 def fetch_data(request, tracker_no):
+    project = RFQ.objects.get(pk=tracker_no)
+    project.update_date = datetime.now()
+    project.save()
     data_set = [str(x.sl_no) for x in Part_Header.objects.filter(tracker_no=tracker_no)]
     data_str = ''
     for x in data_set:
