@@ -333,9 +333,9 @@
 							<footer class="panel-footer">
 								<div class="row">
 									<div class="col-sm-6">
-										<a class="btn btn-info" href="/fetch_data/{{ project.tracker_no }}">Update Data</a>
+										<a class="btn btn-info" href="/fetch_data/{{ project.tracker_no }}"><i class="fa fa-refresh"></i> Update Data</a>
 										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-										<a class="btn btn-danger" href="#" {% if part.sl_no != None %}disabled{% endif %}>Generate RFQ Table</a>
+										<a class="btn btn-danger" href="#" {% if part.sl_no != None %}disabled{% endif %}><i class="fa fa-magic"></i> Generate RFQ Table</a>
 										{% endif %}
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<label>Last Generate : {{ project.last_generate }}</label>

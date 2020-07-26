@@ -108,7 +108,7 @@
 										</div>
 										<textarea class="form-control" rows="10" id="excel-data" name="excel-data" style="resize:none"></textarea>
 										<br>
-										<input class="btn btn-info" type="button" onclick="javascript:generateTable()" value="Genereate Table">
+										<a class="btn btn-danger" type="button" onclick="javascript:generateTable()"><i class="fa fa-magic"></i> Genereate Table</a>
 										<br>
 										<br>
 										<label class="col-sm-12" id="excel-info" name="excel-info"></label>
@@ -167,6 +167,9 @@
 		var data = $('textarea[name=excel-data]').val();
 		console.log(data);
 		var rows = data.split("\n");
+		if(rows[rows.length - 1] == ""){
+			rows.splice(rows.length -1);
+		}
 
 		var table = $('<table class="table table-bordered table-striped mb-none" id="datatable-default" name="data-table">');
 
