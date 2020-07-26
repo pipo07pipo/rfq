@@ -41,7 +41,7 @@ class Customer_Part(models.Model):
     total_manufacturing_cost = models.FloatField(default=0)
     ccs_ewp = models.FloatField(default=0)
     ebq_customer_qty = models.IntegerField(null=True, default=0)
-    aeqfc = models.FloatField(default=0)
+    aeqfc = models.IntegerField(default=0)
     ottc = models.FloatField(null=True, default=0)
     ccs_quote_assumptions = models.CharField(max_length=200, default='')
     dltiw_fai = models.CharField(max_length=200, default='')
@@ -68,7 +68,7 @@ class Forecast(models.Model):
     forecast_year3 = models.IntegerField(default=0)
     forecast_year4 = models.IntegerField(default=0)
     forecast_year5 = models.IntegerField(default=0)
-    aeqfc = models.FloatField(default=0)
+    aeqfc = models.IntegerField(default=0)
 
 class Material(models.Model):
     sl_no = models.ForeignKey(Part_Header, on_delete=models.CASCADE)
