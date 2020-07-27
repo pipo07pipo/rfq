@@ -1154,7 +1154,7 @@
 						next_page = arr_data_set[i + 1];
 					}
 				}
-				if(next_page != undefined){
+				if(next_page != undefined && next_page != -1){
 					setTimeout(function() {
 	  				window.open("/part_info/" + next_page + "?data_set=" + data_set +"&final_page=" + final_page , "_self");
 					}, 100);
