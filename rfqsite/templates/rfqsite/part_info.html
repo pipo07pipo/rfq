@@ -1510,19 +1510,19 @@
 
 		// -- Process & Rate --
 		// - Burden Rate -
-		$( "#rate-material" ).text(math_fix(rate_material,4));
-		$( "#rate-hardware" ).text(math_fix(rate_hardware,4));
-		$( "#rate-subcontract" ).text(math_fix(rate_subcontract,4));
-		$( "#rate-sp" ).text(math_fix(rate_sp,4));
+		$( "#rate-material" ).text(math_fix(rate_material,2));
+		$( "#rate-hardware" ).text(math_fix(rate_hardware,2));
+		$( "#rate-subcontract" ).text(math_fix(rate_subcontract,2));
+		$( "#rate-sp" ).text(math_fix(rate_sp,2));
 		// - Special Process Rate -
 		for(var i = 0; i < sp_set_size;i++){
 			var text = "#sp-rate-" + i;
-			$( text ).text(math_fix(arr_sp_rate[i],4));
+			$( text ).text(math_fix(arr_sp_rate[i],2));
 		}
 		// - Machining Process Rate/MSUT/CTPP -
 		for(var i = 0; i < mc_set_size;i++){
 			var text = "#act-rate-" + i;
-			$( text ).text(math_fix(arr_act_rate[i],4));
+			$( text ).text(math_fix(arr_act_rate[i],2));
 			var text = "#mc-msut-" + i;
 			$( text ).text(math_fix(arr_mc_msut[i],0));
 			var text = "#mc-ctpp-" + i;

@@ -251,19 +251,19 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Approximate Raw Material Weight Per Part</b></label>
+											<label class="col-sm-4 control-label"><b>Approximate Raw Material Weight Per Part <i class="fa fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="Overwrite Value"></i></b></label>
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="armwpp" name="armwpp" value="{{ material.armwpp }}" {% if material.armwpp == 0 %}readonly{% endif %}>
 											</div>
-											<label style="padding-top:5px" class="text-left">kg <small>(Overwrite Value)</small></label>
+											<label style="padding-top:5px" class="text-left">kg</label>
 										</div>
 										<hr>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Finished Part Weight Percentage</b></label>
+											<label class="col-sm-4 control-label"><b>Finished Part Weight Percentage <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Percentage (Ex. 0.42 = 42%)"></i></b></label>
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="fpwp" name="fpwp" value="{{ material.fpwp }}">
 											</div>
-											<label style="padding-top:5px" class="text-left"><small>Percentage (Ex. 0.42 = 42%)</small></label>
+											<label style="padding-top:5px" class="text-left"></label>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Material Supplier</b></label>
