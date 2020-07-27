@@ -332,11 +332,12 @@
 							</div>
 							<footer class="panel-footer">
 								<div class="row">
-									<div class="col-sm-6">
+									<div class="col-sm-12">
 										<a class="btn btn-info" href="/fetch_data/{{ project.tracker_no }}"><i class="fa fa-refresh"></i> Update Data</a>
 										{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 										<a class="btn btn-success" href="/generate_table/{{ project.tracker_no }}"><i class="fa fa-magic"></i> Generate RFQ Table</a>
 										{% endif %}
+										<a class="btn btn-default" href="/media/{{ project.customer_file_path }}" {% if project.last_generate == None %}disabled{% endif %}><i class="fa fa-download"></i> Download File</a>
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<label>Last Generate : {{ project.last_generate }}</label>
 									</div>
