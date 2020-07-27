@@ -1224,7 +1224,9 @@ def select_mc_set_confirm(request):
             id = act.id
             if(request.POST.get(str(id)) == None):
                 delmc = MC_Set.objects.filter(sl_no=sl_no,act_id=act)
-                refresh.append(delmc.sl_no)
+                for item in delmc:
+                    if item.sl_no not in refresh:
+                        refresh.append(item.sl_no)
                 delmc.delete()
             elif(request.POST.get(str(id)) == 'on'):
                 if(MC_Set.objects.filter(sl_no=sl_no,act_id=act)):
