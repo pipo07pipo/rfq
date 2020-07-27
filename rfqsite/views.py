@@ -1148,6 +1148,8 @@ def select_act_set_confirm(request):
             if(edit):
                 final_page = 'edit_act_set'
             return redirect('/part_info/'+str(refresh[0])+'/?final_page='+final_page+'&data_set='+data_str)
+        if(edit):
+            return redirect('/edit_act_set/'+str(tracker_no)+'/?message=1')
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
