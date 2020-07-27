@@ -1118,6 +1118,7 @@ def select_act_set_confirm(request):
         tracker_no = request.POST.get('tracker-no')
         mc_master = MC_Master.objects.all()
         refresh = []
+        edit = False
         for mc in mc_master:
             id = mc.id
             if(request.POST.get(str(id)) == None):
@@ -1135,6 +1136,7 @@ def select_act_set_confirm(request):
                     pass
                 else:
                     newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
+                    edit = True
                     newact.save()
         if(len(refresh) > 0):
             data_str = ''
@@ -1142,7 +1144,10 @@ def select_act_set_confirm(request):
             for x in data_set:
                 data_str = data_str + x + ","
             data_str = data_str[:len(data_str)-1]
-            return redirect('/part_info/'+str(refresh[0])+'/?final_page=part_table&data_set='+data_str)
+            final_page = 'part_table'
+            if(edit):
+                final_page = 'edit_act_set'
+            return redirect('/part_info/'+str(refresh[0])+'/?final_page='+final_page+'&data_set='+data_str)
         return redirect('/part_table/'+str(tracker_no)+'/?message=1')
 
 @login_required(login_url='/login')
