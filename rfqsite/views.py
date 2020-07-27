@@ -1288,6 +1288,9 @@ def fetch_data(request, tracker_no):
     data_str = data_str[:len(data_str)-1]
     return redirect('/part_info/'+str(data_set[0])+'/?final_page=rfq_summary&data_set='+data_str)
 
+from openpyxl import Workbook
+#pip install openpyxl
+import csv
 @login_required(login_url='/login')
 def generate_table(request, tracker_no):
     rfq = RFQ.objects.get(pk=tracker_no)
@@ -1312,10 +1315,7 @@ def generate_table(request, tracker_no):
         c_part.forecast_year4 = forecast.forecast_year4
         c_part.forecast_year5 = forecast.forecast_year5
         c_part.aeqfc = forecast.aeqfc
-        material = Material.objects.get(sl_no=part)
-        c_part.description = material.description
         part_costing = Part_Costing.objects.get(sl_no=part)
-        c_part.ottc = part_costing.ottc
         c_part.ccs_quote_assumptions = part_costing.ccs_quote_assumptions
         c_part.dltiw_fai = part_costing.dltiw_fai
         c_part.dltiw_serial_production = part_costing.dltiw_serial_production
@@ -1331,6 +1331,11 @@ def generate_table(request, tracker_no):
                 c.remove(item)
         for single_part in all_part:
             output = Output.objects.get(sl_no=single_part)
+            part_costing = Part_Costing.objects.get(sl_no=single_part)
+            material = Material.objects.get(sl_no=single_part)
+            if(material.description != ''):
+                c_part.description = c_part.description + material.description + ' '
+            c_part.ottc += part_costing.ottc
             c_part.material_cost += output.material_cost
             c_part.surface_treatment_cost += output.surface_treatment_cost
             c_part.hardware_cost += output.hardware_cost
@@ -1338,5 +1343,23 @@ def generate_table(request, tracker_no):
             c_part.ccs_ewp += output.ccs_ewp
         c_part.save()
         sl_no += 1
-
+    # print(os.getcwd().replace('\\','/')+'/media/gen/'+str(tracker_no))
+    path = os.getcwd().replace('\\','/')+'/media/gen/'+str(tracker_no)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    with open(path+'/cm_f.csv', mode='w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        toExel = Customer_Part.objects.filter(tracker_no=tracker_no)
+        current_year = toExel[0].current_year
+        csv_writer.writerow(['SL NO.', 'Part No.', 'Part Name', 'Program', 'Forecast '+str(current_year), 'Forecast '+str(current_year+1), 'Forecast '+str(current_year+2), 'Forecast '+str(current_year+3), 'Forecast '+str(current_year+4), 'Material Descrition', 'Matrial Cost DDP CCS', 'Total Hardwares cost', 'Surface treatment cost', 'Total manufacturing cost', 'CCS price per Part/assy Ex_works BKK Thailand', 'EBQ QTY (Prodnlot)', 'Minimum firm order quantity/lot', 'One time tooling cost (CAD modeling CNC programming, Thread gauges, jigs & fixtures design, & manufacturing, FAI prove out & documents)', 'CCS Quote Assumptions', 'Delivery Lead Time in weeks FAI', 'Delivery Lead Time in weeks Serial Production', 'Delivery Lead Time in weeks Production'])
+        for sep_part in toExel:
+            csv_writer.writerow([sep_part.sl_no, sep_part.no, sep_part.name, sep_part.program, sep_part.forecast_year1, sep_part.forecast_year2, sep_part.forecast_year3, sep_part.forecast_year4, sep_part.forecast_year5, sep_part.description,sep_part.material_cost, sep_part.surface_treatment_cost, sep_part.hardware_cost, sep_part.total_manufacturing_cost, sep_part.ccs_ewp, sep_part.ebq_customer_qty, sep_part.aeqfc, sep_part.ottc, sep_part.ccs_quote_assumptions, sep_part.dltiw_fai, sep_part.dltiw_serial_production, sep_part.dltiw_production])
+    wb = Workbook()
+    ws = wb.active
+    with open(path+'/cm_f.csv', 'r') as f:
+        for row in csv.reader(f):
+            ws.append(row)
+    wb.save(path+'/cm_f.xlsx')
+    rfq.customer_file_path = 'gen/'+str(tracker_no)+'/cm_f.xlsx'
+    rfq.save()
     return redirect('/rfq_summary/'+str(tracker_no)+'/?message=3')

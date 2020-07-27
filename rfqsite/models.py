@@ -21,6 +21,7 @@ class RFQ(models.Model):
     usd_thb = models.FloatField(default=35)
     current_year = models.IntegerField(default=2020)
     last_generate = models.DateTimeField('date publish', null=True)
+    customer_file_path = models.CharField(max_length=200, default='')
 
 class Customer_Part(models.Model):
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
