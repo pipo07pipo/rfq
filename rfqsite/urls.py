@@ -1,7 +1,11 @@
 from django.urls import path,include
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
+from django.views.static import serve
 from . import views
+
+
 
 urlpatterns = [
     path('rfq_table/', views.rfq_table, name='rfq_table'),
@@ -62,4 +66,5 @@ urlpatterns = [
     path('edit_mc_set_confirm/', views.edit_mc_set_confirm, name='edit_mc_set_confirm'),
     path('fetch_data/<int:tracker_no>/', views.fetch_data, name='fetch_data'),
     path('generate_table/<int:tracker_no>/', views.generate_table, name='generate_table'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
+]+ static(settings.MEDIA_URL, serve, document_root=settings.MEDIA_ROOT)
