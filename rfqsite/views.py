@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set, Customer_Part
+from .models import CCS_RFQ, RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set, Customer_Part
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
@@ -17,15 +17,15 @@ def to_float(s):
 
 @login_required(login_url='/login')
 def rfq_table(request):
+    ccs_rfq = CCS_RFQ.objects.all()
+    ccs_obj = [obj for obj in ccs_rfq]
+    rfq = RFQ.objects.all()
+    rfq_obj = [obj.ccs_rfq for obj in rfq]
+    for obj in ccs_obj:
+        if(obj not in rfq_obj):
+            newRFQ = RFQ(ccs_rfq=obj, ccs_tracker_no=obj.ccs_tracker_no, customer_name=obj.customer_name, description=obj.description, update_date=datetime.now())
+            newRFQ.save()
     projects = RFQ.objects.all()
-    for rfq in projects:
-        if(rfq.usd_thb == ''):
-            rfq.usd_thb = 35.0
-        if(rfq.update_date == None):
-            rfq.update_date = datetime.now()
-        if(rfq.current_year == 0):
-            rfq.current_year = 2020
-            rfq.save()
     context = {
         'projects': projects
     }

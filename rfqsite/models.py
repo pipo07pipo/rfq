@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+class CCS_RFQ(models.Model):
+    ID = models.AutoField(primary_key=True)
+    ccs_tracker_no = models.CharField(max_length=200, default='')
+    description = models.CharField(max_length=200, default='')
+    customer_name = models.CharField(max_length=200, default='')
+
 
 class Roles(models.Model):
     permission = models.IntegerField(default=2)
@@ -22,6 +28,7 @@ class RFQ(models.Model):
     current_year = models.IntegerField(default=2020)
     last_generate = models.DateTimeField('date publish', null=True)
     customer_file_path = models.CharField(max_length=200, default='')
+    ccs_rfq = models.ForeignKey(CCS_RFQ, null=True, on_delete=models.CASCADE)
 
 class Customer_Part(models.Model):
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
