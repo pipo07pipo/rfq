@@ -19,9 +19,6 @@ class ExtendUser(models.Model):
 
 class RFQ(models.Model):
     tracker_no = models.AutoField(primary_key=True)
-    ccs_tracker_no = models.CharField(max_length=200, default='')
-    description = models.CharField(max_length=200)
-    customer_name = models.CharField(max_length=200)
     file_path = models.CharField(max_length=200, default='')
     update_date = models.DateTimeField('date publish')
     usd_thb = models.FloatField(default=35)

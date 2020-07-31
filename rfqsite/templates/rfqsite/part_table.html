@@ -75,9 +75,9 @@
 							</div>
 							<!-- <h2 class="panel-title">Part Table</h2> -->
 							<p class="panel-subtitle" hidden><i class="fa fa-caret-right"></i> <b>RFQ Tracker No. :</b> {{ project.tracker_no }}</p>
-							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>CCS Tracker No. :</b> {{ project.ccs_tracker_no }}</p>
-							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Description :</b> {{ project.description }}</p>
-							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> {{ project.customer_name }}</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>CCS Tracker No. :</b> {{ project.ccs_rfq.ccs_tracker_no }}</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>RFQ Description :</b> {{ project.ccs_rfq.description }}</p>
+							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Customer Name :</b> {{ project.ccs_rfq.customer_name }}</p>
 							<p class="panel-subtitle"><i class="fa fa-caret-right"></i> <b>Current File :</b> {{ file_name }}</p>
 							<div class="text-left mr-md">
 								{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}

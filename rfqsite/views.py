@@ -23,7 +23,7 @@ def rfq_table(request):
     rfq_obj = [obj.ccs_rfq for obj in rfq]
     for obj in ccs_obj:
         if(obj not in rfq_obj):
-            newRFQ = RFQ(ccs_rfq=obj, ccs_tracker_no=obj.ccs_tracker_no, customer_name=obj.customer_name, description=obj.description, update_date=datetime.now())
+            newRFQ = RFQ(ccs_rfq=obj, update_date=datetime.now())
             newRFQ.save()
     projects = RFQ.objects.all()
     context = {
@@ -239,9 +239,9 @@ def add_part_multi_confirm(request):
         excel = request.POST.get('excel-data')
         excel = excel.strip()
         trans = re.split('	|\r\n',excel)
-        if(len(trans)%7 != 0):
+        if(len(trans)%9 != 0):
             return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
-        for i in range(0, len(trans), 7):
+        for i in range(0, len(trans), 9):
             try:
                 trans[i] = str(trans[i])
                 trans[i+1] = str(trans[i+1])
@@ -250,18 +250,22 @@ def add_part_multi_confirm(request):
                 trans[i+4] = int(trans[i+4].replace(',',''))
                 trans[i+5] = int(trans[i+5].replace(',',''))
                 trans[i+6] = int(trans[i+6].replace(',',''))
+                trans[i+7] = int(trans[i+7].replace(',',''))
+                trans[i+8] = float(trans[i+8].replace(',',''))
             except:
                 return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
-        for i in range(0, len(trans), 7):
+        for i in range(0, len(trans), 9):
             newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),level=part_level,no=trans[i],name=trans[i+1])
             newForecast = Forecast(sl_no=newPart)
-            newForecast.forecast_year1 = trans[i+2]
-            newForecast.forecast_year2 = trans[i+3]
-            newForecast.forecast_year3 = trans[i+4]
-            newForecast.forecast_year4 = trans[i+5]
-            newForecast.forecast_year5 = trans[i+6]
+            newForecast.qty_per_unit = trans[i+2]
+            newForecast.forecast_year1 = trans[i+3]
+            newForecast.forecast_year2 = trans[i+4]
+            newForecast.forecast_year3 = trans[i+5]
+            newForecast.forecast_year4 = trans[i+6]
+            newForecast.forecast_year5 = trans[i+7]
             newMaterial = Material(sl_no=newPart)
             newPart_Costing = Part_Costing(sl_no=newPart)
+            newPart_Costing.target_price = trans[i+8]
             newBR = Burden_Rate(sl_no=newPart)
             newHW = Hardware(sl_no=newPart)
             newO = Output(sl_no=newPart)
@@ -329,7 +333,6 @@ def edit_rfq_confirm(request):
         folder = "rfq/"+tracker_no+"/"
         path = folder+file.name
         filename = fs.save(path, file)
-        project.customer_name = request.POST.get('customer-name')
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
@@ -347,7 +350,6 @@ def edit_rfq_confirm(request):
         #     if(project.file_path != ''):
         #         os.remove(os.getcwd().replace('\\','/')+"/media/"+project.file_path)
         #         project.file_path = ''
-        project.customer_name = request.POST.get('customer-name')
         if(request.POST.get('usd-thb') == ''):
             project.usd_thb = 35
         else:
@@ -492,9 +494,11 @@ def edit_forecast(request, sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     forecast = Forecast.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+    part_costing = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
     part = Part_Header.objects.get(pk=sl_no)
     current_year = part.tracker_no.current_year
     context = {
+        'part_costing': part_costing,
         'current_year': current_year,
         'part': part,
         'forecast': forecast
@@ -513,7 +517,11 @@ def edit_forecast_confirm(request):
         editForecast.forecast_year4 = request.POST.get('forecast-year4')
         editForecast.forecast_year5 = request.POST.get('forecast-year5')
         editForecast.aeqfc = request.POST.get('aeqfc')
+        editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
+        editpc.ebq_customer_qty = to_float(request.POST.get('ebq-customer-qty'))
+        editpc.ebq_ccs_qty = to_float(request.POST.get('ebq-ccs-qty'))
         editForecast.save()
+        editpc.save()
     return redirect('/part_info/'+sl_no+"?message=1")
 
 
@@ -564,14 +572,12 @@ def edit_part_costing_confirm(request):
         editpc = Part_Costing.objects.get(sl_no=Part_Header.objects.get(pk=sl_no))
         editpc.total_nre_cost = to_float(request.POST.get('total-nre-cost'))
         editpc.target_price = to_float(request.POST.get('target-price'))
-        editpc.ebq_customer_qty = to_float(request.POST.get('ebq-customer-qty'))
         editpc.otspsuc = to_float(request.POST.get('otspsuc'))
         editpc.otrmac = to_float(request.POST.get('otrmac'))
         editpc.ottc = to_float(request.POST.get('ottc'))
         editpc.ccs_quote_assumptions = request.POST.get('ccs-quote-assumptions')
         editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
         editpc.shipping_cost = to_float(request.POST.get('shipping-cost'))
-        editpc.ebq_ccs_qty = to_float(request.POST.get('ebq-ccs-qty'))
         editpc.save()
         return redirect('/part_info/'+sl_no+"?message=1")
 

@@ -77,9 +77,9 @@
                 {% for project in projects %}
 									<tr>
 										<td class="center" hidden>{{ project.tracker_no }}</td>
-										<td class="center">{{ project.ccs_tracker_no }}</td>
-										<td class="center">{{ project.description }}</td>
-										<td class="center">{{ project.customer_name }}</td>
+										<td class="center">{{ project.ccs_rfq.ccs_tracker_no }}</td>
+										<td class="center">{{ project.ccs_rfq.description }}</td>
+										<td class="center">{{ project.ccs_rfq.customer_name }}</td>
 										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a</td>
 									</tr>
                 {% endfor %}
