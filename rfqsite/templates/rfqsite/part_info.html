@@ -1204,6 +1204,13 @@
 		var eau_year4 = forecast_year4 * qty_per_unit;
 		var eau_year5 = forecast_year5 * qty_per_unit;
 		var eau_total_year = eau_year1 + eau_year2 + eau_year3 + eau_year4 + eau_year5;
+		// EBQ_CCS QTY (Prodn Lot) = Annual Estimate Qty for Calculation / 4  <EDITABLE>
+		var ebq_ccs_qty = aeqfc / 4;
+		if(ebq_ccs_qty2 != 0 && ebq_ccs_qty2){
+			ebq_ccs_qty = ebq_ccs_qty2;
+		}
+		// Minimum Firm Order Quantity/Lot = Annual Estimate Qty for Calculation
+		var minimum_firm_order_qty = aeqfc;
 
 		// -- Material --
 		// Annual Raw Material Requirement = Total RM Weight * Annual Estimate Qty for Calculation
@@ -1226,8 +1233,8 @@
 		var trmwpy = rm_total_weight * aeqfc;
 
 		// -- Process & Rate --
-		// Production Qty = Annual Estimate Qty for Calculation / 4
-		var production_qty = aeqfc / 4;
+		// Production Qty = EBQ_CCS QTY (Prodn Lot)
+		var production_qty = ebq_ccs_qty;
 
 		// -- Part Costing --
 		// - Material Costing -
@@ -1285,13 +1292,6 @@
 		// - Other Costing -
 		// Subcontract Shipping Cost = [Base Subcontract + (Shipping Cost * Approximate Finished Part Weight Per Part)] * Subcontract Burden
 		var subcontract_shipping_cost = (base_subcontract + (shipping_cost * afpwpp)) * rate_subcontract;
-		// EBQ_CCS QTY (Prodn Lot) = Annual Estimate Qty for Calculation / 4  <EDITABLE>
-		var ebq_ccs_qty = aeqfc / 4;
-		if(ebq_ccs_qty2 != 0 && ebq_ccs_qty2){
-			ebq_ccs_qty = ebq_ccs_qty2;
-		}
-		// Minimum Firm Order Quantity/Lot = Annual Estimate Qty for Calculation
-		var minimum_firm_order_qty = aeqfc;
 		// CCS Ex-works Price = Total Manufacturing Cost + Surface Treatment Cost + Material Cost DDP CCS + Hardware Cost
 		var ccs_ewp = total_manufacturing_cost + surface_treatment_cost + material_cost + hardware_cost;
 		// CCS Price Per Assembly = SUM(CCS Ex-works Price) of all child & itself
@@ -1326,6 +1326,8 @@
 		$( "#eau-year4" ).text(eau_year4);
 		$( "#eau-year5" ).text(eau_year5);
 		$( "#eau-total-year" ).text(eau_total_year);
+		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
+		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
 
 		// -- Material --
 		$( "#armr-year1" ).text(armr_year1);
@@ -1372,8 +1374,6 @@
 		$( "#hardware-cost" ).text(hardware_cost);
 		// - Other Costing -
 		$( "#subcontract-shipping-cost" ).text(subcontract_shipping_cost);
-		$( "#ebq-ccs-qty" ).text(ebq_ccs_qty);
-		$( "#minimum-firm-order-qty" ).text(minimum_firm_order_qty);
 		$( "#ccs-ewp" ).text(ccs_ewp);
 		$( "#ccs-ppp" ).text(ccs_ppp);
 		$( "#ddp-usd" ).text(ddp_usd);
@@ -1493,6 +1493,8 @@
 		$( "#eau-year4" ).text(math_fix(eau_year4,0));
 		$( "#eau-year5" ).text(math_fix(eau_year5,0));
 		$( "#eau-total-year" ).text(math_fix(eau_total_year,0));
+		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty,0));
+		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty,0));
 
 		// -- Material --
 		$( "#armr-year1" ).text(math_fix(armr_year1,2));
@@ -1539,8 +1541,6 @@
 		$( "#hardware-cost" ).text(math_fix(hardware_cost,2,"$"));
 		// - Other Costing -
 		$( "#subcontract-shipping-cost" ).text(math_fix(subcontract_shipping_cost,2,"$"));
-		$( "#ebq-ccs-qty" ).text(math_fix(ebq_ccs_qty,0));
-		$( "#minimum-firm-order-qty" ).text(math_fix(minimum_firm_order_qty,0));
 		$( "#ccs-ewp" ).text(math_fix(ccs_ewp,2,"$"));
 		$( "#ccs-ppp" ).text(math_fix(ccs_ppp,2,"$"));
 		$( "#ddp-usd" ).text(math_fix(ddp_usd,2,"$"));
