@@ -104,7 +104,7 @@
 										<div class="form-group">
 											<label class="col-sm-12"><b>Paste Your Text Below..</b>
 											</label>
-											<label class="col-sm-12"><small>Format : Part No. | Part Name | Forecast Year 1 | Forecast Year 2 | Forecast Year 3 | Forecast Year 4 | Forecast Year 5</small></label>
+											<label class="col-sm-12"><small>Format : Part No. | Part Name | Qty Per Unit | Forecast Year 1 | Forecast Year 2 | Forecast Year 3 | Forecast Year 4 | Forecast Year 5 | Target Price</small></label>
 										</div>
 										<textarea class="form-control" rows="10" id="excel-data" name="excel-data" style="resize:none"></textarea>
 										<br>
@@ -183,7 +183,9 @@
 		var header1 = $('<tr>');
 		header1.append('<th class="center" rowspan="2">Part No.</th>');
 		header1.append('<th class="center" rowspan="2">Part Name</th>');
+		header1.append('<th class="center" rowspan="2">Qty Per Unit</th>');
 		header1.append('<th class="center" colspan="5">Forecast</th>');
+		header1.append('<th class="center" rowspan="2">Target Price</th>');
 		table.append(header1);
 
 		var header2 = $('<tr>');
