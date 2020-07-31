@@ -87,7 +87,7 @@
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/select_act_set/{{ project.tracker_no }}"><i class="fa fa-check-square-o"></i> Select Activity Rate</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_act_set/{{ project.tracker_no }}" {% if act_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit Activity Rate</a>
 								{% endif %}
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download File</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %} target="_blank" download><i class="fa fa-download"></i> Download File</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-success" href="/rfq_summary/{{ project.tracker_no }}"><i class="fa fa-book"></i> Summary</a>
 							</div>
 						</header>

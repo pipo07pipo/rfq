@@ -192,7 +192,7 @@
 											{% endif %}
 										</div>
 											<div class="text-right mr-lg">
-												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/media/{{ part.file_path }}" {% if part.file_path == "" %}disabled{% endif %}><i class="fa fa-download"></i> Download Files</a>
+												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/media/{{ part.file_path }}" {% if part.file_path == "" %}disabled{% endif %} target="_blank" download><i class="fa fa-download"></i> Download Files</a>
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/edit_part_info/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 												<a class="mb-xs mt-xs mr-xs modal-basic btn btn-danger" href="#modal-remove"><i class="fa fa-minus-circle"></i> Remove</a>
