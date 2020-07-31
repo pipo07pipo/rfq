@@ -59,7 +59,7 @@ class Customer_Part(models.Model):
 class Part_Header(models.Model):
     sl_no = models.AutoField(primary_key=True)
     tracker_no = models.ForeignKey(RFQ, on_delete=models.CASCADE)
-    no = models.CharField(max_length=10, default='')
+    no = models.CharField(max_length=200, default='')
     name = models.CharField(max_length=200, default='')
     level = models.IntegerField()
     program = models.CharField(max_length=200, default='')

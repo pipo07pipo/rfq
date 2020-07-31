@@ -237,6 +237,7 @@ def add_part_multi_confirm(request):
         tracker_no = request.POST.get('tracker-no')
         part_level = request.POST.get('part-level')
         excel = request.POST.get('excel-data')
+        excel = excel.strip()
         trans = re.split('	|\r\n',excel)
         if(len(trans)%7 != 0):
             return redirect('/part_table/'+request.POST.get('tracker-no')+"?message=0")
