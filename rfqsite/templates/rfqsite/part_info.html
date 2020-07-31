@@ -85,7 +85,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="tabs">
-								<ul class="nav nav-tabs	">
+								<ul class="nav nav-tabs">
 									<li class="active">
 										<a href="#tab-1" data-toggle="tab" class="text-center"><i class="fa fa-info-circle"></i> Information</a>
 									</li>
@@ -370,9 +370,27 @@
 											<br>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Annual Estimate Qty for Calculation</b></label>
+												<label class="col-sm-9 control-label" id="aeqfc" name="aeqfc">{{ forecast.aeqfc }}</label>
+											</div>
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<label class="col-sm-3 control-label">
+													<b>EBQ_CCS QTY (Prodn Lot)</b>
+													{% if part_costing.ebq_ccs_qty != 0 %}
+														<b><i class="fa fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Overwrite Value"></i></b>
+													{% endif %}
+												</label>
+												<label class="col-sm-9 control-label" id="ebq-ccs-qty" name="ebq-ccs-qty">-</label>
+												<label class="col-sm-9 control-label" id="ebq-ccs-qty2" name="ebq-ccs-qty2" hidden>{{ part_costing.ebq_ccs_qty }}</label>
+											</div>
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<label class="col-sm-3 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
 												<div class="col-sm-9">
-													<label class="control-label" id="aeqfc" name="aeqfc">{{ forecast.aeqfc }}</label>
+													<label class="col-sm- control-label" id="ebq-customer-qty" name="ebq-customer-qty">{{ part_costing.ebq_customer_qty }}</label>
 												</div>
+											</div>
+											<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<label class="col-sm-3 control-label"><b>Minimum Firm Order Quantity/Lot</b></label>
+												<label class="col-sm-9 control-label" id="minimum-firm-order-qty" name="minimum-firm-order-qty">-</label>
 											</div>
 											<div class="text-right mr-lg">
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
@@ -386,27 +404,19 @@
 										<div class="panel-body">
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Description</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="material-description" name="material-description">{{ material.description }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="material-description" name="material-description">{{ material.description }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Cross Section</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="cross-section" name="cross-section">{{ material.cross_section }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="cross-section" name="cross-section">{{ material.cross_section }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Material Type</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="material-type" name="material-type">{{ material.type }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="material-type" name="material-type">{{ material.type }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Quantity</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="material-qty" name="material-qty">{{ material.quantity }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="material-qty" name="material-qty">{{ material.quantity }}</label>
 											</div>
 											<br>
 												<!-- Raw Material Size -->
@@ -512,21 +522,15 @@
 												<br>
 												<div class="form-group">
 													<label class="col-sm-3 control-label"><b>Material Supplier</b></label>
-													<div class="col-sm-9">
-														<label class="control-label" id="material-supplier" name="material-supplier">{{ material.supplier }}</label>
-													</div>
+													<label class="col-sm-9 control-label" id="material-supplier" name="material-supplier">{{ material.supplier }}</label>
 												</div>
 												<div class="form-group">
 													<label class="col-sm-3 control-label"><b>Base Material Price/kg</b></label>
-													<div class="col-sm-9">
-														<label class="control-label" id="base-material-price" name="base-material-price">{{ material.base_material_price }}</label>
-													</div>
+													<label class="col-sm-9 control-label" id="base-material-price" name="base-material-price">{{ material.base_material_price }}</label>
 												</div>
 												<div class="form-group">
 													<label class="col-sm-3 control-label"><b>Material Shipping Cost USD/kg</b></label>
-													<div class="col-sm-9">
-														<label class="control-label" id="material-shipping-cost" name="material-shipping-cost">{{ material.shipping_cost }}</label>
-													</div>
+													<label class="col-sm-9 control-label" id="material-shipping-cost" name="material-shipping-cost">{{ material.shipping_cost }}</label>
 												</div>
 												<div class="text-right mr-lg">
 													{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
@@ -540,27 +544,19 @@
 										<div class="panel-body">
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Description</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="hardware-description" name="hardware-description">{{ hardware.description }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="hardware-description" name="hardware-description">{{ hardware.description }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Qty Per Part</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="hardware-qty" name="hardware-qty">{{ hardware.qty }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="hardware-qty" name="hardware-qty">{{ hardware.qty }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Supplier</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="hardware-supplier" name="hardware-supplier">{{ hardware.supplier }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="hardware-supplier" name="hardware-supplier">{{ hardware.supplier }}</label>
 											</div>
 											<div class="form-group">
 												<label class="col-sm-3 control-label"><b>Hardware Price</b></label>
-												<div class="col-sm-9">
-													<label class="control-label" id="hardware-price" name="hardware-price">{{ hardware.price }}</label>
-												</div>
+												<label class="col-sm-9 control-label" id="hardware-price" name="hardware-price">{{ hardware.price }}</label>
 											</div>
 											<div class="text-right mr-lg">
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
@@ -574,9 +570,7 @@
 										<div class="panel-body">
 													<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 														<label class="col-sm-3 control-label"><b>Production Qty</b></label>
-														<div class="col-sm-9">
-															<label class="control-label" id="production-qty" name="production-qty">-</label>
-														</div>
+														<label class="col-sm-9 control-label" id="production-qty" name="production-qty">-</label>
 													</div>
 													<!-- Burden Rate -->
 													<div class="table-responsive">
@@ -682,244 +676,233 @@
 									<div id="tab-7" class="tab-pane">
 										<div class="panel-body">
 											<!-- Material Costing -->
-											<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>One Year Raw Material Buy (kg)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="oyrmb" name="oyrmb">-</label>
+											<h4 class="text-center text-primary" {% if part.type == "Hardware" %}hidden{% endif %}><b>Material Costing</b></h4>
+											<div class="well well-sm" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<div class="row">
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>One Year Raw Material Buy (kg)</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="oyrmb" name="oyrmb">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>MOQ Raw Material Order (kg)</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="moq-rm-order" name="moq-rm-order">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Material Burden Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="material-burden-cost" name="material-burden-cost">-</label>
+														</div>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>MOQ Raw Material Order (kg)</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="moq-rm-order" name="moq-rm-order">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Material Burden Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="material-burden-cost" name="material-burden-cost">-</label>
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Material Cost DDP CCS</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="material-cost" name="material-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
 													</div>
 												</div>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Material Cost DDP CCS</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="material-cost" name="material-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-												</div>
-												<hr>
 											</div>
 											<!-- Special Process Costing -->
-											<!-- Special Process Cost (Dollar) -->
-											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="2" >Special Process Cost (Dollar)</th>
-														<tr>
-															<th class="center custom2">Name</th>
-															<th class="center custom2">Cost (Dollar)</th>
-														</tr>
-													</thead>
-													<tbody>
-														{% for sp in sp_set %}
-														<tr>
-															<td class="center"><b>{{ sp.sp_id.name }}</b></td>
-															<td class="center" id="sp-cost-{{ forloop.counter0 }}" name="sp-cost-{{ forloop.counter0 }}">-</td>
-														</tr>
-														{% endfor %}
-														{% if sp_set.count == 0 %}<tr><td class="center" colspan="2">This part has no special process.</td></tr>{% endif %}
-													</tbody>
-												</table>
-											</div>
-											<br>
-											<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Special Process Burden Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="sp-burden-cost" name="sp-burden-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Surface Treatment Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+											<h4 class="text-center text-primary" {% if part.type == "Hardware" %}hidden{% endif %}><b>Special Process Costing</b></h4>
+											<div class="well well-sm" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<!-- Special Process Cost (Dollar) -->
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped table-condensed mb-none">
+														<thead>
+															<th class="center custom1" colspan="2" >Special Process Cost (Dollar)</th>
+															<tr>
+																<th class="center custom2">Name</th>
+																<th class="center custom2">Cost (Dollar)</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for sp in sp_set %}
+															<tr>
+																<td class="center"><b>{{ sp.sp_id.name }}</b></td>
+																<td class="center" id="sp-cost-{{ forloop.counter0 }}" name="sp-cost-{{ forloop.counter0 }}">-</td>
+															</tr>
+															{% endfor %}
+															{% if sp_set.count == 0 %}<tr><td class="center" colspan="2">This part has no special process.</td></tr>{% endif %}
+														</tbody>
+													</table>
+												</div>
+												<br>
+												<div class="row">
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Special Process Burden Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="sp-burden-cost" name="sp-burden-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Surface Treatment Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="surface-treatment-cost" name="surface-treatment-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
 													</div>
 												</div>
-												<hr>
 											</div>
 											<!-- Machining Process Costing -->
-											<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
-											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<table class="table table-bordered table-striped table-condensed mb-none">
-													<thead>
-														<th class="center custom1" colspan="3">Total Cycle Time (Minutes) & Cost (Dollar)</th>
-														<tr>
-															<th class="center custom2">Name</th>
-															<th class="center custom2">Time (Minutes)</th>
-															<th class="center custom2">Cost (Dollar)</th>
-														</tr>
-													</thead>
-													<tbody>
-														{% for mc in mc_set %}
-														<tr>
-															<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
-															<td class="center" id="mc-tctt-{{ forloop.counter0 }}" name="mc-tctt-{{ forloop.counter0 }}">-</td>
-															<td class="center" id="mc-tctc-{{ forloop.counter0 }}" name="mc-tctc-{{ forloop.counter0 }}">-</td>
-														</tr>
-														{% endfor %}
-														{% if mc_set.count == 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
-													</tbody>
-												</table>
-											</div>
-											<div class="row" {% if part.type == "Hardware" %}hidden{% endif %}>
-												<br>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Manufacturing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="manufacturing-cost" name="manufacturing-cost">-</label>
+											<h4 class="text-center text-primary" {% if part.type == "Hardware" %}hidden{% endif %}><b>Machining Process Costing</b></h4>
+											<div class="well well-sm" {% if part.type == "Hardware" %}hidden{% endif %}>
+												<!-- Total Cycle Time (Minutes) & Cost (Dollar) -->
+												<div class="table-responsive">
+													<table class="table table-bordered table-striped table-condensed mb-none">
+														<thead>
+															<th class="center custom1" colspan="3">Total Cycle Time (Minutes) & Cost (Dollar)</th>
+															<tr>
+																<th class="center custom2">Name</th>
+																<th class="center custom2">Time (Minutes)</th>
+																<th class="center custom2">Cost (Dollar)</th>
+															</tr>
+														</thead>
+														<tbody>
+															{% for mc in mc_set %}
+															<tr>
+																<td class="center"><b>{{ mc.act_id.mc_id.name }}</b></td>
+																<td class="center" id="mc-tctt-{{ forloop.counter0 }}" name="mc-tctt-{{ forloop.counter0 }}">-</td>
+																<td class="center" id="mc-tctc-{{ forloop.counter0 }}" name="mc-tctc-{{ forloop.counter0 }}">-</td>
+															</tr>
+															{% endfor %}
+															{% if mc_set.count == 0 %}<tr><td class="center" colspan="3">This part has no machining process.</td></tr>{% endif %}
+														</tbody>
+													</table>
+												</div>
+												<div class="row">
+													<br>
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Manufacturing Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="manufacturing-cost" name="manufacturing-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Additional MFG OH Factor</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="additional-mfg" name="additional-mfg">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Profit Factor</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="profit-factor" name="profit-factor">-</label>
+														</div>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Additional MFG OH Factor</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="additional-mfg" name="additional-mfg">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Profit Factor</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="profit-factor" name="profit-factor">-</label>
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="total-manufacturing-cost" name="total-manufacturing-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
 													</div>
 												</div>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Total Manufacturing Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-manufacturing-cost" name="total-manufacturing-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
-												</div>
-												<hr>
 											</div>
 											<!-- Hardware Costing -->
-											<div class="row" {% if part.type == "Part" %}hidden{% endif %}>
-												<div class="form-group">
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Burden Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="hardware-burden-cost" name="hardware-burden-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
+											<h4 class="text-center text-primary" {% if part.type == "Part" %}hidden{% endif %}><b>Hardware Costing</b></h4>
+											<div class="well well-sm" {% if part.type == "Part" %}hidden{% endif %}>
+												<div class="row">
+													<div class="form-group">
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Burden Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="hardware-burden-cost" name="hardware-burden-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Hardware Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="hardware-cost" name="hardware-cost">-</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
 													</div>
 												</div>
-												<hr>
 											</div>
 											<!-- Other Costing -->
-											<div class="row">
-												<div class="form-group">
-													<div class="col-md-3 labcustom">
-														<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
+											<div class="well well-sm">
+												<div class="row">
+													<div class="form-group">
+														<div class="col-md-3 labcustom">
+															<label class="col-sm-12 control-label text-right labcustom"><b><u>CCS Quote Assumptions</u></b></label>
+														</div>
+														<div class="col-md-8 labcustom">
+															<label class="col-sm-12 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
+														</div>
 													</div>
-													<div class="col-md-8 labcustom">
-														<label class="col-sm-12 control-label text-left labcustom" id="ccs-quote-assumptions" name="ccs-quote-assumptions">{{ part_costing.ccs_quote_assumptions }}</label>
+													<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>Base Subcontract</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">{{ part_costing.base_subcontract }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>Shipping Cost</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="shipping-cost" name="shipping-cost">{{ part_costing.shipping_cost }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>Subcontract Shipping Cost</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
+														</div>
 													</div>
-												</div>
-												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>Base Subcontract</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="base-subcontract" name="base-subcontract">{{ part_costing.base_subcontract }}</label>
+													<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time Special Process Set Up Cost</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time RM Airshipments Cost</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom">
+																<b><u>One Time Tooling Cost</u></b>
+																<b><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i></b>
+															</label>
+															<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
+														</div>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>Shipping Cost</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="shipping-cost" name="shipping-cost">{{ part_costing.shipping_cost }}</label>
+													<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>Total NRE Cost</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">{{ part_costing.total_nre_cost }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b><u>Target Price (USD)</u></b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="target-price" name="target-price">{{ part_costing.target_price }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															<label class="col-sm-7 control-label text-right labcustom"><b>CCS Ex-works Price</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp" name="ccs-ewp">-</label>
+														</div>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Subcontract Shipping Cost</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="subcontract-shipping-cost" name="subcontract-shipping-cost">-</label>
-													</div>
-												</div>
-												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom">
-															<b>EBQ_CCS QTY (Prodn Lot)</b>
-															{% if part_costing.ebq_ccs_qty != 0 %}
-																<b><i class="fa fa-exclamation-circle text-warning" data-toggle="tooltip" data-placement="top" title="Overwrite Value"></i></b>
+													<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_child }}</label>
+													<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
+														<div class="col-md-4 labcustom">
+															{% if part.level == 0 %}
+															<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Assembly</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp" name="ccs-ppp">-</label>
 															{% endif %}
-													  </label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty" name="ebq-ccs-qty">-</label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ebq-ccs-qty2" name="ebq-ccs-qty2" hidden>{{ part_costing.ebq_ccs_qty }}</label>
+														</div>
+														<div class="col-md-4 labcustom">
+															{% if part.level == 0 %}
+															<label class="col-sm-7 control-label text-right labcustom"><b>DDP USD</b></label>
+															<label class="col-sm-5 control-label text-left labcustom" id="ddp-usd" name="ddp-usd">-</label>
+															{% endif %}
+														</div>
+														<div class="col-md-4 labcustom">
+															<!-- Empty -->
+														</div>
 													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>EBQ_Customer QTY (Prodn Lot)</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ebq-customer-qty" name="ebq-customer-qty">{{ part_costing.ebq_customer_qty }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>Minimum Firm Order Quantity/Lot</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="minimum-firm-order-qty" name="minimum-firm-order-qty">-</label>
-													</div>
-												</div>
-												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time Special Process Set Up Cost</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otspsuc" name="otspsuc">{{ part_costing.otspsuc }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>One Time RM Airshipments Cost</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="otrmac" name="otrmac">{{ part_costing.otrmac }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom">
-															<b><u>One Time Tooling Cost</u></b>
-															<b><i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="CAD Modelling, CNC Programming, Thread Gauges, Jigs & Fixtures Design & Manufacturing, FAI Prove Out & Documentations"></i></b>
-														</label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ottc" name="ottc">{{ part_costing.ottc }}</label>
-													</div>
-												</div>
-												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>Total NRE Cost</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="total-nre-cost" name="total-nre-cost">{{ part_costing.total_nre_cost }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b><u>Target Price (USD)</u></b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="target-price" name="target-price">{{ part_costing.target_price }}</label>
-													</div>
-													<div class="col-md-4 labcustom">
-														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Ex-works Price</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ewp" name="ccs-ewp">-</label>
-													</div>
-												</div>
-												<label id="sum-ccs-ewp" name="sum-ccs-ewp" hidden>{{ sum_child }}</label>
-												<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
-													<div class="col-md-4 labcustom">
-														{% if part.level == 0 %}
-														<label class="col-sm-7 control-label text-right labcustom"><b>CCS Price Per Assembly</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ccs-ppp" name="ccs-ppp">-</label>
+													<div class="text-right mr-lg">
+														{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
+														<a class="mb-xs mt-xs mr-xs btn btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
 														{% endif %}
 													</div>
-													<div class="col-md-4 labcustom">
-														{% if part.level == 0 %}
-														<label class="col-sm-7 control-label text-right labcustom"><b>DDP USD</b></label>
-														<label class="col-sm-5 control-label text-left labcustom" id="ddp-usd" name="ddp-usd">-</label>
-														{% endif %}
-													</div>
-													<div class="col-md-4 labcustom">
-														<!-- Empty -->
-													</div>
 												</div>
-												<br>
-											</div>
-											<div class="text-right mr-lg">
-												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
-												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/edit_part_costing/{{ part.sl_no }}"><i class="fa fa-edit"></i> Edit</a>
-												{% endif %}
 											</div>
 											<!-- Delivery Lead Time in Weeks -->
 											<div class="table-responsive" {% if part.type == "Hardware" %}hidden{% endif %}>
