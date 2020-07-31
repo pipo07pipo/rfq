@@ -95,6 +95,7 @@
 							<table class="table table-bordered table-striped mb-none" id="datatable-default">
 								<thead>
 									<tr>
+										<th class="center">Running No.</td>
 										<th class="center">SL No.</th>
 										<th class="center">Part No.</th>
 										<th class="center">Part Name</th>
@@ -105,6 +106,7 @@
 								<tbody>
 									{% for part in parts %}
 									<tr>
+										<td class="center">{{ forloop.counter }}</td>
 										<td class="center">{{ part.sl_no }}</td>
 										<td class="center">{{ part.no }}</td>
 										<td class="center">{{ part.name }}</td>
