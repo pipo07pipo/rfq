@@ -86,33 +86,33 @@
 						<div class="col-md-12">
 							<div class="tabs">
 								<ul class="nav nav-tabs">
-									<li class="active">
+									<li id="tab-list-1" class="active">
 										<a href="#tab-1" data-toggle="tab" class="text-center"><i class="fa fa-info-circle"></i> Information</a>
 									</li>
-									<li>
+									<li id="tab-list-2">
 										<a href="#tab-2" data-toggle="tab" class="text-center"><i class="fa fa-cubes"></i> Part Structure</a>
 									</li>
-									<li>
+									<li id="tab-list-3">
 										<a href="#tab-3" data-toggle="tab" class="text-center"><i class="fa fa-star-half-empty"></i> Forecast & EAU</a>
 									</li>
 									{% if part.type == "Part" %}
-									<li>
+									<li id="tab-list-4">
 										<a href="#tab-4" data-toggle="tab" class="text-center"><i class="fa fa-puzzle-piece"></i> Material</a>
 									</li>
 									{% endif %}
 									{% if part.type == "Hardware" %}
-									<li>
+									<li id="tab-list-5">
 										<a href="#tab-5" data-toggle="tab" class="text-center"><i class="fa fa-codepen"></i> Hardware</a>
 									</li>
 									{% endif %}
-									<li>
+									<li id="tab-list-6">
 										<a href="#tab-6" data-toggle="tab" class="text-center"><i class="fa fa-gears"></i> Process & Rate</a>
 									</li>
-									<li>
+									<li id="tab-list-7">
 										<a href="#tab-7" data-toggle="tab" class="text-center"><i class="fa fa-dollar"></i> Part Costing</a>
 									</li>
 									{% if part.type == "Part" %}
-									<li>
+									<li id="tab-list-8">
 										<a href="#tab-8" data-toggle="tab" class="text-center"><i class="fa fa-rocket"></i> Machining Capacity Planing</a>
 									</li>
 									{% endif %}
@@ -1083,7 +1083,26 @@
 			$( "#pre-loading" ).show();
 		}
 		data_cal();
+		recall_tab();
 	});
+
+	function recall_tab(){
+		var url = new URL(window.location.href);
+		var tab = url.searchParams.get("tab");
+		if(tab != undefined){
+			for(var i = 1;i <= 8;i++){
+				var text1 = "#tab-" + i;
+				var text2 = "#tab-list-" + i;
+				if(tab == i){
+					$( text1 ).addClass( "active" );
+					$( text2 ).addClass( "active" );
+				} else {
+					$( text1 ).removeClass( "active" );
+					$( text2 ).removeClass( "active" );
+				}
+			}
+		}
+	}
 
 	function fetch_data(){
 			var url = new URL(window.location.href);
