@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse, HttpResponseNotFound
-from .models import CCS_RFQ, RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set, Customer_Part
+from .models import CCS_RFQ, RFQ, Part_Header, Burden_Rate, Forecast, Material, Part_Costing, Hardware, Output, Roles, ExtendUser, SP_Master, SP_Set, MC_Master, ACT_Set, MC_Set
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login
