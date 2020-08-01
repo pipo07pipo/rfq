@@ -86,7 +86,7 @@
 						<div class="col-md-12">
 							<div class="tabs">
 								<ul class="nav nav-tabs">
-									<li id="tab-list-1" class="active">
+									<li id="tab-list-1">
 										<a href="#tab-1" data-toggle="tab" class="text-center"><i class="fa fa-info-circle"></i> Information</a>
 									</li>
 									<li id="tab-list-2">
@@ -1096,11 +1096,11 @@
 				if(tab == i){
 					$( text1 ).addClass( "active" );
 					$( text2 ).addClass( "active" );
-				} else {
-					$( text1 ).removeClass( "active" );
-					$( text2 ).removeClass( "active" );
 				}
 			}
+		} else {
+			$( "#tab-1" ).addClass( "active" );
+			$( "#tab-list-1" ).addClass( "active" );
 		}
 	}
 
