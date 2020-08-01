@@ -77,18 +77,29 @@
 										{% if mc_master.count == 0 %}
 										There is no machining process in machining process master. Please contact administrator.
 										{% endif %}
+										{% if mc_master.count != 0 %}
+										<div class="form-group">
+											<div class="col-sm-6">
+												<div class="checkbox-custom checkbox-primary">
+														<input type="checkbox" id="check-all" name="check-all">
+														<label class="text-primary" id="check-all-text"><b>Select All</b></label>
+												</div>
+											</div>
+										</div>
+										{% endif %}
 										{% for mc in mc_master %}
 										<div class="form-group">
 											<div class="col-sm-6">
 												<div class="checkbox-custom checkbox-default">
 														<input type="checkbox" id="{{ mc.id }}" name="{{ mc.id }}" {% if mc.id in select_id %}checked{% endif %}>
-														<label>{{ mc.name }}</label>
+														<label>{% if mc.id in select_id %}<u>{% endif %}{{ mc.name }}{% if mc.id in select_id %}</u>{% endif %}</label>
 												</div>
 											</div>
 										</div>
 										{% endfor %}
 										{% if mc_master.count != 0 %}
 										<br>
+										* Becareful ! remove in use activity rates (underlined) will also remove all machining process which using those rates.<br>
 										* If you can't find activity rate that you are looking for. Please contact administrator.
 										{% endif %}
 									</div>
@@ -128,5 +139,17 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	$( "#check-all" ).change(function() {
+		if ($( "#check-all" ).prop("checked")) {
+			$( "#check-all-text" ).html("<b>Deselect All</b>");
+			$('input:checkbox').not(this).prop('checked', this.checked);
+	  } else {
+			$( "#check-all-text" ).html("<b>Select All</b>");
+			$('input:checkbox').not(this).prop('checked', this.checked);
+		}
+	});
+	</script>
 
 </html>

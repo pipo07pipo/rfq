@@ -83,7 +83,7 @@
 											<div class="col-sm-6">
 												<div class="checkbox-custom checkbox-default">
 														<input type="checkbox" id="{{ act.id }}" name="{{ act.id }}" {% if act.id in select_id %}checked{% endif %}>
-														<label>{{ act.mc_id.name }}</label>
+														<label>{% if act.id in select_id %}<u>{% endif %}{{ act.mc_id.name }}</u></label>
 												</div>
 											</div>
 										</div>
