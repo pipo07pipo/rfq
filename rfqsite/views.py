@@ -1214,7 +1214,7 @@ def select_mc_set(request,sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
-    mc_set = MC_Set.objects.filter(sl_no=sl_no)
+    mc_set = MC_Set.objects.filter(sl_no=sl_no).order_by('act_id.id')
     act_set = ACT_Set.objects.filter(tracker_no=part.tracker_no)
     select_id = [x.act_id.id for x in mc_set]
     context = {
@@ -1260,7 +1260,7 @@ def edit_mc_set(request,sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
-    mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id')
+    mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id.id')
     context = {
             'part': part,
             'mc_set': mc_set
