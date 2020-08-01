@@ -121,6 +121,7 @@
 											<div class="col-sm-3">
 												<input type="number" class="form-control" id="ebq-ccs-qty" name="ebq-ccs-qty" value="{{ part_costing.ebq_ccs_qty }}">
 											</div>
+											<label style="padding-top:5px" data-toggle="tooltip" data-placement="top" title="Clear"><a onclick="reset()">Clear</a></label>
 										</div>
 										<div class="form-group" {% if part.type == "Hardware" %}hidden{% endif %}>
 											<label class="col-sm-4 control-label"><b>EBQ_Customer QTY (Prodn Lot)</b></label>
@@ -165,5 +166,11 @@
 
 	<!-- Theme Initialization Files -->
 	<script src="{% static "assets/javascripts/theme.init.js" %}"></script>
+
+	<script>
+	function reset(){
+		$( "#ebq-ccs-qty" ).val(0);
+	}
+	</script>
 
 </html>
