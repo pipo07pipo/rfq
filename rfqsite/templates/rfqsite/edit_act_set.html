@@ -76,7 +76,7 @@
 										<input type="hidden" class="form-control" id="tracker-no" name="tracker-no" value="{{ project.tracker_no }}">
 										<div class="form-group">
 											<label class="col-sm-3 text-center"><b></b></label>
-											<label class="col-sm-3 text-center"><b>Rate <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Percentage (Ex. 1.42 = 142%)"></i></b></label>
+											<label class="col-sm-3 text-center"><b>Rate</b></label>
 										</div>
 
 										{% for act in act_set %}
@@ -85,6 +85,7 @@
 											<div class="col-sm-3">
 												<input type="number" step="any" class="form-control" id="act-rate-{{ act.mc_id.id }}" name="act-rate-{{ act.mc_id.id }}" value="{{ act.rate }}" required>
 											</div>
+											<label style="padding-top:5px" class="text-left">USD/Hour</label>
 										</div>
 										{% endfor %}
 										<br>
