@@ -49,7 +49,7 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>New Maching Process</h2>
+						<h2>New Special Process</h2>
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
@@ -65,7 +65,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/add_mc_master_confirm/" method="POST" class="form-horizontal">
+							<form id="form" action="/edit_sp_master_confirm/" method="POST" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -73,23 +73,23 @@
 											<!-- <a href="#" class="fa fa-caret-down"></a> -->
 											<!-- <a href="#" class="fa fa-times"></a>	 -->
 										</div>
-										<h2 class="panel-title">Add New Maching Process</h2>
+										<h2 class="panel-title">Add New Special Process</h2>
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>Name <font class="text-danger">*</font></b></label>
 											<div class="col-sm-4">
-												<input type="text" class="form-control" id="name" name="name" required>
+												<input type="text" class="form-control" id="name" name="name" value="{{ sp.name }}" required>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-4 control-label"><b>Default Activity Rate <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Percentage (Ex. 1.42 = 142%)"></i> <font class="text-danger">*</font></b></label>
+											<label class="col-sm-4 control-label"><b>Default Rate <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Percentage (Ex. 1.42 = 142%)"></i> <font class="text-danger">*</font></b></label>
 											<div class="col-sm-2">
-												<input type="number" step="any" class="form-control" id="rate" name="rate" value="0.0" required>
+												<input type="number" step="any" class="form-control" id="rate" name="rate" value="{{ sp.rate }}" required>
 											</div>
 										</div>
 										<br>
-										<small class="col-sm-12 center" style="color:red"><b>*** This data can't be delete after added. ***</b></small>
+										<small class="col-sm-12 center" style="color:red"><b>*** Changing this will affect the whole application. ***</b></small>
 									</div>
 									<footer class="panel-footer">
 										<div class="row">

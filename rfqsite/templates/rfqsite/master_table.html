@@ -72,13 +72,20 @@
 										<table class="table table-bordered table-striped mb-none" id="datatable-default">
 											<thead>
 												<tr>
-													<th class="center custom1">Special Process</th>
+													<th class="center custom1" colspan="3">Special Process</th>
+												</tr>
+												<tr>
+													<th class="center custom2">Name</th>
+													<th class="center custom2">Rate</th>
+													<th class="center custom2">Edit</th>
 												</tr>
 											</thead>
 											<tbody>
 			                {% for sp in sp_masters %}
 												<tr>
 													<td class="center">{{ sp.name }}</td>
+													<td class="center">{{ sp.rate }}</td>
+													<td class="center"><a href="/edit_sp_master/{{ sp.id }}"><i class="fa fa-edit"></i></a></td>
 												</tr>
 			                {% endfor %}
 											</tbody>
@@ -103,13 +110,20 @@
 										<table class="table table-bordered table-striped mb-none" id="datatable-default">
 											<thead>
 												<tr>
-													<th class="center custom1">Machining Process</th>
+													<th class="center custom1" colspan="3">Machining Process</th>
+												</tr>
+												<tr>
+													<th class="center custom2">Name</th>
+													<th class="center custom2">Rate</th>
+													<th class="center custom2">Edit</th>
 												</tr>
 											</thead>
 											<tbody>
 			                {% for mc in mc_masters %}
 												<tr>
 													<td class="center">{{ mc.name }}</td>
+													<td class="center">{{ mc.rate }}</td>
+													<td class="center"><a href="/edit_mc_master/{{ mc.id }}"><i class="fa fa-edit"></i></a></td>
 												</tr>
 			                {% endfor %}
 											</tbody>
