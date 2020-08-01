@@ -1347,37 +1347,65 @@ def edit_mc_master_confirm(request):
         return redirect('/master_table/'+'?message=1')
 
 from openpyxl import Workbook
+from openpyxl.styles import PatternFill,colors, Alignment, Font, Color
 #pip install openpyxl
-import csv
+
+class Customer_Sheet:
+
+    def __init__(self):
+        self.sl_no = 0
+        self.no = ''
+        self.name = ''
+        self.program = ''
+        self.forecast_year1 = 0
+        self.forecast_year2 = 0
+        self.forecast_year3 = 0
+        self.forecast_year4 = 0
+        self.forecast_year5 = 0
+        self.description = ''
+        self.material_cost = 0
+        self.surface_treatment_cost = 0
+        self.hardware_cost = 0
+        self.total_manufacturing_cost = 0
+        self.ccs_ewp = 0
+        self.ebq_customer_qty = 0
+        self.aeqfc = 0
+        self.ottc = 0
+        self.ccs_quote_assumptions = ''
+        self.dltiw_fai = ''
+        self.dltiw_serial_production = ''
+        self.dltiw_production = ''
+
+
+
 @login_required(login_url='/login')
 def generate_table(request, tracker_no):
     rfq = RFQ.objects.get(pk=tracker_no)
     rfq.last_generate = datetime.now()
-    rfq.save()
+    tracker = rfq.ccs_rfq.ccs_tracker_no
+    current_year = rfq.current_year
     main_part = Part_Header.objects.filter(tracker_no=rfq,level=0).order_by('sl_no')
     sl_no = 1
-    exist = Customer_Part.objects.filter(tracker_no=rfq)
-    if(exist):
-        exist.delete()
+    to_excel = []
     for part in main_part:
-        c_part = Customer_Part(tracker_no=rfq)
-        c_part.sl_no = sl_no
-        c_part.no = part.no
-        c_part.name = part.name
-        c_part.program = part.program
-        c_part.current_year = rfq.current_year
+        sheet = Customer_Sheet()
+        sheet.sl_no = sl_no
+        sheet.no = part.no
+        sheet.name = part.name
+        sheet.program = part.program
         forecast = Forecast.objects.get(sl_no=part)
-        c_part.forecast_year1 = forecast.forecast_year1
-        c_part.forecast_year2 = forecast.forecast_year2
-        c_part.forecast_year3 = forecast.forecast_year3
-        c_part.forecast_year4 = forecast.forecast_year4
-        c_part.forecast_year5 = forecast.forecast_year5
-        c_part.aeqfc = forecast.aeqfc
-        part_costing = Part_Costing.objects.get(sl_no=part)
-        c_part.ccs_quote_assumptions = part_costing.ccs_quote_assumptions
-        c_part.dltiw_fai = part_costing.dltiw_fai
-        c_part.dltiw_serial_production = part_costing.dltiw_serial_production
-        c_part.dltiw_production = part_costing.dltiw_production
+        sheet.forecast_year1 = forecast.forecast_year1
+        sheet.forecast_year2 = forecast.forecast_year2
+        sheet.forecast_year3 = forecast.forecast_year3
+        sheet.forecast_year4 = forecast.forecast_year4
+        sheet.forecast_year5 = forecast.forecast_year5
+        sheet.aeqfc = forecast.aeqfc
+        part_cost = Part_Costing.objects.get(sl_no=part)
+        sheet.ccs_quote_assumptions = part_cost.ccs_quote_assumptions
+        sheet.ebq_customer_qty = part_cost.ebq_customer_qty
+        sheet.dltiw_fai = part_cost.dltiw_fai
+        sheet.dltiw_production = part_cost.dltiw_production
+        sheet.dltiw_serial_production = part_cost.dltiw_serial_production
         all_part = []
         c = [part]
         while(len(c) > 0):
@@ -1392,32 +1420,59 @@ def generate_table(request, tracker_no):
             part_costing = Part_Costing.objects.get(sl_no=single_part)
             material = Material.objects.get(sl_no=single_part)
             if(material.description != ''):
-                c_part.description = c_part.description + material.description + ' '
-            c_part.ottc += part_costing.ottc
-            c_part.material_cost += output.material_cost
-            c_part.surface_treatment_cost += output.surface_treatment_cost
-            c_part.hardware_cost += output.hardware_cost
-            c_part.total_manufacturing_cost += output.total_manufacturing_cost
-            c_part.ccs_ewp += output.ccs_ewp
-        c_part.save()
+                sheet.description = sheet.description + material.description + ' '
+            sheet.ottc += part_costing.ottc
+            sheet.material_cost += output.material_cost
+            sheet.surface_treatment_cost += output.surface_treatment_cost
+            sheet.hardware_cost += output.hardware_cost
+            sheet.total_manufacturing_cost += output.total_manufacturing_cost
+            sheet.ccs_ewp += output.ccs_ewp
         sl_no += 1
-    # print(os.getcwd().replace('\\','/')+'/media/gen/'+str(tracker_no))
-    path = os.getcwd().replace('\\','/')+'/media/gen/'+str(tracker_no)
-    if not os.path.exists(path):
-        os.makedirs(path)
-    with open(path+'/cm_f.csv', mode='w', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        toExel = Customer_Part.objects.filter(tracker_no=tracker_no)
-        current_year = toExel[0].current_year
-        csv_writer.writerow(['SL NO.', 'Part No.', 'Part Name', 'Program', 'Forecast '+str(current_year), 'Forecast '+str(current_year+1), 'Forecast '+str(current_year+2), 'Forecast '+str(current_year+3), 'Forecast '+str(current_year+4), 'Material Descrition', 'Matrial Cost DDP CCS', 'Total Hardwares cost', 'Surface treatment cost', 'Total manufacturing cost', 'CCS price per Part/assy Ex_works BKK Thailand', 'EBQ QTY (Prodnlot)', 'Minimum firm order quantity/lot', 'One time tooling cost (CAD modeling CNC programming, Thread gauges, jigs & fixtures design, & manufacturing, FAI prove out & documents)', 'CCS Quote Assumptions', 'Delivery Lead Time in weeks FAI', 'Delivery Lead Time in weeks Serial Production', 'Delivery Lead Time in weeks Production'])
-        for sep_part in toExel:
-            csv_writer.writerow([sep_part.sl_no, sep_part.no, sep_part.name, sep_part.program, sep_part.forecast_year1, sep_part.forecast_year2, sep_part.forecast_year3, sep_part.forecast_year4, sep_part.forecast_year5, sep_part.description,sep_part.material_cost, sep_part.surface_treatment_cost, sep_part.hardware_cost, sep_part.total_manufacturing_cost, sep_part.ccs_ewp, sep_part.ebq_customer_qty, sep_part.aeqfc, sep_part.ottc, sep_part.ccs_quote_assumptions, sep_part.dltiw_fai, sep_part.dltiw_serial_production, sep_part.dltiw_production])
+        to_excel.append(sheet)
+    ### excel ###
+    header = ['SL NO.', 'Part No.', 'Part Name', 'Program', 'Forecast '+str(current_year), 'Forecast '+str(current_year+1), 'Forecast '+str(current_year+2), 'Forecast '+str(current_year+3), 'Forecast '+str(current_year+4), 'Material Descrition', 'Matrial Cost DDP CCS', 'Total Hardwares cost', 'Surface treatment cost', 'Total manufacturing cost', 'CCS price per Part/assy Ex_works BKK Thailand', 'EBQ QTY (Prodnlot)', 'Minimum firm order quantity/lot', 'One time tooling cost', 'CCS Quote Assumptions', 'Delivery Lead Time in weeks FAI', 'Delivery Lead Time in weeks Serial Production', 'Delivery Lead Time in weeks Production']
     wb = Workbook()
     ws = wb.active
-    with open(path+'/cm_f.csv', 'r') as f:
-        for row in csv.reader(f):
-            ws.append(row)
-    wb.save(path+'/cm_f.xlsx')
-    rfq.customer_file_path = 'gen/'+str(tracker_no)+'/cm_f.xlsx'
+    ws.title = tracker
+    for i in range(len(header)):
+        ws.cell(row=1, column=i+1).value = header[i]
+        ws.cell(row=1, column=i+1).alignment = Alignment(wrap_text=True,vertical='top')
+        ws.cell(row=1, column=i+1).font = Font(color="000000", italic=True)
+        ws.cell(row=1, column=i+1).fill = PatternFill(start_color='00FFFF00',end_color='00FFFF00',fill_type='solid')
+    for i in range(len(to_excel)):
+        ws.cell(row=i+2,column=1).value = to_excel[i].sl_no
+        ws.cell(row=i+2,column=2).value = to_excel[i].no
+        ws.cell(row=i+2,column=3).value = to_excel[i].name
+        ws.cell(row=i+2,column=4).value = to_excel[i].program
+        ws.cell(row=i+2,column=5).value = to_excel[i].forecast_year1
+        ws.cell(row=i+2,column=6).value = to_excel[i].forecast_year2
+        ws.cell(row=i+2,column=7).value = to_excel[i].forecast_year3
+        ws.cell(row=i+2,column=8).value = to_excel[i].forecast_year4
+        ws.cell(row=i+2,column=9).value = to_excel[i].forecast_year5
+        ws.cell(row=i+2,column=10).value = to_excel[i].description
+        #### Dollar
+        ws.cell(row=i+2,column=11).value = to_excel[i].material_cost
+        ws.cell(row=i+2,column=11).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=12).value = to_excel[i].hardware_cost
+        ws.cell(row=i+2,column=12).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=13).value = to_excel[i].surface_treatment_cost
+        ws.cell(row=i+2,column=13).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=14).value = to_excel[i].total_manufacturing_cost
+        ws.cell(row=i+2,column=14).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=15).value = to_excel[i].ccs_ewp
+        ws.cell(row=i+2,column=15).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=16).value = to_excel[i].ebq_customer_qty
+        ws.cell(row=i+2,column=16).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=17).value = to_excel[i].aeqfc
+        ws.cell(row=i+2,column=17).number_format = '$ 0.00'
+        ws.cell(row=i+2,column=18).value = to_excel[i].ottc
+        ws.cell(row=i+2,column=18).number_format = '$ 0.00'
+        ######
+        ws.cell(row=i+2,column=19).value = to_excel[i].ccs_quote_assumptions
+        ws.cell(row=i+2,column=20).value = to_excel[i].dltiw_fai
+        ws.cell(row=i+2,column=21).value = to_excel[i].dltiw_serial_production
+        ws.cell(row=i+2,column=22).value = to_excel[i].dltiw_production
+    wb.save('media/gen/'+tracker+'.xlsx')
+    rfq.customer_file_path = 'gen/'+tracker+'.xlsx'
     rfq.save()
     return redirect('/rfq_summary/'+str(tracker_no)+'/?message=3')
