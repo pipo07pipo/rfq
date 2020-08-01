@@ -522,7 +522,7 @@ def edit_forecast_confirm(request):
         editpc.ebq_ccs_qty = to_float(request.POST.get('ebq-ccs-qty'))
         editForecast.save()
         editpc.save()
-    return redirect('/part_info/'+sl_no+"?message=1")
+    return redirect('/part_info/'+sl_no+"?message=1&tab=3")
 
 
 @login_required(login_url='/login')
@@ -549,7 +549,7 @@ def edit_hardware_confirm(request):
         edithw.price = to_float(request.POST.get('hardware-price'))
         edithw.qty = to_float(request.POST.get('hardware-qty'))
         edithw.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
+        return redirect('/part_info/'+sl_no+"?message=1&tab=5")
 
 @login_required(login_url='/login')
 def edit_part_costing(request, sl_no):
@@ -579,7 +579,7 @@ def edit_part_costing_confirm(request):
         editpc.base_subcontract = to_float(request.POST.get('base-subcontract'))
         editpc.shipping_cost = to_float(request.POST.get('shipping-cost'))
         editpc.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
+        return redirect('/part_info/'+sl_no+"?message=1&tab=7")
 
 @login_required(login_url='/login')
 def edit_dltiw(request, sl_no):
@@ -604,7 +604,7 @@ def edit_dltiw_confirm(request):
         editpc.dltiw_serial_production = request.POST.get('dltiw-serial-production')
         editpc.dltiw_production = request.POST.get('dltiw-production')
         editpc.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
+        return redirect('/part_info/'+sl_no+"?message=1&tab=7")
 
 
 @login_required(login_url='/login')
@@ -655,7 +655,7 @@ def add_child_confirm(request):
         newBR.save()
         newHW.save()
         newO.save()
-        return redirect('/part_info/'+sl_no+"?message=1")
+        return redirect('/part_info/'+sl_no+"?message=1&tab=2")
 
 @login_required(login_url='/login')
 def edit_material(request, sl_no):
@@ -748,7 +748,7 @@ def edit_material_confirm(request):
         editmat.save()
 
         editmat.armwpp = to_float(request.POST.get('armwpp'))
-    return redirect('/part_info/'+sl_no+"?message=1")
+    return redirect('/part_info/'+sl_no+"?message=1&tab=4")
 
 @login_required(login_url='/login')
 def edit_material_remove(request, sl_no):
@@ -787,7 +787,7 @@ def edit_burden_rate_confirm(request):
         editbd.subcontract = to_float(request.POST.get('rate-subcontract'))
         editbd.sp = to_float(request.POST.get('rate-sp'))
         editbd.save()
-    return redirect('/part_info/'+sl_no+"?message=1")
+    return redirect('/part_info/'+sl_no+"?message=1&tab=6")
 
 def unNan(data):
     if(data == 'NaN' or data == '' or data == None):
@@ -1058,7 +1058,7 @@ def edit_sp_set_confirm(request):
                 esp2 = SP_Set.objects.get(sl_no=sl_no,sp_id=SP_Master.objects.get(id=id))
                 esp2.spec = request.POST.get(item)
                 esp2.save()
-        return redirect('/part_info/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1&tab=6')
 
 @login_required(login_url='/login')
 def select_sp_set(request,sl_no):
@@ -1101,7 +1101,7 @@ def select_sp_set_confirm(request):
                     edit = True
         if(edit):
             return redirect('/part_info/'+str(sl_no)+'/?final_page=edit_sp_set&data_set=')
-        return redirect('/part_info/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1&tab=6')
 
 @login_required(login_url='/login')
 def select_act_set(request,tracker_no):
@@ -1214,7 +1214,7 @@ def select_mc_set(request,sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
-    mc_set = MC_Set.objects.filter(sl_no=sl_no).order_by('act_id.id')
+    mc_set = MC_Set.objects.filter(sl_no=sl_no).order_by('act_id')
     act_set = ACT_Set.objects.filter(tracker_no=part.tracker_no)
     select_id = [x.act_id.id for x in mc_set]
     context = {
@@ -1251,7 +1251,7 @@ def select_mc_set_confirm(request):
                     edit = True
         if(edit):
             return redirect('/part_info/'+str(sl_no)+'/?final_page=edit_mc_set&data_set=')
-        return redirect('/part_info/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1&tab=6')
 
 @login_required(login_url='/login')
 def edit_mc_set(request,sl_no):
@@ -1260,7 +1260,7 @@ def edit_mc_set(request,sl_no):
     if(get_perm(request.user) > 1):
         return HttpResponseNotFound("Access Denied")
     part = Part_Header.objects.get(sl_no=sl_no)
-    mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id.id')
+    mc_set = MC_Set.objects.filter(sl_no=part).order_by('act_id')
     context = {
             'part': part,
             'mc_set': mc_set
@@ -1284,7 +1284,7 @@ def edit_mc_set_confirm(request):
                 emc2 = MC_Set.objects.get(sl_no=sl_no,act_id=ACT_Set.objects.get(id=id))
                 emc2.ctpp = request.POST.get(item)
                 emc2.save()
-        return redirect('/part_info/'+str(sl_no)+'/?message=1')
+        return redirect('/part_info/'+str(sl_no)+'/?message=1&tab=6')
 
 @login_required(login_url='/login')
 def fetch_data(request, tracker_no):
