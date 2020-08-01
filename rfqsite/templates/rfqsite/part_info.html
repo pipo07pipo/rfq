@@ -1597,13 +1597,24 @@
 		var url = new URL(window.location.href);
 		var message = url.searchParams.get("message");
 		console.log('message :' + message);
-		if(message != null){
+		if(message != null && !isPageReload()){
 			var notice = create_notification(message);
 			notice.get().click(function() {
 				notice.remove();
 			});
 		}
 	});
+
+	function isPageReload(){
+		var perfEntries = performance.getEntriesByType("navigation");
+  	for (var i = 0; i < perfEntries.length; i++) {
+	    var p = perfEntries[i];
+			if(p.type == "reload"){
+				return true;
+			}
+  	}
+		return false;
+	}
 
 	function create_notification(message){
 		var message_title;
@@ -1642,6 +1653,31 @@
 			datatableInit();
 		});
 	}).apply( this, [ jQuery ]);
+	</script>
+
+	<!-- Navigation Event -->
+	<script>
+	function print_nav_timing_data() {
+  	// Use getEntriesByType() to just get the "navigation" events
+  	var perfEntries = performance.getEntriesByType("navigation");
+
+  	for (var i = 0; i < perfEntries.length; i++) {
+	    console.log("= Navigation entry[" + i + "]");
+	    var p = perfEntries[i];
+	    // dom Properties
+	    console.log("DOM content loaded = " + (p.domContentLoadedEventEnd - p.domContentLoadedEventStart));
+	    console.log("DOM complete = " + p.domComplete);
+	    console.log("DOM interactive = " + p.interactive);
+
+	    // document load and unload time
+	    console.log("document load = " + (p.loadEventEnd - p.loadEventStart));
+	    console.log("document unload = " + (p.unloadEventEnd - p.unloadEventStart));
+
+	    // other properties
+	    console.log("type = " + p.type);
+	    console.log("redirectCount = " + p.redirectCount);
+  	}
+  }
 	</script>
 
 </html>

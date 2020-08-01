@@ -173,13 +173,24 @@
 		var url = new URL(window.location.href);
 		var message = url.searchParams.get("message");
 		console.log('message :' + message);
-		if(message != null){
+		if(message != null && !isPageReload()){
 			var notice = create_notification(message);
 			notice.get().click(function() {
 				notice.remove();
 			});
 		}
 	});
+
+	function isPageReload(){
+		var perfEntries = performance.getEntriesByType("navigation");
+  	for (var i = 0; i < perfEntries.length; i++) {
+	    var p = perfEntries[i];
+			if(p.type == "reload"){
+				return true;
+			}
+  	}
+		return false;
+	}
 
 	function create_notification(message){
 		var message_title;
