@@ -1096,6 +1096,7 @@ def select_sp_set_confirm(request):
                     pass
                 else:
                     newsp = SP_Set(sl_no=Part_Header.objects.get(sl_no=sl_no),sp_id=sp)
+                    newsp.rate = sp.rate
                     newsp.save()
                     edit = True
         if(edit):
@@ -1147,6 +1148,7 @@ def select_act_set_confirm(request):
                     pass
                 else:
                     newact = ACT_Set(tracker_no=RFQ.objects.get(tracker_no=tracker_no),mc_id=mc)
+                    newact.rate = mc.rate
                     edit = True
                     newact.save()
         if(len(refresh) > 0):
@@ -1294,6 +1296,55 @@ def fetch_data(request, tracker_no):
         data_str = data_str + x + ','
     data_str = data_str[:len(data_str)-1]
     return redirect('/part_info/'+str(data_set[0])+'/?final_page=rfq_summary&data_set='+data_str)
+
+
+@login_required(login_url='/login')
+def edit_sp_master(request, id):
+    if(not SP_Master.objects.filter(pk=id)):
+        return HttpResponseNotFound("Page Not Found")
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    sp_master = SP_Master.objects.get(pk=id)
+    context = {
+            'sp': sp_master
+    }
+    return render(request, 'rfqsite/edit_sp_master.html', context)
+
+@login_required(login_url='/login')
+def edit_mc_master(request, id):
+    if(not MC_Master.objects.filter(pk=id)):
+        return HttpResponseNotFound("Page Not Found")
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    mc_master = MC_Master.objects.get(pk=id)
+    context = {
+            'mc': mc_master
+    }
+    return render(request, 'rfqsite/edit_mc_master.html', context)
+
+@login_required(login_url='/login')
+def edit_sp_master_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    if request.method == 'POST':
+        id = int(request.POST.get('id'))
+        sp_master = SP_Master.objects.get(pk=id)
+        sp_master.name = request.POST.get('name')
+        sp_master.rate = to_float(request.POST.get('rate'))
+        sp_master.save()
+        return redirect('/master_table/'+'?message=1')
+
+@login_required(login_url='/login')
+def edit_mc_master_confirm(request):
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    if request.method == 'POST':
+        id = int(request.POST.get('id'))
+        mc_master = MC_Master.objects.get(pk=id)
+        mc_master.name = request.POST.get('name')
+        mc_master.rate = to_float(request.POST.get('rate'))
+        mc_master.save()
+        return redirect('/master_table/'+'?message=1')
 
 from openpyxl import Workbook
 #pip install openpyxl

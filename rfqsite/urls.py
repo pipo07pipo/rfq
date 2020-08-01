@@ -66,5 +66,10 @@ urlpatterns = [
     path('edit_mc_set_confirm/', views.edit_mc_set_confirm, name='edit_mc_set_confirm'),
     path('fetch_data/<int:tracker_no>/', views.fetch_data, name='fetch_data'),
     path('generate_table/<int:tracker_no>/', views.generate_table, name='generate_table'),
+    path('edit_sp_master/<int:id>/', views.edit_sp_master, name='edit_sp_master'),
+    path('edit_sp_master_confirm/', views.edit_sp_master_confirm, name='edit_sp_master_confirm'),
+    path('edit_mc_master/<int:id>/', views.edit_mc_master, name='edit_mc_master'),
+    path('edit_mc_master_confirm/', views.edit_mc_master_confirm, name='edit_mc_master_confirm'),
+    ##########
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
 ]+ static(settings.MEDIA_URL, serve, document_root=settings.MEDIA_ROOT)
