@@ -8,6 +8,7 @@ from . import views
 
 
 urlpatterns = [
+    path('', views.rfq_table, name='index'),
     path('rfq_table/', views.rfq_table, name='rfq_table'),
     path('part_table/<int:tracker_no>/', views.parts, name='part_table'),
     path('add_part/<int:tracker_no>/', views.add_part, name='add_part'),
