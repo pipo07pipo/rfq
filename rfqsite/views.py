@@ -1420,13 +1420,15 @@ def generate_table(request, tracker_no):
             part_costing = Part_Costing.objects.get(sl_no=single_part)
             material = Material.objects.get(sl_no=single_part)
             if(material.description != ''):
-                sheet.description = sheet.description + material.description + ' '
+                sheet.description = sheet.description + material.description + ', '
             sheet.ottc += part_costing.ottc
             sheet.material_cost += output.material_cost
             sheet.surface_treatment_cost += output.surface_treatment_cost
             sheet.hardware_cost += output.hardware_cost
             sheet.total_manufacturing_cost += output.total_manufacturing_cost
             sheet.ccs_ewp += output.ccs_ewp
+        if(len(sheet.description) > 2):
+            sheet.description = sheet.description[:len(sheet.description)-2]
         sl_no += 1
         to_excel.append(sheet)
     ### excel ###
