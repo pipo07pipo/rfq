@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime    
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -25,6 +26,10 @@ class RFQ(models.Model):
     current_year = models.IntegerField(default=2020)
     last_generate = models.DateTimeField('date publish', null=True)
     customer_file_path = models.CharField(max_length=200, default='')
+    hyper_link = models.CharField(max_length=200, default='')
+    status = models.IntegerField(default=0)
+    remark = models.CharField(max_length=200, default='')
+    remark_date = models.DateTimeField(default=datetime.now, blank=True)
     ccs_rfq = models.ForeignKey(CCS_RFQ, null=True, on_delete=models.CASCADE)
 
 class Part_Header(models.Model):
