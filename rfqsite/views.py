@@ -336,7 +336,12 @@ def edit_rfq_confirm(request):
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
-        project.update_date = datetime.now()
+        project.update_date = datetime.now(tz=timezone.utc)
+        project.hyper_link = request.POST.get('hyper-link')
+        project.remark = request.POST.get('remark')
+        project.status = request.POST.get('status')
+        if(request.POST.get('remark-date') != ""):
+            project.remark_date = request.POST.get('remark-date')
         if(request.POST.get('usd-thb') == ''):
             project.usd_thb = 35
         else:
@@ -354,9 +359,13 @@ def edit_rfq_confirm(request):
             project.usd_thb = 35
         else:
             project.usd_thb = request.POST.get('usd-thb')
-
+        project.hyper_link = request.POST.get('hyper-link')
+        project.remark = request.POST.get('remark')
+        project.status = request.POST.get('status')
+        if(request.POST.get('remark-date') != ""):
+            project.remark_date = request.POST.get('remark-date')
         project.current_year = request.POST.get('current-year')
-        project.update_date = datetime.now()
+        project.update_date = datetime.now(tz=timezone.utc)
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
