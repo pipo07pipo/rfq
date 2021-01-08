@@ -120,6 +120,34 @@
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Hyperlink</b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="hyper-link" name="hyper-link" value="{{ project.hyper_link }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Status</b></label>
+											<div class="col-sm-2">
+												<select class="form-control input-md" id="status" name="status">
+													<option value="Optional" {% if project.status == "0" %}selected{% endif %}>Open</option>
+													<option value="Optional" {% if project.status == "1" %}selected{% endif %}>Closed</option>
+													<option value="Optional" {% if project.status == "2" %}selected{% endif %}>Skip</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Remark</b></label>
+											<div class="col-sm-4">
+												<input type="text" class="form-control" id="remark" name="remark" value="{{ project.remark }}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-4 control-label"><b>Remark Date</b></label>
+											<div class="col-sm-2">
+												<input type="date" class="form-control" id="remark-date" name="remark-date" value="{{ project.remark_date }}">
+											</div>
+										</div>
+										<div class="form-group">
 											<label class="col-sm-4 control-label"><b>USD/THB</b></label>
 											<div class="col-sm-2">
 												<input type="number" step="any" class="form-control" id="usd-thb" name="usd-thb" value="{{ project.usd_thb }}">

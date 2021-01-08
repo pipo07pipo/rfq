@@ -70,6 +70,8 @@
 										<th class="center">CCS Tracker No.</th>
 										<th class="center">RFQ Description</th>
 										<th class="center">Customer Name</th>
+										<th class="center">Hyperlink</th>
+										<th class="center">Status</th>
 										<th class="center">Detail</th>
 									</tr>
 								</thead>
@@ -80,7 +82,13 @@
 										<td class="center">{{ project.ccs_rfq.ccs_tracker_no }}</td>
 										<td class="center">{{ project.ccs_rfq.description }}</td>
 										<td class="center">{{ project.ccs_rfq.customer_name }}</td>
-										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a</td>
+										{% if project.hyper_link != "" %}
+										<td class="center"><a href="{{ project.hyper_link }}"><i class="fa fa-link"></i></a></td>
+										{% else %}
+										<td class="center">-</td>
+										{% endif %}
+										<td class="center">{% if project.status == 0 %}Open{% elif project.status == 1 %}Closed{% else %}Skip{% endif %}</td>
+										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a></td>
 									</tr>
                 {% endfor %}
 								</tbody>
