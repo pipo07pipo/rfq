@@ -313,9 +313,12 @@ def edit_rfq(request, tracker_no):
         file_name = project.file_path.split('/')[2]
     else:
         file_name = ''
+    remark_time = project.remark_date.strftime("%Y-%m-%dT%H:%M")
+    print(remark_time)
     context = {
             'project': project,
-            'file_name': file_name
+            'file_name': file_name,
+            'remark_time': remark_time
     }
     return render(request, 'rfqsite/edit_rfq.html', context)
 
