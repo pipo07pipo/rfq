@@ -87,7 +87,10 @@
 										{% else %}
 										<td class="center">-</td>
 										{% endif %}
-										<td class="center">{% if project.status == 0 %}Open{% elif project.status == 1 %}Closed{% else %}Skip{% endif %}</td>
+										<!-- <td class="center">{% if project.status == 0 %}Open{% elif project.status == 1 %}Closed{% else %}Skip{% endif %}</td> -->
+										<td class="center">
+											<b>{% if project.status == 0 %}<font class="text-dark">Open{% elif project.status == 1 %}<font class="text-success">Closed{% else %}<font class="text-danger">Skip{% endif %}</font></b>
+										</td>
 										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a></td>
 									</tr>
                 {% endfor %}
