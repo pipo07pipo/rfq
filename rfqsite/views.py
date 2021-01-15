@@ -227,7 +227,25 @@ def add_part_multi(request, tracker_no):
     }
     return render(request, 'rfqsite/add_part_multi.html', context)
 
+@login_required(login_url='/login')
+def add_child_part_multi(request, sl_no):
+    if(not Part_Header.objects.filter(pk=sl_no)):
+        return HttpResponseNotFound("Page Not Found")
+    if(get_perm(request.user) > 1):
+        return HttpResponseNotFound("Access Denied")
+    part = Part_Header.objects.get(pk=sl_no)
+    project = part.tracker_no
+    child_level = part.level + 1
+    context = {
+            'project': project,
+            'part': part,
+            'child_level': child_level
+    }
+    return render(request, 'rfqsite/add_child_part_multi.html', context)
 
+@login_required(login_url='/login')
+def add_child_part_multi_confirm(reqeust):
+    return render(request, 'rfqsite/add_child_part_multi.html', context)
 #725Z2463-101	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.	101	101	101	101	101
 #725Z2463-111	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR	101	101	101	101	101
 #NAS77C4-014	BUSH	101	101	101	101	101
@@ -339,7 +357,6 @@ def edit_rfq_confirm(request):
         project.file_path = path
         project.usd_thb = request.POST.get('usd-thb')
         project.current_year = request.POST.get('current-year')
-        project.update_date = datetime.now(tz=timezone.utc)
         project.hyper_link = request.POST.get('hyper-link')
         project.remark = request.POST.get('remark')
         project.status = request.POST.get('status')
@@ -368,7 +385,6 @@ def edit_rfq_confirm(request):
         if(request.POST.get('remark-date') != ""):
             project.remark_date = request.POST.get('remark-date')
         project.current_year = request.POST.get('current-year')
-        project.update_date = datetime.now(tz=timezone.utc)
         project.save()
         return redirect('/part_table/'+tracker_no+"?message=1")
 
