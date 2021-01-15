@@ -320,6 +320,7 @@
 											<div class="text-right mr-lg">
 												{% if user.extenduser.role.permission == 0 or user.extenduser.role.permission == 1 %}
 												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/add_child/{{ part.sl_no }}" {% if part.level >= 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child</a>
+												<a class="mb-xs mt-xs mr-xs btn btn-default" href="/add_child_part_multi/{{ part.sl_no }}" {% if part.level >= 7 %}disabled{% endif %}><i class="fa fa-plus"></i> New Child (Multiple)</a>
 												{% endif %}
 											</div>
 										</div>
