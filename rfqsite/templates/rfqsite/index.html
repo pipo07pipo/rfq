@@ -69,10 +69,13 @@
 										<th class="center" hidden>RFQ Tracker No.</th>
 										<th class="center">CCS Tracker No.</th>
 										<th class="center">RFQ Description</th>
+										<th class="center">RFQ Received</th>
 										<th class="center">Customer Name</th>
 										<th class="center">Hyperlink</th>
-										<th class="center">Status</th>
 										<th class="center">Detail</th>
+										<th class="center">Status</th>
+										<th class="center">Submission Date</th>
+										<th class="center">Remark</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -81,17 +84,19 @@
 										<td class="center" hidden>{{ project.tracker_no }}</td>
 										<td class="center">{{ project.ccs_rfq.ccs_tracker_no }}</td>
 										<td class="center">{{ project.ccs_rfq.description }}</td>
+										<td class="center">{{ project.update_date | date:"d F Y" }}</td>
 										<td class="center">{{ project.ccs_rfq.customer_name }}</td>
 										{% if project.hyper_link != "" %}
 										<td class="center"><a href="//{{ project.hyper_link }}"><i class="fa fa-link"></i></a></td>
 										{% else %}
 										<td class="center">-</td>
 										{% endif %}
-										<!-- <td class="center">{% if project.status == 0 %}Open{% elif project.status == 1 %}Closed{% else %}Skip{% endif %}</td> -->
+										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a></td>
 										<td class="center">
 											<b>{% if project.status == 0 %}<font class="text-dark">Open{% elif project.status == 1 %}<font class="text-success">Closed{% else %}<font class="text-danger">Skip{% endif %}</font></b>
 										</td>
-										<td class="center"><a href="/part_table/{{ project.tracker_no }}"><i class="fa fa-search"></i></a></td>
+										<td class="center">{{ project.remark_date | date:"d F Y" }}</td>
+										<td class="center">{{ project.remark }}</td>
 									</tr>
                 {% endfor %}
 								</tbody>
