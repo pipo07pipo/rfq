@@ -82,7 +82,7 @@
                 {% for project in projects %}
 									<tr>
 										<td class="center" hidden>{{ project.tracker_no }}</td>
-										<td class="center">{{ project.ccs_rfq.ccs_tracker_no }}</td>
+										<td class="center">{{ project.ccs_rfq.ccs_tracker_no }}/{{ project.update_date | date:"Y" }}</td>
 										<td class="center">{{ project.ccs_rfq.description }}</td>
 										<td class="center">{{ project.update_date | date:"d F Y" }}</td>
 										<td class="center">{{ project.ccs_rfq.customer_name }}</td>
