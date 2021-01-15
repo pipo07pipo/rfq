@@ -91,7 +91,7 @@
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/edit_act_set/{{ project.tracker_no }}" {% if act_set.count == 0 %}disabled{% endif %}><i class="fa fa-edit"></i> Edit Activity Rate</a>
 								{% endif %}
 								{% if project.hyper_link != "" %}
-								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="//{{ project.hyper_link }}"><i class="fa fa-link"></i> Hyperlink</a>
+								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="#" onclick="copylink('{{ project.hyper_link }}')"><i class="fa fa-link"></i> Hyperlink</a>
 								{% endif %}
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-default" href="/media/{{ project.file_path }}" {% if project.file_path == "" %}disabled{% endif %} target="_blank" download><i class="fa fa-download"></i> Download File</a>
 								<a class="mb-xs mt-xs mr-xs btn btn-sm btn-success" href="/rfq_summary/{{ project.tracker_no }}"><i class="fa fa-book"></i> Summary</a>
@@ -227,4 +227,20 @@
 	}).apply( this, [ jQuery ]);
 	</script>
 
+	<script>
+function copylink(link) {
+  const el = document.createElement('textarea')
+	el.value = "\\"+link
+	document.body.appendChild(el);
+	el.select();
+	document.execCommand('copy');
+  alert("Copied the hyperlink to clipboard: "+el.value);
+}
+</script>
+		case expression:
+
+			break;
+		default:
+
+	}
 </html>
