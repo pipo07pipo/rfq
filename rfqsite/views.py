@@ -244,8 +244,64 @@ def add_child_part_multi(request, sl_no):
     return render(request, 'rfqsite/add_child_part_multi.html', context)
 
 @login_required(login_url='/login')
-def add_child_part_multi_confirm(reqeust):
-    return render(request, 'rfqsite/add_child_part_multi.html', context)
+def add_child_part_multi_confirm(request):
+    if request.method == 'POST':
+        sl_no = request.POST.get('parent-sl-no')
+        tracker_no = request.POST.get('tracker-no')
+        parent_sl_no = request.POST.get('parent-sl-no')
+        part_level = request.POST.get('part-level')
+        excel = request.POST.get('excel-data')
+        excel = excel.strip()
+        trans = re.split('	|\r\n',excel)
+        if(len(trans)%10 != 0):
+            return redirect('/part_info/'+sl_no+"?message=0&tab=2")
+        for i in range(0, len(trans), 10):
+            try:
+                trans[i] = str(trans[i])
+                trans[i+1] = str(trans[i+1])
+                trans[i+2] = str(trans[i+2])
+                trans[i+3] = str(trans[i+3])
+                if(trans[i+3].lower() != ('hardware')):
+                    if(trans[i+3].lower() != ('part')):
+                        return redirect('/part_info/'+str(sl_no)+"?message=0&tab=2")
+                trans[i+4] = int(trans[i+4].replace(',',''))
+                trans[i+5] = int(trans[i+5].replace(',',''))
+                trans[i+6] = int(trans[i+6].replace(',',''))
+                trans[i+7] = int(trans[i+7].replace(',',''))
+                trans[i+8] = int(trans[i+8].replace(',',''))
+                trans[i+9] = int(trans[i+9].replace(',',''))
+            except:
+                return redirect('/part_info/'+str(sl_no)+"?message=0&tab=2")
+        for i in range(0, len(trans), 10):
+            type = trans[i+3].lower().capitalize()
+            newPart = Part_Header(tracker_no=RFQ.objects.get(tracker_no=tracker_no),parent_sl_no=Part_Header.objects.get(pk=sl_no),level=part_level,no=trans[i],name=trans[i+1],program=trans[i+2],type=type)
+            newForecast = Forecast(sl_no=newPart)
+            newForecast.qty_per_unit = trans[i+4]
+            newForecast.forecast_year1 = trans[i+5]
+            newForecast.forecast_year2 = trans[i+6]
+            newForecast.forecast_year3 = trans[i+7]
+            newForecast.forecast_year4 = trans[i+8]
+            newForecast.forecast_year5 = trans[i+9]
+            newMaterial = Material(sl_no=newPart)
+            newPart_Costing = Part_Costing(sl_no=newPart)
+            newBR = Burden_Rate(sl_no=newPart)
+            if(newPart.type == 'Hardware'):
+                newBR.material = 0
+                newBR.sp = 0
+                newBR.subcontract = 0
+            else:
+                newBR.hardware = 0
+            newHW = Hardware(sl_no=newPart)
+            newO = Output(sl_no=newPart)
+            newPart.save()
+            newForecast.save()
+            newMaterial.save()
+            newPart_Costing.save()
+            newBR.save()
+            newHW.save()
+            newO.save()
+        return redirect('/part_info/'+str(sl_no)+"?message=1&tab=2")
+
 #725Z2463-101	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR ASSY.	101	101	101	101	101
 #725Z2463-111	FCL_CLEVIS_OIL-TANK-ACCESS-DOOR	101	101	101	101	101
 #NAS77C4-014	BUSH	101	101	101	101	101
