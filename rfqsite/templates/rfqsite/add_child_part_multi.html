@@ -53,11 +53,11 @@
 
 				<section role="main" class="content-body">
 					<header class="page-header">
-						<h2>New Part (Multiple)</h2>
+						<h2>New Child (Multiple)</h2>
 						<div class="right-wrapper pull-right">
 							<ol class="breadcrumbs">
 								<li>
-									<a href="/part_table/{{ project.tracker_no }}">
+									<a href="/part_info/{{ part.sl_no }}">
 										<i class="fa fa-chevron-left"></i><b> Back</b>
 									</a>
 								</li>
@@ -69,7 +69,7 @@
 					<!-- start: page -->
 					<!-- Information -->
 					<div class="col-md-12">
-							<form id="form" action="/add_part_multi_confirm/" method="POST" class="form-horizontal">
+							<form id="form" action="/add_child_part_multi_confirm/" method="POST" class="form-horizontal">
 								{% csrf_token %}
 								<section class="panel">
 									<header class="panel-heading">
@@ -77,7 +77,7 @@
 											<!-- <a href="#" class="fa fa-caret-down"></a> -->
 											<!-- <a href="#" class="fa fa-times"></a>	 -->
 										</div>
-										<h2 class="panel-title">Add New Part (Multiple)</h2>
+										<h2 class="panel-title">Add New Child (Multiple)</h2>
 									</header>
 									<div class="panel-body">
 										<div class="form-group">
@@ -89,22 +89,19 @@
 											<div class="col-sm-2">
 												<input type="text" class="form-control" id="ccs-tracker-no" name="ccs-tracker-no" value="{{ project.ccs_rfq.ccs_tracker_no }}" readonly>
 											</div>
+											<label class="col-sm-1 control-label"><b>Parent Part (SL No.)</b></label>
+											<div class="col-sm-2">
+												<input type="text" class="form-control" id="parent-sl-no" name="parent-sl-no" value="{{ part.sl_no }}" readonly>
+											</div>
 											<label class="col-sm-1 control-label"><b>Part Level</b></label>
 											<div class="col-sm-2">
-												<input type="text" class="form-control" id="part-level" name="part-level" value="0" readonly>
-											</div>
-											<label class="col-sm-1 control-label"><b>Type</b></label>
-											<div class="col-sm-2">
-												<select class="form-control input-md" id="type" name="type" disabled>
-														<option value="Part" selected>Part</option>
-														<option value="Hardware">Hardware</option>
-												</select>
+												<input type="text" class="form-control" id="part-level" name="part-level" value="{{ child_level }}" readonly>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-12"><b>Paste Your Text Below..</b>
 											</label>
-											<label class="col-sm-12"><small>Format : Part No. | Part Name | Qty Per Unit | Forecast Year 1 | Forecast Year 2 | Forecast Year 3 | Forecast Year 4 | Forecast Year 5 | Target Price</small></label>
+											<label class="col-sm-12"><small>Format : Part No. | Part Name | Program | Type | Qty Per Unit | Forecast Year 1 | Forecast Year 2 | Forecast Year 3 | Forecast Year 4 | Forecast Year 5</small></label>
 										</div>
 										<textarea class="form-control" rows="10" id="excel-data" name="excel-data" style="resize:none"></textarea>
 										<br>
@@ -119,7 +116,7 @@
 										<div class="row">
 											<div class="col-sm-9 col-sm-offset-3">
 												<button class="btn btn-warning" type="submit">Confirm</button>
-                        <a class="btn btn-default" type="button" href="/part_table/{{ project.tracker_no }}">Cancel</a>
+                        <a class="btn btn-default" type="button" href="/part_info/{{ part.sl_no }}">Cancel</a>
 											</div>
 										</div>
 									</footer>
@@ -183,9 +180,10 @@
 		var header1 = $('<tr>');
 		header1.append('<th class="center" rowspan="2">Part No.</th>');
 		header1.append('<th class="center" rowspan="2">Part Name</th>');
+		header1.append('<th class="center" rowspan="2">Program</th>');
+		header1.append('<th class="center" rowspan="2">Type</th>');
 		header1.append('<th class="center" rowspan="2">Qty Per Unit</th>');
 		header1.append('<th class="center" colspan="5">Forecast</th>');
-		header1.append('<th class="center" rowspan="2">Target Price</th>');
 		table.append(header1);
 
 		var header2 = $('<tr>');
